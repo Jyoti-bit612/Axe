@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:axe/interface/CallBackInterface.dart';
-import 'package:axe/util/CommonColors.dart';
-import 'package:axe/util/Constants.dart';
-import 'package:axe/util/Global.dart';
-import 'package:axe/util/Strings.dart';
+import 'package:axe/util/commoncolors.dart';
+import 'package:axe/util/constants.dart';
+import 'package:axe/util/global.dart';
+import 'package:axe/util/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -129,7 +129,7 @@ class CommonWidget {
 
   }
 
-  Widget normalText(Color color, String text, int typeForTextAlign, double mFontSize, FontStyle fontStyle,double mLetterSpacing, FontWeight weight) {
+  Widget normalText(Color color, String text, int typeForTextAlign, double mFontSize, FontStyle fontStyle,double mLetterSpacing, FontWeight weight,{fontfamily}) {
     return Text(
       text,
       textAlign: typeForTextAlign == 1
@@ -139,7 +139,7 @@ class CommonWidget {
               : TextAlign.start,
       style: TextStyle(
         letterSpacing: mLetterSpacing,
-          fontFamily: 'nunito_regular.ttf',
+          fontFamily: fontfamily==null?'nunito_regular.ttf':null,
           fontWeight: weight,
           fontStyle: fontStyle,
           fontSize: mFontSize, color: color),
@@ -251,26 +251,16 @@ class CommonWidget {
 
             )),
 
-           /* style: ButtonStyle(
-               // backgroundColor: MaterialStateProperty.all(backgroundColor),
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        circularBorder == null ? 6 : circularBorder),
-                    side: BorderSide(color: borderColor)
-                )
-                )),*/
-
             onPressed: () {
               callBackInterface.widgetCallBack(title, "", context);
             },
+
             child: Text(title,
                 textAlign: TextAlign.center,
-                style: new TextStyle(
+                style:  TextStyle(
                     color: textColor,
                     fontFamily: "Lato",
-                    fontSize: textSize == null
-                        ? CommonWidget.getInstance().widthFactor(context) * 0.04
-                        : textSize,
+                    fontSize: textSize ?? CommonWidget.getInstance().widthFactor(context) * 0.04,
                     fontWeight: FontWeight.bold))),
       ),
     );
@@ -290,35 +280,47 @@ class CommonWidget {
     return SizedBox(
         height: _heightSize,
         width: _widthSize,
-        child: RaisedButton(
-            elevation: 1,
-            onPressed: () {
-              callBackInterface.widgetCallBack(title, "", context);
-            },
-            color: backgroundColor,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(6),
-                side: BorderSide(color: borderColor)),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(title,
-                    textAlign: TextAlign.center,
-                    style: new TextStyle(
-                        color: textColor,
-                        fontSize:
-                            CommonWidget.getInstance().widthFactor(context) *
-                                0.04,
-                        fontWeight: FontWeight.bold)),
-                SizedBox(
-                  width: CommonWidget.getInstance().widthFactor(context) * 0.03,
-                ),
-                Icon(
-                  Icons.arrow_forward,
-                  color: CommonColors.white,
-                )
-              ],
-            )));
+        child: DecoratedBox(
+          decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(6)),
+              gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.primaryColor2],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomCenter,
+              )),
+          child: ElevatedButton(
+              style:ElevatedButton.styleFrom(
+                  primary: Colors.transparent,
+                  onPrimary: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(6),
+                      side: BorderSide(color: borderColor)
+
+                  )),
+              onPressed: () {
+                callBackInterface.widgetCallBack(title, "", context);
+              },
+
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(title,
+                      textAlign: TextAlign.center,
+                      style:  TextStyle(
+                          color: textColor,
+                          fontSize:
+                              CommonWidget.getInstance().widthFactor(context) *
+                                  0.04,
+                          fontWeight: FontWeight.bold)),
+                  SizedBox(
+                    width: CommonWidget.getInstance().widthFactor(context) * 0.03,
+                  ),
+                  const Icon(
+                    Icons.arrow_forward,
+                    color: CommonColors.white,
+                  )
+                ],
+              )),
+        ));
   }
 
   Widget multicolorText(BuildContext context, String text1, String text2,

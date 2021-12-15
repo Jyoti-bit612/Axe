@@ -80,6 +80,13 @@ flutter:
      - assets/images/fb.png
      - assets/images/apple.png
      - assets/images/camera.png
+     - assets/images/forgot_password_logo.png
+     - assets/images/home.png
+     - assets/images/league.png
+     - assets/images/player.png
+     - assets/images/profile.png
+     - assets/images/champion.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

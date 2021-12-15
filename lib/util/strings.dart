@@ -11,9 +11,33 @@ class Strings{
 
   static const String login = "Login";
   static const String log_in = "Log-In";
+  static const String reset_password = "Reset Password";
   static const String signu_up = "Sign-up";
   static const String remember_me = "Remember me";
   static const String email = "Email";
+
+  static const String view_all = "View All";
+  static const String status = "Status";
+  static const String upcoming_league = "Upcoming Leagues";
+  static const String avatar = "Avatar";
+  static const String top_player = "Top Players";
+  static const String previous_league = "Previous Leagues";
+  static const String current_league = "Current Leagues";
+
+  static const String pt = "Pt.";
+  static const String ba = "B.A";
+  static const String htc = "Htc";
+  static const String tp = "T.P";
+
+
+  static const String home = "Home";
+  static const String player = "Players";
+  static const String sort_by = "Sort By:";
+  static const String invite_player = "Invite Players";
+  static const String league = "League";
+  static const String profile = "Profile";
+
+  static const String plz_enter_your_mail = "Please enter your registered email";
   static const String name = "Name";
   static const String enter_name = "Enter Your Full Name";
   static const String enter_email = "Enter Your Email";
@@ -28,6 +52,7 @@ class Strings{
   static const String enter_contact = "Enter your Contact No.";
   static const String re_enter_pass = "Re-enter Password";
   static const String forgot_pass = "Forgot Password?";
+  static const String forgot_pass_wqm = "Forgot Password";
   static const String signin = "Sign in";
 
   static const String next = "Next";

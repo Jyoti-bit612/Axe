@@ -1,11 +1,11 @@
 import 'package:axe/interface/CallBackInterface.dart';
-import 'package:axe/screens/Login.dart';
-import 'package:axe/util/CommonColors.dart';
-import 'package:axe/util/CommonWidget.dart';
-import 'package:axe/util/Constants.dart';
-import 'package:axe/util/DropDownClass.dart';
-import 'package:axe/util/Global.dart';
-import 'package:axe/util/Strings.dart';
+import 'package:axe/screens/login.dart';
+import 'package:axe/util/commoncolors.dart';
+import 'package:axe/util/commonwidget.dart';
+import 'package:axe/util/constants.dart';
+import 'package:axe/util/dropdownclass.dart';
+import 'package:axe/util/global.dart';
+import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 
 class SignUp extends StatefulWidget {
@@ -64,7 +64,7 @@ class _SignUpState extends State<SignUp>  implements CallBackInterface{
                   child: Container(
                     width:  CommonWidget.getInstance().widthFactor(context) * 0.25,
                     height:  CommonWidget.getInstance().widthFactor(context) * 0.25,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomCenter,
@@ -75,7 +75,7 @@ class _SignUpState extends State<SignUp>  implements CallBackInterface{
                     child: Padding(
                       padding: const EdgeInsets.all(1.0),
                       child: DecoratedBox(
-                          decoration:  BoxDecoration(
+                          decoration:  const BoxDecoration(
                             color: CommonColors.textfiled_gray,
                             shape: BoxShape.circle,
                           ),
@@ -133,16 +133,17 @@ class _SignUpState extends State<SignUp>  implements CallBackInterface{
                             height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                           ),
 
-                          Container(
+                          SizedBox(
                               height:
                               CommonWidget.getInstance().heightFactor(context) *
                                   0.09,
                               child: DropDownClass(
+                                CommonColors.darkGray,
                                   "commonDropdown",
                                  list[0]["name"],
                                   list,
                                   this,
-                                  "0")),
+                                  "0",false, true)),
 
 
                           CommonWidget.getInstance().normalText(

@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:axe/screens/Login.dart';
-import 'package:axe/util/CommonColors.dart';
+import 'package:axe/screens/login.dart';
+import 'package:axe/util/commoncolors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

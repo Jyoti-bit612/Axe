@@ -1,7 +1,7 @@
 
 import 'dart:convert';
 import 'package:axe/interface/CallBackInterface.dart';
-import 'package:axe/util/CommonColors.dart';
+import 'package:axe/util/commoncolors.dart';
 import 'package:flutter/material.dart';
 
 
@@ -11,18 +11,20 @@ class DropDownClass extends StatefulWidget {
   CallBackInterface? callInterface;
   String? name;
   Map? map;
-  double? elevation;
+  bool? elevation;
+  bool? isExpanded;
   String? onChangeNullOrNot;
+  Color? color;
 
-  DropDownClass(String name, String dropDownValue, List spinnerList,
-      CallBackInterface? callInterface, String onChangeNullOrNot,
-      {double? elevation}) {
-    this.dropDownValue = dropDownValue;
-    this.spinnerList = spinnerList;
-    this.callInterface = callInterface;
-    this.name = name;
+  DropDownClass(Color? color,String? name, String? dropDownValue, List? spinnerList, CallBackInterface? callInterface, String? onChangeNullOrNot, bool? elevation,bool? isExpanded) {
+    this.dropDownValue = dropDownValue!;
+    this.spinnerList = spinnerList!;
+    this.callInterface = callInterface!;
+    this.name = name!;
     this.elevation = elevation;
-    this.onChangeNullOrNot = onChangeNullOrNot;
+    this.isExpanded = isExpanded!;
+    this.color = color!;
+    this.onChangeNullOrNot = onChangeNullOrNot!;
   }
 
   @override
@@ -44,11 +46,11 @@ class DropDownClassState extends State<DropDownClass> {
           body: Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.0),
-                    border: Border.all(color: CommonColors.darkGray)
+                    border: Border.all(color:widget.color!)
                 ),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<Map>(
-                    isExpanded: true,
+                    isExpanded: widget.isExpanded!,
                     hint: Padding(
                             padding: const EdgeInsets.only(left: 10.0),
                             child: Text(widget.dropDownValue!,
@@ -57,7 +59,7 @@ class DropDownClassState extends State<DropDownClass> {
                             ),
                           ),
                        items: widget.spinnerList!.map((value1) {
-                            return new DropdownMenuItem<Map>(
+                            return  DropdownMenuItem<Map>(
                               child: widget.name == "brandNameDates"?Padding(
                                 padding: const EdgeInsets.only(left: 10.0),
                                 child: new Text(value1["created_at"]),

@@ -1,5 +1,5 @@
-import 'package:axe/screens/Splash.dart';
-import 'package:axe/util/Global.dart';
+import 'package:axe/screens/splash.dart';
+import 'package:axe/util/global.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {

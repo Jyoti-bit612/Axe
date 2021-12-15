@@ -1,15 +1,15 @@
 import 'dart:convert';
 import 'dart:ui';
 import 'package:axe/interface/CallBackInterface.dart';
-import 'package:axe/util/CommonColors.dart';
-import 'package:axe/util/CommonWidget.dart';
-import 'package:axe/util/Constants.dart';
+import 'package:axe/util/commoncolors.dart';
+import 'package:axe/util/commonwidget.dart';
+import 'package:axe/util/constants.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'Strings.dart';
+import 'strings.dart';
 import 'package:http/http.dart' as http;
 
 class Global {

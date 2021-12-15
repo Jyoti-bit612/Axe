@@ -1,10 +1,10 @@
 import 'package:axe/interface/CallBackInterface.dart';
-import 'package:axe/screens/SignUp.dart';
-import 'package:axe/util/CommonColors.dart';
-import 'package:axe/util/CommonWidget.dart';
-import 'package:axe/util/Constants.dart';
-import 'package:axe/util/Global.dart';
-import 'package:axe/util/Strings.dart';
+import 'package:axe/screens/dashbaord.dart';
+import 'package:axe/screens/forgotpassword.dart';
+import 'package:axe/screens/signup.dart';
+import 'package:axe/util/commoncolors.dart';
+import 'package:axe/util/commonwidget.dart';
+import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -137,8 +137,13 @@ class _LoginState extends State<Login>  implements CallBackInterface{
                                       CommonColors.darkGray, Strings.remember_me,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
                                 ),
 
-                                CommonWidget.getInstance().normalText(
-                                  CommonColors.black, Strings.forgot_pass,1,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
+                                GestureDetector(
+                                  onTap: (){
+                                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ForgotPassword()));
+                                  },
+                                  child: CommonWidget.getInstance().normalText(
+                                    CommonColors.black, Strings.forgot_pass,1,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
+                                ),
                               ],
                             ),
                           ),
@@ -173,12 +178,12 @@ class _LoginState extends State<Login>  implements CallBackInterface{
                             alignment: Alignment.bottomCenter,
                             child: RichText(
                               text: TextSpan(
-                                style: new TextStyle(
+                                style:  TextStyle(
                                   fontSize: CommonWidget.getInstance().widthFactor(context) * 0.03,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black,
                                 ),
-                                children: <TextSpan>[
+                                children: const <TextSpan>[
                                   TextSpan(text: Strings.donot_account,
                                     style: TextStyle(color: CommonColors.black,
                                       fontFamily: 'nunito_regular.ttf',
@@ -258,8 +263,8 @@ class _LoginState extends State<Login>  implements CallBackInterface{
   @override
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
     switch(title){
-      case Strings.sign_up:
-      //  Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUp()));
+      case Strings.login:
+        Navigator.of(context).push(MaterialPageRoute(builder: (context) => DashBoard(0)));
         break;
 
 
