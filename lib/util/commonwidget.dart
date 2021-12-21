@@ -146,6 +146,24 @@ class CommonWidget {
     );
   }
 
+  Widget normalTextUnderline(Color color, String text, int typeForTextAlign, double mFontSize, FontStyle fontStyle,double mLetterSpacing, FontWeight weight,{fontfamily}) {
+    return Text(
+      text,
+      textAlign: typeForTextAlign == 1
+          ? TextAlign.center
+          : typeForTextAlign == 5
+          ? TextAlign.right
+          : TextAlign.start,
+      style: TextStyle(
+        decoration: TextDecoration.underline,
+          letterSpacing: mLetterSpacing,
+          fontFamily: fontfamily==null?'nunito_regular.ttf':null,
+          fontWeight: weight,
+          fontStyle: fontStyle,
+          fontSize: mFontSize, color: color),
+    );
+  }
+
 
   fieldFocusChange(
       BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {

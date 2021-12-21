@@ -320,14 +320,12 @@ class _PreviousState extends State<PreviousLeagueDetail> implements CallBackInte
                                         shape: BoxShape.circle,
 
                                       ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(1.0),
-                                        child: DecoratedBox(
-                                            decoration:  const BoxDecoration(
-                                              color: CommonColors.textfiled_gray,
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: Image.asset("assets/images/profile.png")),
+                                      child: const Padding(
+                                          padding: EdgeInsets.all(1.0),
+                                          child: CircleAvatar(
+                                            radius: 30.0,
+                                            backgroundImage:AssetImage("assets/images/dummypic.jpg"),
+                                          )
                                       ),
                                     ),
                                     SizedBox(

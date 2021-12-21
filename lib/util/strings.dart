@@ -10,14 +10,19 @@ class Strings{
 
 
   static const String login = "Login";
+  static const String create_match = "Create Match";
   static const String log_in = "Log-In";
   static const String reset_password = "Reset Password";
   static const String signu_up = "Sign-up";
   static const String remember_me = "Remember me";
   static const String email = "Email";
+  static const String live_match = "Live Match";
+  static const String matches = "Matches";
+
 
   static const String view_all = "View All";
   static const String status = "Status";
+  static const String view_all_stats = "View all Stats";
   static const String upcoming_league = "Upcoming Leagues";
   static const String avatar = "Avatar";
   static const String top_player = "Top Players";
@@ -29,9 +34,10 @@ class Strings{
   static const String htc = "Htc";
   static const String tp = "T.P";
 
-
   static const String home = "Home";
   static const String player = "Players";
+  static const String add_more_player = "Add More Players";
+  static const String change_player = "Change Player";
   static const String sort_by = "Sort By:";
   static const String invite_player = "Invite Players";
   static const String league = "League";
