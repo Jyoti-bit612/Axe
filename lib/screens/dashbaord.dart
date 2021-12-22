@@ -1,5 +1,6 @@
 import 'package:axe/screens/current_league.dart';
 import 'package:axe/screens/home.dart';
+import 'package:axe/screens/playerlist.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/cupertino.dart';
@@ -25,7 +26,7 @@ class _DashBoardState extends State<DashBoard> {
   @override
   void initState() {
     super.initState();
-    _children = [Home(),CurrentLeague(),Home(),const Home()];
+    _children = [Home(),CurrentLeague(),PlayerList(),const Home()];
     pre_backpress=DateTime.now();
   }
 

@@ -155,7 +155,6 @@ class _CurrentLeagueState extends State<CurrentLeague> implements CallBackInterf
 
                               ),
 
-
                             ],
                           ),
                         ),

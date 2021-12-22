@@ -87,6 +87,8 @@ flutter:
      - assets/images/profile.png
      - assets/images/champion.png
      - assets/images/dummypic.jpg
+     - assets/images/smiley.png
+     - assets/images/exclaim.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

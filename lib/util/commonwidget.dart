@@ -332,7 +332,12 @@ class CommonWidget {
                   SizedBox(
                     width: CommonWidget.getInstance().widthFactor(context) * 0.03,
                   ),
-                  const Icon(
+                   icon=="logout"?
+                   const Icon(
+                    Icons.login,
+                    color: CommonColors.white,
+                  )
+                      :const Icon(
                     Icons.arrow_forward,
                     color: CommonColors.white,
                   )

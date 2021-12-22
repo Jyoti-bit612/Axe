@@ -40,8 +40,12 @@ class Strings{
   static const String change_player = "Change Player";
   static const String sort_by = "Sort By:";
   static const String invite_player = "Invite Players";
+  static const String invite = "Invite";
+  static const String cancel = "Cancel";
+  static const String show_all = "Show All";
   static const String league = "League";
   static const String profile = "Profile";
+  static const String member_not_in_list = "Member not in a list? Invite by typing their email:";
 
   static const String plz_enter_your_mail = "Please enter your registered email";
   static const String name = "Name";

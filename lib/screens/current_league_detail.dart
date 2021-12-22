@@ -1,4 +1,5 @@
 import 'package:axe/interface/CallBackInterface.dart';
+import 'package:axe/screens/playerlist.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,10 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+
+              IconButton(onPressed: (){
+                Navigator.pop(context);
+              }, icon: const Icon(Icons.arrow_back_rounded)),
 
               SizedBox(
                 height: CommonWidget.getInstance().widthFactor(context) * 0.02,
@@ -173,19 +178,16 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                     labelColor: CommonColors.black,
                 unselectedLabelColor: CommonColors.black,
                 controller: _tabController,
-                indicatorSize: TabBarIndicatorSize.tab,
-                indicatorPadding: const EdgeInsets.all(4.0),
-                indicatorWeight: 3.0,
-                labelPadding: const EdgeInsets.only(left: 0.0, right: 0.0),
+               // indicatorSize: TabBarIndicatorSize.tab,
+               indicatorPadding: EdgeInsets.only(top:CommonWidget.getInstance().widthFactor(context) * 0.111),
+                indicatorWeight: 0.1,
+                //labelPadding: const EdgeInsets.only(left: 0.0, right: 0.0),
                     indicator:  const BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
                           CommonColors.primaryColor1,
-                          CommonColors.primaryColor2,
+                          CommonColors.imageRed,
                         ],
-                      ),
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(5),
                       ),
                     ),
 
@@ -239,23 +241,29 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              width:  CommonWidget.getInstance().widthFactor(context) * 0.16,
-                              height:  CommonWidget.getInstance().widthFactor(context) * 0.16,
-                              decoration: const BoxDecoration(
-                                gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomCenter,
-                                ),
-                                shape: BoxShape.circle,
+                            GestureDetector(
+                              onTap:(){
+                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => PlayerList()));
 
-                              ),
-                              child: const Padding(
-                                padding: EdgeInsets.all(1.0),
-                                child: CircleAvatar(
-                                  radius: 30.0,
-                                  backgroundImage:AssetImage("assets/images/dummypic.jpg"),
-                                )
+                              },
+                              child: Container(
+                                width:  CommonWidget.getInstance().widthFactor(context) * 0.16,
+                                height:  CommonWidget.getInstance().widthFactor(context) * 0.16,
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomCenter,
+                                  ),
+                                  shape: BoxShape.circle,
+
+                                ),
+                                child: const Padding(
+                                  padding: EdgeInsets.all(1.0),
+                                  child: CircleAvatar(
+                                    radius: 30.0,
+                                    backgroundImage:AssetImage("assets/images/dummypic.jpg"),
+                                  )
+                                ),
                               ),
                             ),
 
@@ -325,23 +333,29 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              width:  CommonWidget.getInstance().widthFactor(context) * 0.16,
-                              height:  CommonWidget.getInstance().widthFactor(context) * 0.16,
-                              decoration: const BoxDecoration(
-                                gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomCenter,
-                                ),
-                                shape: BoxShape.circle,
+                            GestureDetector(
+                              onTap:(){
+                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const PlayerList()));
 
-                              ),
-                              child:  const Padding(
-                                  padding: EdgeInsets.all(1.0),
-                                  child: CircleAvatar(
-                                    radius: 30.0,
-                                    backgroundImage:AssetImage("assets/images/dummypic.jpg"),
-                                  )
+                              },
+                              child: Container(
+                                width:  CommonWidget.getInstance().widthFactor(context) * 0.16,
+                                height:  CommonWidget.getInstance().widthFactor(context) * 0.16,
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomCenter,
+                                  ),
+                                  shape: BoxShape.circle,
+
+                                ),
+                                child:  const Padding(
+                                    padding: EdgeInsets.all(1.0),
+                                    child: CircleAvatar(
+                                      radius: 30.0,
+                                      backgroundImage:AssetImage("assets/images/dummypic.jpg"),
+                                    )
+                                ),
                               ),
                             ),
                             SizedBox(

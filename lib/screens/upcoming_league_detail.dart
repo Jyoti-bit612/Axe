@@ -28,7 +28,6 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
                   Navigator.pop(context);
                 }, icon: const Icon(Icons.arrow_back_rounded)),
 
-
                 Center(
                       child: Image.asset("assets/images/champion.png",width:CommonWidget.getInstance().widthFactor(context) * 0.5,
                         height: CommonWidget.getInstance().widthFactor(context) * 0.5,),
