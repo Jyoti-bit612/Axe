@@ -24,212 +24,198 @@ List list1 = [
 
 
 class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProviderStateMixin implements CallBackInterface {
-
   TabController? _tabController;
 
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
-
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Expanded(
-              child: Column(
+          child:Padding(
+            padding: EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.03),
+            child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
+
                 children: [
+                IconButton(onPressed: (){
+                  Navigator.pop(context);
+                }, icon: const Icon(Icons.arrow_back_rounded)),
 
-                  IconButton(onPressed: (){
-                    Navigator.pop(context);
-                  }, icon: const Icon(Icons.arrow_back_rounded)),
+                Center(
+                      child: Image.asset("assets/images/champion.png",width:CommonWidget.getInstance().widthFactor(context) * 0.5,
+                        height: CommonWidget.getInstance().widthFactor(context) * 0.5,),
+                    ),
 
-                  Center(
-                        child: Image.asset("assets/images/champion.png",width:CommonWidget.getInstance().widthFactor(context) * 0.5,
-                          height: CommonWidget.getInstance().widthFactor(context) * 0.5,),
-                      ),
+                CommonWidget.getInstance().normalText(
+                    CommonColors.black, "Twisted Axe throwing Championship",1,CommonWidget.getInstance().widthFactor(context)*0.055,FontStyle.normal,2,FontWeight.w600),
 
-                  CommonWidget.getInstance().normalText(
-                      CommonColors.black, "Twisted Axe throwing Championship",1,CommonWidget.getInstance().widthFactor(context)*0.055,FontStyle.normal,2,FontWeight.w600),
+                SizedBox(
+                  height: CommonWidget.getInstance().widthFactor(context) * 0.04,
+                ),
 
-                  SizedBox(
-                    height: CommonWidget.getInstance().widthFactor(context) * 0.04,
-                  ),
+                Center(
+                  child: CommonWidget.getInstance().normalText(
+                      CommonColors.darkGray, "Battle of the Axes\n2990 Rainbow Drive Youngstown OH 330-503\nBrickmason and Blockmason",1,
+                      CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w400),
+                ),
 
-                  Center(
-                    child: CommonWidget.getInstance().normalText(
-                        CommonColors.darkGray, "Battle of the Axes\n2990 Rainbow Drive Youngstown OH 330-503\nBrickmason and Blockmason",1,
-                        CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w400),
-                  ),
+                SizedBox(
+                  height: CommonWidget.getInstance().heightFactor(context) * 0.04,
+                ),
 
-                  SizedBox(
-                    height: CommonWidget.getInstance().heightFactor(context) * 0.04,
-                  ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: CommonWidget.getInstance().normalText(
+                          CommonColors.black, Strings.top_player,0,CommonWidget.getInstance().widthFactor(context)*0.055,FontStyle.normal,2,FontWeight.w600),
+                    ),
 
-                  Row(
-                    children: [
-                      Expanded(
-                        child: CommonWidget.getInstance().normalText(
-                            CommonColors.black, Strings.top_player,0,CommonWidget.getInstance().widthFactor(context)*0.055,FontStyle.normal,2,FontWeight.w600),
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.only(right:6.0),
-                        child: Container(
-                          height:CommonWidget.getInstance().widthFactor(context) * 0.06 ,
-                          width: CommonWidget.getInstance().widthFactor(context) * 0.06,
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: CommonColors.primaryColor1
-                          ),
-                          child: Icon(Icons.arrow_back_rounded,color: CommonColors.white,size: CommonWidget.getInstance().widthFactor(context) * 0.03,),
+                    Padding(
+                      padding: const EdgeInsets.only(right:6.0),
+                      child: Container(
+                        height:CommonWidget.getInstance().widthFactor(context) * 0.06 ,
+                        width: CommonWidget.getInstance().widthFactor(context) * 0.06,
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: CommonColors.primaryColor1
                         ),
-                      ),
-
-
-                      Padding(
-                        padding: const EdgeInsets.only(left:6.0),
-                        child: Container(
-                          height:CommonWidget.getInstance().widthFactor(context) * 0.06 ,
-                          width: CommonWidget.getInstance().widthFactor(context) * 0.06,
-                          decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: CommonColors.primaryColor1
-
-                          ),
-                          child: Icon(Icons.arrow_forward,color: CommonColors.white,size:CommonWidget.getInstance().widthFactor(context) * 0.03,),
-                        ),
-                      ),
-
-                    ],
-                  ),
-
-                  SizedBox(
-                    height: CommonWidget.getInstance().heightFactor(context) * 0.02,
-                  ),
-
-                  SizedBox(
-                    height: CommonWidget.getInstance().heightFactor(context) * 0.22,
-                    child: ListView.builder(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.horizontal,
-                        itemCount:  4,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right:16.0),
-                            child: Container(
-                              color: CommonColors.primaryColor2,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left:20.0,right:20),
-                                    child: Row(
-                                      children: [
-                                        scoreWidget("08","Rank"),
-
-                                        Divider(height:1,thickness:1,color: CommonColors.white,),
-
-                                        scoreWidget("RYAN SMITH","Location Virgenua Beach VA"),
-
-                                      ],
-                                    ),
-                                  ),
-
-                                  Divider(height:10,thickness:1,color: CommonColors.white,),
-
-                                  Padding(
-                                    padding: const EdgeInsets.only(left:20.0,right:20),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        scoreWidget("70%","Accuracy"),
-                                        scoreWidget("07","Leagues"),
-                                        scoreWidget("18","Matches"),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        }),
-                  ),
-
-                  SizedBox(
-                    height: CommonWidget.getInstance().heightFactor(context) * 0.04,
-                  ),
-                  TabBar(
-                    labelColor: CommonColors.black,
-                    unselectedLabelColor: CommonColors.black,
-                    controller: _tabController,
-                    // indicatorSize: TabBarIndicatorSize.tab,
-                    indicatorPadding: EdgeInsets.only(top:CommonWidget.getInstance().widthFactor(context) * 0.111),
-                    indicatorWeight: 0.1,
-                    //labelPadding: const EdgeInsets.only(left: 0.0, right: 0.0),
-                    indicator:  const BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          CommonColors.primaryColor1,
-                          CommonColors.imageRed,
-                        ],
+                        child: Icon(Icons.arrow_back_rounded,color: CommonColors.white,size: CommonWidget.getInstance().widthFactor(context) * 0.03,),
                       ),
                     ),
 
-                    tabs: const [
-                      Tab(
-                        text:Strings.matches,),
 
-                      Tab(
-                        text:Strings.player ,
+                    Padding(
+                      padding: const EdgeInsets.only(left:6.0),
+                      child: Container(
+                        height:CommonWidget.getInstance().widthFactor(context) * 0.06 ,
+                        width: CommonWidget.getInstance().widthFactor(context) * 0.06,
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: CommonColors.primaryColor1
+
+                        ),
+                        child: Icon(Icons.arrow_forward,color: CommonColors.white,size:CommonWidget.getInstance().widthFactor(context) * 0.03,),
                       ),
-                    ],
+                    ),
 
+                  ],
+                ),
+
+                SizedBox(
+                  height: CommonWidget.getInstance().heightFactor(context) * 0.02,
+                ),
+
+                SizedBox(
+                  height: CommonWidget.getInstance().heightFactor(context) * 0.22,
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount:  4,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right:16.0),
+                          child: Container(
+                            color: CommonColors.primaryColor2,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left:20.0,right:20),
+                                  child: Row(
+                                    children: [
+                                      scoreWidget("08","Rank"),
+
+                                      Divider(height:1,thickness:1,color: CommonColors.white,),
+
+                                      scoreWidget("RYAN SMITH","Location Virgenua Beach VA"),
+
+                                    ],
+                                  ),
+                                ),
+
+                                Divider(height:10,thickness:1,color: CommonColors.white,),
+
+                                Padding(
+                                  padding: const EdgeInsets.only(left:20.0,right:20),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      scoreWidget("70%","Accuracy"),
+                                      scoreWidget("07","Leagues"),
+                                      scoreWidget("18","Matches"),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }),
+                ),
+
+                SizedBox(
+                  height: CommonWidget.getInstance().heightFactor(context) * 0.04,
+                ),
+                TabBar(
+                  labelColor: CommonColors.black,
+                  unselectedLabelColor: CommonColors.black,
+                  controller: _tabController,
+                  // indicatorSize: TabBarIndicatorSize.tab,
+                  indicatorPadding: EdgeInsets.only(top:CommonWidget.getInstance().widthFactor(context) * 0.111),
+                  indicatorWeight: 0.1,
+                  //labelPadding: const EdgeInsets.only(left: 0.0, right: 0.0),
+                  indicator:  const BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        CommonColors.primaryColor1,
+                        CommonColors.imageRed,
+                      ],
+                    ),
                   ),
 
-                  SizedBox(
-                    height: CommonWidget.getInstance().widthFactor(context) * 0.05,
+                  tabs: const [
+                    Tab(
+                      text:Strings.player ,
+                    ),
+                    Tab(
+                      text:Strings.matches,),
+
+                  ],
+
+                ),
+
+                SizedBox(
+                  height: CommonWidget.getInstance().widthFactor(context) * 0.05,
+                ),
+
+                SizedBox(
+                  height: 1500,
+                  child: TabBarView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      controller: _tabController,
+                      children: <Widget>[
+                      playerWidget(context),
+                        Matches(),
+                     // matchedWidget(context),
+
+                     ])
+
+                )],
                   ),
-
-                  TabBarView(
-                    controller: _tabController,
-                    children: <Widget>[
-                      Container(
-                        color: CommonColors.black,
-                        child: Text("dfwgweg"),
-                      ),
-                      Container(
-                        color: CommonColors.black,
-                        child: Text("dfwgweg"),
-
-                      )
-                   /*  playerWidget(),
-                      matchedWidget(),*/
-
-                    ],
-                  ),
-
-
-                  SizedBox(
-                    height: CommonWidget.getInstance().heightFactor(context) * 0.02,
-                  ),
-
-                ],
-              ),
-            ),
           ),
-        ),
+              ),
+
       ),
     );
   }
-
 
   scoreWidget(String title, String subTitle) {
     return  Padding(
@@ -253,27 +239,7 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
     // TODO: implement widgetCallBack
   }
 
-
-  matchedWidget() {
-
-    return Column(
-      children: [
-
-
-      ],
-    );
-  }
-}
-
-class Player extends StatefulWidget {
-  const Player({Key? key}) : super(key: key);
-
-  @override
-  _PlayerState createState() => _PlayerState();
-}
-
-class _PlayerState extends State<Player> implements CallBackInterface {
-  playerWidget() {
+  playerWidget(BuildContext context) {
     return Column(
       children: [
         Row(
@@ -359,7 +325,7 @@ class _PlayerState extends State<Player> implements CallBackInterface {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
+              SizedBox(
                 width:CommonWidget.getInstance().widthFactor(context) * 0.49,
                 child: CommonWidget.getInstance().normalText(
                     CommonColors.black, Strings.avatar,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600),
@@ -459,8 +425,6 @@ class _PlayerState extends State<Player> implements CallBackInterface {
 
                       CommonWidget.getInstance().normalText(
                           CommonColors.primaryColor1,"8",0,CommonWidget.getInstance().widthFactor(context)*0.026,FontStyle.normal,2,FontWeight.w600)
-
-
                     ],
                   ),
                 );
@@ -475,15 +439,195 @@ class _PlayerState extends State<Player> implements CallBackInterface {
     );
   }
 
+
+}
+
+class Matches extends StatefulWidget {
+  const Matches({Key? key}) : super(key: key);
+
+  @override
+  _MatchesState createState() => _MatchesState();
+}
+
+class _MatchesState extends State<Matches> implements CallBackInterface {
+
   @override
   Widget build(BuildContext context) {
-    return playerWidget();
+    return matchedWidget(context);
+  }
+
+  matchedWidget(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Card(
+                elevation: 4,
+                child: SizedBox(
+                    height: CommonWidget.getInstance().widthFactor(context) * 0.08,
+                    // width: CommonWidget.getInstance().widthFactor(context) * 0.09,
+                    child: DropDownClass(
+                        CommonColors.white,
+                        "commonDropdown",
+                        list[0]["name"],
+                        list,
+                        this,
+                        "0",true, true)),
+              ),
+            ),
+
+            SizedBox(
+              width: CommonWidget.getInstance().widthFactor(context) * 0.02,
+            ),
+
+            Expanded(
+              child: Card(
+                elevation: 4,
+                child: SizedBox(
+                    height: CommonWidget.getInstance().widthFactor(context) * 0.08,
+                    //  width: CommonWidget.getInstance().widthFactor(context) * 0.09,
+                    child: DropDownClass(
+                        CommonColors.white,
+                        "commonDropdown",
+                        list[0]["name"],
+                        list,
+                        this,
+                        "0",
+                        true,
+                        true)),
+              ),
+            ),
+
+            SizedBox(
+              width: CommonWidget.getInstance().widthFactor(context) * 0.02,
+            ),
+
+            Expanded(
+              child: Card(
+                elevation: 4,
+                child: SizedBox(
+                    height: CommonWidget.getInstance().widthFactor(context) * 0.08,
+                    // width: CommonWidget.getInstance().widthFactor(context) * 0.09,
+                    child: DropDownClass(
+                        CommonColors.white,
+                        "commonDropdown",
+                        list[0]["name"],
+                        list,
+                        this,
+                        "0",true, true)),
+              ),
+            ),
+          ],
+        ),
+
+        SizedBox(
+          height: CommonWidget.getInstance().heightFactor(context) * 0.01,
+        ),
+
+
+        Expanded(
+          child: ListView.separated(
+              physics: const NeverScrollableScrollPhysics(),
+              // shrinkWrap: true,
+              itemCount:  9,
+              separatorBuilder: (BuildContext context, int index) => Divider(height: 1),
+              itemBuilder: (context, index) {
+                return SizedBox(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: CommonWidget.getInstance().heightFactor(context) * 0.02,
+                      ),
+
+                      SizedBox(
+                        width:CommonWidget.getInstance().widthFactor(context) * 0.49,
+                        child: CommonWidget.getInstance().normalText(
+                            CommonColors.black, "Match"+index.toString(),0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600),
+                      ),
+                      SizedBox(
+                        height: CommonWidget.getInstance().heightFactor(context) * 0.01,
+                      ),
+
+                      SizedBox(
+                        height: CommonWidget.getInstance().widthFactor(context)*0.39,
+                        child: Card(
+                          elevation: 4,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount:  20,
+                              // shrinkWrap: true,
+                              itemBuilder: (index1,context1){
+                                return  Padding(
+                                  padding: const EdgeInsets.only(top:8.0,bottom: 0),
+                                  child:Table(
+                                    defaultColumnWidth: FixedColumnWidth(CommonWidget.getInstance().widthFactor(context)*0.1),
+                                    border: TableBorder.all(
+                                        color: CommonColors.grayColor,
+                                        style: BorderStyle.solid,
+                                        width: 1),
+
+                                    children: [
+                                      TableRow(
+                                          children: [
+                                            Container(
+                                              child: Padding(
+                                                padding: const EdgeInsets.fromLTRB(0.0,6.0,0.0,6.0),
+                                                child: CommonWidget.getInstance().normalText(
+                                                    CommonColors.darkGray, "2",1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,FontWeight.w600),
+                                              ),
+                                            ),
+                                          ]
+                                      ),
+                                      TableRow(
+                                          children: [
+                                            Container(
+                                              child:Padding(
+                                                padding: const EdgeInsets.fromLTRB(0.0,15,0.0,15),
+                                                child: CommonWidget.getInstance().normalText(
+                                                    CommonColors.black, "3",1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,FontWeight.w600),
+                                              ),
+                                            ),
+                                          ]
+                                      ),
+
+                                      TableRow(
+                                          children: [
+                                            Container(
+                                              child:  Padding(
+                                                padding: const EdgeInsets.fromLTRB(0.0,15.0,0.0,15.0),
+                                                child: CommonWidget.getInstance().normalText(
+                                                    CommonColors.black, "4",1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,FontWeight.w600),
+                                              ),
+                                            ),
+                                          ]
+
+                                      ),
+
+                                    ],
+                                  ),
+                                );
+                              }),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+        ),
+      ],
+    );
   }
 
   @override
   void widgetCallBack(String title, String value, BuildContext context) {
     // TODO: implement widgetCallBack
   }
+
 }
+
+
 
 
