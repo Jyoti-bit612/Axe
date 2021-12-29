@@ -572,35 +572,29 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
                                     children: [
                                       TableRow(
                                           children: [
-                                            Container(
-                                              child: Padding(
-                                                padding: const EdgeInsets.fromLTRB(0.0,6.0,0.0,6.0),
-                                                child: CommonWidget.getInstance().normalText(
-                                                    CommonColors.darkGray, "2",1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,FontWeight.w600),
-                                              ),
+                                            Padding(
+                                              padding: const EdgeInsets.fromLTRB(0.0,6.0,0.0,6.0),
+                                              child: CommonWidget.getInstance().normalText(
+                                                  CommonColors.darkGray, "2",1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,FontWeight.w600),
                                             ),
                                           ]
                                       ),
                                       TableRow(
                                           children: [
-                                            Container(
-                                              child:Padding(
-                                                padding: const EdgeInsets.fromLTRB(0.0,15,0.0,15),
-                                                child: CommonWidget.getInstance().normalText(
-                                                    CommonColors.black, "3",1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,FontWeight.w600),
-                                              ),
+                                            Padding(
+                                              padding: const EdgeInsets.fromLTRB(0.0,15,0.0,15),
+                                              child: CommonWidget.getInstance().normalText(
+                                                  CommonColors.black, "3",1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,FontWeight.w600),
                                             ),
                                           ]
                                       ),
 
                                       TableRow(
                                           children: [
-                                            Container(
-                                              child:  Padding(
-                                                padding: const EdgeInsets.fromLTRB(0.0,15.0,0.0,15.0),
-                                                child: CommonWidget.getInstance().normalText(
-                                                    CommonColors.black, "4",1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,FontWeight.w600),
-                                              ),
+                                            Padding(
+                                              padding: const EdgeInsets.fromLTRB(0.0,15.0,0.0,15.0),
+                                              child: CommonWidget.getInstance().normalText(
+                                                  CommonColors.black, "4",1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,FontWeight.w600),
                                             ),
                                           ]
 

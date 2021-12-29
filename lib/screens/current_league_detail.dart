@@ -1,5 +1,7 @@
 import 'package:axe/interface/CallBackInterface.dart';
+import 'package:axe/screens/create_match.dart';
 import 'package:axe/screens/playerlist.dart';
+import 'package:axe/screens/score_dasboard.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
@@ -12,17 +14,14 @@ class CurrentLeagueDetail extends StatefulWidget {
 }
 
 class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTickerProviderStateMixin implements CallBackInterface  {
-
-   TabController? _tabController;
+  TabController? _tabController;
   
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
-
   }
 
-  
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -152,27 +151,32 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                               CommonWidget.getInstance().normalText(
                                   CommonColors.black,"Floki",0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
                                   FontWeight.w600,fontfamily: false),
-
-
                             ],
                           ),
                         ),
 
-                        Center(
-                          child: CommonWidget.getInstance().normalText(
-                              CommonColors.primaryColor1,Strings.view_all_stats,0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
-                              FontWeight.w600,fontfamily: false),
-                        ),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => ScoreDashboard()));
 
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(4.0),
+                            child: Center(
+                              child: CommonWidget.getInstance().normalText(
+                                  CommonColors.primaryColor1,Strings.view_all_stats,0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
+                                  FontWeight.w600,fontfamily: false),
+                            ),
+                          ),
+                        ),
                       ],
           ),
                   )
               ),
 
               SizedBox(
-                height: CommonWidget.getInstance().widthFactor(context) * 0.05,
+                height: CommonWidget.getInstance().widthFactor(context) * 0.02,
               ),
-
 
               TabBar(
                     labelColor: CommonColors.black,
@@ -460,6 +464,14 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
 
   @override
   void widgetCallBack(String title, String value, BuildContext context) {
+    switch(title){
+
+      case Strings.create_match:
+        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => CreateMatch()));
+
+        break;
+
+    }
   }
 }
 

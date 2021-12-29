@@ -10,6 +10,12 @@ class Strings{
 
 
   static const String login = "Login";
+  static const String update_score = "Update Score";
+  static const String end_game = "End Game";
+  static const String call_killshot = "Call Killshot";
+  static const String winner = "Winner";
+  static const String switch_side = "Switch Sides";
+  static const String sudden_death_throw = "Sudden death throw";
   static const String create_match = "Create Match";
   static const String log_in = "Log-In";
   static const String reset_password = "Reset Password";
