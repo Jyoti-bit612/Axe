@@ -91,6 +91,10 @@ flutter:
      - assets/images/exclaim.png
      - assets/images/score.png
      - assets/images/create_match.png
+     - assets/images/create_league.png
+     - assets/images/create_match2.png
+     - assets/images/playerprofile.png
+     - assets/images/trophy.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

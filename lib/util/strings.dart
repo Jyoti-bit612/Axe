@@ -17,6 +17,8 @@ class Strings{
   static const String switch_side = "Switch Sides";
   static const String sudden_death_throw = "Sudden death throw";
   static const String create_match = "Create Match";
+  static const String player_request = "Player Requests";
+  static const String create_league = "Create League";
   static const String log_in = "Log-In";
   static const String reset_password = "Reset Password";
   static const String signu_up = "Sign-up";
@@ -25,6 +27,33 @@ class Strings{
   static const String live_match = "Live Match";
   static const String matches = "Matches";
 
+  static const String match_title = "Match Title";
+  static const String league_title = "League Title";
+
+  static const String addres_line1 = "Address line 1";
+  static const String addres_line2 = "Address line 2";
+  static const String venue_location = "Venue Location";
+  static const String city = "City";
+  static const String state = "State";
+  static const String start = "Start From";
+  static const String end = "Ends";
+  static const String league_description = "League Description";
+  static const String select_season = "Select Season";
+
+  static const String select_league= "Select League";
+  static const String type_match= "Type of match";
+  static const String schedule_match= "Schedule Match";
+  static const String match_description= "Match Descrption";
+  static const String choose_player= "Choose Players :";
+  static const String player1= "Player 1";
+  static const String player2= "Player 2";
+  static const String personal_info= "Personel Info:";
+  static const String choose= "Choose...";
+  static const String choose_logo= "Choose Logo";
+  static const String select_type_match= "Select type of match";
+  static const String select_date_time= "Select Date and Time";
+  static const String write_match_des_here= "write match description here...";
+  static const String write_league_des_here= "write league description here...";
 
   static const String view_all = "View All";
   static const String status = "Status";
