@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:get/get.dart';
 
 import 'package:axe/screens/login.dart';
 import 'package:axe/util/commoncolors.dart';
@@ -31,10 +32,11 @@ class SplashState extends State<Splash> {
   }
 
   onDoneLoading() async {
-    if (token == null || token == ""||token=="null")
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
-    else
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => Login()));
+    if (token == null || token == ""||token=="null") {
+      Get.to(const Login());
+    } else {
+      Get.to(const Login());
+    }
       }
 
   @override

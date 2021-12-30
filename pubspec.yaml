@@ -50,6 +50,7 @@ dependencies:
   firebase_messaging:
   firebase_core:
   flutter_local_notifications:
+  get:
 
 dev_dependencies:
   flutter_test:
@@ -95,6 +96,9 @@ flutter:
      - assets/images/create_match2.png
      - assets/images/playerprofile.png
      - assets/images/trophy.png
+     - assets/images/purplei.png
+     - assets/images/yellowi.png
+     - assets/images/greentick.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

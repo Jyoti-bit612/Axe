@@ -2,6 +2,7 @@ import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/create_league.dart';
 import 'package:axe/screens/create_match.dart';
 import 'package:axe/screens/login.dart';
+import 'package:axe/screens/notification.dart';
 import 'package:axe/screens/playerlist.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
@@ -10,6 +11,7 @@ import 'package:axe/util/dropdownclass.dart';
 import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -48,14 +50,23 @@ class _ProfileState extends State<Profile>  implements CallBackInterface{
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
 
-                    const Icon(Icons.notifications),
+                    IconButton(
+                        onPressed: (){
+                          Get.to(const NotificationClass());
+                        },
+                        icon: const Icon(Icons.notifications)
+                    ),
 
                     SizedBox(
                       width: CommonWidget.getInstance().heightFactor(context) * 0.03,
                     ),
 
-                    Icon(Icons.more_horiz_outlined)
+                    IconButton(
+                      onPressed: (){
 
+                      },
+                        icon: const Icon(Icons.more_horiz_outlined)
+                    )
                   ],
                 ),
 
@@ -73,7 +84,6 @@ class _ProfileState extends State<Profile>  implements CallBackInterface{
                         end: Alignment.bottomCenter,
                       ),
                       shape: BoxShape.circle,
-
                     ),
                     child: Padding(
                       padding: const EdgeInsets.all(1.0),
@@ -112,7 +122,7 @@ class _ProfileState extends State<Profile>  implements CallBackInterface{
                     children: [
                       GestureDetector(
                         onTap: (){
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => CreateLeague()));
+                          Get.to(const CreateLeague());
 
                         },
                         child: SizedBox(
@@ -145,8 +155,7 @@ class _ProfileState extends State<Profile>  implements CallBackInterface{
                       ),
                       GestureDetector(
                         onTap: (){
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => CreateMatch()));
-
+                          Get.to(const CreateMatch());
                         },
                         child: SizedBox(
                             width: CommonWidget.getInstance().widthFactor(context) * 0.3,
@@ -177,7 +186,7 @@ class _ProfileState extends State<Profile>  implements CallBackInterface{
                       ),
                       GestureDetector(
                         onTap: (){
-                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => PlayerList()));
+                          Get.to(const PlayerList());
 
                         },
                         child: SizedBox(

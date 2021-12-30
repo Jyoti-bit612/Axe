@@ -287,7 +287,6 @@ class _CreateLeagueState extends State<CreateLeague>  implements CallBackInterfa
                               0.02,
                         ),
 
-
                         CommonWidget.getInstance().normalText(
                             CommonColors.black, Strings.start,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
 
@@ -313,7 +312,6 @@ class _CreateLeagueState extends State<CreateLeague>  implements CallBackInterfa
                             ),
                           ),
                         ),
-
 
                         SizedBox(
                           height: CommonWidget.getInstance().heightFactor(context) * 0.02,
@@ -343,7 +341,9 @@ class _CreateLeagueState extends State<CreateLeague>  implements CallBackInterfa
                             ),
                           ),
                         ),
-
+                        SizedBox(
+                          height: CommonWidget.getInstance().heightFactor(context) * 0.02,
+                        ),
                         CommonWidget.getInstance().normalText(
                             CommonColors.black, Strings.select_league,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
 
@@ -365,7 +365,7 @@ class _CreateLeagueState extends State<CreateLeague>  implements CallBackInterfa
 
 
                         CommonWidget.getInstance().normalText(
-                            CommonColors.black, Strings.type_match,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
+                            CommonColors.black, Strings.select_season,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
 
                         SizedBox(
                           height: CommonWidget.getInstance().heightFactor(context) * 0.02,
@@ -383,18 +383,26 @@ class _CreateLeagueState extends State<CreateLeague>  implements CallBackInterfa
                                 this,
                                 "0",false, true)),
 
+
                         CommonWidget.getInstance().normalText(
-                            CommonColors.black, Strings.schedule_match,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
+                            CommonColors.black, Strings.select_match_type,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
 
                         SizedBox(
                           height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                         ),
 
-
-
                         SizedBox(
-                          height: CommonWidget.getInstance().heightFactor(context) * 0.02,
-                        ),
+                            height:
+                            CommonWidget.getInstance().heightFactor(context) *
+                                0.09,
+                            child: DropDownClass(
+                                CommonColors.darkGray,
+                                "commonDropdown",
+                                list[0]["name"],
+                                list,
+                                this,
+                                "0",false, true)),
+
 
                         CommonWidget.getInstance().normalText(
                             CommonColors.black, Strings.league_description,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
@@ -420,143 +428,42 @@ class _CreateLeagueState extends State<CreateLeague>  implements CallBackInterfa
                             0),
 
                         SizedBox(
+                          height: CommonWidget.getInstance().widthFactor(context) * 0.03,
+                        ),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: CheckboxListTile(
+                                contentPadding: EdgeInsets.zero,
+                                  title: const Text(Strings.official),
+                                  value: true,
+                                  onChanged: (newValue) {
+
+                                  },
+                                  controlAffinity: ListTileControlAffinity.leading,
+                                  activeColor: CommonColors.primaryColor1,
+
+                              ),
+                            ),
+                            Expanded(
+                              child: CheckboxListTile(
+                                contentPadding: EdgeInsets.zero,
+                                title: const Text(Strings.unOfficial),
+                                value: false,
+                                onChanged: (newValue) {
+
+                                },
+                                controlAffinity: ListTileControlAffinity.leading,
+                                activeColor: CommonColors.primaryColor1,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        SizedBox(
                           height: CommonWidget.getInstance().widthFactor(context) * 0.08,
-                        ),
-
-                        CommonWidget.getInstance().normalText(
-                            CommonColors.black, Strings.choose_player,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
-
-                        SizedBox(
-                          height: CommonWidget.getInstance().heightFactor(context) * 0.015,
-                        ),
-
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-
-                                  CommonWidget.getInstance().normalText(
-                                      CommonColors.black,Strings.player1,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,
-                                      FontWeight.w600,fontfamily: false),
-
-                                  SizedBox(
-                                    height: CommonWidget.getInstance().widthFactor(context) * 0.02,
-                                  ),
-
-
-                                  GestureDetector(
-                                    onTap:(){
-                                      //  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => PlayerList()));
-
-                                    },
-                                    child: Container(
-                                      width:  CommonWidget.getInstance().widthFactor(context) * 0.24,
-                                      height:  CommonWidget.getInstance().widthFactor(context) * 0.24,
-                                      decoration: const BoxDecoration(
-                                        gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
-                                          begin: Alignment.topLeft,
-                                          end: Alignment.bottomCenter,
-                                        ),
-                                        shape: BoxShape.circle,
-
-                                      ),
-                                      child: const Padding(
-                                          padding: EdgeInsets.all(1.0),
-                                          child: CircleAvatar(
-                                            radius: 30.0,
-                                            backgroundImage:AssetImage("assets/images/dummypic.jpg"),
-                                          )
-                                      ),
-                                    ),
-                                  ),
-
-                                  SizedBox(
-                                    height: CommonWidget.getInstance().widthFactor(context) * 0.02,
-                                  ),
-
-
-
-                                  CommonWidget.getInstance().normalText(
-                                      CommonColors.darkGray,Strings.choose,0,CommonWidget.getInstance().widthFactor(context)*0.026,FontStyle.normal,1,
-                                      FontWeight.w500,fontfamily: false),
-
-                                ],
-                              ),
-
-                                  Container(
-                                    decoration: const BoxDecoration(
-                                      color: CommonColors.lightRed,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(6.0),
-                                      child: CommonWidget.getInstance().normalText(
-                                          CommonColors.red,"vs",0,CommonWidget.getInstance().widthFactor(context)*0.025,FontStyle.normal,0,
-                                          FontWeight.w600,fontfamily: false),
-                                    ),
-                                  ),
-
-
-
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-
-                                  CommonWidget.getInstance().normalText(
-                                      CommonColors.black,Strings.player2,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,
-                                      FontWeight.w600,fontfamily: false),
-
-                                  SizedBox(
-                                    height: CommonWidget.getInstance().widthFactor(context) * 0.02,
-                                  ),
-
-                                  GestureDetector(
-                                    onTap:(){
-                                      // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const PlayerList()));
-
-                                    },
-                                    child: Container(
-                                      width:  CommonWidget.getInstance().widthFactor(context) * 0.24,
-                                      height:  CommonWidget.getInstance().widthFactor(context) * 0.24,
-                                      decoration: const BoxDecoration(
-                                        gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
-                                          begin: Alignment.topLeft,
-                                          end: Alignment.bottomCenter,
-                                        ),
-                                        shape: BoxShape.circle,
-
-                                      ),
-                                      child:  const Padding(
-                                          padding: EdgeInsets.all(1.0),
-                                          child: CircleAvatar(
-                                            radius: 30.0,
-                                            backgroundImage:AssetImage("assets/images/dummypic.jpg"),
-                                          )
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: CommonWidget.getInstance().widthFactor(context) * 0.02,
-                                  ),
-
-                                  CommonWidget.getInstance().normalText(
-                                      CommonColors.darkGray,Strings.choose,0,CommonWidget.getInstance().widthFactor(context)*0.026,FontStyle.normal,1,
-                                      FontWeight.w500,fontfamily: false),
-
-                                ],
-                              ),
-
-                            ],
-                          ),
-                        ),
-
-
-                        SizedBox(
-                          height: CommonWidget.getInstance().widthFactor(context) * 0.05,
                         ),
 
                         Padding(

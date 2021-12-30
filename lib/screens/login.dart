@@ -6,6 +6,7 @@ import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -264,10 +265,8 @@ class _LoginState extends State<Login>  implements CallBackInterface{
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
     switch(title){
       case Strings.login:
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => DashBoard(0)));
+        Get.to(DashBoard(0));
         break;
-
-
 
     }
   }

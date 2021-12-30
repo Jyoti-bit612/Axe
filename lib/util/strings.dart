@@ -51,9 +51,15 @@ class Strings{
   static const String choose= "Choose...";
   static const String choose_logo= "Choose Logo";
   static const String select_type_match= "Select type of match";
+  static const String select_match_type= "Select Match type";
   static const String select_date_time= "Select Date and Time";
   static const String write_match_des_here= "write match description here...";
   static const String write_league_des_here= "write league description here...";
+
+  static const String official = "Official";
+  static const String unOfficial = "Un-Official";
+  static const String notification = "Notifications";
+
 
   static const String view_all = "View All";
   static const String status = "Status";
