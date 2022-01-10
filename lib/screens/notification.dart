@@ -27,14 +27,14 @@ class NotificationClass extends StatelessWidget {
               }, icon: const Icon(Icons.arrow_back_rounded)),
 
               SizedBox(
-                height: CommonWidget.getInstance().widthFactor(context) * 0.01,
+                height: CommonWidget.getInstance().widthFactor(context) * 0.03,
               ),
 
               CommonWidget.getInstance().normalText(
                   CommonColors.black,Strings.notification,0,CommonWidget.getInstance().widthFactor(context)*0.06,FontStyle.normal,1,FontWeight.w600,fontfamily: false),
 
               SizedBox(
-                height: CommonWidget.getInstance().widthFactor(context) * 0.03,
+                height: CommonWidget.getInstance().widthFactor(context) * 0.05,
               ),
 
               Expanded(
@@ -44,15 +44,18 @@ class NotificationClass extends StatelessWidget {
                       return Card(
                         elevation: 4,
                         child: Padding(
-                          padding:  EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.03),
+                          padding: EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.03),
                           child:  Row(
                                 children: [
-                                  const Divider(
-                                    height: 20,
-                                    thickness: 5,
-                                    color: CommonColors.primaryColor1,
+                                   Container(
+                                    height: CommonWidget.getInstance().widthFactor(context) * 0.15,
+                                    width: 2.5,
+                                    color: CommonColors.primaryColor1Material.shade50,
                                   ),
 
+                                  SizedBox(
+                                    width: CommonWidget.getInstance().widthFactor(context) * 0.03,
+                                  ),
                                  Image.asset("assets/images/yellowi.png"),
 
                                   SizedBox(

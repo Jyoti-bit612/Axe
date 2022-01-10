@@ -95,16 +95,22 @@ class Strings{
   static const String name = "Name";
   static const String enter_name = "Enter Your Full Name";
   static const String enter_email = "Enter Your Email";
+  static const String enter_old_pass = "Enter Old Password";
+  static const String enter_new_pass = "Enter New Password";
+  static const String reenter_new_pass = "Re-enter New Password";
   static const String userType = "User-Type";
   static const String contact = "Contact No.";
-  static const String conirm_pass = "Confirm Password";
+  static const String conirm_pass = "Confirm New Password";
   static const String please_select = "Please Select";
 
   static const String pass = "Password";
+  static const String old_pass = "Old-Password";
+  static const String new_pass = "New-Password";
+  static const String confirm_pass = "Confirm New Password";
   static const String or_login_with = "Or login With";
   static const String or_signup_with = "Or Signup With";
   static const String enter_contact = "Enter your Contact No.";
-  static const String re_enter_pass = "Re-enter Password";
+  static const String re_enter_pass = "Re-enter New Password";
   static const String forgot_pass = "Forgot Password?";
   static const String forgot_pass_wqm = "Forgot Password";
   static const String signin = "Sign in";
@@ -113,10 +119,7 @@ class Strings{
   static const String submit = "Submit";
   static const String back = "Back";
 
-
-  static const String current_pass = "Current password";
-  static const String new_pass = "New password";
-  static const String change_pass = "Change password";
+  static const String change_pass = "Change Password";
   static const String setting = "Settings";
 
 

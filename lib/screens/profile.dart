@@ -1,4 +1,5 @@
 import 'package:axe/interface/CallBackInterface.dart';
+import 'package:axe/screens/change_password.dart';
 import 'package:axe/screens/create_league.dart';
 import 'package:axe/screens/create_match.dart';
 import 'package:axe/screens/login.dart';
@@ -262,7 +263,7 @@ class _ProfileState extends State<Profile>  implements CallBackInterface{
                   ),
                 ),
 
-                editTextWidget("password",context,Icons.remove_red_eye_outlined,true,"password"),
+                addressPasswordWidget("password",context,Icons.remove_red_eye_outlined,true,"password"),
 
                 Padding(
                   padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
@@ -273,7 +274,7 @@ class _ProfileState extends State<Profile>  implements CallBackInterface{
                   ),
                 ),
 
-                editTextWidget("91 Heritage Lawn",context,Icons.location_on,true,"address"),
+                addressPasswordWidget("91 Heritage Lawn",context,Icons.location_on,true,"address"),
 
                 Padding(
                   padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
@@ -313,6 +314,59 @@ class _ProfileState extends State<Profile>  implements CallBackInterface{
 
     )));
   }
+
+  addressPasswordWidget(String title,BuildContext context, IconData icon, bool isOn, String type){
+    return GestureDetector(
+      onTap: (){
+        switch(type){
+          case "password":
+
+            Get.to(()=>ChangePassword());
+            break;
+
+          case "address":
+
+            break;
+        }
+      },
+
+      child: Row(
+        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          SizedBox(
+            width:  CommonWidget.getInstance().widthFactor(context) * 0.01,
+          ),
+          Icon(icon,color: CommonColors.primaryColor1,),
+
+          SizedBox(
+            width:  CommonWidget.getInstance().widthFactor(context) * 0.03,
+          ),
+
+          Expanded(
+            child: Padding(
+              padding: EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.045),
+              child: Text(
+              title
+              ),
+            ),
+          ),
+
+          Visibility(
+              visible: isOn,
+              child: type=="password"?
+              Icon(Icons.loop,color: CommonColors.darkGray,):
+              Icon(Icons.edit,color: CommonColors.darkGray,)),
+
+          SizedBox(
+            width:  CommonWidget.getInstance().widthFactor(context) * 0.03,
+          ),
+
+        ],
+      ),
+    );
+
+  }
+
 
   editTextWidget(String title,BuildContext context, IconData icon, bool isOn, String type){
     return Row(

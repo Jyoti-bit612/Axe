@@ -116,8 +116,8 @@ class _SignUpState extends State<SignUp>  implements CallBackInterface{
                               TextInputType.emailAddress,
                               nameFocus,
                               emailFocus,
-                              false,
-                              false,
+                              false, //hide text
+                              false, //read text
                               "email",
                               0),
 

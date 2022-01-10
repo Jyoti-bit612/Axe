@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:axe/controller/pasword_counter.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/constants.dart';
@@ -172,7 +173,7 @@ class CommonWidget {
     FocusScope.of(context).requestFocus(nextFocus);
   }
 
-
+  final CounterController controller = Get.put(CounterController());
 
   Widget editTextField(
       String validationKey,
@@ -213,13 +214,13 @@ class CommonWidget {
       },
       decoration: InputDecoration(
         hintText: hint,
-        // prefixIcon: showPrefixIconOrNot==1?Image.asset(StaticImages.key,scale: 2):null,
         suffixIcon: suffixIcon? IconButton(
           icon: Icon(
             _hideText ? Icons.visibility : Icons.visibility_off,
           ),
-          onPressed: null
-          ,
+          onPressed: (){
+            controller.updateValue();
+          },
         ):null,
         //labelText: hint,
         hintStyle: TextStyle(
