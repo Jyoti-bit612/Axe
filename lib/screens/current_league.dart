@@ -6,6 +6,7 @@ import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/dropdownclass.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CurrentLeague extends StatefulWidget {
   const CurrentLeague({Key? key}) : super(key: key);
@@ -45,7 +46,7 @@ class _CurrentLeagueState extends State<CurrentLeague> implements CallBackInterf
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: (){
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => CurrentLeagueDetail()));
+                          Get.to(()=>const CurrentLeagueDetail());
 
                         },
                         child: Padding(
@@ -109,7 +110,7 @@ class _CurrentLeagueState extends State<CurrentLeague> implements CallBackInterf
                       return GestureDetector(
                         behavior: HitTestBehavior.translucent,
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => UpcomingLeagueDetail()));
+                          Get.to(()=>const UpcomingLeagueDetail());
 
                         },
                         child: Card(

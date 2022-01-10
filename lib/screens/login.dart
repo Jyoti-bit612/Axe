@@ -140,7 +140,8 @@ class _LoginState extends State<Login>  implements CallBackInterface{
 
                                 GestureDetector(
                                   onTap: (){
-                                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ForgotPassword()));
+                                    Get.to(()=>const ForgotPassword());
+
                                   },
                                   child: CommonWidget.getInstance().normalText(
                                     CommonColors.black, Strings.forgot_pass,1,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
@@ -173,7 +174,8 @@ class _LoginState extends State<Login>  implements CallBackInterface{
 
                         GestureDetector(
                           onTap: (){
-                             Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUp()));
+                             Get.to(()=>const SignUp());
+
                           },
                           child: Container(
                             alignment: Alignment.bottomCenter,

@@ -5,6 +5,7 @@ import 'package:axe/screens/score_dasboard.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CurrentLeagueDetail extends StatefulWidget {
   const CurrentLeagueDetail({Key? key}) : super(key: key);
@@ -157,8 +158,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
 
                         GestureDetector(
                           onTap: (){
-                            Navigator.of(context).push(MaterialPageRoute(builder: (context) => ScoreDashboard()));
-
+                            Get.to(()=>const ScoreDashboard());
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(4.0),
@@ -247,7 +247,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                           children: [
                             GestureDetector(
                               onTap:(){
-                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => PlayerList()));
+                                Get.to(()=>const PlayerList());
 
                               },
                               child: Container(
@@ -339,7 +339,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                           children: [
                             GestureDetector(
                               onTap:(){
-                                Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const PlayerList()));
+                                Get.off(()=>const PlayerList());
 
                               },
                               child: Container(
@@ -467,8 +467,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
     switch(title){
 
       case Strings.create_match:
-        Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => CreateMatch()));
-
+        Get.off(()=>const CreateMatch());
         break;
 
     }

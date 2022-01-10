@@ -5,6 +5,7 @@ import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({Key? key}) : super(key: key);
@@ -127,11 +128,9 @@ class _ForgotPasswordState extends State<ForgotPassword>  implements CallBackInt
     switch(title){
       case Strings.reset_password:
 
-        Navigator.of(context).push(MaterialPageRoute(builder: (context) => DashBoard(0)));
+        Get.to(()=>DashBoard(0));
+
         break;
-
-
-
 
     }
   }

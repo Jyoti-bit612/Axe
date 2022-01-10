@@ -4,6 +4,7 @@ import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -54,7 +55,7 @@ class _HomeState extends State<Home> {
                       return GestureDetector(
                         behavior: HitTestBehavior.translucent,
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => UpcomingLeagueDetail()));
+                          Get.to(()=>const UpcomingLeagueDetail());
 
                         },
                         child: Card(
@@ -232,7 +233,7 @@ class _HomeState extends State<Home> {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: (){
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => PreviousLeagueDetail()));
+                          Get.to(()=>const PreviousLeagueDetail());
 
                         },
                           child: Padding(

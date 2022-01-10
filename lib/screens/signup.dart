@@ -7,6 +7,7 @@ import 'package:axe/util/dropdownclass.dart';
 import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -272,7 +273,7 @@ class _SignUpState extends State<SignUp>  implements CallBackInterface{
 
                           GestureDetector(
                             onTap: (){
-                              Navigator.of(context).push(MaterialPageRoute(builder: (context) => Login()));
+                              Get.to(()=>const Login());
 
                             },
                             child: Container(
