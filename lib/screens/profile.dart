@@ -2,6 +2,7 @@ import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/create_league.dart';
 import 'package:axe/screens/create_match.dart';
 import 'package:axe/screens/login.dart';
+import 'package:axe/screens/new_invitation.dart';
 import 'package:axe/screens/notification.dart';
 import 'package:axe/screens/playerlist.dart';
 import 'package:axe/util/commoncolors.dart';
@@ -355,8 +356,8 @@ class _ProfileState extends State<Profile>  implements CallBackInterface{
   @override
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
     switch(title){
-      case Strings.sign_up:
-      //  Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUp()));
+      case Strings.player_request:
+        Get.to(()=>const NewInvitaton());
         break;
 
     }

@@ -22,6 +22,7 @@ class Strings{
   static const String log_in = "Log-In";
   static const String reset_password = "Reset Password";
   static const String signu_up = "Sign-up";
+  static const String new_invitation = "New Invitations";
   static const String remember_me = "Remember me";
   static const String email = "Email";
   static const String live_match = "Live Match";

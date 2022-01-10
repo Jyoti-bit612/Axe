@@ -10,6 +10,7 @@ class CommonColors{
 
   static const Color imageRed = const Color(0xffFF1F00);
   static const Color lightRed = const Color(0xffFEDADA);
+  static const Color green = const Color(0xff4CAF50);
 
   static const Color textfiled_gray = const Color(0xffDDDDDD);
   static const Color red = const Color(0xFFD91E27);

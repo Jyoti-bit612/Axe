@@ -33,9 +33,9 @@ class SplashState extends State<Splash> {
 
   onDoneLoading() async {
     if (token == null || token == ""||token=="null") {
-      Get.to(const Login());
+      Get.to(()=>const Login());
     } else {
-      Get.to(const Login());
+      Get.to(()=>const Login());
     }
       }
 
