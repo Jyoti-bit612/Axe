@@ -216,9 +216,15 @@ class CommonWidget {
         hintText: hint,
         suffixIcon: suffixIcon? IconButton(
           icon: Icon(
-            _hideText ? Icons.visibility : Icons.visibility_off,
+            _hideText ? Icons.visibility_off : Icons.visibility,
           ),
           onPressed: (){
+            hint==Strings.enter_old_pass?
+            controller.updateValue():
+            hint==Strings.enter_new_pass?
+            controller.updateValueNew():
+            hint==Strings.reenter_new_pass?
+            controller.updateValueConfirm():
             controller.updateValue();
           },
         ):null,

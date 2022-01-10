@@ -1,3 +1,4 @@
+import 'package:axe/controller/pasword_counter.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/dashbaord.dart';
 import 'package:axe/screens/forgotpassword.dart';
@@ -30,11 +31,13 @@ class _LoginState extends State<Login>  implements CallBackInterface{
 
   @override
   Widget build(BuildContext context) {
+    final CounterController controller = Get.put(CounterController());
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: CommonColors.white,
         resizeToAvoidBottomInset: true,
-        body: Padding(
+        body:Obx(()=>Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -47,7 +50,6 @@ class _LoginState extends State<Login>  implements CallBackInterface{
                   width: CommonWidget.getInstance().widthFactor(context) * 0.50,
                 ),
               ),
-
 
               CommonWidget.getInstance().normalText(
                 CommonColors.black, Strings.log_in,0,CommonWidget.getInstance().widthFactor(context)*0.06,FontStyle.normal,2,FontWeight.w600),
@@ -111,7 +113,7 @@ class _LoginState extends State<Login>  implements CallBackInterface{
                             TextInputType.multiline,
                             passwordFocus,
                             null,
-                            true,
+                            controller.isValue.value,
                             false,
                             "key",
                             0),
@@ -258,7 +260,7 @@ class _LoginState extends State<Login>  implements CallBackInterface{
               ),
             ],
           ),
-        ),
+        )),
       ),
     );
   }
@@ -267,7 +269,7 @@ class _LoginState extends State<Login>  implements CallBackInterface{
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
     switch(title){
       case Strings.login:
-        Get.to(DashBoard(0));
+        Get.to(()=>DashBoard(0));
         break;
 
     }

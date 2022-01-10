@@ -29,10 +29,31 @@ class _ProfileState extends State<Profile>  implements CallBackInterface{
     super.initState();
   }
 
-  List list = [
-    {"name": "user1"},
-    {"name": "user2"},
+  var myMenuItems = <String>[
+    Strings.privacy_profile,
+    Strings.help_center,
+    Strings.report,
+    Strings.logout,
   ];
+
+
+  void onSelect(item) {
+    switch (item) {
+      case Strings.privacy_profile:
+        print('Home clicked');
+        break;
+      case Strings.help_center:
+        print('Profile clicked');
+        break;
+      case Strings.report:
+        print('Setting clicked');
+        break;
+
+      case Strings.logout:
+        print('Setting clicked');
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +61,33 @@ class _ProfileState extends State<Profile>  implements CallBackInterface{
       child: Scaffold(
         backgroundColor: CommonColors.white,
         resizeToAvoidBottomInset: true,
+          appBar: AppBar(
+            elevation: 0,
+            backgroundColor: CommonColors.white,
+            title: const Text(""),
+
+            actions: <Widget>[
+              IconButton(
+                  onPressed: (){
+                    Get.to(const NotificationClass());
+                  },
+                  icon: const Icon(Icons.notifications,color: CommonColors.black,)
+              ),
+
+              PopupMenuButton<String>(
+                color: CommonColors.black,
+                  onSelected: onSelect,
+                  itemBuilder: (BuildContext context) {
+                    return myMenuItems.map((String choice) {
+                      return PopupMenuItem<String>(
+                        child: Text(choice),
+                        value: choice,
+                      );
+                    }).toList();
+                  })
+            ],
+          ),
+
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.02),
@@ -48,7 +96,7 @@ class _ProfileState extends State<Profile>  implements CallBackInterface{
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
 
-                Row(
+              /*  Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
 
@@ -70,7 +118,7 @@ class _ProfileState extends State<Profile>  implements CallBackInterface{
                         icon: const Icon(Icons.more_horiz_outlined)
                     )
                   ],
-                ),
+                ),*/
 
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.01,

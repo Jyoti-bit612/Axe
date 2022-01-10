@@ -63,6 +63,10 @@ class Strings{
   static const String unOfficial = "Un-Official";
   static const String notification = "Notifications";
 
+  static const String privacy_profile= "Privacy Policy";
+  static const String help_center= "Help Center";
+  static const String report= "Report";
+  static const String logout= "Logout";
 
   static const String view_all = "View All";
   static const String status = "Status";

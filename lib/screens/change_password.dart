@@ -31,12 +31,11 @@ class ChangePasswordState extends State<ChangePassword>  implements CallBackInte
   @override
   Widget build(BuildContext context) {
     final CounterController controller = Get.put(CounterController());
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: CommonColors.white,
         resizeToAvoidBottomInset: true,
-        body: SingleChildScrollView(
+        body: Obx(()=>SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,8 +44,6 @@ class ChangePasswordState extends State<ChangePassword>  implements CallBackInte
                   onPressed: (){
                     Get.back();
                   }, icon: Icon(Icons.arrow_back_rounded)),
-
-
 
               Center(
                 child: Image.asset(
@@ -59,7 +56,7 @@ class ChangePasswordState extends State<ChangePassword>  implements CallBackInte
               Padding(
                 padding: const EdgeInsets.only(left:16.0,right:16),
                 child: CommonWidget.getInstance().normalText(
-                  CommonColors.black, Strings.change_pass,0,CommonWidget.getInstance().widthFactor(context)*0.06,FontStyle.normal,2,FontWeight.w600),
+                    CommonColors.black, Strings.change_pass,0,CommonWidget.getInstance().widthFactor(context)*0.06,FontStyle.normal,2,FontWeight.w600),
               ),
 
               Padding(
@@ -76,24 +73,25 @@ class ChangePasswordState extends State<ChangePassword>  implements CallBackInte
                         ),
 
                         CommonWidget.getInstance().normalText(
-                          CommonColors.black, Strings.old_pass,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                            CommonColors.black, Strings.old_pass,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
 
                         SizedBox(
                           height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                         ),
 
+
                         CommonWidget.getInstance().editTextField(
-                            "password",
+                            Strings.pass,
                             context,
                             true,
                             CommonColors.textfiled_gray,
                             Strings.enter_old_pass,
-                            "",
+                            "This  field is mandatory",
                             oldlController,
                             TextInputType.multiline,
                             oldFocus,
                             newFocus,
-                            controller.isValue,
+                            controller.isValue.value,
                             false,
                             "password",
                             0),
@@ -109,17 +107,17 @@ class ChangePasswordState extends State<ChangePassword>  implements CallBackInte
                         ),
 
                         CommonWidget.getInstance().editTextField(
-                            "password",
+                            Strings.pass,
                             context,
                             true,
                             CommonColors.textfiled_gray,
                             Strings.enter_new_pass,
-                            "",
+                            "This  field is mandatory",
                             newController,
                             TextInputType.multiline,
                             newFocus,
                             confirmFocus,
-                            controller.isValue,
+                            controller.isValueNew.value,
                             false,
                             "password",
                             0),
@@ -135,17 +133,17 @@ class ChangePasswordState extends State<ChangePassword>  implements CallBackInte
                           height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                         ),
                         CommonWidget.getInstance().editTextField(
-                            "password",
+                            Strings.pass,
                             context,
                             true,
                             CommonColors.textfiled_gray,
                             Strings.re_enter_pass,
-                            "",
+                            "This  field is mandatory",
                             confirmController,
                             TextInputType.multiline,
                             confirmFocus,
                             null,
-                            controller.isValue,
+                            controller.isValueConfirm.value,
                             false,
                             "key",
                             0),
@@ -175,7 +173,7 @@ class ChangePasswordState extends State<ChangePassword>  implements CallBackInte
               ),
             ],
           ),
-        ),
+        ),)
       ),
     );
   }
