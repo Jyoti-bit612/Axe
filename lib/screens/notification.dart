@@ -3,6 +3,7 @@ import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class NotificationClass extends StatelessWidget {
   const NotificationClass({Key? key}) : super(key: key);
@@ -18,8 +19,11 @@ class NotificationClass extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-              IconButton(onPressed: (){
-                Navigator.pop(context);
+              IconButton(
+                  padding: EdgeInsets.zero,
+                  constraints: BoxConstraints(),
+                  onPressed: (){
+                Get.back();
               }, icon: const Icon(Icons.arrow_back_rounded)),
 
               SizedBox(
@@ -33,43 +37,55 @@ class NotificationClass extends StatelessWidget {
                 height: CommonWidget.getInstance().widthFactor(context) * 0.03,
               ),
 
-              ListView.separated(
-                  physics: const ClampingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount:  4,
-                  separatorBuilder: (BuildContext context, int index) => Divider(height: 1),
-                  itemBuilder: (context, index) {
-                    return Card(
-                      elevation: 4,
-                      child: Padding(
-                        padding:  EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.03),
-                        child: ListTile(
-                            leading: Row(
-                              children: [
-                                const Divider(
-                                  height: 20,
-                                  thickness: 1,
-                                  color: CommonColors.primaryColor1,
-                                ),
-                               Image.asset("assets/images/purplei.png"),
-                              ],
-                            ),
+              Expanded(
+                child: ListView.builder(
+                    itemCount:  4,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        elevation: 4,
+                        child: Padding(
+                          padding:  EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.03),
+                          child:  Row(
+                                children: [
+                                  const Divider(
+                                    height: 20,
+                                    thickness: 5,
+                                    color: CommonColors.primaryColor1,
+                                  ),
 
-                            title: CommonWidget.getInstance().normalText(
-                                CommonColors.black,"Did you know.",0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600,fontfamily: false),
+                                 Image.asset("assets/images/yellowi.png"),
 
-                            subtitle:  Padding(
-                              padding:  EdgeInsets.only(top:CommonWidget.getInstance().widthFactor(context) * 0.015),
-                              child: CommonWidget.getInstance().normalText(
-                                  CommonColors.darkGray,"Here is something that you might to know.",0,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w500),
-                            ),
+                                  SizedBox(
+                                    width: CommonWidget.getInstance().widthFactor(context) * 0.03,
+                                  ),
 
-                            trailing: Icon(Icons.clear,color: CommonColors.black,)
+                             Expanded(
+                               child: Column(
+                                 mainAxisAlignment: MainAxisAlignment.start,
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 children: [
+                                   CommonWidget.getInstance().normalText(
+                                       CommonColors.black,"Did you know.",0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600,fontfamily: false),
 
+                                   Padding(
+                                     padding:  EdgeInsets.only(top:CommonWidget.getInstance().widthFactor(context) * 0.015),
+                                     child: CommonWidget.getInstance().normalText(
+                                         CommonColors.darkGray,"Here is something that you might to know.",0,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w500),
+                                   ),
+                                 ],
+                               ),
+                             ),
+                                  SizedBox(
+                                    width: CommonWidget.getInstance().widthFactor(context) * 0.03,
+                                  ),
+                               Icon(Icons.clear,color: CommonColors.black,)
+
+                                ],
+                          ),
                         ),
-                      ),
-                    );
-                  }),
+                      );
+                    }),
+              ),
             ],
           ),
         ),

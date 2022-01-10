@@ -3,6 +3,7 @@ import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class NewInvitaton extends StatefulWidget {
   const NewInvitaton({Key? key}) : super(key: key);
@@ -33,16 +34,16 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
 
-                IconButton(onPressed: (){
-                  Navigator.pop(context);
+                IconButton(
+                    padding: EdgeInsets.zero,
+                    constraints: BoxConstraints(),
+                    onPressed: (){
+                  Get.back();
                 }, icon: const Icon(Icons.arrow_back_rounded)),
 
 
-                Padding(
-                  padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05),
-                  child: CommonWidget.getInstance().normalText(
-                      CommonColors.black, Strings.new_invitation,0,CommonWidget.getInstance().widthFactor(context)*0.06,FontStyle.normal,2,FontWeight.w600),
-                ),
+                CommonWidget.getInstance().normalText(
+                    CommonColors.black, Strings.new_invitation,0,CommonWidget.getInstance().widthFactor(context)*0.06,FontStyle.normal,2,FontWeight.w600),
 
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.02,

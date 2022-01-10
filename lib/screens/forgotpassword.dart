@@ -39,7 +39,7 @@ class _ForgotPasswordState extends State<ForgotPassword>  implements CallBackInt
           children: [
 
             IconButton(onPressed: (){
-              Navigator.pop(context);
+              Get.back();
             }, icon: Icon(Icons.arrow_back_rounded)),
 
             SizedBox(

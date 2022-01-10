@@ -3,6 +3,7 @@ import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class PlayerList extends StatefulWidget {
   const PlayerList({Key? key}) : super(key: key);
@@ -24,8 +25,11 @@ class _PlayerListState extends State<PlayerList> implements CallBackInterface {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
 
-                IconButton(onPressed: (){
-                  Navigator.pop(context);
+                IconButton(
+                    padding: EdgeInsets.zero,
+                    constraints: BoxConstraints(),
+                    onPressed: (){
+                  Get.back();
                 }, icon: const Icon(Icons.arrow_back_rounded)),
 
                 const Card(

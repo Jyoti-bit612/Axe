@@ -7,6 +7,7 @@ import 'package:axe/util/constants.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'strings.dart';
@@ -80,7 +81,7 @@ class Global {
     if (response.statusCode == 201 ||response.statusCode == 200) {
       callBackInterface.widgetCallBack(apiName, response.body,context);
     } else if (response.statusCode == 422) {
-      Navigator.pop(context);
+      Get.back();
       if (json.decode(response.body)["errors"]["phone_number"] != null)
         toast(context, json.decode(response.body)["errors"]["phone_number"][0].toString());
       else if (json.decode(response.body)["errors"]["device_token"] != null)
@@ -102,11 +103,11 @@ class Global {
 
       }else if(endUrl==Constant.changePassword)
       {
-        Navigator.pop(context);
+        Get.back();
         toast(context, json.decode(response.body)["message"].toString());
       }
       else{
-        Navigator.pop(context);
+        Get.back();
         toast(context, json.decode(response.body)["error"].toString());
       }
 

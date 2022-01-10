@@ -5,6 +5,7 @@ import 'package:axe/util/dropdownclass.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CreateLeague extends StatefulWidget {
 
@@ -52,8 +53,11 @@ class _CreateLeagueState extends State<CreateLeague>  implements CallBackInterfa
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  IconButton(onPressed: (){
-                    Navigator.pop(context);
+                  IconButton(
+                      padding: EdgeInsets.zero,
+                      constraints: BoxConstraints(),
+                      onPressed: (){
+                    Get.back();
                   }, icon: const Icon(Icons.arrow_back_rounded)),
 
                    Center(child: Image.asset("assets/images/trophy.png")),

@@ -5,6 +5,7 @@ import 'package:axe/util/dropdownclass.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CreateMatch extends StatefulWidget {
 
@@ -42,8 +43,11 @@ class _CreateMatchState extends State<CreateMatch>  implements CallBackInterface
             mainAxisAlignment: MainAxisAlignment.start,
 
             children: [
-              IconButton(onPressed: (){
-                Navigator.pop(context);
+              IconButton(
+                  padding: EdgeInsets.zero,
+                  constraints: BoxConstraints(),
+                  onPressed: (){
+                Get.back();
               }, icon: const Icon(Icons.arrow_back_rounded)),
 
               SizedBox(
@@ -230,7 +234,6 @@ class _CreateMatchState extends State<CreateMatch>  implements CallBackInterface
 
                                   GestureDetector(
                                     onTap:(){
-                                      //  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => PlayerList()));
 
                                     },
                                     child: Container(
@@ -296,7 +299,6 @@ class _CreateMatchState extends State<CreateMatch>  implements CallBackInterface
 
                                   GestureDetector(
                                     onTap:(){
-                                      // Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const PlayerList()));
 
                                     },
                                     child: Container(

@@ -33,8 +33,11 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
 
-              IconButton(onPressed: (){
-                Navigator.pop(context);
+              IconButton(
+                  padding: EdgeInsets.zero,
+                  constraints: BoxConstraints(),
+                  onPressed: (){
+                Get.back();
               }, icon: const Icon(Icons.arrow_back_rounded)),
 
               SizedBox(

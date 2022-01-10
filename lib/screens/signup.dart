@@ -367,7 +367,6 @@ class _SignUpState extends State<SignUp>  implements CallBackInterface{
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
     switch(title){
       case Strings.sign_up:
-      //  Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUp()));
         break;
 
 

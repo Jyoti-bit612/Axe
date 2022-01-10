@@ -6,6 +6,7 @@ import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 
@@ -59,14 +60,14 @@ class CommonWidget {
       child: Text(button2Text),
       onPressed:  () {
         callBackInterface.widgetCallBack(type, "", context);
-        Navigator.pop(context);
+        Get.back();
 
       },
     );
     Widget continueButton = TextButton(
       child: Text(button1Text),
       onPressed:  () {
-        Navigator.pop(context);
+        Get.back();
       },
     );
 
@@ -109,7 +110,7 @@ class CommonWidget {
                   color: CommonColors.black,
                 ),
                 onPressed: () {
-                  Navigator.pop(context);
+                  Get.back();
                 }),
           ),
 
