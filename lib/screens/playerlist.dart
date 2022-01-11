@@ -5,15 +5,11 @@ import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class PlayerList extends StatefulWidget {
-  const PlayerList({Key? key}) : super(key: key);
 
-  @override
-  _PlayerListState createState() => _PlayerListState();
-}
+class PlayerList extends StatelessWidget implements CallBackInterface {
+ const PlayerList({Key? key}) : super(key: key);
 
-class _PlayerListState extends State<PlayerList> implements CallBackInterface {
-  @override
+@override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(

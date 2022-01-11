@@ -7,31 +7,28 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CreateMatch extends StatefulWidget {
 
-  const CreateMatch({Key? key}) : super(key: key);
 
-  @override
-  _CreateMatchState createState() => _CreateMatchState();
-}
+class CreateMatch extends StatelessWidget implements CallBackInterface{
+  CreateMatch({Key? key}) : super(key: key);
 
-class _CreateMatchState extends State<CreateMatch>  implements CallBackInterface{
-
-  TextEditingController emailController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmpasswordController = TextEditingController();
-  TextEditingController contactController = TextEditingController();
-  FocusNode emailFocus = FocusNode();
-  FocusNode nameFocus = FocusNode();
-  FocusNode confirmPassFocus = FocusNode();
-  FocusNode contactFocus = FocusNode();
-  FocusNode passwordFocus = FocusNode();
+  final emailController = TextEditingController();
+  final nameController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmpasswordController = TextEditingController();
+  final contactController = TextEditingController();
+  final emailFocus = FocusNode();
+  final nameFocus = FocusNode();
+  final confirmPassFocus = FocusNode();
+  final contactFocus = FocusNode();
+  final passwordFocus = FocusNode();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  List list = [
+  final list = [
     {"name": "user1"},
     {"name": "user2"},
   ];
+
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(

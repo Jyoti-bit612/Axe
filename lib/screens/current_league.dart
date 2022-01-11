@@ -8,15 +8,11 @@ import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CurrentLeague extends StatefulWidget {
+
+
+class CurrentLeague extends StatelessWidget implements CallBackInterface {
   const CurrentLeague({Key? key}) : super(key: key);
 
-  @override
-  _CurrentLeagueState createState() => _CurrentLeagueState();
-}
-
-
-class _CurrentLeagueState extends State<CurrentLeague> implements CallBackInterface {
   @override
   Widget build(BuildContext context) {
     return  SafeArea(

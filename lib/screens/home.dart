@@ -6,14 +6,11 @@ import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
 
-  @override
-  _HomeState createState() => _HomeState();
-}
 
-class _HomeState extends State<Home> {
+class Home extends StatelessWidget {
+   const Home({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -173,11 +170,11 @@ class _HomeState extends State<Home> {
                                   padding: const EdgeInsets.only(left:20.0,right:20),
                                   child: Row(
                                     children: [
-                                      scoreWidget("08","Rank"),
+                                      scoreWidget("08","Rank",context),
 
                                       Divider(height:1,thickness:1,color: CommonColors.white,),
 
-                                      scoreWidget("RYAN SMITH","Location Virgenua Beach VA"),
+                                      scoreWidget("RYAN SMITH","Location Virgenua Beach VA",context),
 
                                     ],
                                   ),
@@ -190,9 +187,9 @@ class _HomeState extends State<Home> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      scoreWidget("70%","Accuracy"),
-                                      scoreWidget("07","Leagues"),
-                                      scoreWidget("18","Matches"),
+                                      scoreWidget("70%","Accuracy",context),
+                                      scoreWidget("07","Leagues",context),
+                                      scoreWidget("18","Matches",context),
                                     ],
                                   ),
                                 ),
@@ -273,7 +270,7 @@ class _HomeState extends State<Home> {
     );
   }
 
-  scoreWidget(String title, String subTitle) {
+  scoreWidget(String title, String subTitle,BuildContext context) {
     return  Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(

@@ -9,25 +9,16 @@ import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
 
-  @override
-  _LoginState createState() => _LoginState();
-}
+class Login extends StatelessWidget  implements CallBackInterface{
+   Login({Key? key}) : super(key: key);
 
-class _LoginState extends State<Login>  implements CallBackInterface{
-  @override
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  FocusNode emailFocus = FocusNode();
-  FocusNode passwordFocus = FocusNode();
+ final emailController = TextEditingController();
+ final passwordController = TextEditingController();
+ final emailFocus = FocusNode();
+ final passwordFocus = FocusNode();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +133,7 @@ class _LoginState extends State<Login>  implements CallBackInterface{
 
                                 GestureDetector(
                                   onTap: (){
-                                    Get.to(()=>const ForgotPassword());
+                                    Get.to(()=> ForgotPassword());
 
                                   },
                                   child: CommonWidget.getInstance().normalText(
@@ -176,7 +167,7 @@ class _LoginState extends State<Login>  implements CallBackInterface{
 
                         GestureDetector(
                           onTap: (){
-                             Get.to(()=>const SignUp());
+                             Get.to(()=> SignUp());
 
                           },
                           child: Container(

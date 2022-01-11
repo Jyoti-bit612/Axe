@@ -15,19 +15,10 @@ import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Profile extends StatefulWidget {
-  const Profile({Key? key}) : super(key: key);
 
-  @override
-  _ProfileState createState() => _ProfileState();
-}
 
-class _ProfileState extends State<Profile>  implements CallBackInterface{
-
-  @override
-  void initState() {
-    super.initState();
-  }
+class Profile extends StatelessWidget  implements CallBackInterface{
+   Profile({Key? key}) : super(key: key);
 
   var myMenuItems = <String>[
     Strings.privacy_profile,
@@ -75,7 +66,7 @@ class _ProfileState extends State<Profile>  implements CallBackInterface{
               ),
 
               PopupMenuButton<String>(
-                color: CommonColors.black,
+                icon: Icon(Icons.more_vert_rounded,color: CommonColors.black),
                   onSelected: onSelect,
                   itemBuilder: (BuildContext context) {
                     return myMenuItems.map((String choice) {
@@ -172,7 +163,7 @@ class _ProfileState extends State<Profile>  implements CallBackInterface{
                     children: [
                       GestureDetector(
                         onTap: (){
-                          Get.to(const CreateLeague());
+                          Get.to( CreateLeague());
 
                         },
                         child: SizedBox(
@@ -205,7 +196,7 @@ class _ProfileState extends State<Profile>  implements CallBackInterface{
                       ),
                       GestureDetector(
                         onTap: (){
-                          Get.to(const CreateMatch());
+                          Get.to( CreateMatch());
                         },
                         child: SizedBox(
                             width: CommonWidget.getInstance().widthFactor(context) * 0.3,

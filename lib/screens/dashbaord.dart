@@ -27,7 +27,7 @@ class _DashBoardState extends State<DashBoard> {
   @override
   void initState() {
     super.initState();
-    _children = [Home(),CurrentLeague(),PlayerList(),const Profile()];
+    _children = [Home(),CurrentLeague(),PlayerList(), Profile()];
     pre_backpress=DateTime.now();
   }
 

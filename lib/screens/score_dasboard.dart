@@ -1,22 +1,13 @@
 import 'package:axe/interface/CallBackInterface.dart';
-import 'package:axe/screens/playerlist.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ScoreDashboard extends StatefulWidget {
+
+class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
   const ScoreDashboard({Key? key}) : super(key: key);
 
-  @override
-  _ScoreDashboardState createState() => _ScoreDashboardState();
-}
-
-class _ScoreDashboardState extends State<ScoreDashboard> with SingleTickerProviderStateMixin implements CallBackInterface  {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -266,7 +257,7 @@ class _ScoreDashboardState extends State<ScoreDashboard> with SingleTickerProvid
 
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  buttonWidget(Strings.call_killshot,CommonWidget.getInstance().widthFactor(context) * 0.34),
+                  buttonWidget(Strings.call_killshot,CommonWidget.getInstance().widthFactor(context) * 0.34,context),
 
 
                   Container(
@@ -293,7 +284,7 @@ class _ScoreDashboardState extends State<ScoreDashboard> with SingleTickerProvid
                   ),
 
 
-                  buttonWidget(Strings.call_killshot,CommonWidget.getInstance().widthFactor(context) * 0.34,)
+                  buttonWidget(Strings.call_killshot,CommonWidget.getInstance().widthFactor(context) * 0.34,context),
 
                 ],
               ),
@@ -306,8 +297,8 @@ class _ScoreDashboardState extends State<ScoreDashboard> with SingleTickerProvid
 
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  buttonWidget(Strings.winner,CommonWidget.getInstance().widthFactor(context) * 0.4),
-                  buttonWidget(Strings.winner,CommonWidget.getInstance().widthFactor(context) * 0.4),
+                  buttonWidget(Strings.winner,CommonWidget.getInstance().widthFactor(context) * 0.4,context),
+                  buttonWidget(Strings.winner,CommonWidget.getInstance().widthFactor(context) * 0.4,context),
 
                 ],
               ),
@@ -320,8 +311,8 @@ class _ScoreDashboardState extends State<ScoreDashboard> with SingleTickerProvid
 
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  buttonWidget(Strings.switch_side,CommonWidget.getInstance().widthFactor(context) * 0.4),
-                  buttonWidget(Strings.sudden_death_throw,CommonWidget.getInstance().widthFactor(context) * 0.4),
+                  buttonWidget(Strings.switch_side,CommonWidget.getInstance().widthFactor(context) * 0.4,context),
+                  buttonWidget(Strings.sudden_death_throw,CommonWidget.getInstance().widthFactor(context) * 0.4,context),
 
                 ],
               ),
@@ -350,11 +341,7 @@ class _ScoreDashboardState extends State<ScoreDashboard> with SingleTickerProvid
     );
   }
 
-
-
-
-
-  buttonWidget(String text,double width) {
+  buttonWidget(String text,double width,BuildContext context) {
     return SizedBox(
       height: CommonWidget.getInstance().widthFactor(context) * 0.1,
       width: width,
@@ -383,6 +370,9 @@ class _ScoreDashboardState extends State<ScoreDashboard> with SingleTickerProvid
 
   @override
   void widgetCallBack(String title, String value, BuildContext context) {
+    // TODO: implement widgetCallBack
   }
+
+
 }
 

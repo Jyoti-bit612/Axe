@@ -35,7 +35,6 @@ class Global {
   }
 
 
-
   static getStringValuesSF(String key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? stringValue = prefs.getString(key);
@@ -63,8 +62,7 @@ class Global {
   static Future<String> postData(BuildContext context, String endUrl, String apiName, Map jsonBody, CallBackInterface callBackInterface) async {
     print(jsonBody.toString());
     var token=await Global.getStringValuesSF(Constant.AccessToken);
-    if(token==null)
-      token="";
+    token ?? "";
 
     var url = Constant.baseUrl + endUrl;
 
@@ -115,24 +113,6 @@ class Global {
     return "Success!";
   }
 
-  static showLoaderDialog(BuildContext context) {
-    AlertDialog alert = AlertDialog(
-      content: new Row(
-        children: [
-          CircularProgressIndicator(),
-          Container(
-              margin: EdgeInsets.only(left: 5), child: Text("Please Wait...")),
-        ],
-      ),
-    );
-    showDialog(
-      barrierDismissible: false,
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
 
 
   static toast(BuildContext context,String message){

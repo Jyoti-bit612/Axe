@@ -7,31 +7,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class CreateLeague extends StatefulWidget {
 
-  const CreateLeague({Key? key}) : super(key: key);
+class CreateLeague extends StatelessWidget implements CallBackInterface{
 
-  @override
-  _CreateLeagueState createState() => _CreateLeagueState();
-}
-
-class _CreateLeagueState extends State<CreateLeague>  implements CallBackInterface{
-
-  TextEditingController emailController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmpasswordController = TextEditingController();
-  TextEditingController contactController = TextEditingController();
-  FocusNode emailFocus = FocusNode();
-  FocusNode nameFocus = FocusNode();
-  FocusNode confirmPassFocus = FocusNode();
-  FocusNode contactFocus = FocusNode();
-  FocusNode passwordFocus = FocusNode();
+ final emailController = TextEditingController();
+ final nameController = TextEditingController();
+ final passwordController = TextEditingController();
+ final confirmpasswordController = TextEditingController();
+  final contactController = TextEditingController();
+  final emailFocus = FocusNode();
+  final nameFocus = FocusNode();
+  final confirmPassFocus = FocusNode();
+  final contactFocus = FocusNode();
+  final passwordFocus = FocusNode();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  List list = [
+  final list = [
     {"name": "user1"},
     {"name": "user2"},
   ];
+
+  CreateLeague({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

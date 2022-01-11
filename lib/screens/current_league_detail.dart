@@ -16,7 +16,7 @@ class CurrentLeagueDetail extends StatefulWidget {
 
 class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTickerProviderStateMixin implements CallBackInterface  {
   TabController? _tabController;
-  
+
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
@@ -470,7 +470,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
     switch(title){
 
       case Strings.create_match:
-        Get.off(()=>const CreateMatch());
+        Get.off(()=> CreateMatch());
         break;
 
     }

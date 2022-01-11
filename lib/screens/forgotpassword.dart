@@ -7,25 +7,16 @@ import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ForgotPassword extends StatefulWidget {
-  const ForgotPassword({Key? key}) : super(key: key);
 
-  @override
-  _ForgotPasswordState createState() => _ForgotPasswordState();
-}
 
-class _ForgotPasswordState extends State<ForgotPassword>  implements CallBackInterface{
-  @override
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  FocusNode emailFocus = FocusNode();
-  FocusNode passwordFocus = FocusNode();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+class ForgotPassword extends StatelessWidget  implements CallBackInterface{
+ForgotPassword({Key? key}) : super(key: key);
 
-  @override
-  void initState() {
-    super.initState();
-  }
+final emailController = TextEditingController();
+final passwordController = TextEditingController();
+final emailFocus = FocusNode();
+final passwordFocus = FocusNode();
+final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {

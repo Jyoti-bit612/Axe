@@ -7,26 +7,19 @@ import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class ChangePassword extends StatefulWidget {
 
-  @override
-  ChangePasswordState createState() => ChangePasswordState();
-}
+class ChangePassword extends StatelessWidget  implements CallBackInterface{
 
-class ChangePasswordState extends State<ChangePassword>  implements CallBackInterface{
-  @override
-  TextEditingController oldlController = TextEditingController();
-  TextEditingController newController = TextEditingController();
-  TextEditingController confirmController = TextEditingController();
-  FocusNode oldFocus = FocusNode();
-  FocusNode newFocus = FocusNode();
-  FocusNode confirmFocus = FocusNode();
+  final  oldlController = TextEditingController();
+  final  newController = TextEditingController();
+  final  confirmController = TextEditingController();
+ final oldFocus = FocusNode();
+ final newFocus = FocusNode();
+ final confirmFocus = FocusNode();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  ChangePassword({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {

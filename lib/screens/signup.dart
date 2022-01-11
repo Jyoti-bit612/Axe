@@ -9,33 +9,25 @@ import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({Key? key}) : super(key: key);
 
-  @override
-  _SignUpState createState() => _SignUpState();
-}
 
-class _SignUpState extends State<SignUp>  implements CallBackInterface{
-  @override
-  TextEditingController emailController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController confirmpasswordController = TextEditingController();
-  TextEditingController contactController = TextEditingController();
-  FocusNode emailFocus = FocusNode();
-  FocusNode nameFocus = FocusNode();
-  FocusNode confirmPassFocus = FocusNode();
-  FocusNode contactFocus = FocusNode();
-  FocusNode passwordFocus = FocusNode();
+class SignUp extends StatelessWidget  implements CallBackInterface{
+   SignUp({Key? key}) : super(key: key);
+
+  final emailController = TextEditingController();
+  final nameController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confirmpasswordController = TextEditingController();
+  final contactController = TextEditingController();
+  final emailFocus = FocusNode();
+  final nameFocus = FocusNode();
+  final confirmPassFocus = FocusNode();
+  final contactFocus = FocusNode();
+  final passwordFocus = FocusNode();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-  @override
-  void initState() {
-    super.initState();
-  }
 
-  List list = [
+   final list = [
     {"name": "user1"},
     {"name": "user2"},
   ];
@@ -273,7 +265,7 @@ class _SignUpState extends State<SignUp>  implements CallBackInterface{
 
                           GestureDetector(
                             onTap: (){
-                              Get.to(()=>const Login());
+                              Get.to(()=> Login());
 
                             },
                             child: Container(
