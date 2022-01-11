@@ -76,7 +76,7 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                     physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
                     itemCount:  7,
-                    separatorBuilder: (BuildContext context, int index) => Divider(height: 1),
+                    separatorBuilder: (BuildContext context, int index) => const Divider(height: 1),
                     itemBuilder: (context, index) {
                       return ListTile(
                         leading: GestureDetector(
