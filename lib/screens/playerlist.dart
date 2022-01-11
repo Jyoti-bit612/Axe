@@ -1,4 +1,5 @@
 import 'package:axe/interface/CallBackInterface.dart';
+import 'package:axe/screens/other_user_profile.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/strings.dart';
@@ -78,25 +79,32 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                     separatorBuilder: (BuildContext context, int index) => Divider(height: 1),
                     itemBuilder: (context, index) {
                       return ListTile(
-                        leading: Container(
-                          width:  CommonWidget.getInstance().widthFactor(context) * 0.15,
-                          height:  CommonWidget.getInstance().widthFactor(context) * 0.15,
-                          decoration: const BoxDecoration(
-                            gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomCenter,
-                            ),
-                            shape: BoxShape.circle,
+                        leading: GestureDetector(
+                          behavior: HitTestBehavior.translucent,
+                          onTap: (){
+                            Get.to( ()=>OtherUserProfile());
 
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.005),
-                            child:  const Padding(
-                                padding:EdgeInsets.all(1),
-                                child: CircleAvatar(
-                                  radius: 30.0,
-                                  backgroundImage:AssetImage("assets/images/dummypic.jpg"),
-                                )
+                          },
+                          child: Container(
+                            width:  CommonWidget.getInstance().widthFactor(context) * 0.15,
+                            height:  CommonWidget.getInstance().widthFactor(context) * 0.15,
+                            decoration: const BoxDecoration(
+                              gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomCenter,
+                              ),
+                              shape: BoxShape.circle,
+
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.005),
+                              child:  const Padding(
+                                  padding:EdgeInsets.all(1),
+                                  child: CircleAvatar(
+                                    radius: 30.0,
+                                    backgroundImage:AssetImage("assets/images/dummypic.jpg"),
+                                  )
+                              ),
                             ),
                           ),
                         ),
@@ -107,7 +115,12 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                         subtitle:  CommonWidget.getInstance().normalText(
                             CommonColors.darkGray,"Location: Southfield",0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w600),
 
-                        trailing: Image.asset("assets/images/smiley.png")
+                        trailing: IconButton(
+                          onPressed: (){
+
+                          },
+                          icon: Image.asset("assets/images/smiley.png"),
+                        )
 
                       );
                     }),

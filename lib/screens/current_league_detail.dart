@@ -1,5 +1,6 @@
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/create_match.dart';
+import 'package:axe/screens/other_user_profile.dart';
 import 'package:axe/screens/playerlist.dart';
 import 'package:axe/screens/score_dasboard.dart';
 import 'package:axe/util/commoncolors.dart';
@@ -87,23 +88,30 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              width:  CommonWidget.getInstance().widthFactor(context) * 0.27,
-                              height:  CommonWidget.getInstance().widthFactor(context) * 0.27,
-                              decoration: const BoxDecoration(
-                                gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomCenter,
-                                ),
-                                shape: BoxShape.circle,
+                            GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTap: (){
+                                Get.to( ()=>OtherUserProfile());
 
-                              ),
-                              child:  const Padding(
-                                  padding: EdgeInsets.all(1.0),
-                                  child: CircleAvatar(
-                                    radius: 30.0,
-                                    backgroundImage:AssetImage("assets/images/dummypic.jpg"),
-                                  )
+                              },
+                              child: Container(
+                                width:  CommonWidget.getInstance().widthFactor(context) * 0.27,
+                                height:  CommonWidget.getInstance().widthFactor(context) * 0.27,
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomCenter,
+                                  ),
+                                  shape: BoxShape.circle,
+
+                                ),
+                                child:  const Padding(
+                                    padding: EdgeInsets.all(1.0),
+                                    child: CircleAvatar(
+                                      radius: 30.0,
+                                      backgroundImage:AssetImage("assets/images/dummypic.jpg"),
+                                    )
+                                ),
                               ),
                             ),
 
@@ -111,24 +119,29 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                                 CommonColors.black,"05 : 07",0,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,
                                 FontWeight.w900,fontfamily: false),
 
+                            GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTap: (){
+                                Get.to( ()=>OtherUserProfile());
+                              },
+                              child: Container(
+                                width:  CommonWidget.getInstance().widthFactor(context) * 0.27,
+                                height:  CommonWidget.getInstance().widthFactor(context) * 0.27,
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomCenter,
+                                  ),
+                                  shape: BoxShape.circle,
 
-                            Container(
-                              width:  CommonWidget.getInstance().widthFactor(context) * 0.27,
-                              height:  CommonWidget.getInstance().widthFactor(context) * 0.27,
-                              decoration: const BoxDecoration(
-                                gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomCenter,
                                 ),
-                                shape: BoxShape.circle,
-
-                              ),
-                              child:  const Padding(
-                                  padding: EdgeInsets.all(1.0),
-                                  child: CircleAvatar(
-                                    radius: 30.0,
-                                    backgroundImage:AssetImage("assets/images/dummypic.jpg"),
-                                  )
+                                child:  const Padding(
+                                    padding: EdgeInsets.all(1.0),
+                                    child: CircleAvatar(
+                                      radius: 30.0,
+                                      backgroundImage:AssetImage("assets/images/dummypic.jpg"),
+                                    )
+                                ),
                               ),
                             )
                           ],
@@ -149,7 +162,6 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                               CommonWidget.getInstance().normalText(
                                   CommonColors.red,"vs",0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,0,
                                   FontWeight.w600,fontfamily: false),
-
 
 
                               CommonWidget.getInstance().normalText(
@@ -413,35 +425,41 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.only(top:8.0),
-                child: ListTile(
-                  leading: Container(
-                    width:  CommonWidget.getInstance().widthFactor(context) * 0.15,
-                    height:  CommonWidget.getInstance().widthFactor(context) * 0.15,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomCenter,
+                child: GestureDetector(
+                  onTap: (){
+                    Get.to( ()=>OtherUserProfile());
+
+                  },
+                  child: ListTile(
+                    leading: Container(
+                      width:  CommonWidget.getInstance().widthFactor(context) * 0.15,
+                      height:  CommonWidget.getInstance().widthFactor(context) * 0.15,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomCenter,
+                        ),
+                        shape: BoxShape.circle,
+
                       ),
-                      shape: BoxShape.circle,
+                      child: Padding(
+                        padding: const EdgeInsets.all(1.0),
+                        child: DecoratedBox(
+                            decoration:  const BoxDecoration(
+                              color: CommonColors.textfiled_gray,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Image.asset("assets/images/profile.png")),
+                      ),
+                    ),
 
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(1.0),
-                      child: DecoratedBox(
-                          decoration:  const BoxDecoration(
-                            color: CommonColors.textfiled_gray,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.asset("assets/images/profile.png")),
-                    ),
+                    title: CommonWidget.getInstance().normalText(
+                        CommonColors.black,"David",0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w900,fontfamily: false),
+
+                    subtitle:  CommonWidget.getInstance().normalText(
+                        CommonColors.darkGray,"Location: Southfield",0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w600),
+
                   ),
-
-                  title: CommonWidget.getInstance().normalText(
-                      CommonColors.black,"David",0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w900,fontfamily: false),
-
-                  subtitle:  CommonWidget.getInstance().normalText(
-                      CommonColors.darkGray,"Location: Southfield",0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w600),
-
                 ),
                 //   ),
               );

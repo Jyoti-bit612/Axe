@@ -1,4 +1,5 @@
 import 'package:axe/interface/CallBackInterface.dart';
+import 'package:axe/screens/other_user_profile.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/strings.dart';
@@ -91,43 +92,49 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
                     itemCount:  7,
                     separatorBuilder: (BuildContext context, int index) => Divider(height: 1),
                     itemBuilder: (context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.only(top:8.0),
-                        child: ListTile(
-                          leading: Container(
-                            width:  CommonWidget.getInstance().widthFactor(context) * 0.15,
-                            height:  CommonWidget.getInstance().widthFactor(context) * 0.15,
-                            decoration: const BoxDecoration(
-                              gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomCenter,
+                      return GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: (){
+                          Get.to( ()=>OtherUserProfile());
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(top:8.0),
+                          child: ListTile(
+                            leading: Container(
+                              width:  CommonWidget.getInstance().widthFactor(context) * 0.15,
+                              height:  CommonWidget.getInstance().widthFactor(context) * 0.15,
+                              decoration: const BoxDecoration(
+                                gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomCenter,
+                                ),
+                                shape: BoxShape.circle,
+
                               ),
-                              shape: BoxShape.circle,
+                              child: Padding(
+                                padding: const EdgeInsets.all(1.0),
+                                child: DecoratedBox(
+                                    decoration:  const BoxDecoration(
+                                      color: CommonColors.textfiled_gray,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Image.asset("assets/images/profile.png")),
+                              ),
+                            ),
 
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(1.0),
-                              child: DecoratedBox(
-                                  decoration:  const BoxDecoration(
-                                    color: CommonColors.textfiled_gray,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Image.asset("assets/images/profile.png")),
-                            ),
+                            title: CommonWidget.getInstance().normalText(
+                                CommonColors.black,"David",0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w900,fontfamily: false),
+
+                           subtitle:  CommonWidget.getInstance().normalText(
+                               CommonColors.darkGray,"Location: Southfield",0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w600),
+
+
+                            trailing: CommonWidget.getInstance().normalText(
+                                CommonColors.red,"Pending",0,CommonWidget.getInstance().widthFactor(context)*0.026,FontStyle.normal,2,FontWeight.w600),
+
                           ),
-
-                          title: CommonWidget.getInstance().normalText(
-                              CommonColors.black,"David",0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w900,fontfamily: false),
-
-                         subtitle:  CommonWidget.getInstance().normalText(
-                             CommonColors.darkGray,"Location: Southfield",0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w600),
-
-
-                          trailing: CommonWidget.getInstance().normalText(
-                              CommonColors.red,"Pending",0,CommonWidget.getInstance().widthFactor(context)*0.026,FontStyle.normal,2,FontWeight.w600),
-
-                        ),
                      //   ),
+                        ),
                       );
                     }),
 

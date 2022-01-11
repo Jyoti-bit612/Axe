@@ -234,7 +234,7 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
                       ),
                       GestureDetector(
                         onTap: (){
-                          Get.to( EditScore());
+                          Get.to( ()=>EditScore());
                         },
                         child: SizedBox(
                             width: CommonWidget.getInstance().widthFactor(context) * 0.22,
@@ -257,7 +257,6 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
                       GestureDetector(
                         onTap: (){
                           Get.to(const PlayerList());
-
                         },
                         child: SizedBox(
                             width: CommonWidget.getInstance().widthFactor(context) * 0.35,

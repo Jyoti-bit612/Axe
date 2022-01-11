@@ -57,6 +57,14 @@ class OtherUserProfile extends StatelessWidget  implements CallBackInterface{
             backgroundColor: CommonColors.white,
             title: const Text(""),
 
+            leading:  IconButton(
+                padding: EdgeInsets.zero,
+                constraints: BoxConstraints(),
+                onPressed: (){
+                  Get.back();
+                }, icon: const Icon(Icons.arrow_back_rounded,color: CommonColors.black,)),
+
+
             actions: <Widget>[
 
               PopupMenuButton<String>(

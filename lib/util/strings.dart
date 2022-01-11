@@ -35,6 +35,16 @@ class Strings{
   static const String score = "Scores";
   static const String practice_match = "Practice Match";
 
+  static const String match_played = "Match Played";
+  static const String won = "Won";
+  static const String loss = "Loss";
+  static const String overall_point = "Overall Points";
+
+  static const String hatchet = "Hatchets";
+  static const String big_axe = "Big AXE";
+  static const String team_play = "Team Play";
+
+
   static const String match_title = "Match Title";
   static const String league_title = "League Title";
 
