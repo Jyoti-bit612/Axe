@@ -2,6 +2,7 @@ import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/change_password.dart';
 import 'package:axe/screens/create_league.dart';
 import 'package:axe/screens/create_match.dart';
+import 'package:axe/screens/edit_score.dart';
 import 'package:axe/screens/login.dart';
 import 'package:axe/screens/new_invitation.dart';
 import 'package:axe/screens/notification.dart';
@@ -15,8 +16,8 @@ import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Profile extends StatelessWidget  implements CallBackInterface{
-   Profile({Key? key}) : super(key: key);
+class UserProfile extends StatelessWidget  implements CallBackInterface{
+  UserProfile({Key? key}) : super(key: key);
 
   var myMenuItems = <String>[
     Strings.privacy_profile,
@@ -83,6 +84,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.01,
                 ),
@@ -131,16 +133,91 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                 ),
 
                 Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        children: [
+                          CommonWidget.getInstance().normalText(
+                              CommonColors.black, "Big Axe",1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                          SizedBox(
+                            height: CommonWidget.getInstance().widthFactor(context) * 0.02,
+                          ),
+                          CommonWidget.getInstance().normalText(
+                              CommonColors.primaryColor1, "72",1,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                        ],
+                      ),
+
+                      Container(
+                        color: CommonColors.grayColor,
+                        width: 1,
+                        height: CommonWidget.getInstance().widthFactor(context)*0.2,
+
+                      ),
+
+                      Column(
+                        children: [
+                          CommonWidget.getInstance().normalText(
+                              CommonColors.black, "Hatchets",1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                          SizedBox(
+                            height: CommonWidget.getInstance().widthFactor(context) * 0.02,
+                          ),
+                          CommonWidget.getInstance().normalText(
+                              CommonColors.primaryColor1, "18",1,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                        ],
+                      ),
+                      Container(
+                        color: CommonColors.grayColor,
+                        width: 1,
+                        height: CommonWidget.getInstance().widthFactor(context)*0.2,
+
+                      ),
+                      Column(
+                        children: [
+                          CommonWidget.getInstance().normalText(
+                              CommonColors.black, "Teamplay",1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                          SizedBox(
+                            height: CommonWidget.getInstance().widthFactor(context) * 0.02,
+                          ),
+                          CommonWidget.getInstance().normalText(
+                              CommonColors.primaryColor1, "23",1,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                        ],
+                      ),
+
+                      Container(
+                        color: CommonColors.grayColor,
+                        width: 1,
+                        height: CommonWidget.getInstance().widthFactor(context)*0.2,
+
+                      ),
+                      Column(
+                        children: [
+                          CommonWidget.getInstance().normalText(
+                              CommonColors.black, "P. Score",1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                          SizedBox(
+                            height: CommonWidget.getInstance().widthFactor(context) * 0.02,
+                          ),
+                          CommonWidget.getInstance().normalText(
+                              CommonColors.primaryColor1, "36",1,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                        ],
+                      ),
+
+                    ]
+                ),
+
+                SizedBox(
+                  height: CommonWidget.getInstance().widthFactor(context) * 0.06,
+                ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       GestureDetector(
                         onTap: (){
-                          Get.to( CreateLeague());
+                          Get.to(()=>const NewInvitaton());
 
                         },
                         child: SizedBox(
                             width: CommonWidget.getInstance().widthFactor(context) * 0.3,
-                            height: CommonWidget.getInstance().widthFactor(context) * 0.25,
+                            height: CommonWidget.getInstance().widthFactor(context) * 0.12,
                             child: DecoratedBox(
                               decoration: const BoxDecoration(
                                   borderRadius: BorderRadius.all(Radius.circular(6)),
@@ -149,30 +226,19 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                                     end: Alignment.bottomCenter,
                                   )),
 
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-
-                                  Image.asset("assets/images/create_league.png",width: CommonWidget.getInstance().widthFactor(context) * 0.09,),
-
-                                  SizedBox(
-                                    height: CommonWidget.getInstance().widthFactor(context) * 0.03,
-                                  ),
-                                  CommonWidget.getInstance().normalText(
-                                      CommonColors.white, Strings.create_league,1,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
-
-                                ],
-                              ) ,
+                              child: Center(
+                                child: CommonWidget.getInstance().normalText(
+                                        CommonColors.white, Strings.invitaion,1,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                              ),
                             )),
                       ),
                       GestureDetector(
                         onTap: (){
-                          Get.to( CreateMatch());
+                          Get.to( EditScore());
                         },
                         child: SizedBox(
-                            width: CommonWidget.getInstance().widthFactor(context) * 0.3,
-                            height: CommonWidget.getInstance().widthFactor(context) * 0.25,
+                            width: CommonWidget.getInstance().widthFactor(context) * 0.22,
+                            height: CommonWidget.getInstance().widthFactor(context) * 0.12,
                             child: DecoratedBox(
                               decoration: const BoxDecoration(
                                   borderRadius: BorderRadius.all(Radius.circular(6)),
@@ -181,20 +247,11 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                                     end: Alignment.bottomCenter,
                                   )),
 
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
+                              child: Center(
+                                child: CommonWidget.getInstance().normalText(
+                                        CommonColors.white, Strings.score,1,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                              ),
 
-                                  Image.asset("assets/images/create_match2.png",width: CommonWidget.getInstance().widthFactor(context) * 0.09,),
-
-                                  SizedBox(
-                                    height: CommonWidget.getInstance().widthFactor(context) * 0.03,
-                                  ),
-                                  CommonWidget.getInstance().normalText(
-                                      CommonColors.white, Strings.create_match,1,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
-                                ],
-                              ) ,
                             )),
                       ),
                       GestureDetector(
@@ -203,8 +260,8 @@ class Profile extends StatelessWidget  implements CallBackInterface{
 
                         },
                         child: SizedBox(
-                            width: CommonWidget.getInstance().widthFactor(context) * 0.3,
-                            height: CommonWidget.getInstance().widthFactor(context) * 0.25,
+                            width: CommonWidget.getInstance().widthFactor(context) * 0.35,
+                            height: CommonWidget.getInstance().widthFactor(context) * 0.12,
                             child: DecoratedBox(
                               decoration: const BoxDecoration(
                                   borderRadius: BorderRadius.all(Radius.circular(6)),
@@ -213,19 +270,11 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                                     end: Alignment.bottomCenter,
                                   )),
 
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
+                              child: Center(
+                                child: CommonWidget.getInstance().normalText(
+                                        CommonColors.white, Strings.practice_match,1,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                              ),
 
-                                  Image.asset("assets/images/playerprofile.png",width: CommonWidget.getInstance().widthFactor(context) * 0.09,),
-                                  SizedBox(
-                                    height: CommonWidget.getInstance().widthFactor(context) * 0.03,
-                                  ),
-                                  CommonWidget.getInstance().normalText(
-                                      CommonColors.white, Strings.player,1,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
-                                ],
-                              ) ,
                             )),
                       )
                     ]
@@ -293,26 +342,6 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                     height: 20,
                     thickness: 1,
                     color: CommonColors.grayColor,
-                  ),
-                ),
-
-                SizedBox(
-                  height: CommonWidget.getInstance().widthFactor(context) * 0.06,
-                ),
-
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left:6.0),
-                    child: CommonWidget.getInstance().flexibleButton(
-                      context,
-                      Strings.player_request,
-                      CommonWidget.getInstance().widthFactor(context) * 0.6,
-                      CommonWidget.getInstance().widthFactor(context) * 0.13,
-                      CommonColors.primaryColor1,
-                      CommonColors.primaryColor1,
-                      CommonColors.white,
-                      this,
-                    ),
                   ),
                 ),
 
@@ -421,9 +450,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
   @override
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
     switch(title){
-      case Strings.player_request:
-        Get.to(()=>const NewInvitaton());
-        break;
+
 
     }
   }

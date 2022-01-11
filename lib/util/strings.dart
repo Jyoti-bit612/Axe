@@ -22,6 +22,7 @@ class Strings{
   static const String player_request = "Player Requests";
   static const String create_league = "Create League";
   static const String log_in = "Log-In";
+  static const String edit_scrore = "Edit Score";
   static const String reset_password = "Reset Password";
   static const String signu_up = "Sign-up";
   static const String new_invitation = "New Invitations";
@@ -29,6 +30,10 @@ class Strings{
   static const String email = "Email";
   static const String live_match = "Live Match";
   static const String matches = "Matches";
+
+  static const String invitaion = "Invitations";
+  static const String score = "Scores";
+  static const String practice_match = "Practice Match";
 
   static const String match_title = "Match Title";
   static const String league_title = "League Title";

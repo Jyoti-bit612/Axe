@@ -285,7 +285,7 @@ class CommonWidget {
                 textAlign: TextAlign.center,
                 style:  TextStyle(
                     color: textColor,
-                    fontFamily: "Lato",
+                    fontFamily: "nunito_regular.ttf",
                     fontSize: textSize ?? CommonWidget.getInstance().widthFactor(context) * 0.04,
                     fontWeight: FontWeight.bold))),
       ),
