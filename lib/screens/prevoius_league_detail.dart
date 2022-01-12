@@ -173,7 +173,7 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
                   unselectedLabelColor: CommonColors.black,
                   controller: _tabController,
                   // indicatorSize: TabBarIndicatorSize.tab,
-                  indicatorPadding: EdgeInsets.only(top:CommonWidget.getInstance().widthFactor(context) * 0.111),
+                  indicatorPadding: EdgeInsets.only(top:CommonWidget.getInstance().widthFactor(context) * 0.12),
                   indicatorWeight: 0.1,
                   //labelPadding: const EdgeInsets.only(left: 0.0, right: 0.0),
                   indicator:  const BoxDecoration(
@@ -532,11 +532,9 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
 
 
         Expanded(
-          child: ListView.separated(
+          child: ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
-              // shrinkWrap: true,
               itemCount:  9,
-              separatorBuilder: (BuildContext context, int index) => Divider(height: 1),
               itemBuilder: (context, index) {
                 return SizedBox(
                   child: Column(
@@ -556,18 +554,19 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
                       ),
 
                       SizedBox(
-                        height: CommonWidget.getInstance().widthFactor(context)*0.39,
+                        height: CommonWidget.getInstance().widthFactor(context)*0.56,
                         child: Card(
                           elevation: 4,
                           child: ListView.builder(
                               scrollDirection: Axis.horizontal,
-                              itemCount:  20,
-                              // shrinkWrap: true,
-                              itemBuilder: (index1,context1){
+                              itemCount:  12,
+                              itemBuilder: (context,innerIndex){
                                 return  Padding(
                                   padding: const EdgeInsets.only(top:8.0,bottom: 0),
                                   child:Table(
-                                    defaultColumnWidth: FixedColumnWidth(CommonWidget.getInstance().widthFactor(context)*0.1),
+                                    defaultColumnWidth: innerIndex==0?
+                                    FixedColumnWidth(CommonWidget.getInstance().widthFactor(context)*0.25):
+                                    FixedColumnWidth(CommonWidget.getInstance().widthFactor(context)*0.14),
                                     border: TableBorder.all(
                                         color: CommonColors.grayColor,
                                         style: BorderStyle.solid,
@@ -577,31 +576,52 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
                                       TableRow(
                                           children: [
                                             Padding(
-                                              padding: const EdgeInsets.fromLTRB(0.0,6.0,0.0,6.0),
+                                              padding: EdgeInsets.fromLTRB(0.0,CommonWidget.getInstance().widthFactor(context)*0.015,0.0,
+                                                  CommonWidget.getInstance().widthFactor(context)*0.015),
                                               child: CommonWidget.getInstance().normalText(
-                                                  CommonColors.darkGray, "2",1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,FontWeight.w600),
+                                                  CommonColors.grayColor, innerIndex==0?"Throw":innerIndex==11?"T.P":innerIndex.toString(),1,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600),
                                             ),
                                           ]
                                       ),
                                       TableRow(
                                           children: [
-                                            Padding(
-                                              padding: const EdgeInsets.fromLTRB(0.0,15,0.0,15),
-                                              child: CommonWidget.getInstance().normalText(
-                                                  CommonColors.black, "3",1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,FontWeight.w600),
+                                            innerIndex==0?columnNameWidget():
+
+                                            Container(
+                                              color:innerIndex==11?CommonColors.black:CommonColors.white,
+                                              child: Padding(
+                                                padding:  EdgeInsets.fromLTRB(0.0,CommonWidget.getInstance().widthFactor(context)*0.0845,0.0,
+                                                    CommonWidget.getInstance().widthFactor(context)*0.0845),
+                                                child: CommonWidget.getInstance().normalText(
+                                                    innerIndex==11?CommonColors.white:CommonColors.black,
+                                                    innerIndex==11?"42":"3",
+                                                    1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,
+                                                    innerIndex==11?
+                                                    FontWeight.w200:
+                                                    FontWeight.w600
+                                                ),
+                                              ),
                                             ),
                                           ]
                                       ),
 
                                       TableRow(
                                           children: [
+                                            innerIndex==0?columnNameWidget():
+
                                             Padding(
-                                              padding: const EdgeInsets.fromLTRB(0.0,15.0,0.0,15.0),
+                                              padding:  EdgeInsets.fromLTRB(0.0,CommonWidget.getInstance().widthFactor(context)*0.0845,0.0,
+                                                  CommonWidget.getInstance().widthFactor(context)*0.0845),
                                               child: CommonWidget.getInstance().normalText(
-                                                  CommonColors.black, "4",1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,FontWeight.w600),
+                                                  CommonColors.black,
+                                                  innerIndex==11?"32":"5",
+                                                  1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,
+                                                  innerIndex==11?
+                                                  FontWeight.w200:
+                                                  FontWeight.w600
+                                              ),
                                             ),
                                           ]
-
                                       ),
 
                                     ],
@@ -617,6 +637,45 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
         ),
       ],
     );
+  }
+
+  columnNameWidget(){
+    return Padding(
+      padding:EdgeInsets.fromLTRB(0.0,CommonWidget.getInstance().widthFactor(context)*0.02,0.0,
+        CommonWidget.getInstance().widthFactor(context)*0.01),
+      child: Column(
+        children: [
+            Container(
+              width:  CommonWidget.getInstance().widthFactor(context) * 0.13,
+              height:  CommonWidget.getInstance().widthFactor(context) * 0.13,
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomCenter,
+                ),
+                shape: BoxShape.circle,
+
+              ),
+              child: const Padding(
+                  padding: EdgeInsets.all(1.0),
+                  child: CircleAvatar(
+                    radius: 30.0,
+                    backgroundImage:AssetImage("assets/images/dummypic.jpg"),
+                  )
+              ),
+            ),
+
+            SizedBox(
+              height: CommonWidget.getInstance().heightFactor(context) * 0.01,
+            ),
+
+            CommonWidget.getInstance().normalText(
+                CommonColors.black,"David",0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w700,fontfamily: true),
+
+      ],
+      ),
+    );
+
   }
 
   @override

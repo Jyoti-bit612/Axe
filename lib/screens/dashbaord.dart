@@ -5,6 +5,8 @@ import 'package:axe/screens/profile.dart';
 import 'package:axe/screens/other_user_profile.dart';
 import 'package:axe/screens/user_profile.dart';
 import 'package:axe/util/commoncolors.dart';
+import 'package:axe/util/constants.dart';
+import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,8 +31,12 @@ class _DashBoardState extends State<DashBoard> {
   @override
   void initState() {
     super.initState();
+
+    getLoginType();
+
     _children = [Home(),CurrentLeague(),PlayerList(), UserProfile()];
-      pre_backpress=DateTime.now();
+    pre_backpress=DateTime.now();
+
   }
 
   @override
@@ -87,5 +93,8 @@ class _DashBoardState extends State<DashBoard> {
     });
   }
 
+   getLoginType() async {
+     Global.loginType=await Global.getStringValuesSF(Constant.LoginType);
+  }
 
 }

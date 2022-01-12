@@ -15,17 +15,7 @@ import 'package:http/http.dart' as http;
 
 class Global {
 
-  static  var jobs="";
-  static  var pets="";
-  static  var hobbies="";
-  static  var interest="";
-  static  var interest_lost="";
-  static  var bad_habit="";
-  static  var trauma="";
-  static  var spritual="";
-
-  //
-  static var packageName="";
+  static var loginType="1";  // 1 for user and 2 for venue
 
   static final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
@@ -42,7 +32,7 @@ class Global {
   }
 
   static Future<String> getData(BuildContext context,String endUrl, String apiName, CallBackInterface callBackInterface) async {
-    var token=await Global.getStringValuesSF(Constant.AccessToken);
+   var token=await Global.getStringValuesSF(Constant.AccessToken);
     print(token);
     var response = await http.get(Uri.parse(Constant.baseUrl + endUrl),
         headers: {"Accept": "application/json",

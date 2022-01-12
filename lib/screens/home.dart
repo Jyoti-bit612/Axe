@@ -1,14 +1,16 @@
+import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/prevoius_league_detail.dart';
 import 'package:axe/screens/upcoming_league_detail.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
+import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
 
-class Home extends StatelessWidget {
+class Home extends StatelessWidget  implements CallBackInterface{
    const Home({Key? key}) : super(key: key);
 
   @override
@@ -20,11 +22,26 @@ class Home extends StatelessWidget {
             padding: const EdgeInsets.all(12.0),
             child: Column(
               children: [
-
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                 ),
 
+                Visibility(
+                  visible: Global.loginType=="1"?true:false,
+                  child: CommonWidget.getInstance().flexibleButton(
+                    context,
+                    Strings.play_practice_match,
+                    double.infinity,
+                    CommonWidget.getInstance().widthFactor(context) * 0.13,
+                    CommonColors.primaryColor1,
+                    CommonColors.primaryColor1,
+                    CommonColors.white,
+                    this,
+                  ),
+                ),
+                SizedBox(
+                  height: CommonWidget.getInstance().heightFactor(context) * 0.02,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -285,6 +302,17 @@ class Home extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  @override
+  void widgetCallBack(String title, String value, BuildContext context) {
+
+    switch(title){
+      case Strings.play_practice_match:
+
+
+        break;
+    }
   }
 }
 

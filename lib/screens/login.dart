@@ -5,6 +5,8 @@ import 'package:axe/screens/forgotpassword.dart';
 import 'package:axe/screens/signup.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
+import 'package:axe/util/constants.dart';
+import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -260,6 +262,8 @@ class Login extends StatelessWidget  implements CallBackInterface{
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
     switch(title){
       case Strings.login:
+       await Global.addStringToSF("1",Constant.LoginType);
+
         Get.to(()=>DashBoard(0));
         break;
 

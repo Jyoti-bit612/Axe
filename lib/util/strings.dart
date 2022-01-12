@@ -10,8 +10,10 @@ class Strings{
 
 
   static const String login = "Login";
+  static const String play_practice_match ="Play Pratice Match";
   static const String accepted = "Accepted";
   static const String rejected = "Rejected";
+  static const String join_league = "Join League";
   static const String update_score = "Update Score";
   static const String end_game = "End Game";
   static const String call_killshot = "Call Killshot";

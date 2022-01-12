@@ -2,6 +2,7 @@ import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/other_user_profile.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
+import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -53,7 +54,27 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
                 ),
 
                 SizedBox(
-                  height: CommonWidget.getInstance().heightFactor(context) * 0.02,
+                  height: CommonWidget.getInstance().heightFactor(context) * 0.04,
+                ),
+
+                Visibility(
+                  visible: Global.loginType=="1"?true:false,
+                  child: Center(
+                    child: CommonWidget.getInstance().flexibleButton(
+                      context,
+                      Strings.join_league,
+                      CommonWidget.getInstance().widthFactor(context) * 0.37,
+                      CommonWidget.getInstance().widthFactor(context) * 0.13,
+                      CommonColors.primaryColor1,
+                      CommonColors.primaryColor1,
+                      CommonColors.white,
+                      this,
+                    ),
+                  ),
+                ),
+
+                SizedBox(
+                  height: CommonWidget.getInstance().heightFactor(context) * 0.03,
                 ),
 
                 CommonWidget.getInstance().normalText(
@@ -142,17 +163,20 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
                   height: CommonWidget.getInstance().heightFactor(context) * 0.03,
                 ),
 
-                CommonWidget.getInstance().flexibleButtonWithIcon(
-                    context,
-                    Strings.invite_player,
-                    CommonWidget.getInstance().widthFactor(context)*0.5,
-                    CommonWidget.getInstance().widthFactor(context)*0.14,
-                    CommonColors.primaryColor1,
-                    CommonColors.primaryColor1,
-                    CommonColors.white,
-                    this,
-                    "",
-                    CommonColors.white),
+                Visibility(
+                    visible: Global.loginType=="1"?false:true,
+                  child: CommonWidget.getInstance().flexibleButtonWithIcon(
+                      context,
+                      Strings.invite_player,
+                      CommonWidget.getInstance().widthFactor(context)*0.5,
+                      CommonWidget.getInstance().widthFactor(context)*0.14,
+                      CommonColors.primaryColor1,
+                      CommonColors.primaryColor1,
+                      CommonColors.white,
+                      this,
+                      "",
+                      CommonColors.white),
+                ),
               ],
             ),
           ),

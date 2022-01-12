@@ -256,7 +256,6 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                               ],
                             ))),
 
-
                   ],
                 ),
 

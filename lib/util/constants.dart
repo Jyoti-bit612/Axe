@@ -60,17 +60,8 @@ class Constant{
   static const String createHtml="/create-shopping-html";
 
   //key for sharedPrefrence
-  static const String AccessToken="access_token";
-  static const String SubscriptionID="subscriptionID";
-  static const String packageName="packageName";
-  static const String packagedescription="packageDescription";
-  static const String userId="userId";
-  static const String is_active="is_active";
-  static const String measure_units="measure_units";
-  static const String subscription="subscription";
-  static const String challengeTaken="challengeTaken";
-  static const String firstname="firstName";
-  static const String lastname="lastName";
-  static const String dummyPic="assets/images/dummyPic.jpg";
+  static const String LoginType="login_type";
+  static const String AccessToken="acccess_token";
+
 }
 
