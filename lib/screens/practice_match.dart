@@ -39,8 +39,6 @@ class PracticeMatch extends StatelessWidget implements CallBackInterface  {
                   height: CommonWidget.getInstance().widthFactor(context) * 0.05,
                 ),
 
-
-
                 Row(
                   children: [
 
