@@ -151,7 +151,7 @@ class PracticeMatch extends StatelessWidget implements CallBackInterface  {
                 ListView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount:  10,
+                          itemCount:  12,
                           itemBuilder: (context, index) {
                             return Padding(
                               padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context)*0.045,
@@ -159,50 +159,33 @@ class PracticeMatch extends StatelessWidget implements CallBackInterface  {
                               child: Table(
                                 defaultColumnWidth: FixedColumnWidth(CommonWidget.getInstance().widthFactor(context)*0.1),
                                 border: TableBorder.all(
-                                    color: CommonColors.black,
+                                    color: CommonColors.darkGray,
                                     style: BorderStyle.solid,
                                     width: 1),
 
                                 children: [
                                   TableRow(
                                       children: [
-                                        Column(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.fromLTRB(0.0,6.0,0.0,6.0),
-                                              child: TextFormField(
-                                                textAlign: TextAlign.center,
-                                                keyboardType: TextInputType.number,
-                                                decoration: const InputDecoration.collapsed(
-                                                  hintText: '0',
-                                                ),
-                                                onSaved: (String? value) {
-
-                                                },
-                                              )
-                                            ),
-                                          ],
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(0.0,6.0,0.0,6.0),
+                                          child: CommonWidget.getInstance().normalText(
+                                              CommonColors.black,index==0?"Throw":index==11?"Total":index.toString(),1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,0,FontWeight.w600,fontfamily: true),
                                         ),
 
-                                        Column(
-                                          children: [
-                                            Padding(
-                                              padding: const EdgeInsets.fromLTRB(0.0,6.0,0.0,6.0),
-                                              child: TextFormField(
-                                                textAlign: TextAlign.center,
-                                                keyboardType: TextInputType.number,
-                                                decoration: const InputDecoration.collapsed(
-                                                  hintText: '0',
-                                                ),
-                                                onSaved: (String? value) {
-
-                                                },
-
-                                              )
+                                        Padding(
+                                          padding: const EdgeInsets.fromLTRB(0.0,6.0,0.0,6.0),
+                                          child: TextFormField(
+                                            textAlign: TextAlign.center,
+                                            keyboardType: TextInputType.number,
+                                            decoration: const InputDecoration.collapsed(
+                                              hintText: '',
                                             ),
-                                          ],
-                                        ),
+                                            onSaved: (String? value) {
 
+                                            },
+
+                                          )
+                                        ),
                                       ]
                                   ),
                                 ],
@@ -215,12 +198,11 @@ class PracticeMatch extends StatelessWidget implements CallBackInterface  {
                 ),
 
                 Row(
-
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    buttonWidget(Strings.call_killshot,CommonWidget.getInstance().widthFactor(context) * 0.34,context),
+                    buttonWidget(Strings.call_killshot,CommonWidget.getInstance().widthFactor(context) * 0.4,context),
 
-                    buttonWidget(Strings.call_killshot,CommonWidget.getInstance().widthFactor(context) * 0.34,context),
+                    buttonWidget(Strings.reset_throw,CommonWidget.getInstance().widthFactor(context) * 0.4,context),
 
                   ],
                 ),
@@ -233,43 +215,12 @@ class PracticeMatch extends StatelessWidget implements CallBackInterface  {
 
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    buttonWidget(Strings.winner,CommonWidget.getInstance().widthFactor(context) * 0.4,context),
-                    buttonWidget(Strings.winner,CommonWidget.getInstance().widthFactor(context) * 0.4,context),
+                    buttonWidget(Strings.drop,CommonWidget.getInstance().widthFactor(context) * 0.4,context),
+                    buttonWidget(Strings.zero,CommonWidget.getInstance().widthFactor(context) * 0.4,context),
 
                   ],
                 ),
 
-                SizedBox(
-                  height: CommonWidget.getInstance().widthFactor(context) * 0.05,
-                ),
-
-                Row(
-
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    buttonWidget(Strings.switch_side,CommonWidget.getInstance().widthFactor(context) * 0.4,context),
-                    buttonWidget(Strings.sudden_death_throw,CommonWidget.getInstance().widthFactor(context) * 0.4,context),
-
-                  ],
-                ),
-
-
-                SizedBox(
-                  height: CommonWidget.getInstance().widthFactor(context) * 0.05,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left:6.0),
-                  child: CommonWidget.getInstance().flexibleButton(
-                    context,
-                    Strings.update_score,
-                    double.infinity,
-                    CommonWidget.getInstance().widthFactor(context) * 0.13,
-                    CommonColors.primaryColor1,
-                    CommonColors.primaryColor1,
-                    CommonColors.white,
-                    this,
-                  ),
-                ),
               ],
             )
           ),
@@ -284,11 +235,11 @@ class PracticeMatch extends StatelessWidget implements CallBackInterface  {
       width: width,
       child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-              primary: CommonColors.black,
+              primary: CommonColors.chat_gray,
               onPrimary: Colors.transparent,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(6),
-                  side: BorderSide(color: CommonColors.black)
+                  side: BorderSide(color: CommonColors.chat_gray)
 
               )),
 
@@ -307,9 +258,8 @@ class PracticeMatch extends StatelessWidget implements CallBackInterface  {
 
   @override
   void widgetCallBack(String title, String value, BuildContext context) {
-    // TODO: implement widgetCallBack
-  }
 
+  }
 
 }
 

@@ -17,6 +17,9 @@ class Strings{
   static const String update_score = "Update Score";
   static const String end_game = "End Game";
   static const String call_killshot = "Call Killshot";
+  static const String reset_throw = "Reset Throw";
+  static const String drop = "Drop";
+  static const String zero = "Zero";
   static const String winner = "Winner";
   static const String switch_side = "Switch Sides";
   static const String sudden_death_throw = "Sudden death throw";
