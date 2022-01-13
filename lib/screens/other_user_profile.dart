@@ -119,7 +119,7 @@ class OtherUserProfile extends StatelessWidget  implements CallBackInterface{
 
                 Center(
                   child: CommonWidget.getInstance().normalText(
-                      CommonColors.black, "John Bradley",0,CommonWidget.getInstance().widthFactor(context)*0.06,FontStyle.normal,2,FontWeight.w600,fontfamily: true),
+                      CommonColors.black, "John Bradley",0,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,2,FontWeight.w600,fontfamily: true),
                 ),
                 SizedBox(
                   height: CommonWidget.getInstance().widthFactor(context) * 0.01,
@@ -139,12 +139,12 @@ class OtherUserProfile extends StatelessWidget  implements CallBackInterface{
                       Column(
                         children: [
                           CommonWidget.getInstance().normalText(
-                              CommonColors.black, "Big Axe",1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                              CommonColors.black, "Big Axe",1,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
                           SizedBox(
                             height: CommonWidget.getInstance().widthFactor(context) * 0.02,
                           ),
                           CommonWidget.getInstance().normalText(
-                              CommonColors.primaryColor1, "72",1,CommonWidget.getInstance().widthFactor(context)*0.06,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                              CommonColors.primaryColor1, "72",1,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
                         ],
                       ),
 
@@ -158,12 +158,12 @@ class OtherUserProfile extends StatelessWidget  implements CallBackInterface{
                       Column(
                         children: [
                           CommonWidget.getInstance().normalText(
-                              CommonColors.black, "Hatchets",1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                              CommonColors.black, "Hatchets",1,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
                           SizedBox(
                             height: CommonWidget.getInstance().widthFactor(context) * 0.02,
                           ),
                           CommonWidget.getInstance().normalText(
-                              CommonColors.primaryColor1, "18",1,CommonWidget.getInstance().widthFactor(context)*0.06,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                              CommonColors.primaryColor1, "18",1,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
                         ],
                       ),
                       Container(
@@ -175,12 +175,12 @@ class OtherUserProfile extends StatelessWidget  implements CallBackInterface{
                       Column(
                         children: [
                           CommonWidget.getInstance().normalText(
-                              CommonColors.black, "Teamplay",1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                              CommonColors.black, "Teamplay",1,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
                           SizedBox(
                             height: CommonWidget.getInstance().widthFactor(context) * 0.02,
                           ),
                           CommonWidget.getInstance().normalText(
-                              CommonColors.primaryColor1, "23",1,CommonWidget.getInstance().widthFactor(context)*0.06,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                              CommonColors.primaryColor1, "23",1,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
                         ],
                       ),
 

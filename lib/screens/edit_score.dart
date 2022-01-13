@@ -2,6 +2,7 @@ import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/dropdownclass.dart';
+import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -83,7 +84,7 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                                     children: [
 
                                       CommonWidget.getInstance().normalText(
-                                          CommonColors.black, "John Bradley",0,CommonWidget.getInstance().widthFactor(context)*0.06,FontStyle.normal,2,FontWeight.w600,fontfamily: true),
+                                          CommonColors.black, "John Bradley",0,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,2,FontWeight.w600,fontfamily: true),
 
                                       SizedBox(
                                         height: CommonWidget.getInstance().widthFactor(context) * 0.04,
@@ -188,20 +189,20 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                             children: [
 
                               CommonWidget.getInstance().normalText(
-                                  CommonColors.black, Strings.hatchet,0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,FontWeight.w600,fontfamily: true),
+                                  CommonColors.black, Strings.hatchet,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600,fontfamily: true),
 
                               SizedBox(
                                 width: CommonWidget.getInstance().widthFactor(context) * 0.05,
                               ),
 
                               CommonWidget.getInstance().normalText(
-                                  CommonColors.black, Strings.big_axe,0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,FontWeight.w600,fontfamily: true),
+                                  CommonColors.black, Strings.big_axe,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600,fontfamily: true),
                               SizedBox(
                                 width: CommonWidget.getInstance().widthFactor(context) * 0.05,
                               ),
 
                               CommonWidget.getInstance().normalText(
-                                  CommonColors.black, Strings.team_play,0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,FontWeight.w600,fontfamily: true),
+                                  CommonColors.black, Strings.team_play,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600,fontfamily: true),
 
                             ],
                           ),
@@ -341,14 +342,15 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                                       SizedBox(
                                         height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                                       ),
-
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           CommonWidget.getInstance().normalText(
                                               CommonColors.black, "Match"+{index+1}.toString(),0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600),
 
-                                          const Icon(Icons.edit,color: CommonColors.primaryColor1,)
+                                          Visibility(
+                                              visible: Global.loginType=="1"?false:true,
+                                              child: const Icon(Icons.edit,color: CommonColors.primaryColor1,))
 
                                         ],
                                       ),
@@ -399,15 +401,15 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                                                               child: CommonWidget.getInstance().normalText(
                                                                   index1==0?CommonColors.darkGray:CommonColors.white,
                                                                   index1==0?"Points":"42",
-                                                                  1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,
+                                                                  1,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,
                                                                   index1==0?
                                                                   FontWeight.w200:
                                                                   FontWeight.w600
                                                               ),
                                                             ):
                                                             Padding(
-                                                              padding:  EdgeInsets.fromLTRB(0.0,CommonWidget.getInstance().widthFactor(context)*0.01,0.0,
-                                                                  CommonWidget.getInstance().widthFactor(context)*0.01),
+                                                              padding:  EdgeInsets.fromLTRB(0.0,CommonWidget.getInstance().widthFactor(context)*0.05,0.0,
+                                                                  CommonWidget.getInstance().widthFactor(context)*0.05),
                                                               child: TextField(
                                                                 maxLength:2,
                                                                 keyboardType: TextInputType.number,
@@ -440,18 +442,21 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                             height: CommonWidget.getInstance().heightFactor(context) * 0.04,
                           ),
 
-                          Center(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left:6.0),
-                              child: CommonWidget.getInstance().flexibleButton(
-                                context,
-                                Strings.update_score,
-                                CommonWidget.getInstance().widthFactor(context) * 0.6,
-                                CommonWidget.getInstance().widthFactor(context) * 0.13,
-                                CommonColors.primaryColor1,
-                                CommonColors.primaryColor1,
-                                CommonColors.white,
-                                this,
+                          Visibility(
+                            visible: Global.loginType=="1"?false:true,
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left:6.0),
+                                child: CommonWidget.getInstance().flexibleButton(
+                                  context,
+                                  Strings.update_score,
+                                  CommonWidget.getInstance().widthFactor(context) * 0.6,
+                                  CommonWidget.getInstance().widthFactor(context) * 0.13,
+                                  CommonColors.primaryColor1,
+                                  CommonColors.primaryColor1,
+                                  CommonColors.white,
+                                  this,
+                                ),
                               ),
                             ),
                           ),

@@ -118,7 +118,7 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
 
                 Center(
                   child: CommonWidget.getInstance().normalText(
-                      CommonColors.black, "John D. McHenry",0,CommonWidget.getInstance().widthFactor(context)*0.06,FontStyle.normal,1,FontWeight.w400),
+                      CommonColors.black, "John D. McHenry",0,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w400),
                 ),
                 SizedBox(
                   height: CommonWidget.getInstance().widthFactor(context) * 0.01,

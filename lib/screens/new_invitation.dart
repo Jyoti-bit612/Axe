@@ -42,8 +42,12 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
                 }, icon: const Icon(Icons.arrow_back_rounded)),
 
 
+                SizedBox(
+                  height: CommonWidget.getInstance().heightFactor(context) * 0.02,
+                ),
+
                 CommonWidget.getInstance().normalText(
-                    CommonColors.black, Strings.new_invitation,0,CommonWidget.getInstance().widthFactor(context)*0.06,FontStyle.normal,2,FontWeight.w600),
+                    CommonColors.black, Strings.new_invitation,0,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,2,FontWeight.w600),
 
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.02,
@@ -60,7 +64,7 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
                   labelColor: CommonColors.black,
                   unselectedLabelColor: CommonColors.black,
                   controller: _tabController,
-                  indicatorPadding: EdgeInsets.only(top:CommonWidget.getInstance().widthFactor(context) * 0.12),
+                  indicatorPadding: EdgeInsets.only(top:CommonWidget.getInstance().widthFactor(context) * 0.1),
                   indicatorWeight: 0.1,
                   indicator:  const BoxDecoration(
                     gradient: LinearGradient(
@@ -150,7 +154,7 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CommonWidget.getInstance().normalText(
-                                CommonColors.black,"David",0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600,fontfamily: false),
+                                CommonColors.black,"David",0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600,fontfamily: false),
                             SizedBox(
                               height: CommonWidget.getInstance().widthFactor(context) * 0.01,
                             ),
