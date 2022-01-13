@@ -99,6 +99,7 @@ flutter:
      - assets/images/purplei.png
      - assets/images/yellowi.png
      - assets/images/greentick.png
+     - assets/images/practice_matches.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

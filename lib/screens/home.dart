@@ -1,4 +1,5 @@
 import 'package:axe/interface/CallBackInterface.dart';
+import 'package:axe/screens/practice_match.dart';
 import 'package:axe/screens/prevoius_league_detail.dart';
 import 'package:axe/screens/upcoming_league_detail.dart';
 import 'package:axe/util/commoncolors.dart';
@@ -310,6 +311,7 @@ class Home extends StatelessWidget  implements CallBackInterface{
     switch(title){
       case Strings.play_practice_match:
 
+        Get.to(()=>PracticeMatch());
 
         break;
     }

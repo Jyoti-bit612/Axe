@@ -45,6 +45,7 @@ class Strings{
   static const String hatchet = "Hatchets";
   static const String big_axe = "Big AXE";
   static const String team_play = "Team Play";
+  static const String duals = "Duals";
 
 
   static const String match_title = "Match Title";
