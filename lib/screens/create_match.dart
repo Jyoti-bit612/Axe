@@ -1,13 +1,15 @@
+import 'dart:convert';
+
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
+import 'package:axe/util/constants.dart';
 import 'package:axe/util/dropdownclass.dart';
+import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-
 
 class CreateMatch extends StatelessWidget implements CallBackInterface{
   CreateMatch({Key? key}) : super(key: key);
@@ -364,7 +366,34 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
   }
 
   @override
-  void widgetCallBack(String title, String value, BuildContext context) {
-    // TODO: implement widgetCallBack
+  Future<void> widgetCallBack(String title, String value, BuildContext context) async {
+    switch(title){
+      case Strings.create_match:
+        if(CommonWidget.getInstance().isValidate(formKey)){
+          Global.showLoaderDialog(context);
+          var  jsonBody  =  {
+            "match_title":emailController.text.toString(),
+            "league_id": passwordController.text.toString(),
+            "match_type":Constant.deviceToken,
+            "match_schedule":Constant.deviceToken,
+            "players1_ids":Constant.deviceToken,
+            "players2_ids":Constant.deviceToken,
+            "description":Constant.deviceToken
+          };
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+          Global.postData(context,Constant.create_match,"createMatchApi",jsonBody,this);
+        }
+
+        break;
+
+      case "createMatchApi":
+        Get.back();
+        Global.showSnackBar(context, jsonDecode(value)["message"]);
+        break;
+    }
+
   }
 }

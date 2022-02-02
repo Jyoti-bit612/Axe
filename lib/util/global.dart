@@ -28,7 +28,7 @@ class Global {
   static getStringValuesSF(String key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? stringValue = prefs.getString(key);
-    return stringValue;
+    return stringValue??"";
   }
 
   static Future<String> getData(BuildContext context,String endUrl, String apiName, CallBackInterface callBackInterface) async {
@@ -48,11 +48,29 @@ class Global {
     return "Success!";
   }
 
+  static showLoaderDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+      content: new Row(
+        children: [
+          CircularProgressIndicator(),
+          Container(
+              margin: EdgeInsets.only(left: 5), child: Text("Please Wait...")),
+        ],
+      ),
+    );
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
 
   static Future<String> postData(BuildContext context, String endUrl, String apiName, Map jsonBody, CallBackInterface callBackInterface) async {
     print(jsonBody.toString());
     var token=await Global.getStringValuesSF(Constant.AccessToken);
-    token ?? "";
 
     var url = Constant.baseUrl + endUrl;
 
@@ -68,82 +86,102 @@ class Global {
 
     if (response.statusCode == 201 ||response.statusCode == 200) {
       callBackInterface.widgetCallBack(apiName, response.body,context);
-    } else if (response.statusCode == 422) {
+    } else if (response.statusCode == 404) {
       Get.back();
-      if (json.decode(response.body)["errors"]["phone_number"] != null)
-        toast(context, json.decode(response.body)["errors"]["phone_number"][0].toString());
-      else if (json.decode(response.body)["errors"]["device_token"] != null)
-        toast(context,
-            json.decode(response.body)["errors"]["device_token"][0].toString());
-      else if (json.decode(response.body)["errors"]["email"] != null)
-        toast(context,json.decode(response.body)["errors"]["email"][0].toString());
-      else if (json.decode(response.body)["errors"]["address"] != null)
-        toast(context,json.decode(response.body)["errors"]["address"][0].toString());
-      else if (json.decode(response.body)["errors"]["country"] != null)
-        toast(context,json.decode(response.body)["errors"]["country"][0].toString());
-      else if (json.decode(response.body)["errors"]["password"] != null)
-        toast(context,json.decode(response.body)["errors"]["password"][0].toString());
+      if (json.decode(response.body)["data"]["phone_number"] != null)
+        showSnackBar(context, json.decode(response.body)["errors"]["phone_number"][0].toString());
+      else if (json.decode(response.body)["data"]["device_token"] != null)
+        showSnackBar(context, json.decode(response.body)["errors"]["device_token"][0].toString());
+      else if (json.decode(response.body)["data"]["email"] != null)
+        showSnackBar(context,json.decode(response.body)["errors"]["email"][0].toString());
+      else if (json.decode(response.body)["data"]["address"] != null)
+        showSnackBar(context,json.decode(response.body)["errors"]["address"][0].toString());
+      else if (json.decode(response.body)["data"]["country"] != null)
+        showSnackBar(context,json.decode(response.body)["errors"]["country"][0].toString());
+      else if (json.decode(response.body)["data"]["password"] != null)
+        showSnackBar(context,json.decode(response.body)["errors"]["password"][0].toString());
       else
-        toast(context,json.decode(response.body)["errors"].toString());
+        showSnackBar(context,json.decode(response.body)["errors"].toString());
     }
     else {
-      if(endUrl==Constant.get_Personal_Data ||endUrl.contains(Constant.get_progress) || endUrl==Constant.getMentalHealth ||endUrl.contains(Constant.getHealthDates)){
+      if(endUrl==Constant.login ||endUrl.contains(Constant.login) || endUrl==Constant.login ||endUrl.contains(Constant.login)){
 
-      }else if(endUrl==Constant.changePassword)
+      }else if(endUrl==Constant.login)
       {
         Get.back();
-        toast(context, json.decode(response.body)["message"].toString());
+        showSnackBar(context, json.decode(response.body)["message"].toString());
       }
       else{
         Get.back();
-        toast(context, json.decode(response.body)["error"].toString());
+        showSnackBar(context, json.decode(response.body)["error"].toString());
       }
 
     }
     return "Success!";
   }
 
+  static showPicker(BuildContext context,CallBackInterface callBackInterface) {
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext bc) {
+          return SafeArea(
+            child: Container(
+              child: Wrap(
+                children: <Widget>[
+                   ListTile(
+                      leading:  Icon(Icons.photo_library,size: CommonWidget.getInstance().widthFactor(context)*0.046,),
+                      title:  Text('Gallery',style: TextStyle(fontFamily: "Lato",fontSize: CommonWidget.getInstance().widthFactor(context)*0.046),),
+                      onTap: () {
+                        callBackInterface.widgetCallBack('Gallery',"",context);
+                        Get.back();
+
+                      }),
+                   ListTile(
+                    leading:  Icon(Icons.photo_camera,size: CommonWidget.getInstance().widthFactor(context)*0.046,),
+                    title:  Text('Camera',style: TextStyle(fontFamily: "Lato",fontSize: CommonWidget.getInstance().widthFactor(context)*0.046),),
+                    onTap: () {
+                      callBackInterface.widgetCallBack('Camera',"",context);
+                     Get.back();
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        }
+    );
+  }
 
 
-  static toast(BuildContext context,String message){
+  static showSnackBar(BuildContext context,String message){
     final snackBar = SnackBar(
         content: CommonWidget.getInstance().normalText(
-            CommonColors.white, message,1,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
-        backgroundColor: Theme.of(context).colorScheme.primary);
+            CommonColors.white, message,1,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w200),
+        backgroundColor: CommonColors.primaryColor1);
     return ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   static validation(String title, message, value) {
     switch (title) {
-      case Strings.enter_email:
+      case "phone":
+        if (value.isEmpty) {
+          return message;
+        } else if (value.length < 6 || value.length > 16) {
+          return "Please enter valid phone nUmber";
+        }
+
+        break;
+
+      case "email":
         print(EmailValidator.validate(value));
         if (value.isEmpty) {
           return message;
         } else if (!EmailValidator.validate(value)) {
           return "Please enter a valid email address";
         }
-
         break;
 
-      case Strings.email + "*":
-        print(EmailValidator.validate(value));
-        if (value.isEmpty) {
-          return message;
-        } else if (!EmailValidator.validate(value)) {
-          return "Please enter a valid email address";
-        }
-        break;
-
-        break;
-      case Strings.pass:
-        if (value.isEmpty) {
-          return message;
-        } else if (value.length < 6 || value.length > 20) {
-          return "Password contains 6-20 characters";
-        }
-        break;
-
-      case  Strings.conirm_pass:
+      case  "password":
         if (value.isEmpty) {
           return message;
         } else if (value.length < 6 || value.length > 20) {
@@ -152,18 +190,14 @@ class Global {
         break;
 
 
-
-    /*  case Strings.first_name + "*":
+        case  "name":
         if (value.isEmpty) {
           return message;
         }
         break;
 
-      case Strings.last_name+"*":
-        if (value.isEmpty) {
-          return message;
-        }
-        break;*/
+
+        break;
     }
   }
 }

@@ -64,7 +64,7 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
                   labelColor: CommonColors.black,
                   unselectedLabelColor: CommonColors.black,
                   controller: _tabController,
-                  indicatorPadding: EdgeInsets.only(top:CommonWidget.getInstance().widthFactor(context) * 0.1),
+                  indicatorPadding: EdgeInsets.only(top:CommonWidget.getInstance().widthFactor(context) * 0.12),
                   indicatorWeight: 0.1,
                   indicator:  const BoxDecoration(
                     gradient: LinearGradient(

@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
   const ScoreDashboard({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -150,12 +149,9 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                                   CommonColors.black,"Ragnar",0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
                                   FontWeight.w600,fontfamily: false),
 
-
                               CommonWidget.getInstance().normalText(
                                   CommonColors.red,"vs",0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,0,
                                   FontWeight.w600,fontfamily: false),
-
-
 
                               CommonWidget.getInstance().normalText(
                                   CommonColors.black,"Floki",0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
@@ -163,7 +159,6 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                             ],
                           ),
                         ),
-
 
                       ],
           ),
@@ -231,12 +226,10 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                                               onSaved: (String? value) {
 
                                               },
-
                                             )
                                           ),
                                         ],
                                       ),
-
                                     ]
                                 ),
                               ],
@@ -259,7 +252,6 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                 children: [
                   buttonWidget(Strings.call_killshot,CommonWidget.getInstance().widthFactor(context) * 0.34,context),
 
-
                   Container(
                     color: CommonColors.black,
                     child:Padding(
@@ -271,7 +263,6 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
 
                   ),
 
-
                   Container(
                     color: CommonColors.black,
                     child:Padding(
@@ -280,9 +271,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                           CommonColors.white,"31",0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
                           FontWeight.w600,fontfamily: false),
                     ) ,
-
                   ),
-
 
                   buttonWidget(Strings.call_killshot,CommonWidget.getInstance().widthFactor(context) * 0.34,context),
 
@@ -316,7 +305,6 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
 
                 ],
               ),
-
 
               SizedBox(
                 height: CommonWidget.getInstance().widthFactor(context) * 0.05,

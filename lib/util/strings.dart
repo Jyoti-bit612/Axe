@@ -117,8 +117,10 @@ class Strings{
   static const String member_not_in_list = "Member not in a list? Invite by typing their email:";
 
   static const String plz_enter_your_mail = "Please enter your registered email";
-  static const String name = "Name";
-  static const String enter_name = "Enter Your Full Name";
+  static const String firstname = "FirstName";
+  static const String lastname = "Last Name";
+  static const String enter_name_first = "Enter first Name";
+  static const String enter_name_last = "Enter Last Name";
   static const String enter_email = "Enter Your Email";
   static const String enter_old_pass = "Enter Old Password";
   static const String enter_new_pass = "Enter New Password";

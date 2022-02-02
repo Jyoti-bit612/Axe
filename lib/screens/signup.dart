@@ -1,4 +1,8 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:axe/controller/pasword_counter.dart';
 import 'package:axe/interface/CallBackInterface.dart';
+import 'package:axe/screens/dashbaord.dart';
 import 'package:axe/screens/login.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
@@ -8,38 +12,40 @@ import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
 
 
-
-class SignUp extends StatelessWidget  implements CallBackInterface{
-   SignUp({Key? key}) : super(key: key);
-
+class SignUp extends StatelessWidget implements CallBackInterface{
   final emailController = TextEditingController();
-  final nameController = TextEditingController();
+  final firstnameController = TextEditingController();
+  final lastnameController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmpasswordController = TextEditingController();
   final contactController = TextEditingController();
   final emailFocus = FocusNode();
-  final nameFocus = FocusNode();
+  final firstnameFocus = FocusNode();
+  final lastnameFocus = FocusNode();
   final confirmPassFocus = FocusNode();
   final contactFocus = FocusNode();
   final passwordFocus = FocusNode();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-
    final list = [
-    {"name": "user1"},
-    {"name": "user2"},
+     {"name": "Venue"}, // 1 for venue
+     {"name": "Player"},  // 2 for player
   ];
-
 
   @override
   Widget build(BuildContext context) {
+    final CounterController controller = Get.put(CounterController());
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: CommonColors.white,
         resizeToAvoidBottomInset: true,
-        body: SingleChildScrollView(
+        body:Obx(()=>
+        SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -53,26 +59,39 @@ class SignUp extends StatelessWidget  implements CallBackInterface{
                   height: CommonWidget.getInstance().heightFactor(context) * 0.01,
                 ),
 
-                Center(
-                  child: Container(
-                    width:  CommonWidget.getInstance().widthFactor(context) * 0.25,
-                    height:  CommonWidget.getInstance().widthFactor(context) * 0.25,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomCenter,
-                      ),
-                      shape: BoxShape.circle,
+                GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap: (){
+                   Global.showPicker(context,this);
 
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(1.0),
-                      child: DecoratedBox(
-                          decoration:  const BoxDecoration(
-                            color: CommonColors.textfiled_gray,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.asset("assets/images/camera.png")),
+                  },
+                  child: Center(
+                    child: Container(
+                      width:  CommonWidget.getInstance().widthFactor(context) * 0.25,
+                      height:  CommonWidget.getInstance().widthFactor(context) * 0.25,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomCenter,
+                        ),
+                        shape: BoxShape.circle,
+
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(1.0),
+                        child: DecoratedBox(
+                            decoration:  const BoxDecoration(
+                              color: CommonColors.textfiled_gray,
+                              shape: BoxShape.circle,
+                            ),
+                            child:
+                            controller.pickedImage.value == "" ?
+                            Image.asset("assets/images/camera.png")
+                                : Image.file(File(controller.pickedImage.value),fit: BoxFit.contain,
+                              width:  CommonWidget.getInstance().widthFactor(context) * 0.20,
+                              height:  CommonWidget.getInstance().widthFactor(context) * 0.20,
+                            )),
+                      ),
                     ),
                   ),
                 ),
@@ -91,7 +110,7 @@ class SignUp extends StatelessWidget  implements CallBackInterface{
                         children: [
 
                           CommonWidget.getInstance().normalText(
-                            CommonColors.black, Strings.name,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
+                            CommonColors.black, Strings.firstname,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
 
                           SizedBox(
                             height: CommonWidget.getInstance().heightFactor(context) * 0.02,
@@ -102,11 +121,41 @@ class SignUp extends StatelessWidget  implements CallBackInterface{
                               context,
                               false,
                               CommonColors.textfiled_gray,
-                              Strings.enter_name,
+                              Strings.enter_name_first,
                               "",
-                              nameController,
+                              firstnameController,
                               TextInputType.emailAddress,
-                              nameFocus,
+                              firstnameFocus,
+                              lastnameFocus,
+                              false, //hide text
+                              false, //read text
+                              "email",
+                              0),
+
+                          SizedBox(
+                            height:
+                            CommonWidget.getInstance().heightFactor(context) *
+                                0.02,
+                          ),
+
+
+                          CommonWidget.getInstance().normalText(
+                              CommonColors.black, Strings.lastname,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
+
+                          SizedBox(
+                            height: CommonWidget.getInstance().heightFactor(context) * 0.02,
+                          ),
+
+                          CommonWidget.getInstance().editTextField(
+                              "name",
+                              context,
+                              false,
+                              CommonColors.textfiled_gray,
+                              Strings.enter_name_last,
+                              "",
+                              lastnameController,
+                              TextInputType.emailAddress,
+                              lastnameFocus,
                               emailFocus,
                               false, //hide text
                               false, //read text
@@ -132,8 +181,8 @@ class SignUp extends StatelessWidget  implements CallBackInterface{
                                   0.09,
                               child: DropDownClass(
                                 CommonColors.darkGray,
-                                  "commonDropdown",
-                                 list[0]["name"],
+                                  "usertypeDropdown",
+                                  controller.userRole.value,
                                   list,
                                   this,
                                   "0",false, true)),
@@ -181,7 +230,7 @@ class SignUp extends StatelessWidget  implements CallBackInterface{
                               Strings.enter_contact,
                               "This  field is mandatory",
                               contactController,
-                              TextInputType.emailAddress,
+                              TextInputType.phone,
                               contactFocus,
                               passwordFocus,
                               false,
@@ -210,7 +259,7 @@ class SignUp extends StatelessWidget  implements CallBackInterface{
                               TextInputType.emailAddress,
                               passwordFocus,
                               confirmPassFocus,
-                              false,
+                              controller.isValue.value,
                               false,
                               "email",
                               0),
@@ -236,7 +285,7 @@ class SignUp extends StatelessWidget  implements CallBackInterface{
                               TextInputType.emailAddress,
                               confirmPassFocus,
                               null,
-                              false,
+                              controller.isValue.value,
                               false,
                               "email",
                               0),
@@ -272,12 +321,12 @@ class SignUp extends StatelessWidget  implements CallBackInterface{
                               alignment: Alignment.bottomCenter,
                               child: RichText(
                                 text: TextSpan(
-                                  style: new TextStyle(
+                                  style:  TextStyle(
                                     fontSize: CommonWidget.getInstance().widthFactor(context) * 0.03,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.black,
                                   ),
-                                  children: <TextSpan>[
+                                  children: const <TextSpan>[
                                     TextSpan(text: Strings.already_account,
                                       style: TextStyle(color: CommonColors.black,
                                         fontFamily: 'nunito_regular.ttf',
@@ -314,7 +363,7 @@ class SignUp extends StatelessWidget  implements CallBackInterface{
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
 
-                               Expanded(child: Divider(height:10,thickness:1,color: CommonColors.grayColor,)),
+                               const Expanded(child: Divider(height:10,thickness:1,color: CommonColors.grayColor,)),
                               SizedBox(
                                 width: CommonWidget.getInstance().widthFactor(context) * 0.04,
                               ),
@@ -326,7 +375,7 @@ class SignUp extends StatelessWidget  implements CallBackInterface{
                                 width: CommonWidget.getInstance().widthFactor(context) * 0.04,
                               ),
 
-                              Expanded(child: Divider(height:10,thickness:1,color: CommonColors.grayColor,)),
+                              const Expanded(child: Divider(height:10,thickness:1,color: CommonColors.grayColor,)),
 
                             ],
                           ),
@@ -350,20 +399,107 @@ class SignUp extends StatelessWidget  implements CallBackInterface{
               ],
             ),
           ),
-        ),
+        ))
       ),
     );
   }
 
-  @override
-  Future<void> widgetCallBack(String title, String value, BuildContext context) async {
-    switch(title){
+  XFile? pickedImage;
+  var roleId="1";
+
+   Future<bool> signUp(BuildContext context) async {
+
+     Global.showLoaderDialog(context);
+     Map<String, String> headers = {
+       "Accept": "application/json",
+     };
+
+     var request = http.MultipartRequest(
+         'POST', Uri.parse(Constant.baseUrl + Constant.signup));
+     request.headers.addAll(headers);
+     if (pickedImage != null) {
+       request.files.add(await http.MultipartFile.fromPath(
+           "user_picture", pickedImage!.path));
+     }
+
+     request.fields['first_name'] = firstnameController.text;
+     request.fields['last_name'] = lastnameController.text;
+     request.fields['user_type'] = roleId;
+     request.fields['email'] = emailController.text;
+     request.fields['password'] = passwordController.text;
+     request.fields['c_password'] = confirmpasswordController.text;
+     request.fields['device_token'] = Constant.deviceToken;
+
+     await request.send().then((res) async {
+       final respStr = await res.stream.bytesToString();
+       var response = json.decode(respStr);
+
+       if (res.statusCode == 201 || res.statusCode == 200) {
+         Get.back();
+         Global.showSnackBar(context, response["message"]);
+         Global.addStringToSF( response["user"]["first_name"], Constant.firstname);
+         Global.addStringToSF( response["user"]["last_name"], Constant.lastname);
+         await Global.addStringToSF(response["user"]["user_type"].toString(),Constant.LoginType);  // 1 for user 2 for vender
+         Global.loginType=response["user"]["user_type"]==1?"2":"1";
+         Global.addStringToSF( response["access_token"],Constant.AccessToken);
+         Get.to(()=> DashBoard(0));
+
+       } else if (res.statusCode == 404) {
+         Get.back();
+         if (json.decode(respStr)["data"]["email"] != null) {
+           Global.showSnackBar(context, json.decode(respStr)["data"]["email"][0].toString());
+         } else if (json.decode(respStr)["data"]["c_password"] != null) {
+           Global.showSnackBar(context, json.decode(respStr)["data"]["c_password"][0].toString());
+         }
+       } else {
+         Get.back();
+         Global.showSnackBar(context, response["error"]);
+       }
+     }).catchError((error) {
+       error.message = jsonDecode(error.toString())["message"];
+       throw ("some arbitrary error");
+     });
+
+     return false;
+   }
+
+
+   @override
+    Future<void> widgetCallBack(String title, String value, BuildContext context) async {
+     final CounterController controller = Get.put(CounterController());
+     switch(title){
       case Strings.sign_up:
+        if(CommonWidget.getInstance().isValidate(formKey)){
+          if(passwordController.text==confirmpasswordController.text){
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            }
+            signUp(context);
+          }else
+            Global.showSnackBar(context,"Password does not match");
+        }
+
         break;
 
+      case "usertypeDropdown":
+        var map = json.decode(value);
+        var type = map["name"];
+        controller.userRole( map["name"]);
+        type=="Venue"?roleId=="1":roleId=="2";
 
+        break;
+
+      case "Camera":
+         pickedImage = (await ImagePicker().pickImage(source: ImageSource.camera)) ;
+         controller.updateImage(pickedImage!.path);
+
+        break;
+
+      case "Gallery":
+         pickedImage = (await ImagePicker().pickImage(source: ImageSource.gallery)) ;
+         controller.updateImage(pickedImage!.path);
 
     }
   }
-
 }

@@ -586,7 +586,6 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
                                       TableRow(
                                           children: [
                                             innerIndex==0?columnNameWidget():
-
                                             Container(
                                               color:innerIndex==11?CommonColors.black:CommonColors.white,
                                               child: Padding(

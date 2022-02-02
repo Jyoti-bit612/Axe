@@ -39,7 +39,6 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
                         height: CommonWidget.getInstance().widthFactor(context) * 0.5,),
                     ),
 
-
                 CommonWidget.getInstance().normalText(
                     CommonColors.black, "Twisted Axe throwing Championship",1,CommonWidget.getInstance().widthFactor(context)*0.055,FontStyle.normal,2,FontWeight.w600),
 

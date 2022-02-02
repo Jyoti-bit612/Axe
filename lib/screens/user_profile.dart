@@ -7,6 +7,7 @@ import 'package:axe/screens/login.dart';
 import 'package:axe/screens/new_invitation.dart';
 import 'package:axe/screens/notification.dart';
 import 'package:axe/screens/playerlist.dart';
+import 'package:axe/screens/practice_match.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/constants.dart';
@@ -256,7 +257,7 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
                       ),
                       GestureDetector(
                         onTap: (){
-                          Get.to(const PlayerList());
+                          Get.to(()=>PracticeMatch());
                         },
                         child: SizedBox(
                             width: CommonWidget.getInstance().widthFactor(context) * 0.35,

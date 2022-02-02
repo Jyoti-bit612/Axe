@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'package:axe/screens/dashbaord.dart';
 import 'package:axe/util/constants.dart';
 import 'package:axe/util/global.dart';
 import 'package:get/get.dart';
-
 import 'package:axe/screens/login.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,6 +24,7 @@ class SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
+    getToken();
     loadPage();
   }
 
@@ -37,15 +38,23 @@ class SplashState extends State<Splash> {
     if (token == null || token == ""||token=="null") {
       Get.to(()=> Login());
     } else {
-      Get.to(()=> Login());
+      Get.to(()=> DashBoard(0));
     }
-      }
+
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CommonColors.white,
         body: Center(child: Image.asset("assets/images/splash_logo.png")));
+  }
+
+  Future<void> getToken() async {
+   // token=await Global.getStringValuesSF(Constant.Device_Token);
+    token=await Global.getStringValuesSF(Constant.AccessToken);
+    //Constant.deviceToken=token==null?"":token;
+
   }
 
 }

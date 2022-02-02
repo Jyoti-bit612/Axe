@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:axe/controller/pasword_counter.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/dashbaord.dart';
@@ -19,13 +21,11 @@ class Login extends StatelessWidget  implements CallBackInterface{
  final passwordController = TextEditingController();
  final emailFocus = FocusNode();
  final passwordFocus = FocusNode();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
+ final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     final CounterController controller = Get.put(CounterController());
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: CommonColors.white,
@@ -194,7 +194,6 @@ class Login extends StatelessWidget  implements CallBackInterface{
                                       style: TextStyle(color: CommonColors.primaryColor1,
                                         fontFamily: 'nunito_regular.ttf',
                                           letterSpacing: 1
-
                                       )),
                                   TextSpan(
                                       text: Strings.here,
@@ -262,12 +261,32 @@ class Login extends StatelessWidget  implements CallBackInterface{
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
     switch(title){
       case Strings.login:
-       await Global.addStringToSF("1",Constant.LoginType);
+        if(CommonWidget.getInstance().isValidate(formKey)){
+          Global.showLoaderDialog(context);
+          var  jsonBody  =  {
+            "email":emailController.text.toString(),
+            "password": passwordController.text.toString(),
+            "device_token":Constant.deviceToken??""
+          };
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+          Global.postData(context,Constant.login,"LoginApi",jsonBody,this);
+        }
 
-        Get.to(()=>DashBoard(0));
         break;
 
+      case "LoginApi":
+        Get.back();
+        Global.showSnackBar(context, jsonDecode(value)["message"]);
+        Global.addStringToSF(jsonDecode(value)["access_token"],Constant.AccessToken);
+        Global.loginType=jsonDecode(value)["user"]["user_type"]==1?"2":"1";
+        await Global.addStringToSF(jsonDecode(value)["user"]["user_type"]==1?"2":"1",Constant.LoginType);  // 1 for vendor 2 for Player
+
+        Get.to(()=>DashBoard(0));
+
+        break;
     }
   }
-
 }

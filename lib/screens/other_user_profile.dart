@@ -188,7 +188,6 @@ class OtherUserProfile extends StatelessWidget  implements CallBackInterface{
                 ),
 
 
-
                 SizedBox(
                   height: CommonWidget.getInstance().widthFactor(context) * 0.15,
                 ),

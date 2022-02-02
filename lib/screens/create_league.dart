@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
+import 'package:axe/util/constants.dart';
 import 'package:axe/util/dropdownclass.dart';
+import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -469,7 +473,7 @@ class CreateLeague extends StatelessWidget implements CallBackInterface{
                           padding: const EdgeInsets.only(left:6.0),
                           child: CommonWidget.getInstance().flexibleButton(
                             context,
-                            Strings.create_match,
+                            Strings.create_league,
                             double.infinity,
                             CommonWidget.getInstance().widthFactor(context) * 0.13,
                             CommonColors.primaryColor1,
@@ -492,6 +496,36 @@ class CreateLeague extends StatelessWidget implements CallBackInterface{
 
   @override
   void widgetCallBack(String title, String value, BuildContext context) {
-    // TODO: implement widgetCallBack
+    switch(title){
+      case Strings.create_league:
+        if(CommonWidget.getInstance().isValidate(formKey)){
+          Global.showLoaderDialog(context);
+          var  jsonBody  =  {
+            "league_title":emailController.text.toString(),
+            "address_line1": passwordController.text.toString(),
+            "address_line2":Constant.deviceToken,
+            "city":Constant.deviceToken,
+            "starts_from":Constant.deviceToken,
+            "end_date":Constant.deviceToken,
+            "season":Constant.deviceToken,
+            "match_type":Constant.deviceToken,
+            "description":Constant.deviceToken
+          };
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+          Global.postData(context,Constant.create_league,"createLeagueApi",jsonBody,this);
+        }
+
+        break;
+
+      case "createLeagueApi":
+        Get.back();
+        Global.showSnackBar(context, jsonDecode(value)["message"]);
+        break;
+    }
+
   }
+
 }

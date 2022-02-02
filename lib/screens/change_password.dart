@@ -10,13 +10,13 @@ import 'package:get/get.dart';
 
 class ChangePassword extends StatelessWidget  implements CallBackInterface{
 
-  final  oldlController = TextEditingController();
-  final  newController = TextEditingController();
-  final  confirmController = TextEditingController();
+ final oldlController = TextEditingController();
+ final newController = TextEditingController();
+ final confirmController = TextEditingController();
  final oldFocus = FocusNode();
  final newFocus = FocusNode();
  final confirmFocus = FocusNode();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+ final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   ChangePassword({Key? key}) : super(key: key);
 
@@ -125,6 +125,7 @@ class ChangePassword extends StatelessWidget  implements CallBackInterface{
                         SizedBox(
                           height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                         ),
+
                         CommonWidget.getInstance().editTextField(
                             Strings.pass,
                             context,

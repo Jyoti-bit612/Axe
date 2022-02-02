@@ -21,19 +21,17 @@ class PracticeMatch extends StatelessWidget implements CallBackInterface  {
               children: [
                 IconButton(
                     padding: EdgeInsets.zero,
-                    constraints: BoxConstraints(),
+                    constraints: const BoxConstraints(),
                     onPressed: (){
                       Get.back();
                     }, icon: const Icon(Icons.arrow_back_rounded)),
 
-                
                 SizedBox(
                   height: CommonWidget.getInstance().widthFactor(context) * 0.02,
                 ),
 
                 CommonWidget.getInstance().normalText(
                     CommonColors.black,Strings.practice_match,0,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,0,FontWeight.w700,fontfamily: true),
-
 
                 SizedBox(
                   height: CommonWidget.getInstance().widthFactor(context) * 0.05,
@@ -132,7 +130,6 @@ class PracticeMatch extends StatelessWidget implements CallBackInterface  {
                                 CommonColors.imageRed,
                               ],
                             ))),
-
                   ],
                 ),
 
@@ -210,7 +207,6 @@ class PracticeMatch extends StatelessWidget implements CallBackInterface  {
                   height: CommonWidget.getInstance().widthFactor(context) * 0.05,
                 ),
                 Row(
-
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     buttonWidget(Strings.drop,CommonWidget.getInstance().widthFactor(context) * 0.4,context),
@@ -218,7 +214,6 @@ class PracticeMatch extends StatelessWidget implements CallBackInterface  {
 
                   ],
                 ),
-
               ],
             )
           ),
@@ -237,7 +232,7 @@ class PracticeMatch extends StatelessWidget implements CallBackInterface  {
               onPrimary: Colors.transparent,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(6),
-                  side: BorderSide(color: CommonColors.chat_gray)
+                  side: const BorderSide(color: CommonColors.chat_gray)
 
               )),
 
