@@ -5,7 +5,6 @@ import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/constants.dart';
 import 'package:axe/util/dropdownclass.dart';
-import 'package:axe/util/dropdownclass1.dart';
 import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/cupertino.dart';
@@ -34,7 +33,6 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
   @override
   Widget build(BuildContext context) {
     final LeagueController controller = Get.put(LeagueController());
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: CommonColors.white,
@@ -48,22 +46,18 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
               SizedBox(
                 height: CommonWidget.getInstance().widthFactor(context) * 0.04,
               ),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  IconButton(
+                Padding(
+                  padding: EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.01),
+                  child: IconButton(
                       padding: EdgeInsets.zero,
                       constraints: BoxConstraints(),
                       onPressed: (){
-                    Get.back();
-                  }, icon: const Icon(Icons.arrow_back_rounded)),
+                        Get.back();
+                      }, icon: const Icon(Icons.arrow_back_rounded)),
+                ),
 
-                   Center(child: Image.asset("assets/images/trophy.png")),
-                ],
-              ),
+
+                Center(child: Image.asset("assets/images/trophy.png")),
 
                 SizedBox(
                   height: CommonWidget.getInstance().widthFactor(context) * 0.01,
@@ -78,7 +72,6 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                 padding:  EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.05),
                 child: const Divider(height:1,thickness:1,color: CommonColors.lightgrayColor,),
               ),
-
 
 
         Center(
@@ -220,7 +213,6 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                         ),
 
                         Row(
-
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CommonWidget.getInstance().normalText(
@@ -260,7 +252,6 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                                 ),
                               ),
                             ),
-
 
                             SizedBox(
                               width: CommonWidget.getInstance().widthFactor(context) * 0.05,
@@ -314,9 +305,9 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   CommonWidget.getInstance().normalText(
-                                      CommonColors.darkGray, Strings.select_date_time,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
+                                      CommonColors.black, controller.startDate.value,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w200),
 
-                                  Icon(Icons.calendar_today_outlined,)
+                                  Icon(Icons.calendar_today_outlined,color: CommonColors.primaryColor2,)
                                 ],
                               ),
                             ),
@@ -334,7 +325,7 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                         ),
                         GestureDetector(
                           onTap: (){
-                            CommonWidget.getInstance().datePickerDialog(context, this, "EndtDate");
+                            CommonWidget.getInstance().datePickerDialog(context, this, "EndDate");
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -348,18 +339,18 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   CommonWidget.getInstance().normalText(
-                                      CommonColors.darkGray, Strings.select_date_time,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
+                                      CommonColors.black, controller.endDate.value,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w200),
 
-                                  Icon(Icons.calendar_today_outlined,)
+                                  Icon(Icons.calendar_today_outlined,color: CommonColors.primaryColor2,)
                                 ],
                               ),
                             ),
                           ),
                         ),
+
                         SizedBox(
                           height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                         ),
-
 
                         CommonWidget.getInstance().normalText(
                             CommonColors.black, Strings.select_season,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
@@ -372,14 +363,15 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                             height:
                             CommonWidget.getInstance().heightFactor(context) *
                                 0.09,
-                            child: controller.seasonList[0]!=null?
+                            child: controller.seasonList.isNotEmpty?
                             DropDownClass(
                                 CommonColors.darkGray,
-                                "commonDropdown",
-                                controller.seasonList[0].value.data![0].name,
-                                controller.seasonList!,
+                                "seasonDropDown",
+                                controller.seasonList.value[0]["name"],
+                                controller.seasonList.value,
                                 this,
-                                "0",false,
+                                "0",
+                                false,
                                 true)
                             :Container()
                             ),
@@ -395,13 +387,18 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                             height:
                             CommonWidget.getInstance().heightFactor(context) *
                                 0.09,
-                            child: DropDownClass(
+                            child:controller.matchTypeList.isNotEmpty?
+                            DropDownClass(
                                 CommonColors.darkGray,
-                                "commonDropdown",
-                                list[0]["name"],
-                                list,
+                                "matchDropDown",
+                                controller.matchTypeList.value[0]["name"],
+                                controller.matchTypeList.value,
                                 this,
-                                "0",false, true)),
+                                "0",
+                                false,
+                                true)
+                        :Container()
+                        ),
 
 
                         CommonWidget.getInstance().normalText(
@@ -412,7 +409,7 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                         ),
 
                         CommonWidget.getInstance().editTextField(
-                            "name",
+                            "empty",
                             context,
                             false,
                             CommonColors.textfiled_gray,
@@ -438,9 +435,9 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                               child: CheckboxListTile(
                                 contentPadding: EdgeInsets.zero,
                                   title: const Text(Strings.official),
-                                  value: true,
+                                  value: controller.isOfficial.value,
                                   onChanged: (newValue) {
-
+                                    controller.isOffical(newValue!);
                                   },
                                   controlAffinity: ListTileControlAffinity.leading,
                                   activeColor: CommonColors.primaryColor1,
@@ -451,9 +448,9 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                               child: CheckboxListTile(
                                 contentPadding: EdgeInsets.zero,
                                 title: const Text(Strings.unOfficial),
-                                value: false,
+                                value: controller.unOfficial.value,
                                 onChanged: (newValue) {
-
+                                  controller.unOffical(newValue!);
                                 },
                                 controlAffinity: ListTileControlAffinity.leading,
                                 activeColor: CommonColors.primaryColor1,
@@ -494,6 +491,7 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
  var pickedImage;
 
  Future<bool> createLeague(BuildContext context) async {
+   final LeagueController controller = Get.put(LeagueController());
 
    Global.showLoaderDialog(context);
    Map<String, String> headers = {
@@ -513,14 +511,13 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
    request.fields['address_line2'] = address2Controller.text;
    request.fields['city'] = "Mohali";
    request.fields['state'] = "Punjab";
-  /* request.fields['starts_from'] = ;
-   request.fields['end_date'] = ;
-   request.fields['season'] =;
-   request.fields['match_type'] = ;
-   request.fields['description'] = ;
-   request.fields['official'] = ;*/
+   request.fields['starts_from'] = controller.startDate.value;
+   request.fields['end_date'] =controller.endDate.value ;
+   request.fields['season'] =seasonId;
+   request.fields['match_type'] =matchTypeId ;
    request.fields['description'] = descriptionController.text;
-
+   request.fields['official'] = "";
+   request.fields['description'] = descriptionController.text;
 
    await request.send().then((res) async {
      final respStr = await res.stream.bytesToString();
@@ -554,19 +551,37 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
 
  @override
   void widgetCallBack(String title, String value, BuildContext context) {
-    switch(title){
+   final LeagueController controller = Get.put(LeagueController());
+
+   switch(title){
       case Strings.create_league:
         if(CommonWidget.getInstance().isValidate(formKey)){
-          Global.showLoaderDialog(context);
-          FocusScopeNode currentFocus = FocusScope.of(context);
-          if (!currentFocus.hasPrimaryFocus) {
-            currentFocus.unfocus();
+          if(controller.startDate=="")
+            Global.showSnackBar(context, "Please enter in Start Date field");
+          else
+          if(controller.endDate=="")
+            Global.showSnackBar(context, "Please enter in End Date field");
+          else{
+            Global.showLoaderDialog(context);
+            FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            }
+            createLeague(context);
           }
-          createLeague(context);
-
         }
 
         break;
+
+     case "matchDropDown":
+       var map = json.decode(value);
+        matchTypeId = map["id"].toString();
+       break;
+
+     case "seasonDropDown":
+       var map = json.decode(value);
+        seasonId = map["id"].toString();
+       break;
 
       case "createLeagueApi":
         Get.back();
@@ -574,14 +589,15 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
         break;
 
       case "StartDate":
-       // personalProvider.dob = value;
+        controller.startDate(value);
         break;
 
       case "EndDate":
-       // personalProvider.dob = value;
+        controller.endDate(value);
         break;
     }
 
   }
 
+  var seasonId="",matchTypeId="";
 }

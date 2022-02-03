@@ -7,11 +7,31 @@ import 'package:get/get.dart';
 class LeagueController extends GetxController {
 
   var pickedImage = "".obs;
- // var seasonPojo=SeasonPojo().obs;
-  List seasonList=[].obs;
+  RxList seasonList=[].obs;
+  RxList matchTypeList=[].obs;
+  var startDate="".obs;
+  var endDate="".obs;
+  RxBool isOfficial=true.obs;
+  RxBool unOfficial=false.obs;
 
-  updateValue() {
-   // isValue.value=!isValue.value;
+  isOffical(bool isvalue) {
+    isOfficial.value=isvalue;
+    unOfficial.value=!isvalue;
+    update();
+  }
+  unOffical(bool isvalue) {
+    unOfficial.value=isvalue;
+    isOfficial.value=!isvalue;
+    update();
+  }
+
+  startDateValue(var startDate) {
+    this.startDate=startDate;
+    update();
+  }
+
+  endDateValue(var endDate) {
+    this.endDate=endDate;
     update();
   }
 
@@ -19,15 +39,20 @@ class LeagueController extends GetxController {
   void onInit() {
     super.onInit();
     getSeason();
+    getMatchType();
   }
 
   Future<void> getSeason() async {
     var response=await Apiprovider().getApi(Constant.get_Season);
-    seasonList.add(jsonDecode(response)["data"]);
-   // seasonPojo.value= SeasonPojo.fromJson(jsonDecode(response));
-
+    seasonList.value=jsonDecode(response)["data"];
     print(response);
 
+  }
+
+  Future<void> getMatchType() async {
+    var response=await Apiprovider().getApi(Constant.get_MatchType);
+    matchTypeList.value=jsonDecode(response)["data"];
+    print(response);
   }
 
 }

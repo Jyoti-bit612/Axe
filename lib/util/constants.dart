@@ -14,7 +14,7 @@ class Constant{
   static const String create_match="api/venues/create-match";
   static const String get_match="api/venues/getmatch";
   static const String get_Season="api/venues/getseason";
-
+  static const String get_MatchType="api/venues/getmatchtype";
 
   //key for sharedPrefrence
   static const String LoginType="login_type";

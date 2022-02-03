@@ -196,6 +196,7 @@ class Global {
         }
         break;
 
+      case  "empty":
 
         break;
     }
