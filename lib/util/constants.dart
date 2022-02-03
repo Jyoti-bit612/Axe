@@ -1,6 +1,6 @@
 class Constant{
   static const String baseUrl="http://112.196.38.115:4171/axethrowing/";
-  static const String imageUrl="";
+  static const String imageUrl="http://112.196.38.115:4171/axethrowing";
   static const google_map_key="";
 
   static const String Device_Token = "firebaseToken";
