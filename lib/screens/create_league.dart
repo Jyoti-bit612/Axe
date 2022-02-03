@@ -1,29 +1,28 @@
 import 'dart:convert';
-
+import 'package:axe/controller/league_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/constants.dart';
 import 'package:axe/util/dropdownclass.dart';
+import 'package:axe/util/dropdownclass1.dart';
 import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
+class CreateLeague extends  StatelessWidget  implements CallBackInterface{
 
-class CreateLeague extends StatelessWidget implements CallBackInterface{
-
- final emailController = TextEditingController();
- final nameController = TextEditingController();
- final passwordController = TextEditingController();
- final confirmpasswordController = TextEditingController();
-  final contactController = TextEditingController();
-  final emailFocus = FocusNode();
-  final nameFocus = FocusNode();
-  final confirmPassFocus = FocusNode();
-  final contactFocus = FocusNode();
-  final passwordFocus = FocusNode();
+ final titleController = TextEditingController();
+ final adress1Controller = TextEditingController();
+ final address2Controller = TextEditingController();
+  final descriptionController = TextEditingController();
+  final titleFocus = FocusNode();
+  final adress1Focus = FocusNode();
+  final address2Focus = FocusNode();
+  final descriptionFocus = FocusNode();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final list = [
     {"name": "user1"},
@@ -34,10 +33,13 @@ class CreateLeague extends StatelessWidget implements CallBackInterface{
 
   @override
   Widget build(BuildContext context) {
+    final LeagueController controller = Get.put(LeagueController());
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: CommonColors.white,
-        body: SingleChildScrollView(
+        body:Obx(()=>
+            SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -139,12 +141,12 @@ class CreateLeague extends StatelessWidget implements CallBackInterface{
                             context,
                             false,
                             CommonColors.textfiled_gray,
-                            Strings.match_title,
+                            Strings.league_title,
                             "",
-                            nameController,
+                            titleController,
                             TextInputType.emailAddress,
-                            nameFocus,
-                            emailFocus,
+                            titleFocus,
+                            adress1Focus,
                             false,
                             false,
                             "email",
@@ -171,10 +173,10 @@ class CreateLeague extends StatelessWidget implements CallBackInterface{
                             CommonColors.textfiled_gray,
                             Strings.venue_location,
                             "",
-                            nameController,
+                            adress1Controller,
                             TextInputType.emailAddress,
-                            nameFocus,
-                            emailFocus,
+                            adress1Focus,
+                            address2Focus,
                             false,
                             false,
                             "email",
@@ -202,10 +204,10 @@ class CreateLeague extends StatelessWidget implements CallBackInterface{
                             CommonColors.textfiled_gray,
                             Strings.venue_location,
                             "",
-                            nameController,
+                            address2Controller,
                             TextInputType.emailAddress,
-                            nameFocus,
-                            emailFocus,
+                            address2Focus,
+                            null,
                             false,
                             false,
                             "email",
@@ -296,22 +298,27 @@ class CreateLeague extends StatelessWidget implements CallBackInterface{
                         SizedBox(
                           height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.0),
-                              border: Border.all(color:CommonColors.darkGray)
-                          ),
-                          height: CommonWidget.getInstance().heightFactor(context) * 0.07,
-                          child: Padding(
-                            padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.02,right:CommonWidget.getInstance().widthFactor(context) * 0.02),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                CommonWidget.getInstance().normalText(
-                                    CommonColors.darkGray, Strings.select_date_time,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
+                        GestureDetector(
+                          onTap: (){
+                            CommonWidget.getInstance().datePickerDialog(context, this, "StartDate");
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.0),
+                                border: Border.all(color:CommonColors.darkGray)
+                            ),
+                            height: CommonWidget.getInstance().heightFactor(context) * 0.07,
+                            child: Padding(
+                              padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.02,right:CommonWidget.getInstance().widthFactor(context) * 0.02),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CommonWidget.getInstance().normalText(
+                                      CommonColors.darkGray, Strings.select_date_time,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
 
-                                Icon(Icons.calendar_today_outlined,)
-                              ],
+                                  Icon(Icons.calendar_today_outlined,)
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -325,46 +332,33 @@ class CreateLeague extends StatelessWidget implements CallBackInterface{
                         SizedBox(
                           height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                         ),
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5.0),
-                              border: Border.all(color:CommonColors.darkGray)
-                          ),
-                          height: CommonWidget.getInstance().heightFactor(context) * 0.07,
-                          child: Padding(
-                            padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.02,right:CommonWidget.getInstance().widthFactor(context) * 0.02),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                CommonWidget.getInstance().normalText(
-                                    CommonColors.darkGray, Strings.select_date_time,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
+                        GestureDetector(
+                          onTap: (){
+                            CommonWidget.getInstance().datePickerDialog(context, this, "EndtDate");
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5.0),
+                                border: Border.all(color:CommonColors.darkGray)
+                            ),
+                            height: CommonWidget.getInstance().heightFactor(context) * 0.07,
+                            child: Padding(
+                              padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.02,right:CommonWidget.getInstance().widthFactor(context) * 0.02),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CommonWidget.getInstance().normalText(
+                                      CommonColors.darkGray, Strings.select_date_time,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
 
-                                Icon(Icons.calendar_today_outlined,)
-                              ],
+                                  Icon(Icons.calendar_today_outlined,)
+                                ],
+                              ),
                             ),
                           ),
                         ),
                         SizedBox(
                           height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                         ),
-                        CommonWidget.getInstance().normalText(
-                            CommonColors.black, Strings.select_league,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
-
-                        SizedBox(
-                          height: CommonWidget.getInstance().heightFactor(context) * 0.02,
-                        ),
-
-                        SizedBox(
-                            height:
-                            CommonWidget.getInstance().heightFactor(context) *
-                                0.09,
-                            child: DropDownClass(
-                                CommonColors.darkGray,
-                                "commonDropdown",
-                                list[0]["name"],
-                                list,
-                                this,
-                                "0",false, true)),
 
 
                         CommonWidget.getInstance().normalText(
@@ -374,18 +368,21 @@ class CreateLeague extends StatelessWidget implements CallBackInterface{
                           height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                         ),
 
-                        SizedBox(
+                       SizedBox(
                             height:
                             CommonWidget.getInstance().heightFactor(context) *
                                 0.09,
-                            child: DropDownClass(
+                            child: controller.seasonList[0]!=null?
+                            DropDownClass(
                                 CommonColors.darkGray,
                                 "commonDropdown",
-                                list[0]["name"],
-                                list,
+                                controller.seasonList[0].value.data![0].name,
+                                controller.seasonList!,
                                 this,
-                                "0",false, true)),
-
+                                "0",false,
+                                true)
+                            :Container()
+                            ),
 
                         CommonWidget.getInstance().normalText(
                             CommonColors.black, Strings.select_match_type,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
@@ -421,10 +418,10 @@ class CreateLeague extends StatelessWidget implements CallBackInterface{
                             CommonColors.textfiled_gray,
                             Strings.write_league_des_here,
                             "This  field is mandatory",
-                            emailController,
+                            descriptionController,
                             TextInputType.emailAddress,
-                            emailFocus,
-                            contactFocus,
+                            descriptionFocus,
+                            null,
                             false,
                             false,
                             "email",
@@ -491,31 +488,82 @@ class CreateLeague extends StatelessWidget implements CallBackInterface{
           ),
         ),
       ]),
-    )));
+    ))));
   }
 
-  @override
+ var pickedImage;
+
+ Future<bool> createLeague(BuildContext context) async {
+
+   Global.showLoaderDialog(context);
+   Map<String, String> headers = {
+     "Accept": "application/json",
+   };
+
+   var request = http.MultipartRequest(
+       'POST', Uri.parse(Constant.baseUrl + Constant.create_league));
+   request.headers.addAll(headers);
+   if (pickedImage != null) {
+     request.files.add(await http.MultipartFile.fromPath(
+         "league_logo", pickedImage!.path));
+   }
+
+   request.fields['league_title'] = titleController.text;
+   request.fields['address_line1'] = adress1Controller.text;
+   request.fields['address_line2'] = address2Controller.text;
+   request.fields['city'] = "Mohali";
+   request.fields['state'] = "Punjab";
+  /* request.fields['starts_from'] = ;
+   request.fields['end_date'] = ;
+   request.fields['season'] =;
+   request.fields['match_type'] = ;
+   request.fields['description'] = ;
+   request.fields['official'] = ;*/
+   request.fields['description'] = descriptionController.text;
+
+
+   await request.send().then((res) async {
+     final respStr = await res.stream.bytesToString();
+     var response = json.decode(respStr);
+
+     if (res.statusCode == 201 || res.statusCode == 200) {
+       Get.back();
+       Global.showSnackBar(context, response["message"]);
+       Global.addStringToSF( response["user"]["first_name"], Constant.firstname);
+       Global.addStringToSF( response["user"]["last_name"], Constant.lastname);
+
+     } else if (res.statusCode == 404) {
+       Get.back();
+       if (json.decode(respStr)["data"]["email"] != null) {
+         Global.showSnackBar(context, json.decode(respStr)["data"]["email"][0].toString());
+       } else if (json.decode(respStr)["data"]["c_password"] != null) {
+         Global.showSnackBar(context, json.decode(respStr)["data"]["c_password"][0].toString());
+       }
+     } else {
+       Get.back();
+       Global.showSnackBar(context, response["error"]);
+     }
+   }).catchError((error) {
+     error.message = jsonDecode(error.toString())["message"];
+     throw ("some arbitrary error");
+   });
+
+   return false;
+ }
+
+
+ @override
   void widgetCallBack(String title, String value, BuildContext context) {
     switch(title){
       case Strings.create_league:
         if(CommonWidget.getInstance().isValidate(formKey)){
           Global.showLoaderDialog(context);
-          var  jsonBody  =  {
-            "league_title":emailController.text.toString(),
-            "address_line1": passwordController.text.toString(),
-            "address_line2":Constant.deviceToken,
-            "city":Constant.deviceToken,
-            "starts_from":Constant.deviceToken,
-            "end_date":Constant.deviceToken,
-            "season":Constant.deviceToken,
-            "match_type":Constant.deviceToken,
-            "description":Constant.deviceToken
-          };
           FocusScopeNode currentFocus = FocusScope.of(context);
           if (!currentFocus.hasPrimaryFocus) {
             currentFocus.unfocus();
           }
-          Global.postData(context,Constant.create_league,"createLeagueApi",jsonBody,this);
+          createLeague(context);
+
         }
 
         break;
@@ -523,6 +571,14 @@ class CreateLeague extends StatelessWidget implements CallBackInterface{
       case "createLeagueApi":
         Get.back();
         Global.showSnackBar(context, jsonDecode(value)["message"]);
+        break;
+
+      case "StartDate":
+       // personalProvider.dob = value;
+        break;
+
+      case "EndDate":
+       // personalProvider.dob = value;
         break;
     }
 

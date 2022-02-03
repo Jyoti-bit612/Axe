@@ -266,7 +266,7 @@ class Login extends StatelessWidget  implements CallBackInterface{
           var  jsonBody  =  {
             "email":emailController.text.toString(),
             "password": passwordController.text.toString(),
-            "device_token":Constant.deviceToken??""
+            "device_token":Constant.deviceToken
           };
           FocusScopeNode currentFocus = FocusScope.of(context);
           if (!currentFocus.hasPrimaryFocus) {

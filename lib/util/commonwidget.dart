@@ -175,6 +175,7 @@ class CommonWidget {
 
   final CounterController controller = Get.put(CounterController());
 
+
   Widget editTextField(
       String validationKey,
       BuildContext context,

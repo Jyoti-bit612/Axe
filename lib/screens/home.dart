@@ -9,7 +9,6 @@ import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class Home extends StatelessWidget  implements CallBackInterface{
    const Home({Key? key}) : super(key: key);
   @override

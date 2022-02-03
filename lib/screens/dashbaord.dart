@@ -2,7 +2,6 @@ import 'package:axe/screens/current_league.dart';
 import 'package:axe/screens/home.dart';
 import 'package:axe/screens/playerlist.dart';
 import 'package:axe/screens/profile.dart';
-import 'package:axe/screens/other_user_profile.dart';
 import 'package:axe/screens/user_profile.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/constants.dart';
@@ -34,7 +33,7 @@ class _DashBoardState extends State<DashBoard> {
 
     getLoginType();
 
-    _children = [Home(),CurrentLeague(),PlayerList(), UserProfile()];
+    _children = [Home(),CurrentLeague(),PlayerList(), Global.loginType=="1"?UserProfile():Profile()];
     pre_backpress=DateTime.now();
 
   }

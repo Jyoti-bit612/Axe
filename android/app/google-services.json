@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1016622124645",
+    "project_id": "axe-throwing-f3497",
+    "storage_bucket": "axe-throwing-f3497.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016622124645:android:5024831cd2ef8baea4408c",
+        "android_client_info": {
+          "package_name": "com.axe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1016622124645-lnfn46nrv56sb5lkb196k25n11bntdcu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB5RZGtOAsmfi9uABREtlmvsPsZ3DHL9wE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1016622124645-lnfn46nrv56sb5lkb196k25n11bntdcu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

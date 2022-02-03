@@ -15,7 +15,7 @@ import 'package:http/http.dart' as http;
 
 class Global {
 
-  static var loginType="1";  // 1 for user and 2 for venue
+  static var loginType="2";  // 1 for user and 2 for venue
 
   static final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
@@ -30,6 +30,7 @@ class Global {
     String? stringValue = prefs.getString(key);
     return stringValue??"";
   }
+
 
   static Future<String> getData(BuildContext context,String endUrl, String apiName, CallBackInterface callBackInterface) async {
    var token=await Global.getStringValuesSF(Constant.AccessToken);
@@ -151,7 +152,6 @@ class Global {
         }
     );
   }
-
 
   static showSnackBar(BuildContext context,String message){
     final snackBar = SnackBar(

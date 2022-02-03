@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:axe/screens/dashbaord.dart';
 import 'package:axe/util/constants.dart';
 import 'package:axe/util/global.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:axe/screens/login.dart';
 import 'package:axe/util/commoncolors.dart';
@@ -24,8 +25,18 @@ class SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
+    firebaseCloudMessaging_Listeners();
     getToken();
     loadPage();
+  }
+
+
+  void firebaseCloudMessaging_Listeners() {
+    FirebaseMessaging.instance.getToken().then((token){
+      print(token);
+      Global.addStringToSF(token!, Constant.Device_Token);
+    });
+
   }
 
   String token="";
@@ -35,12 +46,11 @@ class SplashState extends State<Splash> {
   }
 
   onDoneLoading() async {
-    if (token == null || token == ""||token=="null") {
+    if (token == "") {
       Get.to(()=> Login());
     } else {
       Get.to(()=> DashBoard(0));
     }
-
   }
 
   @override
@@ -51,10 +61,8 @@ class SplashState extends State<Splash> {
   }
 
   Future<void> getToken() async {
-   // token=await Global.getStringValuesSF(Constant.Device_Token);
+    Constant.deviceToken=await Global.getStringValuesSF(Constant.Device_Token);
     token=await Global.getStringValuesSF(Constant.AccessToken);
-    //Constant.deviceToken=token==null?"":token;
 
   }
-
 }
