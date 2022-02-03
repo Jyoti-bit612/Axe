@@ -9,6 +9,8 @@ class LeagueController extends GetxController {
   var pickedImage = "".obs;
   RxList seasonList=[].obs;
   RxList matchTypeList=[].obs;
+  RxList matchList=[].obs;
+  RxList leagueList=[].obs;
   var startDate="".obs;
   var endDate="".obs;
   RxBool isOfficial=true.obs;
@@ -22,6 +24,11 @@ class LeagueController extends GetxController {
   unOffical(bool isvalue) {
     unOfficial.value=isvalue;
     isOfficial.value=!isvalue;
+    update();
+  }
+
+  updateImage(var image) {
+    pickedImage.value=image;
     update();
   }
 
@@ -40,11 +47,27 @@ class LeagueController extends GetxController {
     super.onInit();
     getSeason();
     getMatchType();
+    getLeague();
+    getMatch();
+  }
+
+  Future<void> getMatch() async {
+    var response=await Apiprovider().getApi(Constant.get_match);
+    matchList.value=jsonDecode(response)["data"];
+    print(response);
+
   }
 
   Future<void> getSeason() async {
     var response=await Apiprovider().getApi(Constant.get_Season);
     seasonList.value=jsonDecode(response)["data"];
+    print(response);
+
+  }
+
+  Future<void> getLeague() async {
+    var response=await Apiprovider().getApi(Constant.get_league);
+    leagueList.value=jsonDecode(response)["data"];
     print(response);
 
   }

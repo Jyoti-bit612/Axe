@@ -58,12 +58,15 @@ class DropDownClassState extends State<DropDownClass> {
                           ),
                        items: widget.spinnerList!.map((value1) {
                             return  DropdownMenuItem<Map>(
-                              child: widget.name == "brandNameDates"?Padding(
+                              child: Padding(
                                 padding: const EdgeInsets.only(left: 10.0),
-                                child: new Text(value1["created_at"]),
-                              ):Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
-                                child: new Text(value1["name"]),
+                                child:  Text(
+                                    widget.name == "leagueDropDown"?
+                                    value1["league_title"]:
+                                    widget.name == "matchDropDown"?
+                                    value1["match_title"]:
+                                    value1["name"]
+                                ),
                               ),
                               value:value1,
                             );
@@ -72,7 +75,10 @@ class DropDownClassState extends State<DropDownClass> {
                     onChanged:widget.onChangeNullOrNot=="1"?null: (Map? newVal) {
                       setState(() {
                         widget.map=newVal;
-                        widget.dropDownValue =  widget.name! == "brandNameDates"?newVal!["created_at"].toString():newVal!["name"].toString();
+                        widget.dropDownValue =
+                        widget.name! == "leagueDropDown"? newVal!["league_title"]:
+                        widget.name! == "matchDropDown"? newVal!["match_title"]:
+                        newVal!["name"];
                         widget.callInterface!.widgetCallBack(widget.name!, json.encode(newVal),context);
                       });
                     },

@@ -15,9 +15,7 @@ class CommonWidget {
   static CommonWidget? commonWidget;
 
   static CommonWidget getInstance() {
-    if (commonWidget == null) {
-      commonWidget = CommonWidget();
-    }
+    commonWidget ??= CommonWidget();
     return commonWidget!;
   }
 
@@ -29,10 +27,9 @@ class CommonWidget {
       firstDate: DateTime(1960),
       lastDate:  DateTime(DateTime.now().year).subtract(Duration(days: 1)),
     );
-    DateFormat formatter = DateFormat('yyyy-MM-dd');
+    DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm:ss');
     if (picked != null)
-      callBackInterface.widgetCallBack(
-          title, formatter.format(picked), context);
+      callBackInterface.widgetCallBack(title, formatter.format(picked), context);
     else
       callBackInterface.widgetCallBack(title, "Any", context);
   }

@@ -10,8 +10,8 @@ class Constant{
   static const String login="api/login";
   static const String logout="logout";
   static const String create_league="api/venues/create-league";
-  static const String get_league="api/venues/getleague";
   static const String create_match="api/venues/create-match";
+  static const String get_league="api/venues/getleague";
   static const String get_match="api/venues/getmatch";
   static const String get_Season="api/venues/getseason";
   static const String get_MatchType="api/venues/getmatchtype";

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:axe/controller/league_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
@@ -14,25 +15,16 @@ import 'package:get/get.dart';
 class CreateMatch extends StatelessWidget implements CallBackInterface{
   CreateMatch({Key? key}) : super(key: key);
 
-  final emailController = TextEditingController();
-  final nameController = TextEditingController();
-  final passwordController = TextEditingController();
-  final confirmpasswordController = TextEditingController();
-  final contactController = TextEditingController();
-  final emailFocus = FocusNode();
-  final nameFocus = FocusNode();
-  final confirmPassFocus = FocusNode();
-  final contactFocus = FocusNode();
-  final passwordFocus = FocusNode();
+  final titleController = TextEditingController();
+  final descriptionController = TextEditingController();
+  final titleFocus = FocusNode();
+  final desFocus = FocusNode();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final list = [
-    {"name": "user1"},
-    {"name": "user2"},
-  ];
-
 
   @override
   Widget build(BuildContext context) {
+    final LeagueController controller = Get.put(LeagueController());
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: CommonColors.white,
@@ -94,10 +86,10 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
                             CommonColors.textfiled_gray,
                             Strings.match_title,
                             "",
-                            nameController,
+                            titleController,
                             TextInputType.emailAddress,
-                            nameFocus,
-                            emailFocus,
+                            titleFocus,
+                            null,
                             false,
                             false,
                             "email",
@@ -116,17 +108,23 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
                           height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                         ),
 
-                        SizedBox(
+
+                        Obx(()=>SizedBox(
                             height:
                             CommonWidget.getInstance().heightFactor(context) *
                                 0.09,
-                            child: DropDownClass(
+                            child:controller.matchTypeList.isNotEmpty?
+                            DropDownClass(
                                 CommonColors.darkGray,
-                                "commonDropdown",
-                                list[0]["name"],
-                                list,
+                                "leagueDropDown",
+                                controller.leagueList.value[0]["league_title"],
+                                controller.leagueList.value,
                                 this,
-                                "0",false, true)),
+                                "0",
+                                false,
+                                true)
+                                :Container()
+                        )),
 
 
                         CommonWidget.getInstance().normalText(
@@ -136,17 +134,22 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
                           height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                         ),
 
-                        SizedBox(
+                        Obx(()=>SizedBox(
                             height:
                             CommonWidget.getInstance().heightFactor(context) *
                                 0.09,
-                            child: DropDownClass(
+                            child:controller.matchTypeList.isNotEmpty?
+                            DropDownClass(
                                 CommonColors.darkGray,
-                                "commonDropdown",
-                                list[0]["name"],
-                                list,
+                                "matchTypeDropDown",
+                                controller.matchTypeList.value[0]["name"],
+                                controller.matchTypeList.value,
                                 this,
-                                "0",false, true)),
+                                "0",
+                                false,
+                                true)
+                                :Container()
+                        )),
 
                         CommonWidget.getInstance().normalText(
                             CommonColors.black, Strings.schedule_match,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
@@ -155,24 +158,29 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
                           height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                         ),
 
-                        Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5.0),
-                                border: Border.all(color:CommonColors.darkGray)
-                            ),
-                            height: CommonWidget.getInstance().heightFactor(context) * 0.07,
-                            child: Padding(
-                              padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.02,right:CommonWidget.getInstance().widthFactor(context) * 0.02),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  CommonWidget.getInstance().normalText(
-                                      CommonColors.darkGray, Strings.select_date_time,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
-
-                                  Icon(Icons.calendar_today_outlined,)
-                                ],
+                        GestureDetector(
+                          onTap: (){
+                            CommonWidget.getInstance().datePickerDialog(context, this, "StartDate");
+                          },
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  border: Border.all(color:CommonColors.darkGray)
                               ),
-                            ),
+                              height: CommonWidget.getInstance().heightFactor(context) * 0.07,
+                              child: Padding(
+                                padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.02,right:CommonWidget.getInstance().widthFactor(context) * 0.02),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    CommonWidget.getInstance().normalText(
+                                        CommonColors.black, controller.startDate.value,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w200),
+
+                                    Icon(Icons.calendar_today_outlined,color: CommonColors.primaryColor2,)
+                                  ],
+                                ),
+                              ),
+                          ),
                         ),
 
                         SizedBox(
@@ -193,10 +201,10 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
                             CommonColors.textfiled_gray,
                             Strings.write_match_des_here,
                             "This  field is mandatory",
-                            emailController,
+                            descriptionController,
                             TextInputType.emailAddress,
-                            emailFocus,
-                            contactFocus,
+                            desFocus,
+                            null,
                             false,
                             false,
                             "email",
@@ -327,14 +335,11 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
                                   CommonWidget.getInstance().normalText(
                                       CommonColors.darkGray,Strings.choose,0,CommonWidget.getInstance().widthFactor(context)*0.026,FontStyle.normal,1,
                                       FontWeight.w500,fontfamily: false),
-
                                 ],
                               ),
-
                             ],
                           ),
                         ),
-
 
                         SizedBox(
                           height: CommonWidget.getInstance().widthFactor(context) * 0.05,
@@ -365,33 +370,55 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
     )));
   }
 
+  var leagueId="",matchTypeId="";
+
   @override
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
+    final LeagueController controller = Get.put(LeagueController());
     switch(title){
       case Strings.create_match:
         if(CommonWidget.getInstance().isValidate(formKey)){
-          Global.showLoaderDialog(context);
+          if(controller.startDate=="")
+            Global.showSnackBar(context, "Please enter in Schedule Match field");
+          else{
+            Global.showLoaderDialog(context);
           var  jsonBody  =  {
-            "match_title":emailController.text.toString(),
-            "league_id": passwordController.text.toString(),
-            "match_type":Constant.deviceToken,
-            "match_schedule":Constant.deviceToken,
+            "match_title":titleController.text,
+            "league_id":leagueId ,
+            "match_type":matchTypeId,
+            "match_schedule":controller.startDate,
             "players1_ids":Constant.deviceToken,
             "players2_ids":Constant.deviceToken,
-            "description":Constant.deviceToken
+            "description":descriptionController.text,
           };
           FocusScopeNode currentFocus = FocusScope.of(context);
           if (!currentFocus.hasPrimaryFocus) {
             currentFocus.unfocus();
           }
           Global.postData(context,Constant.create_match,"createMatchApi",jsonBody,this);
-        }
+
+        }}
 
         break;
 
       case "createMatchApi":
         Get.back();
         Global.showSnackBar(context, jsonDecode(value)["message"]);
+        break;
+
+
+      case "StartDate":
+        controller.startDate(value);
+        break;
+
+      case "leagueDropDown":
+        var map = json.decode(value);
+        leagueId = map["id"].toString();
+        break;
+
+      case "matchTypeDropDown":
+        var map = json.decode(value);
+        matchTypeId = map["id"].toString();
         break;
     }
 

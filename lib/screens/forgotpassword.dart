@@ -1,12 +1,10 @@
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/dashbaord.dart';
-import 'package:axe/screens/signup.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 
 
 class ForgotPassword extends StatelessWidget  implements CallBackInterface{
