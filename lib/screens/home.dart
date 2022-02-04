@@ -60,6 +60,8 @@ class Home extends StatelessWidget  implements CallBackInterface{
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                 ),
+
+                controller.upcomingLeaguePojo.value.data==null?const CircularProgressIndicator():
                 controller.upcomingLeaguePojo.value.data!.isEmpty?
                 CommonWidget.getInstance().normalText(
                     CommonColors.red,"No Upcoming League",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false)
@@ -181,7 +183,7 @@ class Home extends StatelessWidget  implements CallBackInterface{
                   child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      itemCount: controller.topPlayer.value.data!.length,
+                      itemCount: 5,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.only(right:16.0),
@@ -251,6 +253,7 @@ class Home extends StatelessWidget  implements CallBackInterface{
                   height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                 ),
 
+                controller.prevoiusLeaguePojo.value.data==null?const CircularProgressIndicator():
                 controller.prevoiusLeaguePojo.value.data!.isEmpty?
                 CommonWidget.getInstance().normalText(
                     CommonColors.red,"No Previous League",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false)
@@ -292,7 +295,6 @@ class Home extends StatelessWidget  implements CallBackInterface{
 
                               ),
                             ),
-
                         ),
                       );
                     }),

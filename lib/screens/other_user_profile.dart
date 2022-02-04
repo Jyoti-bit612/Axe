@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/change_password.dart';
 import 'package:axe/screens/create_league.dart';
@@ -18,7 +20,28 @@ import 'package:get/get.dart';
 
 
 class OtherUserProfile extends StatelessWidget  implements CallBackInterface{
-  OtherUserProfile({Key? key}) : super(key: key);
+
+  var name;
+  var bigaxeScore;
+  var hatchetsScore;
+  var teamplayScore;
+  var picture;
+  var phone;
+  var email;
+  var city;
+  var state;
+  var address;
+
+  OtherUserProfile( this.name,
+      this.bigaxeScore,
+      this.hatchetsScore,
+      this.teamplayScore,
+      this.picture,
+      this.phone,
+      this.email,
+      this.city,
+      this.state,
+      this.address);
 
   var myMenuItems = <String>[
     Strings.privacy_profile,
@@ -26,7 +49,6 @@ class OtherUserProfile extends StatelessWidget  implements CallBackInterface{
     Strings.report,
     Strings.logout,
   ];
-
 
   void onSelect(item) {
     switch (item) {
@@ -89,7 +111,6 @@ class OtherUserProfile extends StatelessWidget  implements CallBackInterface{
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
 
-
                 Center(
                   child: Container(
                     width: CommonWidget.getInstance().widthFactor(context) * 0.30,
@@ -102,13 +123,16 @@ class OtherUserProfile extends StatelessWidget  implements CallBackInterface{
                       shape: BoxShape.circle,
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.all(1.0),
-                      child: DecoratedBox(
-                          decoration:  const BoxDecoration(
-                            color: CommonColors.textfiled_gray,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.asset("assets/images/camera.png")),
+                        padding: const EdgeInsets.all(1.0),
+                        child: picture== null ?CircleAvatar(
+                            backgroundColor: CommonColors.textfiled_gray,
+                            child: Image.asset("assets/images/camera.png")
+
+                        ):CircleAvatar(
+                          backgroundColor: CommonColors.textfiled_gray,
+                          backgroundImage:
+                          NetworkImage(Constant.imageUrl+picture),
+                        )
                     ),
                   ),
                 ),
@@ -119,14 +143,32 @@ class OtherUserProfile extends StatelessWidget  implements CallBackInterface{
 
                 Center(
                   child: CommonWidget.getInstance().normalText(
-                      CommonColors.black, "John Bradley",0,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,2,FontWeight.w600,fontfamily: true),
+                      CommonColors.black, name,0,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,2,FontWeight.w600,fontfamily: true),
                 ),
                 SizedBox(
                   height: CommonWidget.getInstance().widthFactor(context) * 0.01,
                 ),
                 Center(
                   child: CommonWidget.getInstance().normalText(
-                      CommonColors.darkGray, "Taking the axe throwing experience to a\nnew level #choppershh\nLondon UK",1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                      CommonColors.primaryColor1, email,1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                ),
+
+                SizedBox(
+                  height: CommonWidget.getInstance().widthFactor(context) * 0.01,
+                ),
+
+                Center(
+                  child: CommonWidget.getInstance().normalText(
+                      CommonColors.black, "Ph: "+phone.toString(),1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                ),
+
+                SizedBox(
+                  height: CommonWidget.getInstance().widthFactor(context) * 0.01,
+                ),
+
+                Center(
+                  child: CommonWidget.getInstance().normalText(
+                      CommonColors.darkGray, city.toString()+", "+state.toString(),1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
                 ),
 
                 SizedBox(
@@ -144,7 +186,7 @@ class OtherUserProfile extends StatelessWidget  implements CallBackInterface{
                             height: CommonWidget.getInstance().widthFactor(context) * 0.02,
                           ),
                           CommonWidget.getInstance().normalText(
-                              CommonColors.primaryColor1, "72",1,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                              CommonColors.primaryColor1, bigaxeScore.toString(),1,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
                         ],
                       ),
 
@@ -163,7 +205,7 @@ class OtherUserProfile extends StatelessWidget  implements CallBackInterface{
                             height: CommonWidget.getInstance().widthFactor(context) * 0.02,
                           ),
                           CommonWidget.getInstance().normalText(
-                              CommonColors.primaryColor1, "18",1,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                              CommonColors.primaryColor1, hatchetsScore.toString(),1,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
                         ],
                       ),
                       Container(
@@ -180,13 +222,11 @@ class OtherUserProfile extends StatelessWidget  implements CallBackInterface{
                             height: CommonWidget.getInstance().widthFactor(context) * 0.02,
                           ),
                           CommonWidget.getInstance().normalText(
-                              CommonColors.primaryColor1, "23",1,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                              CommonColors.primaryColor1, teamplayScore.toString(),1,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
                         ],
                       ),
-
                     ]
                 ),
-
 
                 SizedBox(
                   height: CommonWidget.getInstance().widthFactor(context) * 0.15,

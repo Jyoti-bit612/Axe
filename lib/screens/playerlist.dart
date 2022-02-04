@@ -1,42 +1,72 @@
+import 'package:axe/controller/player_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
+import 'package:axe/pojo/PlayerListPojo.dart';
 import 'package:axe/screens/other_user_profile.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
+import 'package:axe/util/constants.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
 class PlayerList extends StatelessWidget implements CallBackInterface {
- const PlayerList({Key? key}) : super(key: key);
 
-@override
+ TextEditingController searchController = TextEditingController();
+
+ void filterSearchResults(String searchText) {
+   final PlayerController controller = Get.put(PlayerController());
+   controller.playerpojo.value.data!.clear();
+
+   if (searchText.isEmpty) {
+     controller.playerpojo.value=controller.playerpojoDuplicate.value;
+     controller.update();
+     return;
+   }
+
+   controller.playerpojoDuplicate.value.data!.forEach((item) {
+     if (item.firstName!.toLowerCase().contains(searchText) ||item.lastName!.toLowerCase().contains(searchText) ) {
+       controller.playerpojo.value.data!.add(item);
+       controller.update();
+     }
+   });
+
+   return;
+
+ }
+
+ @override
   Widget build(BuildContext context) {
-    return SafeArea(
+  final PlayerController controller = Get.put(PlayerController());
+  return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
+        body: Obx(()=>
+        SingleChildScrollView(
           child: Padding(
             padding:  EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.02),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 IconButton(
                     padding: EdgeInsets.zero,
-                    constraints: BoxConstraints(),
+                    constraints: const BoxConstraints(),
                     onPressed: (){
                   Get.back();
                 }, icon: const Icon(Icons.arrow_back_rounded)),
 
-                const Card(
+                 Card(
                   elevation: 5,
-                  shape: RoundedRectangleBorder(
+                  shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
                       side: BorderSide(width: 2, color: CommonColors.white)),
 
                   child: TextField(
-                    decoration: InputDecoration(
+                    controller: searchController,
+                    onChanged: (value){
+                      filterSearchResults(value.toLowerCase());
+                    },
+                    decoration: const InputDecoration(
                       hintText: 'Search Player here...',
                       filled: true,
                       fillColor:CommonColors.white,
@@ -72,17 +102,30 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                      color: CommonColors.grayColor,
                    ),
                  ),
+
+                controller.playerpojo.value.data==null?const CircularProgressIndicator():
                 ListView.separated(
                     physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount:  7,
+                    itemCount:  controller.playerpojo.value.data!.length,
                     separatorBuilder: (BuildContext context, int index) => const Divider(height: 1),
                     itemBuilder: (context, index) {
                       return ListTile(
                         leading: GestureDetector(
                           behavior: HitTestBehavior.translucent,
                           onTap: (){
-                            Get.to( ()=>OtherUserProfile());
+                            Get.to( ()=>OtherUserProfile(controller.playerpojo.value.data![index].firstName!+" "+controller.playerpojo.value.data![index].lastName!,
+                                controller.playerpojo.value.data![index].bigaxeScore,
+                                controller.playerpojo.value.data![index].hatchetsScore,
+                                controller.playerpojo.value.data![index].teamplayScore,
+                                controller.playerpojo.value.data![index].picture,
+                                controller.playerpojo.value.data![index].phone,
+                                controller.playerpojo.value.data![index].email,
+                                controller.playerpojo.value.data![index].city,
+                                controller.playerpojo.value.data![index].state,
+                                controller.playerpojo.value.data![index].address,
+
+                            ));
 
                           },
                           child: Container(
@@ -98,11 +141,13 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                             ),
                             child: Padding(
                               padding: EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.005),
-                              child:  const Padding(
-                                  padding:EdgeInsets.all(1),
+                              child:   Padding(
+                                  padding:const EdgeInsets.all(1),
                                   child: CircleAvatar(
                                     radius: 30.0,
-                                    backgroundImage:AssetImage("assets/images/dummypic.jpg"),
+                                    backgroundImage:controller.playerpojo.value.data![index].picture==null?
+                                        const AssetImage("assets/images/dummypic.jpg") as ImageProvider:
+                                        NetworkImage(Constant.imageUrl+controller.playerpojo.value.data![index].picture!),
                                   )
                               ),
                             ),
@@ -110,16 +155,18 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                         ),
 
                         title: CommonWidget.getInstance().normalText(
-                            CommonColors.black,"David",0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w900,fontfamily: false),
+                            CommonColors.black,controller.playerpojo.value.data![index].firstName!,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w900,fontfamily: false),
 
                         subtitle:  CommonWidget.getInstance().normalText(
-                            CommonColors.darkGray,"Location: Southfield",0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w600),
+                            CommonColors.darkGray,"Location:"+controller.playerpojo.value.data![index].city.toString()+", "+controller.playerpojo.value.data![index].state.toString(),0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w600),
 
                         trailing: IconButton(
                           onPressed: (){
 
                           },
-                          icon: Image.asset("assets/images/smiley.png"),
+                          icon: controller.playerpojo.value.data![index].invitation==0?
+                          Image.asset("assets/images/smiley.png",color:CommonColors.red ,):
+                          Image.asset("assets/images/smiley.png",color: CommonColors.green,)
                         )
 
                       );
@@ -128,7 +175,6 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.03,
                 ),
-
 
                 Row(
                   children: [
@@ -163,7 +209,7 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.01,
                 ),
-                Card(
+                const Card(
                   elevation: 5,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -232,9 +278,11 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
               ],
             ),
           ),
-        ),
+        )),
       ),
-    );  }
+    );
+
+ }
 
   @override
   void widgetCallBack(String title, String value, BuildContext context) {

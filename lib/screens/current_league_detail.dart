@@ -93,7 +93,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                               GestureDetector(
                                 behavior: HitTestBehavior.translucent,
                                 onTap: (){
-                                  Get.to( ()=>OtherUserProfile());
+                                  Get.to( ()=>OtherUserProfile("","","","","","","","","","",));
 
                                 },
                                 child: Container(
@@ -124,7 +124,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                               GestureDetector(
                                 behavior: HitTestBehavior.translucent,
                                 onTap: (){
-                                  Get.to( ()=>OtherUserProfile());
+                                  Get.to( ()=>OtherUserProfile("","","","","","","","","","",));
                                 },
                                 child: Container(
                                   width:  CommonWidget.getInstance().widthFactor(context) * 0.27,
@@ -283,7 +283,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                             children: [
                               GestureDetector(
                                 onTap:(){
-                                  Get.to(()=>const PlayerList());
+                                  Get.to(()=>PlayerList());
 
                                 },
                                 child: Container(
@@ -375,7 +375,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                             children: [
                               GestureDetector(
                                 onTap:(){
-                                  Get.off(()=>const PlayerList());
+                                  Get.off(()=> PlayerList());
 
                                 },
                                 child: Container(
@@ -452,7 +452,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                   padding: const EdgeInsets.only(top:8.0),
                   child: GestureDetector(
                     onTap: (){
-                      Get.to( ()=>OtherUserProfile());
+                      Get.to( ()=>OtherUserProfile("","","","","","","","","","",));
 
                     },
                     child: ListTile(

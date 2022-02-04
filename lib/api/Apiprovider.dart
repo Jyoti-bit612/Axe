@@ -5,7 +5,7 @@ import 'package:http/http.dart';
 
 
 class Apiprovider {
-  Future<dynamic> getApi(String endUrl) async{
+  static Future<dynamic>  getApi(String endUrl) async{
     var token=await Global.getStringValuesSF(Constant.AccessToken);
     final response = await get(Uri.parse(Constant.baseUrl + endUrl),
         headers: {"Accept": "application/json",

@@ -90,20 +90,18 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
               ),
               child: Padding(
                 padding: const EdgeInsets.all(1.0),
-                child: DecoratedBox(
-                    decoration:  const BoxDecoration(
-                      color: CommonColors.textfiled_gray,
-                      shape: BoxShape.circle,
-                    ),
-                    child:  controller.pickedImage.value == "" ?
-                    Image.asset("assets/images/camera.png")
-                        : Image.file(File(controller.pickedImage.value),fit: BoxFit.contain,
-                width:  CommonWidget.getInstance().widthFactor(context) * 0.20,
-                height:  CommonWidget.getInstance().widthFactor(context) * 0.20),
-              )),
+                child: controller.pickedImage.value == "" ?CircleAvatar(
+                    backgroundColor: CommonColors.textfiled_gray,
+                    child: Image.asset("assets/images/camera.png")
+
+                ):CircleAvatar(
+                    backgroundColor: CommonColors.textfiled_gray,
+                    backgroundImage:
+                    FileImage(File(controller.pickedImage.value),
+                )
+              ),
             ),
-          )),
-        ),
+          )))),
 
               SizedBox(
                 height: CommonWidget.getInstance().widthFactor(context) * 0.02,

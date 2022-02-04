@@ -1,6 +1,7 @@
 import 'package:axe/controller/home_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/other_user_profile.dart';
+import 'package:axe/screens/playerlist.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/global.dart';
@@ -18,7 +19,6 @@ class UpcomingLeagueDetail extends StatefulWidget {
 class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterface {
   @override
   Widget build(BuildContext context) {
-
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -32,34 +32,50 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
                 IconButton(
                     padding: EdgeInsets.zero,
                     constraints: BoxConstraints(),
-                    onPressed: (){
-                  Get.back();
-                }, icon: const Icon(Icons.arrow_back_rounded)),
+                    onPressed: () {
+                      Get.back();
+                    }, icon: const Icon(Icons.arrow_back_rounded)),
 
                 Center(
-                      child: Image.asset("assets/images/champion.png",width:CommonWidget.getInstance().widthFactor(context) * 0.5,
-                        height: CommonWidget.getInstance().widthFactor(context) * 0.5,),
-                    ),
+                  child: Image.asset("assets/images/champion.png",
+                    width: CommonWidget.getInstance().widthFactor(context) *
+                        0.5,
+                    height: CommonWidget.getInstance().widthFactor(context) *
+                        0.5,),
+                ),
 
                 CommonWidget.getInstance().normalText(
-                    CommonColors.black, "Twisted Axe throwing Championship",1,CommonWidget.getInstance().widthFactor(context)*0.052,FontStyle.normal,2,FontWeight.w600),
+                    CommonColors.black,
+                    "Twisted Axe throwing Championship",
+                    1,
+                    CommonWidget.getInstance().widthFactor(context) * 0.052,
+                    FontStyle.normal,
+                    2,
+                    FontWeight.w600),
 
                 SizedBox(
-                  height: CommonWidget.getInstance().widthFactor(context) * 0.04,
+                  height: CommonWidget.getInstance().widthFactor(context) *
+                      0.04,
                 ),
 
                 Center(
                   child: CommonWidget.getInstance().normalText(
-                      CommonColors.darkGray, "Battle of the Axes\n2990 Rainbow Drive Youngstown OH 330-503\nBrickmason and Blockmason",1,
-                      CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w400),
+                      CommonColors.darkGray,
+                      "Battle of the Axes\n2990 Rainbow Drive Youngstown OH 330-503\nBrickmason and Blockmason",
+                      1,
+                      CommonWidget.getInstance().widthFactor(context) * 0.035,
+                      FontStyle.normal,
+                      1,
+                      FontWeight.w400),
                 ),
 
                 SizedBox(
-                  height: CommonWidget.getInstance().heightFactor(context) * 0.04,
+                  height: CommonWidget.getInstance().heightFactor(context) *
+                      0.04,
                 ),
 
                 Visibility(
-                  visible: Global.loginType=="1"?true:false,
+                  visible: Global.loginType == "1" ? true : false,
                   child: Center(
                     child: CommonWidget.getInstance().flexibleButton(
                       context,
@@ -75,58 +91,87 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
                 ),
 
                 SizedBox(
-                  height: CommonWidget.getInstance().heightFactor(context) * 0.03,
+                  height: CommonWidget.getInstance().heightFactor(context) *
+                      0.03,
                 ),
 
                 CommonWidget.getInstance().normalText(
-                    CommonColors.black, Strings.player,0,CommonWidget.getInstance().widthFactor(context)*0.052,FontStyle.normal,2,FontWeight.w600),
+                    CommonColors.black,
+                    Strings.player,
+                    0,
+                    CommonWidget.getInstance().widthFactor(context) * 0.052,
+                    FontStyle.normal,
+                    2,
+                    FontWeight.w600),
 
                 SizedBox(
-                  height: CommonWidget.getInstance().heightFactor(context) * 0.03,
+                  height: CommonWidget.getInstance().heightFactor(context) *
+                      0.03,
                 ),
 
                 Padding(
-                  padding: EdgeInsets.only(left:8.0,right:8,),
+                  padding: EdgeInsets.only(left: 8.0, right: 8,),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       CommonWidget.getInstance().normalText(
-                          CommonColors.black, Strings.avatar,0,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,2,FontWeight.w600),
+                          CommonColors.black,
+                          Strings.avatar,
+                          0,
+                          CommonWidget.getInstance().widthFactor(context) *
+                              0.035,
+                          FontStyle.normal,
+                          2,
+                          FontWeight.w600),
 
                       CommonWidget.getInstance().normalText(
-                          CommonColors.black, Strings.status,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
+                          CommonColors.black,
+                          Strings.status,
+                          0,
+                          CommonWidget.getInstance().widthFactor(context) *
+                              0.03,
+                          FontStyle.normal,
+                          1,
+                          FontWeight.w600),
                     ],
                   ),
                 ),
 
                 const Padding(
-                  padding: EdgeInsets.only(left:8.0,right:8),
+                  padding: EdgeInsets.only(left: 8.0, right: 8),
                   child: Divider(
                     height: 20,
-                      thickness: 1,
+                    thickness: 1,
                     color: CommonColors.grayColor,
                   ),
                 ),
 
                 ListView.separated(
-                  physics: const ClampingScrollPhysics(),
+                    physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount:  7,
-                    separatorBuilder: (BuildContext context, int index) => Divider(height: 1),
+                    itemCount: 7,
+                    separatorBuilder: (BuildContext context, int index) =>
+                        Divider(height: 1),
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         behavior: HitTestBehavior.translucent,
-                        onTap: (){
-                          Get.to( ()=>OtherUserProfile());
+                        onTap: () {
+                          Get.to( ()=>OtherUserProfile("","","","","","","","","","",));
+
                         },
                         child: Padding(
-                          padding: const EdgeInsets.only(top:8.0),
+                          padding: const EdgeInsets.only(top: 8.0),
                           child: ListTile(
                             leading: Container(
-                              width:  CommonWidget.getInstance().widthFactor(context) * 0.15,
-                              height:  CommonWidget.getInstance().widthFactor(context) * 0.15,
+                              width: CommonWidget.getInstance().widthFactor(
+                                  context) * 0.15,
+                              height: CommonWidget.getInstance().widthFactor(
+                                  context) * 0.15,
                               decoration: const BoxDecoration(
-                                gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
+                                gradient: LinearGradient(colors: [
+                                  CommonColors.primaryColor1,
+                                  CommonColors.imageRed
+                                ],
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomCenter,
                                 ),
@@ -136,41 +181,65 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
                               child: Padding(
                                 padding: const EdgeInsets.all(1.0),
                                 child: DecoratedBox(
-                                    decoration:  const BoxDecoration(
+                                    decoration: const BoxDecoration(
                                       color: CommonColors.textfiled_gray,
                                       shape: BoxShape.circle,
                                     ),
-                                    child: Image.asset("assets/images/profile.png")),
+                                    child: Image.asset(
+                                        "assets/images/profile.png")),
                               ),
                             ),
 
                             title: CommonWidget.getInstance().normalText(
-                                CommonColors.black,"David",0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w900,fontfamily: false),
+                                CommonColors.black,
+                                "David",
+                                0,
+                                CommonWidget.getInstance().widthFactor(
+                                    context) * 0.03,
+                                FontStyle.normal,
+                                1,
+                                FontWeight.w900,
+                                fontfamily: false),
 
-                           subtitle:  CommonWidget.getInstance().normalText(
-                               CommonColors.darkGray,"Location: Southfield",0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w600),
+                            subtitle: CommonWidget.getInstance().normalText(
+                                CommonColors.darkGray,
+                                "Location: Southfield",
+                                0,
+                                CommonWidget.getInstance().widthFactor(
+                                    context) * 0.028,
+                                FontStyle.normal,
+                                1,
+                                FontWeight.w600),
 
 
                             trailing: CommonWidget.getInstance().normalText(
-                                CommonColors.red,"Pending",0,CommonWidget.getInstance().widthFactor(context)*0.026,FontStyle.normal,2,FontWeight.w600),
+                                CommonColors.red,
+                                "Pending",
+                                0,
+                                CommonWidget.getInstance().widthFactor(
+                                    context) * 0.026,
+                                FontStyle.normal,
+                                2,
+                                FontWeight.w600),
 
                           ),
-                     //   ),
+                          //   ),
                         ),
                       );
                     }),
 
                 SizedBox(
-                  height: CommonWidget.getInstance().heightFactor(context) * 0.03,
+                  height: CommonWidget.getInstance().heightFactor(context) *
+                      0.03,
                 ),
 
                 Visibility(
-                    visible: Global.loginType=="1"?false:true,
+                  visible: Global.loginType == "1" ? false : true,
                   child: CommonWidget.getInstance().flexibleButtonWithIcon(
                       context,
                       Strings.invite_player,
-                      CommonWidget.getInstance().widthFactor(context)*0.5,
-                      CommonWidget.getInstance().widthFactor(context)*0.14,
+                      CommonWidget.getInstance().widthFactor(context) * 0.5,
+                      CommonWidget.getInstance().widthFactor(context) * 0.14,
                       CommonColors.primaryColor1,
                       CommonColors.primaryColor1,
                       CommonColors.white,
@@ -186,11 +255,15 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
     );
   }
 
-
-
   @override
   void widgetCallBack(String title, String value, BuildContext context) {
-    // TODO: implement widgetCallBack
+    switch (title) {
+      case Strings.invite_player:
+        Get.to(()=> PlayerList());
+        break;
+
   }
+  }
+
 }
 

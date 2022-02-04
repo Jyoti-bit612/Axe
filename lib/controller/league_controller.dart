@@ -52,28 +52,28 @@ class LeagueController extends GetxController {
   }
 
   Future<void> getMatch() async {
-    var response=await Apiprovider().getApi(Constant.get_match);
+    var response=await Apiprovider.getApi(Constant.get_match);
     matchList.value=jsonDecode(response)["data"];
     print(response);
 
   }
 
   Future<void> getSeason() async {
-    var response=await Apiprovider().getApi(Constant.get_Season);
+    var response=await Apiprovider.getApi(Constant.get_Season);
     seasonList.value=jsonDecode(response)["data"];
     print(response);
 
   }
 
   Future<void> getLeague() async {
-    var response=await Apiprovider().getApi(Constant.get_league);
+    var response=await Apiprovider.getApi(Constant.get_league);
     leagueList.value=jsonDecode(response)["data"];
     print(response);
 
   }
 
   Future<void> getMatchType() async {
-    var response=await Apiprovider().getApi(Constant.get_MatchType);
+    var response=await Apiprovider.getApi(Constant.get_MatchType);
     matchTypeList.value=jsonDecode(response)["data"];
     print(response);
   }

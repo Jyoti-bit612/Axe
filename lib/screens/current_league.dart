@@ -12,11 +12,9 @@ import 'package:intl/intl.dart';
 
 
 class CurrentLeague extends StatelessWidget implements CallBackInterface {
-
   @override
   Widget build(BuildContext context) {
     final HomeController controller = Get.put(HomeController());
-
     return  SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -89,10 +87,10 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                     ),
 
                     CommonWidget.getInstance().normalText(
-                        CommonColors.red, Strings.view_all,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
-
+                        CommonColors.red, "",0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
                   ],
                 ),
+
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                 ),

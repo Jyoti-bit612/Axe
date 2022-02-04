@@ -200,7 +200,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                       ),
                       GestureDetector(
                         onTap: (){
-                          Get.to(const PlayerList());
+                          Get.to( PlayerList());
                         },
                         child: SizedBox(
                             width: CommonWidget.getInstance().widthFactor(context) * 0.3,
