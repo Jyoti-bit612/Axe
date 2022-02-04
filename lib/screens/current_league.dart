@@ -1,20 +1,22 @@
+import 'package:axe/controller/home_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/current_league_detail.dart';
 import 'package:axe/screens/upcoming_league_detail.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
-import 'package:axe/util/dropdownclass.dart';
+import 'package:axe/util/constants.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:intl/intl.dart';
 
 
 class CurrentLeague extends StatelessWidget implements CallBackInterface {
-  const CurrentLeague({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final HomeController controller = Get.put(HomeController());
+
     return  SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -94,10 +96,14 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                 ),
+                controller.upcomingLeaguePojo.value.data!.isEmpty?
+                CommonWidget.getInstance().normalText(
+                    CommonColors.red,"No Upcoming League",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false)
+                    :
                 GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount:5,
+                    itemCount:controller.upcomingLeaguePojo.value==null?0: controller.upcomingLeaguePojo.value.data!.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
                         crossAxisSpacing: CommonWidget.getInstance().widthFactor(context) * 0.01,
@@ -107,8 +113,8 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                         behavior: HitTestBehavior.translucent,
                         onTap: () {
                           Get.to(()=>const UpcomingLeagueDetail());
-
                         },
+
                         child: Card(
                           shadowColor: CommonColors.grayColor,
                           elevation: 4,
@@ -120,18 +126,23 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                                 height: CommonWidget.getInstance().widthFactor(context) * 0.01,
                               ),
 
-                              Image.asset("assets/images/champion.png",width:CommonWidget.getInstance().widthFactor(context) * 0.14,
+                              controller.upcomingLeaguePojo.value.data![index].logoPath==null?
+                              Image.asset("assets/images/champion.png",
+                                width:CommonWidget.getInstance().widthFactor(context) * 0.14,
+                                height: CommonWidget.getInstance().widthFactor(context) * 0.14,):
+                              Image.network(Constant.imageUrl+controller.upcomingLeaguePojo.value.data![index].logoPath!,
+                                width:CommonWidget.getInstance().widthFactor(context) * 0.14,
                                 height: CommonWidget.getInstance().widthFactor(context) * 0.14,),
 
                               CommonWidget.getInstance().normalText(
-                                CommonColors.black,"Axe League",1,CommonWidget.getInstance().widthFactor(context)*0.024,FontStyle.normal,1,FontWeight.w900,),
+                                CommonColors.black,controller.upcomingLeaguePojo.value.data![index].leagueTitle!,1,CommonWidget.getInstance().widthFactor(context)*0.024,FontStyle.normal,1,FontWeight.w900,),
 
                               SizedBox(
                                 height: CommonWidget.getInstance().widthFactor(context) * 0.01,
                               ),
 
                               CommonWidget.getInstance().normalText(
-                                  CommonColors.darkGray,"Started from Ist Nov",1,CommonWidget.getInstance().widthFactor(context)*0.023,FontStyle.normal,0,FontWeight.w600,fontfamily: false),
+                                  CommonColors.darkGray,"starting from "+getStartDate(controller.upcomingLeaguePojo.value.data![index].startsFrom!),1,CommonWidget.getInstance().widthFactor(context)*0.023,FontStyle.normal,0,FontWeight.w600,fontfamily: false),
 
                               SizedBox(
                                 height: CommonWidget.getInstance().widthFactor(context) * 0.01,
@@ -141,17 +152,14 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                                 decoration: const BoxDecoration(
                                   borderRadius: BorderRadius.all(Radius.circular(5)),
                                   color: CommonColors.primaryColor1,
-
                                 ),
                                 child:
                                 Padding(
                                   padding: const EdgeInsets.only(left:6,right:6,top:2.5,bottom:3),
                                   child: CommonWidget.getInstance().normalText(
-                                      CommonColors.white,"26 Dec",1,CommonWidget.getInstance().widthFactor(context)*0.015,FontStyle.normal,0,FontWeight.w400),
+                                      CommonColors.white,getStartDate(controller.upcomingLeaguePojo.value.data![index].endDate!),1,CommonWidget.getInstance().widthFactor(context)*0.015,FontStyle.normal,0,FontWeight.w400),
                                 ),
-
                               ),
-
                             ],
                           ),
                         ),
@@ -165,6 +173,15 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
         ),
       ),
     );
+  }
+
+
+  DateFormat dateFormat = DateFormat("dd MMM");
+
+  String getStartDate(var date) {
+    var mDate1= DateTime.parse(date);
+    return dateFormat.format(mDate1);
+
   }
 
 

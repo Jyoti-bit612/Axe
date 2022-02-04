@@ -1,3 +1,4 @@
+import 'package:axe/controller/home_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/other_user_profile.dart';
 import 'package:axe/util/commoncolors.dart';
@@ -17,6 +18,7 @@ class UpcomingLeagueDetail extends StatefulWidget {
 class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterface {
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -40,7 +42,7 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
                     ),
 
                 CommonWidget.getInstance().normalText(
-                    CommonColors.black, "Twisted Axe throwing Championship",1,CommonWidget.getInstance().widthFactor(context)*0.055,FontStyle.normal,2,FontWeight.w600),
+                    CommonColors.black, "Twisted Axe throwing Championship",1,CommonWidget.getInstance().widthFactor(context)*0.052,FontStyle.normal,2,FontWeight.w600),
 
                 SizedBox(
                   height: CommonWidget.getInstance().widthFactor(context) * 0.04,
@@ -77,7 +79,7 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
                 ),
 
                 CommonWidget.getInstance().normalText(
-                    CommonColors.black, Strings.player,0,CommonWidget.getInstance().widthFactor(context)*0.055,FontStyle.normal,2,FontWeight.w600),
+                    CommonColors.black, Strings.player,0,CommonWidget.getInstance().widthFactor(context)*0.052,FontStyle.normal,2,FontWeight.w600),
 
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.03,

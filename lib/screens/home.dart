@@ -1,21 +1,24 @@
+import 'package:axe/controller/home_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/practice_match.dart';
 import 'package:axe/screens/prevoius_league_detail.dart';
 import 'package:axe/screens/upcoming_league_detail.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
+import 'package:axe/util/constants.dart';
 import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class Home extends StatelessWidget  implements CallBackInterface{
-   const Home({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final HomeController controller = Get.put(HomeController());
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
+        body: Obx(()=>SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Column(
@@ -44,21 +47,27 @@ class Home extends StatelessWidget  implements CallBackInterface{
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CommonWidget.getInstance().normalText(
-                        CommonColors.black, Strings.upcoming_league,0,CommonWidget.getInstance().widthFactor(context)*0.055,FontStyle.normal,2,FontWeight.w600),
+                        CommonColors.black, Strings.upcoming_league,0,CommonWidget.getInstance().widthFactor(context)*0.052,FontStyle.normal,2,FontWeight.w600),
 
-                    CommonWidget.getInstance().normalText(
-                        CommonColors.red, Strings.view_all,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
+                    Visibility(
+                      visible: false,
+                      child: CommonWidget.getInstance().normalText(
+                          CommonColors.red, Strings.view_all,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
+                    ),
                   ],
                 ),
 
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                 ),
-
+                controller.upcomingLeaguePojo.value.data!.isEmpty?
+                CommonWidget.getInstance().normalText(
+                    CommonColors.red,"No Upcoming League",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false)
+                    :
                 GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount:5,
+                    itemCount:controller.upcomingLeaguePojo.value.data==null?0: controller.upcomingLeaguePojo.value.data!.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
                         crossAxisSpacing: CommonWidget.getInstance().widthFactor(context) * 0.01,
@@ -81,18 +90,23 @@ class Home extends StatelessWidget  implements CallBackInterface{
                                 height: CommonWidget.getInstance().widthFactor(context) * 0.01,
                               ),
 
-                              Image.asset("assets/images/champion.png",width:CommonWidget.getInstance().widthFactor(context) * 0.14,
+                              controller.upcomingLeaguePojo.value.data![index].logoPath==null?
+                              Image.asset("assets/images/champion.png",
+                                width:CommonWidget.getInstance().widthFactor(context) * 0.14,
+                                height: CommonWidget.getInstance().widthFactor(context) * 0.14,):
+                              Image.network(Constant.imageUrl+controller.upcomingLeaguePojo.value.data![index].logoPath!,
+                                width:CommonWidget.getInstance().widthFactor(context) * 0.14,
                               height: CommonWidget.getInstance().widthFactor(context) * 0.14,),
 
                               CommonWidget.getInstance().normalText(
-                                  CommonColors.black,"Axe League",1,CommonWidget.getInstance().widthFactor(context)*0.024,FontStyle.normal,1,FontWeight.w900,),
+                                  CommonColors.black,controller.upcomingLeaguePojo.value.data![index].leagueTitle!,1,CommonWidget.getInstance().widthFactor(context)*0.024,FontStyle.normal,1,FontWeight.w900,),
 
                               SizedBox(
                                 height: CommonWidget.getInstance().widthFactor(context) * 0.01,
                               ),
 
                               CommonWidget.getInstance().normalText(
-                                  CommonColors.darkGray,"Started from Ist Nov",1,CommonWidget.getInstance().widthFactor(context)*0.023,FontStyle.normal,0,FontWeight.w600,fontfamily: false),
+                                  CommonColors.darkGray,"starting from "+getStartDate(controller.upcomingLeaguePojo.value.data![index].startsFrom!),1,CommonWidget.getInstance().widthFactor(context)*0.023,FontStyle.normal,0,FontWeight.w600,fontfamily: false),
 
                               SizedBox(
                                 height: CommonWidget.getInstance().widthFactor(context) * 0.01,
@@ -102,18 +116,14 @@ class Home extends StatelessWidget  implements CallBackInterface{
                                 decoration: const BoxDecoration(
                                   borderRadius: BorderRadius.all(Radius.circular(5)),
                                   color: CommonColors.primaryColor1,
-
                                 ),
                                 child:
                                 Padding(
                                   padding: const EdgeInsets.only(left:6,right:6,top:2.5,bottom:3),
                                   child: CommonWidget.getInstance().normalText(
-                                      CommonColors.white,"26 Dec",1,CommonWidget.getInstance().widthFactor(context)*0.015,FontStyle.normal,0,FontWeight.w400),
+                                      CommonColors.white,getStartDate(controller.upcomingLeaguePojo.value.data![index].endDate!),1,CommonWidget.getInstance().widthFactor(context)*0.015,FontStyle.normal,0,FontWeight.w400),
                                 ),
-
                               ),
-
-
                             ],
                           ),
                         ),
@@ -128,7 +138,7 @@ class Home extends StatelessWidget  implements CallBackInterface{
                   children: [
                     Expanded(
                       child: CommonWidget.getInstance().normalText(
-                          CommonColors.black, Strings.top_player,0,CommonWidget.getInstance().widthFactor(context)*0.055,FontStyle.normal,2,FontWeight.w600),
+                          CommonColors.black, Strings.top_player,0,CommonWidget.getInstance().widthFactor(context)*0.052,FontStyle.normal,2,FontWeight.w600),
                     ),
 
                     Padding(
@@ -171,7 +181,7 @@ class Home extends StatelessWidget  implements CallBackInterface{
                   child: ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      itemCount:  4,
+                      itemCount: controller.topPlayer.value.data!.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.only(right:16.0),
@@ -224,12 +234,15 @@ class Home extends StatelessWidget  implements CallBackInterface{
                   children: [
                     Expanded(
                       child: CommonWidget.getInstance().normalText(
-                          CommonColors.black, Strings.previous_league,0,CommonWidget.getInstance().widthFactor(context)*0.055,FontStyle.normal,2,FontWeight.w600),
+                          CommonColors.black, Strings.previous_league,0,CommonWidget.getInstance().widthFactor(context)*0.052,FontStyle.normal,2,FontWeight.w600),
                     ),
 
 
-                    CommonWidget.getInstance().normalText(
-                        CommonColors.red, Strings.view_all,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
+                    Visibility(
+                      visible: false,
+                      child: CommonWidget.getInstance().normalText(
+                          CommonColors.red, Strings.view_all,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
+                    ),
 
                   ],
                 ),
@@ -238,15 +251,17 @@ class Home extends StatelessWidget  implements CallBackInterface{
                   height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                 ),
 
-                ListView.builder(
+                controller.prevoiusLeaguePojo.value.data!.isEmpty?
+                CommonWidget.getInstance().normalText(
+                    CommonColors.red,"No Previous League",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false)
+                :ListView.builder(
                   physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount:  3,
+                    itemCount: controller.prevoiusLeaguePojo.value.data==null?0: controller.prevoiusLeaguePojo.value.data!.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: (){
                           Get.to(()=>const PreviousLeagueDetail());
-
                         },
                           child: Padding(
                           padding: const EdgeInsets.only(top:8.0),
@@ -257,30 +272,34 @@ class Home extends StatelessWidget  implements CallBackInterface{
                             elevation: 4,
 
                               child: ListTile(
+                                leading:
+                                controller.prevoiusLeaguePojo.value.data![index].logoPath==null?
+                                Image.asset("assets/images/champion.png",width:CommonWidget.getInstance().widthFactor(context) * 0.14,
+                                  height: CommonWidget.getInstance().widthFactor(context) * 0.14):
+                                Image.network(Constant.imageUrl+controller.upcomingLeaguePojo.value.data![index].logoPath!,
+                                  width:CommonWidget.getInstance().widthFactor(context) * 0.14,
+                                  height: CommonWidget.getInstance().widthFactor(context) * 0.14,),
 
-                                leading:  Image.asset("assets/images/champion.png",width:CommonWidget.getInstance().widthFactor(context) * 0.14,
-                                  height: CommonWidget.getInstance().widthFactor(context) * 0.14,) ,
 
                                 title: CommonWidget.getInstance().normalText(
-                                    CommonColors.black,"Showme axe throwing league",0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w900,fontfamily: false),
+                                    CommonColors.black,controller.prevoiusLeaguePojo.value.data![index].leagueTitle!,0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w900,fontfamily: false),
 
                                subtitle:  CommonWidget.getInstance().normalText(
-                                   CommonColors.darkGray,"Season 3",0,CommonWidget.getInstance().widthFactor(context)*0.02,FontStyle.normal,2,FontWeight.w600),
+                                   CommonColors.darkGray,"Season "+controller.prevoiusLeaguePojo.value.data![index].season!.toString(),0,CommonWidget.getInstance().widthFactor(context)*0.02,FontStyle.normal,2,FontWeight.w600),
 
 
                                 trailing: Icon(Icons.arrow_forward_ios_outlined,size: CommonWidget.getInstance().heightFactor(context) * 0.02,),
 
-
                               ),
                             ),
-                     //   ),
+
                         ),
                       );
                     }),
               ],
             ),
           ),
-        ),
+        )),
       ),
     );
   }
@@ -312,6 +331,15 @@ class Home extends StatelessWidget  implements CallBackInterface{
 
         break;
     }
+  }
+
+   DateFormat dateFormat = DateFormat("dd MMM");
+
+
+   String getStartDate(var date) {
+     var mDate1= DateTime.parse(date);
+     return dateFormat.format(mDate1);
+
   }
 }
 

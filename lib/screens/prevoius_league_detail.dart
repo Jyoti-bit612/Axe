@@ -58,7 +58,7 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
                     ),
 
                 CommonWidget.getInstance().normalText(
-                    CommonColors.black, "Twisted Axe throwing Championship",1,CommonWidget.getInstance().widthFactor(context)*0.055,FontStyle.normal,2,FontWeight.w600),
+                    CommonColors.black, "Twisted Axe throwing Championship",1,CommonWidget.getInstance().widthFactor(context)*0.052,FontStyle.normal,2,FontWeight.w600),
 
                 SizedBox(
                   height: CommonWidget.getInstance().widthFactor(context) * 0.04,
@@ -78,7 +78,7 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
                   children: [
                     Expanded(
                       child: CommonWidget.getInstance().normalText(
-                          CommonColors.black, Strings.top_player,0,CommonWidget.getInstance().widthFactor(context)*0.055,FontStyle.normal,2,FontWeight.w600),
+                          CommonColors.black, Strings.top_player,0,CommonWidget.getInstance().widthFactor(context)*0.052,FontStyle.normal,2,FontWeight.w600),
                     ),
 
                     Padding(
