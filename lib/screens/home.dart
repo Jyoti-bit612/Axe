@@ -180,15 +180,26 @@ class Home extends StatelessWidget  implements CallBackInterface{
 
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.22,
-                  child: ListView.builder(
+                  child:
+                  controller.topPlayer.value.data==null? Container():
+                  controller.topPlayer.value.data!.isEmpty?
+                  CommonWidget.getInstance().normalText(
+                      CommonColors.red,"No Top Player Yet",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false):
+                  ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      itemCount: 5,
+                      itemCount: controller.topPlayer.value.data!.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.only(right:16.0),
                           child: Container(
-                            color: CommonColors.primaryColor2,
+                            decoration:  BoxDecoration(
+                              color: CommonColors.primaryColor1,
+                              /*image: DecorationImage(
+                                image:  NetworkImage(Constant.imageUrl+controller.topPlayer.value.data![index].picture!),
+                                ),*/
+                            ),
+                          //  color: CommonColors.primaryColor2,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -197,12 +208,15 @@ class Home extends StatelessWidget  implements CallBackInterface{
                                   padding: const EdgeInsets.only(left:20.0,right:20),
                                   child: Row(
                                     children: [
-                                      scoreWidget("08","Rank",context),
+                                      scoreWidget( controller.topPlayer.value.data![index].rankUser.toString(),"Rank",context),
 
-                                      Divider(height:1,thickness:1,color: CommonColors.white,),
+                                      const Divider(height:1,thickness:1,color: CommonColors.white,),
 
-                                      scoreWidget("RYAN SMITH","Location Virgenua Beach VA",context),
-
+                                      scoreWidget(controller.topPlayer.value.data![index].firstName!+" ".toString()+
+                                          controller.topPlayer.value.data![index].lastName!.toString()
+                                          ,"Location "+ controller.topPlayer.value.data![index].city.toString()+ ", "+
+                                              controller.topPlayer.value.data![index].state.toString()
+                                          ,context),
                                     ],
                                   ),
                                 ),
@@ -214,9 +228,9 @@ class Home extends StatelessWidget  implements CallBackInterface{
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      scoreWidget("70%","Accuracy",context),
-                                      scoreWidget("07","Leagues",context),
-                                      scoreWidget("18","Matches",context),
+                                      scoreWidget(controller.topPlayer.value.data![index].accuracyUser.toString(),"Accuracy",context),
+                                      scoreWidget(controller.topPlayer.value.data![index].totalLeague.toString(),"Leagues",context),
+                                      scoreWidget(controller.topPlayer.value.data![index].totalMatch.toString(),"Matches",context),
                                     ],
                                   ),
                                 ),
@@ -226,7 +240,6 @@ class Home extends StatelessWidget  implements CallBackInterface{
                         );
                       }),
                 ),
-
 
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.04,

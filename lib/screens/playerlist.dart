@@ -1,6 +1,5 @@
 import 'package:axe/controller/player_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
-import 'package:axe/pojo/PlayerListPojo.dart';
 import 'package:axe/screens/other_user_profile.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
@@ -8,7 +7,6 @@ import 'package:axe/util/constants.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 
 class PlayerList extends StatelessWidget implements CallBackInterface {
 
@@ -40,8 +38,7 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
   final PlayerController controller = Get.put(PlayerController());
   return SafeArea(
       child: Scaffold(
-        body: Obx(()=>
-        SingleChildScrollView(
+        body: SingleChildScrollView(
           child: Padding(
             padding:  EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.02),
             child: Column(
@@ -103,7 +100,7 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                    ),
                  ),
 
-                controller.playerpojo.value.data==null?const CircularProgressIndicator():
+                Obx(()=> controller.playerpojo.value.data==null?const CircularProgressIndicator():
                 ListView.separated(
                     physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
@@ -162,15 +159,16 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
 
                         trailing: IconButton(
                           onPressed: (){
-
+                            controller.playerpojo.value.data![index].invitation=1;
+                            controller.updatePlayer1Id(controller.player1d+","+controller.playerpojo.value.data![index].id.toString());
                           },
-                          icon: controller.playerpojo.value.data![index].invitation==0?
-                          Image.asset("assets/images/smiley.png",color:CommonColors.red ,):
+                        // icon: controller.playerpojo.value.data![index].invitation==0?
+                          icon: controller.isChecked.value?
+                          Image.asset("assets/images/smiley.png",color:CommonColors.red,):
                           Image.asset("assets/images/smiley.png",color: CommonColors.green,)
                         )
-
                       );
-                    }),
+                    })),
 
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.03,
@@ -273,12 +271,10 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                     )
                   ],
                 )
-
-
               ],
             ),
           ),
-        )),
+        ),
       ),
     );
 
