@@ -156,7 +156,6 @@ class Home extends StatelessWidget  implements CallBackInterface{
                       ),
                     ),
 
-
                     Padding(
                       padding: const EdgeInsets.only(left:6.0),
                       child: Container(

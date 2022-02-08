@@ -442,6 +442,8 @@ class SignUp extends StatelessWidget implements CallBackInterface{
          await Global.addStringToSF(response["user"]["user_type"].toString(),Constant.LoginType);  // 1 for user 2 for vender
          Global.loginType=response["user"]["user_type"]==1?"2":"1";
          Global.addStringToSF( response["access_token"],Constant.AccessToken);
+         Global.addStringToSF(response["user"]["email"],Constant.email);
+
          Get.to(()=> DashBoard(0));
 
        } else if (res.statusCode == 404) {

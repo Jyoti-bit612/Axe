@@ -9,27 +9,23 @@ class CounterController extends GetxController {
 
   updateValue() {
     isValue.value=!isValue.value;
-    update();
   }
 
   updateRole(var role) {
     userRole.value=role;
-    update();
   }
 
   updateValueNew() {
     isValueNew.value=!isValueNew.value;
-    update();
   }
 
   updateValueConfirm() {
     isValueConfirm.value=!isValueConfirm.value;
-    update();
   }
 
   updateImage(var image) {
     pickedImage.value=image;
-    update();
   }
+
 
 }

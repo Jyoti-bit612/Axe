@@ -44,6 +44,7 @@ class Strings{
   static const String won = "Won";
   static const String loss = "Loss";
   static const String overall_point = "Overall Points";
+  static const String password_not_matched = "Password not Matched";
 
   static const String hatchet = "Hatchets";
   static const String big_axe = "Big AXE";
@@ -129,6 +130,7 @@ class Strings{
   static const String contact = "Contact No.";
   static const String conirm_pass = "Confirm New Password";
   static const String please_select = "Please Select";
+  static const String loading_data = "Loading data, Please wait...";
 
   static const String pass = "Password";
   static const String old_pass = "Old-Password";

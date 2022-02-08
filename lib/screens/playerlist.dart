@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PlayerList extends StatelessWidget implements CallBackInterface {
+  PlayerList({Key? key}) : super(key: key);
 
  TextEditingController searchController = TextEditingController();
 
@@ -17,28 +18,30 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
    controller.playerpojo.value.data!.clear();
 
    if (searchText.isEmpty) {
-     controller.playerpojo.value=controller.playerpojoDuplicate.value;
+     //controller.playerpojo.value=controller.playerpojoDuplicate.value;
      controller.update();
      return;
    }
 
-   controller.playerpojoDuplicate.value.data!.forEach((item) {
+  /* controller.playerpojoDuplicate.value.data!.forEach((item) {
      if (item.firstName!.toLowerCase().contains(searchText) ||item.lastName!.toLowerCase().contains(searchText) ) {
        controller.playerpojo.value.data!.add(item);
        controller.update();
      }
-   });
+   });*/
 
    return;
 
  }
+
+ var playerid1="";
 
  @override
   Widget build(BuildContext context) {
   final PlayerController controller = Get.put(PlayerController());
   return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
+        body:   SingleChildScrollView(
           child: Padding(
             padding:  EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.02),
             child: Column(
@@ -49,7 +52,7 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                     padding: EdgeInsets.zero,
                     constraints: const BoxConstraints(),
                     onPressed: (){
-                  Get.back();
+                    Get.back();
                 }, icon: const Icon(Icons.arrow_back_rounded)),
 
                  Card(
@@ -100,14 +103,13 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                    ),
                  ),
 
-                Obx(()=> controller.playerpojo.value.data==null?const CircularProgressIndicator():
+            Obx(()=> controller.playerpojo.value.data==null?const CircularProgressIndicator():
                 ListView.separated(
                     physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
                     itemCount:  controller.playerpojo.value.data!.length,
                     separatorBuilder: (BuildContext context, int index) => const Divider(height: 1),
-                    itemBuilder: (context, index) {
-                      return ListTile(
+                    itemBuilder: (context, index) {return ListTile(
                         leading: GestureDetector(
                           behavior: HitTestBehavior.translucent,
                           onTap: (){
@@ -159,11 +161,13 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
 
                         trailing: IconButton(
                           onPressed: (){
-                            controller.playerpojo.value.data![index].invitation=1;
+                            print("click");
+                            controller.playerpojo.value.data![index].invitation= controller.playerpojo.value.data![index].invitation==1?0:1;
                             controller.updatePlayer1Id(controller.player1d+","+controller.playerpojo.value.data![index].id.toString());
+                            controller.playerpojo.refresh();
                           },
-                        // icon: controller.playerpojo.value.data![index].invitation==0?
-                          icon: controller.isChecked.value?
+
+                         icon: controller.playerpojo.value.data![index].invitation==0?
                           Image.asset("assets/images/smiley.png",color:CommonColors.red,):
                           Image.asset("assets/images/smiley.png",color: CommonColors.green,)
                         )
@@ -174,7 +178,7 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                   height: CommonWidget.getInstance().heightFactor(context) * 0.03,
                 ),
 
-                Row(
+            /*    Row(
                   children: [
 
                     CommonWidget.getInstance().normalText(
@@ -185,7 +189,7 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                     Icon(Icons.arrow_forward_outlined,color: CommonColors.primaryColor1,)
 
                   ],
-                ),
+                ),*/
 
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.02,
@@ -274,14 +278,13 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
               ],
             ),
           ),
-        ),
-      ),
+        )),
     );
 
  }
 
   @override
   void widgetCallBack(String title, String value, BuildContext context) {
-    // TODO: implement widgetCallBack
+
   }
 }

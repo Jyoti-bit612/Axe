@@ -63,6 +63,7 @@ class SplashState extends State<Splash> {
   Future<void> getToken() async {
     Constant.deviceToken=await Global.getStringValuesSF(Constant.Device_Token);
     token=await Global.getStringValuesSF(Constant.AccessToken);
+    Constant.email=await Global.getStringValuesSF(Constant.email);
 
   }
 }

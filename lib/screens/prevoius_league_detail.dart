@@ -1,6 +1,8 @@
+import 'package:axe/controller/prevoius_league_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
+import 'package:axe/util/constants.dart';
 import 'package:axe/util/dropdownclass.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +25,6 @@ List list1 = [
   {"name": "High to Low"},
 ];
 
-
 class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProviderStateMixin implements CallBackInterface {
   TabController? _tabController;
 
@@ -35,9 +36,11 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
 
   @override
   Widget build(BuildContext context) {
+    final PreviousLeagueController controller = Get.put(PreviousLeagueController());
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
+        body:Obx(()=>
+            SingleChildScrollView(
           child:Padding(
             padding: EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.03),
             child: Column(
@@ -53,12 +56,22 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
                 }, icon: const Icon(Icons.arrow_back_rounded)),
 
                 Center(
-                      child: Image.asset("assets/images/champion.png",width:CommonWidget.getInstance().widthFactor(context) * 0.5,
+                      child:controller.prevoiusLeaguePojo.value.leagueDetails==null?
+                      Image.asset("assets/images/champion.png",
+                        width:CommonWidget.getInstance().widthFactor(context) * 0.5,
+                        height: CommonWidget.getInstance().widthFactor(context) * 0.5,):
+                      controller.prevoiusLeaguePojo.value.leagueDetails!.logoPath==null?
+                          Image.asset("assets/images/champion.png",
+                            width:CommonWidget.getInstance().widthFactor(context) * 0.5,
+                            height: CommonWidget.getInstance().widthFactor(context) * 0.5,):
+                      Image.network(Constant.imageUrl+controller.prevoiusLeaguePojo.value.leagueDetails!.logoPath!,width:CommonWidget.getInstance().widthFactor(context) * 0.5,
                         height: CommonWidget.getInstance().widthFactor(context) * 0.5,),
                     ),
 
                 CommonWidget.getInstance().normalText(
-                    CommonColors.black, "Twisted Axe throwing Championship",1,CommonWidget.getInstance().widthFactor(context)*0.052,FontStyle.normal,2,FontWeight.w600),
+                    CommonColors.black,
+                    controller.prevoiusLeaguePojo.value.leagueDetails==null?"":
+                    controller.prevoiusLeaguePojo.value.leagueDetails!.leagueTitle!,1,CommonWidget.getInstance().widthFactor(context)*0.052,FontStyle.normal,2,FontWeight.w600),
 
                 SizedBox(
                   height: CommonWidget.getInstance().widthFactor(context) * 0.04,
@@ -66,7 +79,9 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
 
                 Center(
                   child: CommonWidget.getInstance().normalText(
-                      CommonColors.darkGray, "Battle of the Axes\n2990 Rainbow Drive Youngstown OH 330-503\nBrickmason and Blockmason",1,
+                      CommonColors.darkGray,
+                      controller.prevoiusLeaguePojo.value.leagueDetails==null?"":
+                      controller.prevoiusLeaguePojo.value.leagueDetails!.description!,1,
                       CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w400),
                 ),
 
@@ -118,7 +133,13 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
 
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.22,
-                  child: ListView.builder(
+                  child:
+                  controller.topPlayer.value.data==null? CommonWidget.getInstance().normalText(
+                      CommonColors.red,Strings.loading_data,0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false):
+                  controller.topPlayer.value.data!.isEmpty?
+                  CommonWidget.getInstance().normalText(
+                      CommonColors.red,"No Top Player",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false)
+                      : ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemCount:  4,
@@ -215,8 +236,7 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
                 )],
                   ),
           ),
-              ),
-
+              )),
       ),
     );
   }
@@ -244,6 +264,7 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
   }
 
   playerWidget(BuildContext context) {
+    final PreviousLeagueController controller = Get.find();
     return Column(
       children: [
         Row(
@@ -364,10 +385,17 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
         ),
 
         Expanded(
-          child: ListView.separated(
+          child:
+          controller.prevoiusLeaguePojo.value.players==null? CommonWidget.getInstance().normalText(
+              CommonColors.red,Strings.loading_data,0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false):
+          controller.prevoiusLeaguePojo.value.players!.isEmpty?
+          CommonWidget.getInstance().normalText(
+              CommonColors.red,"No Players",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false)
+              :
+          ListView.separated(
               physics: const ClampingScrollPhysics(),
               // shrinkWrap: true,
-              itemCount:  7,
+              itemCount: controller.prevoiusLeaguePojo.value.players!.length,
               separatorBuilder: (BuildContext context, int index) => Divider(height: 1),
               itemBuilder: (context, index) {
                 return Padding(
@@ -461,6 +489,8 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
   }
 
   matchedWidget(BuildContext context) {
+    final PreviousLeagueController controller = Get.find();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -532,9 +562,15 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
 
 
         Expanded(
-          child: ListView.builder(
+          child:
+          controller.prevoiusLeaguePojo.value.matches==null? CommonWidget.getInstance().normalText(
+              CommonColors.red,Strings.loading_data,0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false):
+          controller.prevoiusLeaguePojo.value.matches!.isEmpty?
+          CommonWidget.getInstance().normalText(
+              CommonColors.red,"No Matches",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false):
+          ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
-              itemCount:  9,
+              itemCount:    controller.prevoiusLeaguePojo.value.matches!.length,
               itemBuilder: (context, index) {
                 return SizedBox(
                   child: Column(
@@ -547,7 +583,7 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
                       SizedBox(
                         width:CommonWidget.getInstance().widthFactor(context) * 0.49,
                         child: CommonWidget.getInstance().normalText(
-                            CommonColors.black, "Match"+index.toString(),0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600),
+                            CommonColors.black,controller.prevoiusLeaguePojo.value.matches![index].matchTitle!,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600),
                       ),
                       SizedBox(
                         height: CommonWidget.getInstance().heightFactor(context) * 0.01,
@@ -679,7 +715,6 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
 
   @override
   void widgetCallBack(String title, String value, BuildContext context) {
-    // TODO: implement widgetCallBack
   }
 
 }

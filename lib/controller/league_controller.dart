@@ -19,27 +19,23 @@ class LeagueController extends GetxController {
   isOffical(bool isvalue) {
     isOfficial.value=isvalue;
     unOfficial.value=!isvalue;
-    update();
+
   }
   unOffical(bool isvalue) {
     unOfficial.value=isvalue;
     isOfficial.value=!isvalue;
-    update();
   }
 
   updateImage(var image) {
     pickedImage.value=image;
-    update();
   }
 
   startDateValue(var startDate) {
     this.startDate=startDate;
-    update();
   }
 
   endDateValue(var endDate) {
     this.endDate=endDate;
-    update();
   }
 
  @override

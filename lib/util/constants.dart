@@ -5,9 +5,12 @@ class Constant{
 
   static const String Device_Token = "firebaseToken";
   static  String deviceToken = "";
+  static  String email = "";
 
   static const String signup="api/register";
   static const String login="api/login";
+  static const String change_password_user="api/player/change-password";
+  static const String change_password_venue="api/venues/change-password";
   static const String logout="logout";
   static const String create_league="api/venues/create-league";
   static const String create_match="api/venues/create-match";
@@ -17,6 +20,7 @@ class Constant{
   static const String get_MatchType="api/venues/getmatchtype";
   static const String get_upcomingLeague="api/venues/upcomingleague";
   static const String get_prevoiusLeague="api/venues/pastleague";
+  static const String get_prevoiusLeagueDetail="api/venues/getpastleaguedetail";
   static const String get_topPlayer="api/venues/gettopplayers";
   static const String get_Player="api/venues/getplayers";
 

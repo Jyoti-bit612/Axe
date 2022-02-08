@@ -1,8 +1,12 @@
+import 'dart:convert';
+
 import 'package:axe/controller/pasword_counter.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/dashbaord.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
+import 'package:axe/util/constants.dart';
+import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,7 +23,6 @@ class ChangePassword extends StatelessWidget  implements CallBackInterface{
  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   ChangePassword({Key? key}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +77,7 @@ class ChangePassword extends StatelessWidget  implements CallBackInterface{
 
 
                         CommonWidget.getInstance().editTextField(
-                            Strings.pass,
+                           "password",
                             context,
                             true,
                             CommonColors.textfiled_gray,
@@ -100,7 +103,7 @@ class ChangePassword extends StatelessWidget  implements CallBackInterface{
                         ),
 
                         CommonWidget.getInstance().editTextField(
-                            Strings.pass,
+                            "password",
                             context,
                             true,
                             CommonColors.textfiled_gray,
@@ -127,7 +130,7 @@ class ChangePassword extends StatelessWidget  implements CallBackInterface{
                         ),
 
                         CommonWidget.getInstance().editTextField(
-                            Strings.pass,
+                            "password",
                             context,
                             true,
                             CommonColors.textfiled_gray,
@@ -181,6 +184,35 @@ class ChangePassword extends StatelessWidget  implements CallBackInterface{
 
         break;
 
+        case Strings.change_pass:
+            if(CommonWidget.getInstance().isValidate(formKey)){
+              if(newController.text==confirmController.text){
+              Global.showLoaderDialog(context);
+              var  jsonBody  =  {
+                "email":Constant.email,
+                "old_password": oldlController.text.toString(),
+                "new_password":newController.text.toString(),
+                "c_password":confirmController.text.toString()
+              };
+              FocusScopeNode currentFocus = FocusScope.of(context);
+              if (!currentFocus.hasPrimaryFocus) {
+                currentFocus.unfocus();
+              }
+              Global.loginType=="1"?
+              Global.postData(context,Constant.change_password_user,"changePassApi",jsonBody,this):
+              Global.postData(context,Constant.change_password_venue,"changePassApi",jsonBody,this);
+            }else
+                Global.showSnackBar(context, Strings.password_not_matched);
+            }
+
+            break;
+
+          case "changePassApi":
+            Get.back();
+            Global.showSnackBar(context, jsonDecode(value)["message"]);
+            Get.back();
+
+            break;
     }
   }
 

@@ -15,7 +15,7 @@ import 'package:http/http.dart' as http;
 
 class Global {
 
-  static var loginType="2";  // 1 for user and 2 for venue
+  static var loginType="2";  // 1 for user and 2 for venue  and from backend--> 1 for venue and 2 for user
 
   static final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
@@ -89,18 +89,8 @@ class Global {
       callBackInterface.widgetCallBack(apiName, response.body,context);
     } else if (response.statusCode == 404) {
       Get.back();
-      if (json.decode(response.body)["data"]["phone_number"] != null)
-        showSnackBar(context, json.decode(response.body)["errors"]["phone_number"][0].toString());
-      else if (json.decode(response.body)["data"]["device_token"] != null)
-        showSnackBar(context, json.decode(response.body)["errors"]["device_token"][0].toString());
-      else if (json.decode(response.body)["data"]["email"] != null)
-        showSnackBar(context,json.decode(response.body)["errors"]["email"][0].toString());
-      else if (json.decode(response.body)["data"]["address"] != null)
-        showSnackBar(context,json.decode(response.body)["errors"]["address"][0].toString());
-      else if (json.decode(response.body)["data"]["country"] != null)
-        showSnackBar(context,json.decode(response.body)["errors"]["country"][0].toString());
-      else if (json.decode(response.body)["data"]["password"] != null)
-        showSnackBar(context,json.decode(response.body)["errors"]["password"][0].toString());
+      if (json.decode(response.body)["message"] != null)
+        showSnackBar(context,json.decode(response.body)["message"].toString());
       else
         showSnackBar(context,json.decode(response.body)["errors"].toString());
     }
