@@ -42,7 +42,7 @@ class _DashBoardState extends State<DashBoard> {
         final cantExit = timegap >= const Duration(seconds: 4);
         pre_backpress = DateTime.now();
         if(cantExit){
-          final snack = SnackBar(content:  Text('Press Back button again to Exit'),duration: Duration(seconds: 2),);
+          final snack = const SnackBar(content:  Text('Press Back button again to Exit'),duration: Duration(seconds: 2),);
           ScaffoldMessenger.of(context).showSnackBar(snack);
           return false; // false will do nothing when back press
         }else{
