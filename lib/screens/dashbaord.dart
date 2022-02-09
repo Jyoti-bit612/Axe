@@ -10,7 +10,6 @@ import 'package:axe/util/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 class DashBoard extends StatefulWidget {
   int _currentIndex = 0;
 
@@ -30,12 +29,9 @@ class _DashBoardState extends State<DashBoard> {
   @override
   void initState() {
     super.initState();
-
     getLoginType();
-
     _children = [Home(),CurrentLeague(),PlayerList(), Global.loginType=="1"?UserProfile():Profile()];
-    pre_backpress=DateTime.now();
-
+     pre_backpress=DateTime.now();
   }
 
   @override
@@ -46,7 +42,7 @@ class _DashBoardState extends State<DashBoard> {
         final cantExit = timegap >= const Duration(seconds: 4);
         pre_backpress = DateTime.now();
         if(cantExit){
-          final snack = SnackBar(content:  Text('Press Back button again to Exit'),duration:  Duration(seconds: 2),);
+          final snack = SnackBar(content:  Text('Press Back button again to Exit'),duration: Duration(seconds: 2),);
           ScaffoldMessenger.of(context).showSnackBar(snack);
           return false; // false will do nothing when back press
         }else{

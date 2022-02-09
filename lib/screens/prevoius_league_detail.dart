@@ -217,9 +217,7 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
                     ),
                     Tab(
                       text:Strings.matches,),
-
                   ],
-
                 ),
 
                 SizedBox(
@@ -566,7 +564,6 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
         SizedBox(
           height: CommonWidget.getInstance().heightFactor(context) * 0.01,
         ),
-
 
         Expanded(
           child:

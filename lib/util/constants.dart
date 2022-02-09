@@ -23,6 +23,8 @@ class Constant{
   static const String get_prevoiusLeagueDetail="api/venues/getpastleaguedetail";
   static const String get_topPlayer="api/venues/gettopplayers";
   static const String get_Player="api/venues/getplayers";
+  static const String get_current_league="api/venues/getCurrentLeague";
+  static const String get_current_league_detail="api/venues/getCurrentLeagueDetail";
 
   //key for sharedPrefrence
   static const String LoginType="login_type";

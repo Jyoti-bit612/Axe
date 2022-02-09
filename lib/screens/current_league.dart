@@ -1,3 +1,4 @@
+import 'package:axe/controller/current_league_controller.dart';
 import 'package:axe/controller/home_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/current_league_detail.dart';
@@ -15,6 +16,7 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
   @override
   Widget build(BuildContext context) {
     final HomeController controller = Get.put(HomeController());
+    final CurrentLeagueController currentController = Get.put(CurrentLeagueController());
     return  SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -34,16 +36,21 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.01,
                 ),
-
+                currentController.currentLeaguePojo.value.currentleague==null?
+                CommonWidget.getInstance().normalText(
+                    CommonColors.red,"No Current League",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false):
+                currentController.currentLeaguePojo.value.currentleague!.isEmpty?
+                CommonWidget.getInstance().normalText(
+                    CommonColors.red,"No Current League",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false):
                 ListView.builder(
                     physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount:  3,
+                    itemCount:  currentController.currentLeaguePojo.value.currentleague!.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: (){
+                          currentController.getCurrentLeagueDetail();
                           Get.to(()=>const CurrentLeagueDetail());
-
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(top:8.0),
@@ -54,23 +61,23 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                             elevation: 4,
 
                             child: ListTile(
-
-                              leading:  Image.asset("assets/images/champion.png",width:CommonWidget.getInstance().widthFactor(context) * 0.14,
-                                height: CommonWidget.getInstance().widthFactor(context) * 0.14,) ,
+                              leading: controller.upcomingLeaguePojo.value.data![index].logoPath==null?
+                              Image.asset("assets/images/champion.png",
+                                width:CommonWidget.getInstance().widthFactor(context) * 0.14,
+                                height: CommonWidget.getInstance().widthFactor(context) * 0.14,):
+                              Image.network(Constant.imageUrl+currentController.currentLeaguePojo.value.currentleague![index].logoPath!,
+                                width:CommonWidget.getInstance().widthFactor(context) * 0.14,
+                                height: CommonWidget.getInstance().widthFactor(context) * 0.14,),
 
                               title: CommonWidget.getInstance().normalText(
-                                  CommonColors.black,"Showme axe throwing league",0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w900,fontfamily: false),
+                                  CommonColors.black,currentController.currentLeaguePojo.value.currentleague![index].leagueTitle!,0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w900,fontfamily: false),
 
                               subtitle:  CommonWidget.getInstance().normalText(
-                                  CommonColors.darkGray,"Season 3",0,CommonWidget.getInstance().widthFactor(context)*0.02,FontStyle.normal,2,FontWeight.w600),
+                                  CommonColors.darkGray,"Season "+ currentController.currentLeaguePojo.value.currentleague![index].season!,0,CommonWidget.getInstance().widthFactor(context)*0.02,FontStyle.normal,2,FontWeight.w600),
 
-
-                              trailing: Icon(Icons.arrow_forward_ios_outlined,size: CommonWidget.getInstance().heightFactor(context) * 0.02,),
-
-
+                              trailing: Icon(Icons.arrow_forward_ios_outlined,size: CommonWidget.getInstance().heightFactor(context) * 0.02),
                             ),
                           ),
-                          //   ),
                         ),
                       );
                     }),
@@ -94,11 +101,12 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                 ),
+
+                controller.upcomingLeaguePojo.value.data==null?const CircularProgressIndicator():
                 controller.upcomingLeaguePojo.value.data!.isEmpty?
                 CommonWidget.getInstance().normalText(
                     CommonColors.red,"No Upcoming League",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false)
-                    :
-                GridView.builder(
+                    : GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount:controller.upcomingLeaguePojo.value==null?0: controller.upcomingLeaguePojo.value.data!.length,
