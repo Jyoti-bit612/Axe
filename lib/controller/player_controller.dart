@@ -17,6 +17,8 @@ class PlayerController extends GetxController {
     getPlayerList();
   }
 
+
+
   updatePlayer1Id(String id) {
     player1d.value=id;
   }
@@ -27,10 +29,17 @@ class PlayerController extends GetxController {
 
 
   Future<void> getPlayerList() async {
-    var response=await Apiprovider.getApi(Constant.get_Player);
+   /* var response=await Apiprovider.getApi(Constant.get_Player);
     playerpojo.value= PlayerListPojo.fromJson(json.decode(response));
    // playerpojoDuplicate.value= PlayerListPojo.fromJson(json.decode(response));
-    print(response);
+    print(response);*/
+
+    await Apiprovider.getApi(Constant.get_Player).then((value) {
+      playerpojo.value= PlayerListPojo.fromJson(json.decode(value));
+    },onError: (error){
+     print(error);
+    });
+
   }
 
 }

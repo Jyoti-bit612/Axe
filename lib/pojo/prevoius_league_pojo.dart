@@ -33,14 +33,14 @@ class Data {
   String? addressLine2;
   String? city;
   String? state;
-  Null? zipcode;
+  String? zipcode;
   String? startsFrom;
   String? description;
   String? endDate;
   String? season;
   MatchType? matchType;
-  Null? logo;
-  Null? logoPath;
+  String? logo;
+  String? logoPath;
   int? official;
   int? status;
   String? createdAt;

@@ -1,4 +1,5 @@
 import 'package:axe/controller/home_controller.dart';
+import 'package:axe/controller/prevoius_league_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/practice_match.dart';
 import 'package:axe/screens/prevoius_league_detail.dart';
@@ -276,6 +277,7 @@ class Home extends StatelessWidget  implements CallBackInterface{
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: (){
+                          controller.updateLeagueID(controller.prevoiusLeaguePojo.value.data![index].id!.toString());
                           Get.to(()=>const PreviousLeagueDetail());
                         },
                           child: Padding(
@@ -291,7 +293,7 @@ class Home extends StatelessWidget  implements CallBackInterface{
                                 controller.prevoiusLeaguePojo.value.data![index].logoPath==null?
                                 Image.asset("assets/images/champion.png",width:CommonWidget.getInstance().widthFactor(context) * 0.14,
                                   height: CommonWidget.getInstance().widthFactor(context) * 0.14):
-                                Image.network(Constant.imageUrl+controller.upcomingLeaguePojo.value.data![index].logoPath!,
+                                Image.network(Constant.imageUrl+controller.prevoiusLeaguePojo.value.data![index].logoPath!,
                                   width:CommonWidget.getInstance().widthFactor(context) * 0.14,
                                   height: CommonWidget.getInstance().widthFactor(context) * 0.14,),
 
