@@ -46,8 +46,7 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
-
-                children: [
+              children: [
                 IconButton(
                     padding: EdgeInsets.zero,
                     constraints: BoxConstraints(),
@@ -111,7 +110,6 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
                       ),
                     ),
 
-
                     Padding(
                       padding: const EdgeInsets.only(left:6.0),
                       child: Container(
@@ -137,19 +135,21 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
                   height: CommonWidget.getInstance().heightFactor(context) * 0.22,
                   child:
                   controller.topPlayer.value.data==null? CommonWidget.getInstance().normalText(
-                      CommonColors.red,Strings.loading_data,0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false):
+                      CommonColors.red,"No Top Player",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false):
                   controller.topPlayer.value.data!.isEmpty?
                   CommonWidget.getInstance().normalText(
                       CommonColors.red,"No Top Player",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false)
-                      : ListView.builder(
+                      :    ListView.builder(
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
-                      itemCount:  4,
+                      itemCount: controller.topPlayer.value.data!.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.only(right:16.0),
                           child: Container(
-                            color: CommonColors.primaryColor2,
+                            decoration:  const BoxDecoration(
+                              color: CommonColors.primaryColor1,
+                            ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -158,12 +158,15 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
                                   padding: const EdgeInsets.only(left:20.0,right:20),
                                   child: Row(
                                     children: [
-                                      scoreWidget("08","Rank"),
+                                      scoreWidget( controller.topPlayer.value.data![index].rankUser.toString(),"Rank"),
 
-                                      Divider(height:1,thickness:1,color: CommonColors.white,),
+                                      const Divider(height:1,thickness:1,color: CommonColors.white,),
 
-                                      scoreWidget("RYAN SMITH","Location Virgenua Beach VA"),
-
+                                      scoreWidget(controller.topPlayer.value.data![index].firstName!+" ".toString()+
+                                          controller.topPlayer.value.data![index].lastName!.toString()
+                                          ,"Location "+ controller.topPlayer.value.data![index].city.toString()+ ", "+
+                                              controller.topPlayer.value.data![index].state.toString()
+                                          ),
                                     ],
                                   ),
                                 ),
@@ -175,9 +178,9 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      scoreWidget("70%","Accuracy"),
-                                      scoreWidget("07","Leagues"),
-                                      scoreWidget("18","Matches"),
+                                      scoreWidget(controller.topPlayer.value.data![index].accuracyUser.toString(),"Accuracy"),
+                                      scoreWidget(controller.topPlayer.value.data![index].totalLeague.toString(),"Leagues"),
+                                      scoreWidget(controller.topPlayer.value.data![index].totalMatch.toString(),"Matches"),
                                     ],
                                   ),
                                 ),
@@ -387,7 +390,7 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
         Expanded(
           child:
           controller.prevoiusLeaguePojo.value.players==null? CommonWidget.getInstance().normalText(
-              CommonColors.red,Strings.loading_data,0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false):
+              CommonColors.red,"No Players",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false):
           controller.prevoiusLeaguePojo.value.players!.isEmpty?
           CommonWidget.getInstance().normalText(
               CommonColors.red,"No Players",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false)
@@ -420,14 +423,12 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
                               ),
                               child:  Padding(
                                   padding: EdgeInsets.all(1.0),
-                                  child: controller.prevoiusLeaguePojo.value.players![index].picture== null ?CircleAvatar(
-                                  radius: 30.0,
+                                  child: controller.prevoiusLeaguePojo.value.players![index].picture== null ?const CircleAvatar(
                                       backgroundColor: CommonColors.textfiled_gray,
-                                      child:Image.asset("assets/images/dummypic.png")
+                                      backgroundImage: AssetImage("assets/images/dummypic.jpg"),
 
                                   ):CircleAvatar(
                                       radius: 30.0,
-                                     // backgroundColor: CommonColors.textfiled_gray,
                                       backgroundImage:
                                       NetworkImage(Constant.imageUrl+controller.prevoiusLeaguePojo.value.players![index].picture!),
 
@@ -490,7 +491,6 @@ class Matches extends StatefulWidget {
 }
 
 class _MatchesState extends State<Matches> implements CallBackInterface {
-
   @override
   Widget build(BuildContext context) {
     return matchedWidget(context);
@@ -498,7 +498,6 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
 
   matchedWidget(BuildContext context) {
     final PreviousLeagueController controller = Get.find();
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -572,7 +571,7 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
         Expanded(
           child:
           controller.prevoiusLeaguePojo.value.matches==null? CommonWidget.getInstance().normalText(
-              CommonColors.red,Strings.loading_data,0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false):
+              CommonColors.red,"No Matches",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false):
           controller.prevoiusLeaguePojo.value.matches!.isEmpty?
           CommonWidget.getInstance().normalText(
               CommonColors.red,"No Matches",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false):
@@ -630,7 +629,7 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
                                       ),
                                       TableRow(
                                           children: [
-                                            innerIndex==0?columnNameWidget(controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.playerDetail!.firstName!,
+                                            innerIndex==0?columnNameWidget(controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.playerDetail!.firstName.toString(),
                                                 controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.playerDetail!.picture):
                                             Container(
                                               color:innerIndex==11?CommonColors.black:CommonColors.white,
@@ -639,18 +638,17 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
                                                     CommonWidget.getInstance().widthFactor(context)*0.0845),
                                                 child: CommonWidget.getInstance().normalText(
                                                     innerIndex==11?CommonColors.white:CommonColors.black,
-                                                    innerIndex==11?"42":
-                                                    index==1?controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww1.toString():
-                                                    index==2?controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww1.toString():
-                                                    index==3?controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww1.toString(): index==4?
-                                                    controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww1.toString(): index==5?
-                                                    controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww1.toString(): index==6?
-                                                    controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww1.toString(): index==7?
-                                                    controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww1.toString(): index==8?
-                                                    controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww1.toString():
-                                                    controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww1.toString()
-
-
+                                                    innerIndex==1?controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww1.toString():
+                                                    innerIndex==2?controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww2.toString():
+                                                    innerIndex==3?controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww3.toString():
+                                                    innerIndex==4? controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww4.toString():
+                                                    innerIndex==5? controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww5.toString():
+                                                    innerIndex==6? controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww6.toString():
+                                                    innerIndex==7? controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww7.toString():
+                                                    innerIndex==8? controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww8.toString():
+                                                    innerIndex==9? controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww9.toString():
+                                                    innerIndex==10? controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww10.toString():
+                                                    "42",
                                                     1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,
                                                     innerIndex==11?
                                                     FontWeight.w200:
@@ -664,13 +662,23 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
                                       TableRow(
                                           children: [
                                             innerIndex==0?columnNameWidget(controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.playerDetail!.firstName!,
-                                                controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.playerDetail!.picture!):
+                                                controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.playerDetail!.picture):
                                               Padding(
                                               padding:  EdgeInsets.fromLTRB(0.0,CommonWidget.getInstance().widthFactor(context)*0.0845,0.0,
                                                   CommonWidget.getInstance().widthFactor(context)*0.0845),
                                               child: CommonWidget.getInstance().normalText(
                                                   CommonColors.black,
-                                                  innerIndex==11?"32":controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww1.toString(),
+                                                 innerIndex==1?controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww1.toString():
+                                                 innerIndex==2?controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww2.toString():
+                                                 innerIndex==3?controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww3.toString():
+                                                 innerIndex==4? controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww4.toString():
+                                                 innerIndex==5? controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww5.toString():
+                                                 innerIndex==6? controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww6.toString():
+                                                 innerIndex==7? controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww7.toString():
+                                                 innerIndex==8? controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww8.toString():
+                                                 innerIndex==9? controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww9.toString():
+                                                 innerIndex==10? controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww10.toString():
+                                                  "32",
                                                   1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,
                                                   innerIndex==11?
                                                   FontWeight.w200:
@@ -679,7 +687,6 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
                                             ),
                                           ]
                                       ),
-
                                     ],
                                   ),
                                 );
@@ -714,14 +721,12 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
               ),
               child:  Padding(
                   padding: const EdgeInsets.all(1.0),
-                  child: image== null ?CircleAvatar(
-                      radius: 30.0,
+                  child: image== null ?const CircleAvatar(
+                     // radius: 30.0,
                       backgroundColor: CommonColors.textfiled_gray,
-                      child:Image.asset("assets/images/dummypic.png")
+                      backgroundImage:AssetImage("assets/images/dummypic.jpg")
 
                   ):CircleAvatar(
-                    radius: 30.0,
-                    // backgroundColor: CommonColors.textfiled_gray,
                     backgroundImage:
                     NetworkImage(Constant.imageUrl+image),
                   ),
@@ -733,7 +738,7 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
             ),
 
             CommonWidget.getInstance().normalText(
-                CommonColors.black,"David",0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w700,fontfamily: true),
+                CommonColors.black,name!,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w700,fontfamily: true),
       ],
       ),
     );

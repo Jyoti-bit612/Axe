@@ -17,8 +17,6 @@ class PlayerController extends GetxController {
     getPlayerList();
   }
 
-
-
   updatePlayer1Id(String id) {
     player1d.value=id;
   }

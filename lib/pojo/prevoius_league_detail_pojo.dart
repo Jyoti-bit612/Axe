@@ -103,10 +103,10 @@ class Matches {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     player1WithScore = json['player1_with_score'] != null
-        ? new Player1WithScore.fromJson(json['player1_with_score'])
+        ?  Player1WithScore.fromJson(json['player1_with_score'])
         : null;
     player2WithScore = json['player2_with_score'] != null
-        ? new Player1WithScore.fromJson(json['player2_with_score'])
+        ?  Player1WithScore.fromJson(json['player2_with_score'])
         : null;
   }
 

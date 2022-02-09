@@ -8,7 +8,9 @@ import 'package:axe/pojo/top_player_pojo.dart';
 import 'package:axe/pojo/upcoming_league_pojo.dart';
 import 'package:axe/pojo/prevoius_league_detail_pojo.dart';
 import 'package:axe/screens/prevoius_league_detail.dart';
+import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/constants.dart';
+import 'package:axe/util/global.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,6 +18,7 @@ class PreviousLeagueController extends GetxController  {
   Rx<TopPlayer> topPlayer=TopPlayer().obs ;
   Rx<PrevoiusLeagueDetailPojo> prevoiusLeaguePojo=PrevoiusLeagueDetailPojo().obs;
   final HomeController controller = Get.find();
+  Rx<bool> isDataFound = false.obs;
 
   @override
   void onInit() {
@@ -25,19 +28,36 @@ class PreviousLeagueController extends GetxController  {
   }
 
   Future<void> getprevoiusLeagueDetail() async {
-    var  jsonBody  =  {
-      "league_id":controller.leagueId.value.toString(),
+    var jsonBody = {
+      "league_id": controller.leagueId.value.toString(),
     };
 
-    var response=await Apiprovider.postApi(Constant.get_prevoiusLeagueDetail,jsonBody);
-    prevoiusLeaguePojo.value= PrevoiusLeagueDetailPojo.fromJson(json.decode(response));
-    print(response);
+    await Apiprovider.postApi(Constant.get_prevoiusLeagueDetail, jsonBody).then((value) {
+      isDataFound.value=false;
+      prevoiusLeaguePojo.value = PrevoiusLeagueDetailPojo.fromJson(json.decode(value));
+        print(value);
+    }, onError: (error) {
+      isDataFound.value=true;
+      Get.showSnackbar(
+        GetSnackBar(
+          duration: Duration(seconds: 1),
+          title: "Axe Throwing",
+          message: json.decode(error)["message"],
+          isDismissible: true,
+        ),
+      );
+    });
   }
 
   Future<void> getTopPlayer() async {
-    var response=await Apiprovider.getApi(Constant.get_topPlayer);
-    topPlayer.value= TopPlayer.fromJson(json.decode(response));
-    print(response);
+    var  jsonBody  =  {
+      "league_id":controller.leagueId.value.toString(),
+    };
+   await Apiprovider.postApi(Constant.get_topPlayer,jsonBody).then((value) {
+     topPlayer.value = TopPlayer.fromJson(json.decode(value));
+     print(value);
+   },onError: (error) {
 
+   });
   }
 }

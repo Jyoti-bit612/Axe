@@ -110,7 +110,6 @@ class OtherUserProfile extends StatelessWidget  implements CallBackInterface{
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-
                 Center(
                   child: Container(
                     width: CommonWidget.getInstance().widthFactor(context) * 0.30,

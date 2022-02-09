@@ -17,7 +17,7 @@ class Apiprovider {
     if (response.statusCode == 201 || response.statusCode == 200) {
       return response.body;
     } else {
-      return Future.error(response);
+      return Future.error(response.body);
     }
   }
 
@@ -33,12 +33,9 @@ class Apiprovider {
     if (response.statusCode == 201 || response.statusCode == 200) {
       return response.body;
     } else {
-      return Future.error(response);
-
+      return Future.error(response.body);
     }
   }
-
-
 }
 
 
