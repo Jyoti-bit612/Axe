@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'package:axe/api/Apiprovider.dart';
 import 'package:axe/pojo/prevoius_league_pojo.dart';
@@ -10,11 +9,8 @@ import 'package:get/get.dart';
 class HomeController extends GetxController {
   var pickedImage = "".obs;
   Rx<UpcomingLeaguePojo> upcomingLeaguePojo = UpcomingLeaguePojo().obs;
-
   Rx<PrevoiusLeaguePojo> prevoiusLeaguePojo = PrevoiusLeaguePojo().obs;
-
   Rx<TopPlayer> topPlayer = TopPlayer().obs;
-
   Rx<String> leagueId = "".obs;
 
   @override

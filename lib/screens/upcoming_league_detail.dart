@@ -1,9 +1,9 @@
 import 'package:axe/controller/home_controller.dart';
+import 'package:axe/controller/upcoming_league_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
-import 'package:axe/screens/other_user_profile.dart';
-import 'package:axe/screens/playerlist.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
+import 'package:axe/util/constants.dart';
 import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +19,8 @@ class UpcomingLeagueDetail extends StatefulWidget {
 class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterface {
   @override
   Widget build(BuildContext context) {
+    final UpcomingLeagueController controller = Get.find();
+
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -31,48 +33,47 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
 
                 IconButton(
                     padding: EdgeInsets.zero,
-                    constraints: BoxConstraints(),
+                    constraints: const BoxConstraints(),
                     onPressed: () {
                       Get.back();
                     }, icon: const Icon(Icons.arrow_back_rounded)),
 
                 Center(
-                  child: Image.asset("assets/images/champion.png",
-                    width: CommonWidget.getInstance().widthFactor(context) *
-                        0.5,
-                    height: CommonWidget.getInstance().widthFactor(context) *
-                        0.5,),
+                  child:controller.upcomingLeaguePojo.value.leaguedata==null?
+                  Image.asset("assets/images/champion.png",
+                    width:CommonWidget.getInstance().widthFactor(context) * 0.5,
+                    height: CommonWidget.getInstance().widthFactor(context) * 0.5,):
+                  controller.upcomingLeaguePojo.value.leaguedata!.logoPath==null?
+                  Image.asset("assets/images/champion.png",
+                    width:CommonWidget.getInstance().widthFactor(context) * 0.5,
+                    height: CommonWidget.getInstance().widthFactor(context) * 0.5,):
+                  Image.network(Constant.imageUrl+controller.upcomingLeaguePojo.value.leaguedata!.logoPath!,width:CommonWidget.getInstance().widthFactor(context) * 0.5,
+                    height: CommonWidget.getInstance().widthFactor(context) * 0.5,),
                 ),
 
-                CommonWidget.getInstance().normalText(
-                    CommonColors.black,
-                    "Twisted Axe throwing Championship",
-                    1,
-                    CommonWidget.getInstance().widthFactor(context) * 0.052,
-                    FontStyle.normal,
-                    2,
-                    FontWeight.w600),
+                Center(
+                  child: CommonWidget.getInstance().normalText(
+                      CommonColors.black,
+                      controller.upcomingLeaguePojo.value.leaguedata==null?"":
+                      controller.upcomingLeaguePojo.value.leaguedata!.leagueTitle!,1,CommonWidget.getInstance().widthFactor(context)*0.052,FontStyle.normal,2,FontWeight.w600),
+                ),
 
                 SizedBox(
-                  height: CommonWidget.getInstance().widthFactor(context) *
-                      0.04,
+                  height: CommonWidget.getInstance().widthFactor(context) * 0.04,
                 ),
 
                 Center(
                   child: CommonWidget.getInstance().normalText(
                       CommonColors.darkGray,
-                      "Battle of the Axes\n2990 Rainbow Drive Youngstown OH 330-503\nBrickmason and Blockmason",
-                      1,
-                      CommonWidget.getInstance().widthFactor(context) * 0.035,
-                      FontStyle.normal,
-                      1,
-                      FontWeight.w400),
+                      controller.upcomingLeaguePojo.value.leaguedata==null?"":
+                      controller.upcomingLeaguePojo.value.leaguedata!.description!,1,
+                      CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w400),
                 ),
 
                 SizedBox(
-                  height: CommonWidget.getInstance().heightFactor(context) *
-                      0.04,
+                  height: CommonWidget.getInstance().heightFactor(context) * 0.04,
                 ),
+
 
                 Visibility(
                   visible: Global.loginType == "1" ? true : false,
@@ -149,7 +150,7 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
                 ListView.separated(
                     physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: 7,
+                    itemCount: controller.upcomingLeaguePojo.value.players!.length,
                     separatorBuilder: (BuildContext context, int index) =>
                         Divider(height: 1),
                     itemBuilder: (context, index) {
@@ -185,14 +186,20 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
                                       color: CommonColors.textfiled_gray,
                                       shape: BoxShape.circle,
                                     ),
-                                    child: Image.asset(
-                                        "assets/images/profile.png")),
+                                    child:
+
+                                    CircleAvatar(
+                                      radius: 30.0,
+                                      backgroundImage:controller.upcomingLeaguePojo.value.players![index].picture==null?
+                                      const AssetImage("assets/images/profile.png") as ImageProvider:
+                                      NetworkImage(Constant.imageUrl+controller.upcomingLeaguePojo.value.players![index].picture!),
+                                    ),
                               ),
-                            ),
+                            )),
 
                             title: CommonWidget.getInstance().normalText(
                                 CommonColors.black,
-                                "David",
+                                controller.upcomingLeaguePojo.value.players![index].firstName.toString(),
                                 0,
                                 CommonWidget.getInstance().widthFactor(
                                     context) * 0.03,
@@ -203,7 +210,7 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
 
                             subtitle: CommonWidget.getInstance().normalText(
                                 CommonColors.darkGray,
-                                "Location: Southfield",
+                                "Location: "+ controller.upcomingLeaguePojo.value.players![index].city.toString(),
                                 0,
                                 CommonWidget.getInstance().widthFactor(
                                     context) * 0.028,
@@ -214,7 +221,7 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
 
                             trailing: CommonWidget.getInstance().normalText(
                                 CommonColors.red,
-                                "Pending",
+                                controller.upcomingLeaguePojo.value.players![index].invited=="1"?Strings.accepted:Strings.pending,
                                 0,
                                 CommonWidget.getInstance().widthFactor(
                                     context) * 0.026,
@@ -259,7 +266,7 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
   void widgetCallBack(String title, String value, BuildContext context) {
     switch (title) {
       case Strings.invite_player:
-        Get.toNamed('/playerList');
+        Get.toNamed('/playerlist');
 
         break;
 

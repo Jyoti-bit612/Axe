@@ -27,7 +27,6 @@ class PlayerController extends GetxController {
 
   updatePlayer1IList(var playerList) {
     player1List.add(playerList);
-
   }
 
   updatePlayer2List(var playerList) {

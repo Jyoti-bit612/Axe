@@ -15,8 +15,8 @@ import 'package:intl/intl.dart';
 class CurrentLeague extends StatelessWidget implements CallBackInterface {
   @override
   Widget build(BuildContext context) {
-    final HomeController controller = Get.find();
     final CurrentLeagueController currentController = Get.find();
+    final HomeController controller = Get.find();
     return  SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(

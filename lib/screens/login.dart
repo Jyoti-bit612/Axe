@@ -1,10 +1,6 @@
 import 'dart:convert';
-
 import 'package:axe/controller/pasword_counter.dart';
 import 'package:axe/interface/CallBackInterface.dart';
-import 'package:axe/screens/dashbaord.dart';
-import 'package:axe/screens/forgotpassword.dart';
-import 'package:axe/screens/signup.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/constants.dart';

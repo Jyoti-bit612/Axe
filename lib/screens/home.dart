@@ -1,9 +1,5 @@
 import 'package:axe/controller/home_controller.dart';
-import 'package:axe/controller/prevoius_league_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
-import 'package:axe/screens/practice_match.dart';
-import 'package:axe/screens/prevoius_league_detail.dart';
-import 'package:axe/screens/upcoming_league_detail.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/constants.dart';
@@ -79,8 +75,8 @@ class Home extends StatelessWidget  implements CallBackInterface{
                       return GestureDetector(
                         behavior: HitTestBehavior.translucent,
                         onTap: () {
+                          controller.updateLeagueID(controller.upcomingLeaguePojo.value.data![index].id!.toString());
                           Get.toNamed('/upcomingLeagueDetail');
-
                         },
                         child: Card(
                           shadowColor: CommonColors.grayColor,
@@ -193,13 +189,9 @@ class Home extends StatelessWidget  implements CallBackInterface{
                         return Padding(
                           padding: const EdgeInsets.only(right:16.0),
                           child: Container(
-                            decoration:  BoxDecoration(
+                            decoration:  const BoxDecoration(
                               color: CommonColors.primaryColor1,
-                              /*image: DecorationImage(
-                                image:  NetworkImage(Constant.imageUrl+controller.topPlayer.value.data![index].picture!),
-                                ),*/
                             ),
-                          //  color: CommonColors.primaryColor2,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.end,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -252,7 +244,6 @@ class Home extends StatelessWidget  implements CallBackInterface{
                           CommonColors.black, Strings.previous_league,0,CommonWidget.getInstance().widthFactor(context)*0.052,FontStyle.normal,2,FontWeight.w600),
                     ),
 
-
                     Visibility(
                       visible: false,
                       child: CommonWidget.getInstance().normalText(
@@ -297,7 +288,6 @@ class Home extends StatelessWidget  implements CallBackInterface{
                                 Image.network(Constant.imageUrl+controller.prevoiusLeaguePojo.value.data![index].logoPath!,
                                   width:CommonWidget.getInstance().widthFactor(context) * 0.14,
                                   height: CommonWidget.getInstance().widthFactor(context) * 0.14,),
-
 
                                 title: CommonWidget.getInstance().normalText(
                                     CommonColors.black,controller.prevoiusLeaguePojo.value.data![index].leagueTitle!,0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w900,fontfamily: false),

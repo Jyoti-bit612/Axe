@@ -6,14 +6,12 @@ import 'package:axe/screens/current_league_detail.dart';
 import 'package:axe/screens/dashbaord.dart';
 import 'package:axe/screens/edit_score.dart';
 import 'package:axe/screens/forgotpassword.dart';
-import 'package:axe/screens/home.dart';
 import 'package:axe/screens/login.dart';
 import 'package:axe/screens/new_invitation.dart';
 import 'package:axe/screens/notification.dart';
 import 'package:axe/screens/other_user_profile.dart';
 import 'package:axe/screens/practice_match.dart';
 import 'package:axe/screens/prevoius_league_detail.dart';
-import 'package:axe/screens/profile.dart';
 import 'package:axe/screens/score_dasboard.dart';
 import 'package:axe/screens/signup.dart';
 import 'package:axe/screens/splash.dart';
@@ -21,6 +19,7 @@ import 'package:axe/screens/upcoming_league_detail.dart';
 import 'package:axe/screens/user_profile.dart';
 import 'package:axe/util/global.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 class App extends StatelessWidget {
@@ -30,8 +29,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return  GetMaterialApp(
       initialRoute: "/",
+      initialBinding: HomeBinding(),
       routes: {
-        '/':(context)=>Splash(),
+       // '/':(context)=>Splash(),
         '/login':(context)=>Login(),
         '/signup':(context)=>SignUp(),
         '/home':(context)=>DashBoard(0),

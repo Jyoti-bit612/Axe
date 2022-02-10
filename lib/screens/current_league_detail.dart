@@ -1,8 +1,5 @@
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/create_match.dart';
-import 'package:axe/screens/other_user_profile.dart';
-import 'package:axe/screens/playerlist.dart';
-import 'package:axe/screens/score_dasboard.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/global.dart';import 'package:axe/util/strings.dart';
@@ -283,7 +280,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                             children: [
                               GestureDetector(
                                 onTap:(){
-                                  Get.toNamed('/playerList');
+                                  Get.toNamed('/playerlist');
                                 },
                                 child: Container(
                                   width:  CommonWidget.getInstance().widthFactor(context) * 0.16,
@@ -364,18 +361,15 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                                 ),
 
                               ),
-
                               ],
                             ),
-
 
                           Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               GestureDetector(
                                 onTap:(){
-                                  Get.off(()=> PlayerList(0));
-
+                                  Get.offNamed('/playerlist');
                                 },
                                 child: Container(
                                   width:  CommonWidget.getInstance().widthFactor(context) * 0.16,
@@ -386,7 +380,6 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                                       end: Alignment.bottomCenter,
                                     ),
                                     shape: BoxShape.circle,
-
                                   ),
                                   child:  const Padding(
                                       padding: EdgeInsets.all(1.0),
@@ -407,10 +400,8 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                               CommonWidget.getInstance().normalText(
                                   CommonColors.darkGray,Strings.change_player,0,CommonWidget.getInstance().widthFactor(context)*0.026,FontStyle.normal,1,
                                   FontWeight.w500,fontfamily: false),
-
                             ],
                           ),
-
                         ],
                       ),
                     )

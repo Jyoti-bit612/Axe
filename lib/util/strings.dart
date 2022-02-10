@@ -8,10 +8,8 @@ class Strings{
   static const String have_read = "I acknowledge that I have read and agree to the terms and conditions presented in the ";
   static const String and_the =  "Terms and Conditions agreement.";
 
-
   static const String login = "Login";
   static const String play_practice_match ="Play Pratice Match";
-  static const String accepted = "Accepted";
   static const String rejected = "Rejected";
   static const String join_league = "Join League";
   static const String update_score = "Update Score";
@@ -59,6 +57,8 @@ class Strings{
   static const String addres_line2 = "Address line 2";
   static const String venue_location = "Venue Location";
   static const String city = "City";
+  static const String accepted = "Accepted";
+  static const String pending = "Pending";
   static const String state = "State";
   static const String start = "Start From";
   static const String end = "Ends";
