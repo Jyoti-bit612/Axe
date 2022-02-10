@@ -36,7 +36,7 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.01,
                 ),
-                currentController.currentLeaguePojo.value.currentleague==null?
+                Obx(()=>currentController.currentLeaguePojo.value.currentleague==null?
                 CommonWidget.getInstance().normalText(
                     CommonColors.red,"No Current League",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false):
                 currentController.currentLeaguePojo.value.currentleague!.isEmpty?
@@ -82,7 +82,7 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                           ),
                         ),
                       );
-                    }),
+                    })),
 
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.05,

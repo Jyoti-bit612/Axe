@@ -153,8 +153,8 @@ class CurrentMatch {
   int? matchType;
   String? matchSchedule;
   String? description;
-  Null? logo;
-  Null? logoPath;
+  String? logo;
+  String? logoPath;
   List<String>? players1Ids;
   List<String>? players2Ids;
   int? players1;
@@ -254,7 +254,9 @@ class Player1WithScore {
   int? throw7;
   int? throw8;
   int? throw9;
-  int? throw10;
+  String? throw10;
+  String? killshot;
+  String? suddendeaththrow;
   String? createdAt;
   String? updatedAt;
   PlayerDetail? playerDetail;
@@ -276,6 +278,8 @@ class Player1WithScore {
         this.throw8,
         this.throw9,
         this.throw10,
+        this.killshot,
+        this.suddendeaththrow,
         this.createdAt,
         this.updatedAt,
         this.playerDetail});
@@ -297,6 +301,8 @@ class Player1WithScore {
     throw8 = json['throw8'];
     throw9 = json['throw9'];
     throw10 = json['throw10'];
+    killshot = json['killshot'];
+    suddendeaththrow = json['suddendeaththrow'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     playerDetail = json['player_detail'] != null
@@ -324,6 +330,8 @@ class Player1WithScore {
     data['throw10'] = this.throw10;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    data['killshot'] = this.killshot;
+    data['suddendeaththrow'] = this.suddendeaththrow;
     if (this.playerDetail != null) {
       data['player_detail'] = this.playerDetail!.toJson();
     }
@@ -402,21 +410,21 @@ class Players {
   String? lastName;
   String? email;
   String? phone;
-  Null? city;
-  Null? state;
-  Null? zip;
+  String? city;
+  String? state;
+  String? zip;
   String? address;
-  Null? about;
+  String? about;
   String? picture;
   String? deviceToken;
   int? userType;
-  Null? emailVerifiedAt;
+  String? emailVerifiedAt;
   String? createdAt;
   String? updatedAt;
-  Null? stripeId;
-  Null? pmType;
-  Null? pmLastFour;
-  Null? trialEndsAt;
+  String? stripeId;
+  String? pmType;
+  String? pmLastFour;
+  String? trialEndsAt;
   int? teamplayScore;
   int? hatchetsScore;
   int? bigaxeScore;
@@ -524,14 +532,14 @@ class LeagueDetails {
   String? addressLine1;
   String? addressLine2;
   String? city;
-  Null? state;
-  Null? zipcode;
+  String? state;
+  String? zipcode;
   String? startsFrom;
   String? description;
   String? endDate;
   String? season;
   MatchType? matchType;
-  Null? logo;
+  String? logo;
   String? logoPath;
   int? official;
   int? status;

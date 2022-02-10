@@ -1,6 +1,5 @@
 import 'package:axe/controller/player_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
-import 'package:axe/screens/other_user_profile.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/constants.dart';
@@ -9,10 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PlayerList extends StatelessWidget implements CallBackInterface {
-  int type;
-  PlayerList(this.type);
-
- TextEditingController searchController = TextEditingController();
+  TextEditingController searchController = TextEditingController();
 
  void filterSearchResults(String searchText) {
    final PlayerController controller = Get.find();
@@ -166,7 +162,7 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
 
                             controller.playerpojo.value.data![index].invitation= await controller.playerpojo.value.data![index].invitation==1?0:1;
 
-                            if(type==1){ //for player 1
+                            if(Get.arguments==1){ //for player 1
                               if(controller.playerpojo.value.data![index].invitation==1){
                                 player1List.add(controller.playerpojo.value.data![index].id.toString());
                                 controller.updatePlayer1IList(controller.playerpojo.value.data![index].firstName.toString());
@@ -205,7 +201,7 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                           },
 
                           icon: Visibility(
-                            visible: type==0?false:true,
+                            visible: Get.arguments==null?false:true,
                             child: controller.playerpojo.value.data![index].invitation==0?
                             Image.asset("assets/images/smiley.png",color:CommonColors.red,):
                             Image.asset("assets/images/smiley.png",color: CommonColors.green,),
@@ -244,7 +240,6 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
 
                     CommonWidget.getInstance().normalText(
                         CommonColors.darkGray, Strings.member_not_in_list,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w400),
-
                   ],
                 ),
 

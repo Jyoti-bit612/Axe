@@ -1,4 +1,3 @@
-import 'package:axe/controller/home_controller.dart';
 import 'package:axe/controller/upcoming_league_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/util/commoncolors.dart';
@@ -11,7 +10,6 @@ import 'package:get/get.dart';
 
 class UpcomingLeagueDetail extends StatefulWidget {
   const UpcomingLeagueDetail({Key? key}) : super(key: key);
-
   @override
   _HomeState createState() => _HomeState();
 }
@@ -20,8 +18,7 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
   @override
   Widget build(BuildContext context) {
     final UpcomingLeagueController controller = Get.find();
-
-    return SafeArea(
+    return Obx(()=>SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
           child: Padding(
@@ -147,6 +144,12 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
                   ),
                 ),
 
+                controller.upcomingLeaguePojo.value.players==null? CommonWidget.getInstance().normalText(
+                    CommonColors.red,"No Players",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false):
+                controller.upcomingLeaguePojo.value.players!.isEmpty?
+                CommonWidget.getInstance().normalText(
+                    CommonColors.red,"No Players",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false)
+                    :
                 ListView.separated(
                     physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
@@ -259,7 +262,7 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
           ),
         ),
       ),
-    );
+    ));
   }
 
   @override

@@ -244,6 +244,8 @@ class Player1WithScore {
   int? throww8;
   int? throww9;
   int? throww10;
+  String? killshot;
+  String? suddendeaththrow;
   String? createdAt;
   String? updatedAt;
   PlayerDetail? playerDetail;
@@ -265,6 +267,8 @@ class Player1WithScore {
         this.throww8,
         this.throww9,
         this.throww10,
+        this.killshot,
+        this.suddendeaththrow,
         this.createdAt,
         this.updatedAt,
         this.playerDetail});
@@ -286,6 +290,8 @@ class Player1WithScore {
     throww8 = json['throw8'];
     throww9 = json['throw9'];
     throww10 = json['throw10'];
+    killshot = json['killshot'];
+    suddendeaththrow = json['suddendeaththrow'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     playerDetail = json['player_detail'] != null
@@ -313,6 +319,8 @@ class Player1WithScore {
     data['throw10'] = this.throww10;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
+    data['killshot'] = this.killshot;
+    data['suddendeaththrow'] = this.suddendeaththrow;
     if (this.playerDetail != null) {
       data['player_detail'] = this.playerDetail!.toJson();
     }
