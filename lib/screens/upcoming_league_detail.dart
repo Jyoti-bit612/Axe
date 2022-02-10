@@ -259,7 +259,7 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
   void widgetCallBack(String title, String value, BuildContext context) {
     switch (title) {
       case Strings.invite_player:
-        Get.to(()=> PlayerList());
+        Get.to(()=> PlayerList(0));
         break;
 
   }

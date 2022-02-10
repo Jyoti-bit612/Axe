@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:axe/controller/league_controller.dart';
+import 'package:axe/controller/player_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/playerlist.dart';
 import 'package:axe/util/commoncolors.dart';
@@ -24,6 +25,7 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
   @override
   Widget build(BuildContext context) {
     final LeagueController controller = Get.put(LeagueController());
+    final PlayerController playerController = Get.put(PlayerController());
 
     return SafeArea(
       child: Scaffold(
@@ -241,7 +243,7 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
 
                                   GestureDetector(
                                     onTap:(){
-                                      Get.to(()=> PlayerList(),arguments: [1]);
+                                      Get.to(()=> PlayerList(1));
 
                                     },
                                     child: Container(
@@ -269,9 +271,10 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
                                     height: CommonWidget.getInstance().widthFactor(context) * 0.02,
                                   ),
 
-
                                   CommonWidget.getInstance().normalText(
-                                      CommonColors.darkGray,Strings.choose,0,CommonWidget.getInstance().widthFactor(context)*0.026,FontStyle.normal,1,
+                                      CommonColors.darkGray,
+                                      Strings.choose,
+                                      0,CommonWidget.getInstance().widthFactor(context)*0.026,FontStyle.normal,1,
                                       FontWeight.w500,fontfamily: false),
                                 ],
                               ),
@@ -303,7 +306,7 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
 
                                   GestureDetector(
                                     onTap:(){
-                                      Get.to(()=> PlayerList(),arguments: [2]);
+                                      Get.to(()=> PlayerList(2));
                                     },
                                     child: Container(
                                       width:  CommonWidget.getInstance().widthFactor(context) * 0.24,
@@ -314,7 +317,6 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
                                           end: Alignment.bottomCenter,
                                         ),
                                         shape: BoxShape.circle,
-
                                       ),
                                       child:  const Padding(
                                           padding: EdgeInsets.all(1.0),
@@ -372,6 +374,8 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
   @override
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
     final LeagueController controller = Get.put(LeagueController());
+    final PlayerController playerController = Get.put(PlayerController());
+
     switch(title){
       case Strings.create_match:
         if(CommonWidget.getInstance().isValidate(formKey)){
@@ -384,8 +388,8 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
             "league_id":leagueId ,
             "match_type":matchTypeId,
             "match_schedule":controller.startDate,
-            "players1_ids":Constant.deviceToken,
-            "players2_ids":Constant.deviceToken,
+            "players1_ids":playerController.player1d,
+            "players2_ids":playerController.player2id,
             "description":descriptionController.text,
           };
           FocusScopeNode currentFocus = FocusScope.of(context);

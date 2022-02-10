@@ -49,6 +49,7 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: (){
+                          currentController.currentLeagueID(currentController.currentLeaguePojo.value.currentleague![index].id.toString());
                           currentController.getCurrentLeagueDetail();
                           Get.to(()=>const CurrentLeagueDetail());
                         },

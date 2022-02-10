@@ -9,7 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PlayerList extends StatelessWidget implements CallBackInterface {
-  PlayerList({Key? key}) : super(key: key);
+  int type;
+  PlayerList(this.type);
 
  TextEditingController searchController = TextEditingController();
 
@@ -31,10 +32,11 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
    });*/
 
    return;
-
  }
 
  var playerid1="";
+ List<String> player1List=[];
+ List<String> player2List=[];
 
  @override
   Widget build(BuildContext context) {
@@ -160,16 +162,54 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                             CommonColors.darkGray,"Location:"+controller.playerpojo.value.data![index].city.toString()+", "+controller.playerpojo.value.data![index].state.toString(),0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w600),
 
                         trailing: IconButton(
-                          onPressed: (){
-                            print("click");
-                            controller.playerpojo.value.data![index].invitation= controller.playerpojo.value.data![index].invitation==1?0:1;
-                            controller.updatePlayer1Id(controller.player1d+","+controller.playerpojo.value.data![index].id.toString());
-                            controller.playerpojo.refresh();
+                          onPressed: ()  async {
+
+                            controller.playerpojo.value.data![index].invitation= await controller.playerpojo.value.data![index].invitation==1?0:1;
+
+                            if(type==1){ //for player 1
+                              if(controller.playerpojo.value.data![index].invitation==1){
+                                player1List.add(controller.playerpojo.value.data![index].id.toString());
+                                controller.updatePlayer1IList(index);
+
+                                controller.updatePlayer1Id(player1List.join(","));
+
+                            }else{
+                                player1List.remove(controller.playerpojo.value.data![index].id.toString());
+                                controller.player1List.remove(index);
+
+                                controller.updatePlayer1Id(player1List.join(","));
+
+                             }
+
+                              controller.playerpojo.refresh();
+
+                            }else{ //for player 2
+                              if(controller.playerpojo.value.data![index].invitation==1){
+                                player2List.add(controller.playerpojo.value.data![index].id.toString());
+                                controller.updatePlayer2List(index);
+
+                                controller.updatePlayer2Id(player2List.join(","));
+
+                              }else{
+                                player2List.remove(controller.playerpojo.value.data![index].id.toString());
+                                controller.player2List.remove(index);
+
+                                controller.updatePlayer2Id(player2List.join(","));
+
+                              }
+
+                              controller.playerpojo.refresh();
+
+                            }
+
                           },
 
-                         icon: controller.playerpojo.value.data![index].invitation==0?
-                          Image.asset("assets/images/smiley.png",color:CommonColors.red,):
-                          Image.asset("assets/images/smiley.png",color: CommonColors.green,)
+                          icon: Visibility(
+                            visible: type==0?false:true,
+                            child: controller.playerpojo.value.data![index].invitation==0?
+                            Image.asset("assets/images/smiley.png",color:CommonColors.red,):
+                            Image.asset("assets/images/smiley.png",color: CommonColors.green,),
+                          )
                         )
                       );
                     })),

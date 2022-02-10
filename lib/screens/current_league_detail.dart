@@ -35,12 +35,11 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 IconButton(
                     padding: EdgeInsets.zero,
-                    constraints: BoxConstraints(),
+                    constraints: const BoxConstraints(),
                     onPressed: (){
-                  Get.back();
+                    Get.back();
                 }, icon: const Icon(Icons.arrow_back_rounded)),
 
                 SizedBox(
@@ -283,7 +282,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                             children: [
                               GestureDetector(
                                 onTap:(){
-                                  Get.to(()=>PlayerList());
+                                  Get.to(()=>PlayerList(0));
 
                                 },
                                 child: Container(
@@ -375,7 +374,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                             children: [
                               GestureDetector(
                                 onTap:(){
-                                  Get.off(()=> PlayerList());
+                                  Get.off(()=> PlayerList(0));
 
                                 },
                                 child: Container(
