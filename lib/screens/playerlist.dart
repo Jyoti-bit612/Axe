@@ -169,13 +169,13 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                             if(type==1){ //for player 1
                               if(controller.playerpojo.value.data![index].invitation==1){
                                 player1List.add(controller.playerpojo.value.data![index].id.toString());
-                                controller.updatePlayer1IList(index);
+                                controller.updatePlayer1IList(controller.playerpojo.value.data![index].firstName.toString());
 
                                 controller.updatePlayer1Id(player1List.join(","));
 
                             }else{
                                 player1List.remove(controller.playerpojo.value.data![index].id.toString());
-                                controller.player1List.remove(index);
+                                controller.player1List.remove(controller.playerpojo.value.data![index].firstName.toString());
 
                                 controller.updatePlayer1Id(player1List.join(","));
 
@@ -186,13 +186,13 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                             }else{ //for player 2
                               if(controller.playerpojo.value.data![index].invitation==1){
                                 player2List.add(controller.playerpojo.value.data![index].id.toString());
-                                controller.updatePlayer2List(index);
+                                controller.updatePlayer2List(controller.playerpojo.value.data![index].firstName.toString());
 
                                 controller.updatePlayer2Id(player2List.join(","));
 
                               }else{
                                 player2List.remove(controller.playerpojo.value.data![index].id.toString());
-                                controller.player2List.remove(index);
+                                controller.player2List.remove(controller.playerpojo.value.data![index].firstName.toString());
 
                                 controller.updatePlayer2Id(player2List.join(","));
 

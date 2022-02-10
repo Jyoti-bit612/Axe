@@ -38,7 +38,7 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
             children: [
               IconButton(
                   padding: EdgeInsets.zero,
-                  constraints: BoxConstraints(),
+                  constraints: const BoxConstraints(),
                   onPressed: (){
                 Get.back();
               }, icon: const Icon(Icons.arrow_back_rounded)),
@@ -217,7 +217,11 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
                         ),
 
                         CommonWidget.getInstance().normalText(
-                            CommonColors.black, Strings.choose_player,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
+                            CommonColors.black,
+                            playerController.player1List.isNotEmpty?
+                            playerController.player1List.value.join(","):
+                            Strings.choose_player,
+                            0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
 
                         SizedBox(
                           height: CommonWidget.getInstance().heightFactor(context) * 0.015,
@@ -240,11 +244,9 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
                                     height: CommonWidget.getInstance().widthFactor(context) * 0.02,
                                   ),
 
-
                                   GestureDetector(
                                     onTap:(){
                                       Get.to(()=> PlayerList(1));
-
                                     },
                                     child: Container(
                                       width:  CommonWidget.getInstance().widthFactor(context) * 0.24,
@@ -273,6 +275,8 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
 
                                   CommonWidget.getInstance().normalText(
                                       CommonColors.darkGray,
+                                      playerController.player2List.isNotEmpty?
+                                      playerController.player2List.value.join(","):
                                       Strings.choose,
                                       0,CommonWidget.getInstance().widthFactor(context)*0.026,FontStyle.normal,1,
                                       FontWeight.w500,fontfamily: false),

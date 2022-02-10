@@ -20,18 +20,21 @@ class PlayerController extends GetxController {
   updatePlayer1Id(String id) {
     player1d.value=id;
   }
+
   updatePlayer2Id(String id) {
     player2id.value=id;
   }
 
-
   updatePlayer1IList(var playerList) {
     player1List.add(playerList);
-  }
-  updatePlayer2List(var playerList) {
-    player2List.add(playerList);
+    refresh();
   }
 
+  updatePlayer2List(var playerList) {
+    player2List.add(playerList);
+    refresh();
+
+  }
 
   Future<void> getPlayerList() async {
    await Apiprovider.getApi(Constant.get_Player).then((value) {
@@ -39,7 +42,5 @@ class PlayerController extends GetxController {
     },onError: (error){
      print(error);
     });
-
   }
-
 }
