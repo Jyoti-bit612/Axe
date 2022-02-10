@@ -168,7 +168,7 @@ class CommonWidget {
     FocusScope.of(context).requestFocus(nextFocus);
   }
 
-  final CounterController controller = Get.put(CounterController());
+  final CounterController controller = Get.find();
 
 
   Widget editTextField(

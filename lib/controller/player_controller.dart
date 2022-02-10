@@ -27,13 +27,11 @@ class PlayerController extends GetxController {
 
   updatePlayer1IList(var playerList) {
     player1List.add(playerList);
-    refresh();
+
   }
 
   updatePlayer2List(var playerList) {
     player2List.add(playerList);
-    refresh();
-
   }
 
   Future<void> getPlayerList() async {

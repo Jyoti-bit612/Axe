@@ -24,8 +24,8 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
 
   @override
   Widget build(BuildContext context) {
-    final LeagueController controller = Get.put(LeagueController());
-    final PlayerController playerController = Get.put(PlayerController());
+    final LeagueController controller = Get.find();
+    final PlayerController playerController = Get.find();
 
     return SafeArea(
       child: Scaffold(
@@ -119,7 +119,8 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
                             DropDownClass(
                                 CommonColors.darkGray,
                                 "leagueDropDown",
-                                controller.leagueList.value[0]["league_title"],
+                                controller.leagueList.length>0?
+                                controller.leagueList.value[0]["league_title"]:"",
                                 controller.leagueList.value,
                                 this,
                                 "0",
@@ -218,8 +219,6 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
 
                         CommonWidget.getInstance().normalText(
                             CommonColors.black,
-                            playerController.player1List.isNotEmpty?
-                            playerController.player1List.value.join(","):
                             Strings.choose_player,
                             0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
 
@@ -246,7 +245,8 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
 
                                   GestureDetector(
                                     onTap:(){
-                                      Get.to(()=> PlayerList(1));
+                                      Get.toNamed('/playerList');
+
                                     },
                                     child: Container(
                                       width:  CommonWidget.getInstance().widthFactor(context) * 0.24,
@@ -273,13 +273,13 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
                                     height: CommonWidget.getInstance().widthFactor(context) * 0.02,
                                   ),
 
-                                  CommonWidget.getInstance().normalText(
+                                  Obx(()=>CommonWidget.getInstance().normalText(
                                       CommonColors.darkGray,
-                                      playerController.player2List.isNotEmpty?
-                                      playerController.player2List.value.join(","):
+                                      playerController.player1List.isNotEmpty?
+                                      playerController.player1List.value.join(","):
                                       Strings.choose,
                                       0,CommonWidget.getInstance().widthFactor(context)*0.026,FontStyle.normal,1,
-                                      FontWeight.w500,fontfamily: false),
+                                      FontWeight.w500,fontfamily: false)),
                                 ],
                               ),
 
@@ -310,7 +310,8 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
 
                                   GestureDetector(
                                     onTap:(){
-                                      Get.to(()=> PlayerList(2));
+                                      Get.toNamed('/playerList');
+
                                     },
                                     child: Container(
                                       width:  CommonWidget.getInstance().widthFactor(context) * 0.24,
@@ -335,9 +336,13 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
                                     height: CommonWidget.getInstance().widthFactor(context) * 0.02,
                                   ),
 
-                                  CommonWidget.getInstance().normalText(
-                                      CommonColors.darkGray,Strings.choose,0,CommonWidget.getInstance().widthFactor(context)*0.026,FontStyle.normal,1,
-                                      FontWeight.w500,fontfamily: false),
+                                  Obx(()=> CommonWidget.getInstance().normalText(
+                                      CommonColors.darkGray,
+                                      playerController.player2List.isNotEmpty?
+                                      playerController.player2List.value.join(","):
+                                      Strings.choose,
+                                      0,CommonWidget.getInstance().widthFactor(context)*0.026,FontStyle.normal,1,
+                                      FontWeight.w500,fontfamily: false)),
                                 ],
                               ),
                             ],
@@ -377,8 +382,8 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
 
   @override
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
-    final LeagueController controller = Get.put(LeagueController());
-    final PlayerController playerController = Get.put(PlayerController());
+    final LeagueController controller = Get.find();
+    final PlayerController playerController = Get.find();
 
     switch(title){
       case Strings.create_match:

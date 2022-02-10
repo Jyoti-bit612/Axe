@@ -47,9 +47,11 @@ class SplashState extends State<Splash> {
 
   onDoneLoading() async {
     if (token == "") {
-      Get.to(()=> Login());
+      Get.toNamed('/login');
+
     } else {
-      Get.to(()=> DashBoard(0));
+      Get.toNamed('/home');
+
     }
   }
 

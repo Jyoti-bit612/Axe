@@ -261,9 +261,9 @@ class OtherUserProfile extends StatelessWidget  implements CallBackInterface{
     return GestureDetector(
       onTap: (){
         switch(type){
-          case "password":
 
-            Get.to(()=>ChangePassword());
+          case "password":
+            Get.toNamed('/changePassword');
             break;
 
           case "address":
@@ -353,7 +353,8 @@ class OtherUserProfile extends StatelessWidget  implements CallBackInterface{
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
     switch(title){
       case Strings.edit_scrore:
-        Get.to(()=> EditScore());
+        Get.toNamed('/editScore');
+
         break;
 
     }

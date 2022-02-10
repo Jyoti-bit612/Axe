@@ -26,7 +26,7 @@ class ChangePassword extends StatelessWidget  implements CallBackInterface{
 
   @override
   Widget build(BuildContext context) {
-    final CounterController controller = Get.put(CounterController());
+    final CounterController controller = Get.find();
     return SafeArea(
       child: Scaffold(
         backgroundColor: CommonColors.white,
@@ -179,8 +179,7 @@ class ChangePassword extends StatelessWidget  implements CallBackInterface{
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
     switch(title){
       case Strings.reset_password:
-
-        Get.to(()=>DashBoard(0));
+        Get.toNamed('/home');
 
         break;
 

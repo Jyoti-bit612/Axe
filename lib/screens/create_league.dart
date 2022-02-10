@@ -31,7 +31,7 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
 
   @override
   Widget build(BuildContext context) {
-    final LeagueController controller = Get.put(LeagueController());
+    final LeagueController controller = Get.find();
     return SafeArea(
       child: Scaffold(
         backgroundColor: CommonColors.white,
@@ -494,7 +494,7 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
  var pickedImage;
 
  Future<bool> createLeague(BuildContext context) async {
-   final LeagueController controller = Get.put(LeagueController());
+   final LeagueController controller = Get.find();
    var token=await Global.getStringValuesSF(Constant.AccessToken);
 
    Global.showLoaderDialog(context);
@@ -544,7 +544,8 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
      } else {
        Get.back();
        Global.showSnackBar(context, response["error"]);
-       Get.to(()=> Login());
+       Get.toNamed('/login');
+
      }
    }).catchError((error) {
      Get.back();
@@ -558,7 +559,7 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
 
  @override
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
-   final LeagueController controller = Get.put(LeagueController());
+   final LeagueController controller = Get.find();
 
    switch(title){
      case Strings.create_league:

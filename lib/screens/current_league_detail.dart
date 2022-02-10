@@ -92,7 +92,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                               GestureDetector(
                                 behavior: HitTestBehavior.translucent,
                                 onTap: (){
-                                  Get.to( ()=>OtherUserProfile("","","","","","","","","","",));
+                                  Get.toNamed('/otherUserProfile');
 
                                 },
                                 child: Container(
@@ -123,7 +123,8 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                               GestureDetector(
                                 behavior: HitTestBehavior.translucent,
                                 onTap: (){
-                                  Get.to( ()=>OtherUserProfile("","","","","","","","","","",));
+                                  Get.toNamed('/otherUserProfile');
+
                                 },
                                 child: Container(
                                   width:  CommonWidget.getInstance().widthFactor(context) * 0.27,
@@ -174,7 +175,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
 
                           GestureDetector(
                             onTap: (){
-                              Get.to(()=>const ScoreDashboard());
+                              Get.toNamed('/scoreDashboard');
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(4.0),
@@ -282,8 +283,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                             children: [
                               GestureDetector(
                                 onTap:(){
-                                  Get.to(()=>PlayerList(0));
-
+                                  Get.toNamed('/playerList');
                                 },
                                 child: Container(
                                   width:  CommonWidget.getInstance().widthFactor(context) * 0.16,
@@ -451,8 +451,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                   padding: const EdgeInsets.only(top:8.0),
                   child: GestureDetector(
                     onTap: (){
-                      Get.to( ()=>OtherUserProfile("","","","","","","","","","",));
-
+                      Get.toNamed('/otherUserProfile');
                     },
                     child: ListTile(
                       leading: Container(

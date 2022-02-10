@@ -116,8 +116,7 @@ final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
     switch(title){
       case Strings.reset_password:
-
-        Get.to(()=>DashBoard(0));
+        Get.toNamed('/home');
 
         break;
 

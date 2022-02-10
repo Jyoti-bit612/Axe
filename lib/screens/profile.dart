@@ -58,7 +58,8 @@ class Profile extends StatelessWidget  implements CallBackInterface{
             actions: <Widget>[
               IconButton(
                   onPressed: (){
-                    Get.to(const NotificationClass());
+                    Get.toNamed('/notificationClass');
+
                   },
                   icon: const Icon(Icons.notifications,color: CommonColors.black,)
               ),
@@ -136,7 +137,8 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                     children: [
                       GestureDetector(
                         onTap: (){
-                          Get.to( CreateLeague());
+                          Get.toNamed('/createLeague');
+
 
                         },
                         child: SizedBox(
@@ -169,7 +171,8 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                       ),
                       GestureDetector(
                         onTap: (){
-                          Get.to( CreateMatch());
+                          Get.toNamed('/createMatch');
+
                         },
                         child: SizedBox(
                             width: CommonWidget.getInstance().widthFactor(context) * 0.3,
@@ -200,7 +203,8 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                       ),
                       GestureDetector(
                         onTap: (){
-                          Get.to( PlayerList(0));
+                          Get.toNamed('/playerList');
+
                         },
                         child: SizedBox(
                             width: CommonWidget.getInstance().widthFactor(context) * 0.3,
@@ -331,8 +335,8 @@ class Profile extends StatelessWidget  implements CallBackInterface{
       onTap: (){
         switch(type){
           case "password":
+            Get.toNamed('/changePassword');
 
-            Get.to(()=>ChangePassword());
             break;
 
           case "address":
@@ -422,7 +426,8 @@ class Profile extends StatelessWidget  implements CallBackInterface{
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
     switch(title){
       case Strings.player_request:
-        Get.to(()=>const NewInvitaton());
+        Get.toNamed('/newInvitaton');
+
         break;
 
         case Strings.practice_match:

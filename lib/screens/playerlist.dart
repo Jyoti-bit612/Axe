@@ -15,7 +15,7 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
  TextEditingController searchController = TextEditingController();
 
  void filterSearchResults(String searchText) {
-   final PlayerController controller = Get.put(PlayerController());
+   final PlayerController controller = Get.find();
    controller.playerpojo.value.data!.clear();
 
    if (searchText.isEmpty) {
@@ -40,7 +40,7 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
 
  @override
   Widget build(BuildContext context) {
-  final PlayerController controller = Get.put(PlayerController());
+  final PlayerController controller = Get.find();
   return SafeArea(
       child: Scaffold(
         body:   SingleChildScrollView(
@@ -115,7 +115,7 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                         leading: GestureDetector(
                           behavior: HitTestBehavior.translucent,
                           onTap: (){
-                            Get.to( ()=>OtherUserProfile(controller.playerpojo.value.data![index].firstName!+" "+controller.playerpojo.value.data![index].lastName!,
+                           /* Get.toNamed( ()=>OtherUserProfile(controller.playerpojo.value.data![index].firstName!+" "+controller.playerpojo.value.data![index].lastName!,
                                 controller.playerpojo.value.data![index].bigaxeScore,
                                 controller.playerpojo.value.data![index].hatchetsScore,
                                 controller.playerpojo.value.data![index].teamplayScore,
@@ -126,7 +126,7 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                                 controller.playerpojo.value.data![index].state,
                                 controller.playerpojo.value.data![index].address,
 
-                            ));
+                            ));*/
 
                           },
                           child: Container(

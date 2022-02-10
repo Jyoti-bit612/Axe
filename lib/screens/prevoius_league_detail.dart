@@ -36,7 +36,7 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
 
   @override
   Widget build(BuildContext context) {
-    final PreviousLeagueController controller = Get.put(PreviousLeagueController());
+    final PreviousLeagueController controller = Get.find();
     return SafeArea(
       child: Scaffold(
         body:Obx(()=>

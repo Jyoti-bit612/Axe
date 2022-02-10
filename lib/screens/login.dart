@@ -25,7 +25,7 @@ class Login extends StatelessWidget  implements CallBackInterface{
 
   @override
   Widget build(BuildContext context) {
-    final CounterController controller = Get.put(CounterController());
+    final CounterController controller = Get.find();
     return SafeArea(
       child: Scaffold(
         backgroundColor: CommonColors.white,
@@ -135,8 +135,7 @@ class Login extends StatelessWidget  implements CallBackInterface{
 
                                 GestureDetector(
                                   onTap: (){
-                                    Get.to(()=> ForgotPassword());
-
+                                    Get.toNamed('/forgotPassword');
                                   },
                                   child: CommonWidget.getInstance().normalText(
                                     CommonColors.black, Strings.forgot_pass,1,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
@@ -169,7 +168,7 @@ class Login extends StatelessWidget  implements CallBackInterface{
 
                         GestureDetector(
                           onTap: (){
-                             Get.to(()=> SignUp());
+                             Get.toNamed('/signUp');
 
                           },
                           child: Container(
@@ -284,7 +283,7 @@ class Login extends StatelessWidget  implements CallBackInterface{
         Global.loginType=jsonDecode(value)["user"]["user_type"]==1?"2":"1";
         await Global.addStringToSF(jsonDecode(value)["user"]["user_type"]==1?"2":"1",Constant.LoginType);  // 1 for vendor 2 for Player
 
-        Get.to(()=>DashBoard(0));
+        Get.toNamed('/home');
 
         break;
     }

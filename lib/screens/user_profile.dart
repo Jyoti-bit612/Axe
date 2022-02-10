@@ -59,7 +59,8 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
             actions: <Widget>[
               IconButton(
                   onPressed: (){
-                    Get.to(const NotificationClass());
+                    Get.toNamed('/notificationClass');
+
                   },
                   icon: const Icon(Icons.notifications,color: CommonColors.black,)
               ),
@@ -213,7 +214,8 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
                     children: [
                       GestureDetector(
                         onTap: (){
-                          Get.to(()=>const NewInvitaton());
+                          Get.toNamed('/newInvitaton');
+
 
                         },
                         child: SizedBox(
@@ -235,7 +237,8 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
                       ),
                       GestureDetector(
                         onTap: (){
-                          Get.to( ()=>EditScore());
+                          Get.toNamed('/editScore');
+
                         },
                         child: SizedBox(
                             width: CommonWidget.getInstance().widthFactor(context) * 0.22,
@@ -257,7 +260,7 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
                       ),
                       GestureDetector(
                         onTap: (){
-                          Get.to(()=>PracticeMatch());
+                          Get.toNamed('/practiceMatch');
                         },
                         child: SizedBox(
                             width: CommonWidget.getInstance().widthFactor(context) * 0.35,
@@ -361,7 +364,7 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
         switch(type){
           case "password":
 
-            Get.to(()=>ChangePassword());
+            Get.toNamed('/changePassword');
             break;
 
           case "address":

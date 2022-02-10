@@ -15,8 +15,8 @@ import 'package:intl/intl.dart';
 class CurrentLeague extends StatelessWidget implements CallBackInterface {
   @override
   Widget build(BuildContext context) {
-    final HomeController controller = Get.put(HomeController());
-    final CurrentLeagueController currentController = Get.put(CurrentLeagueController());
+    final HomeController controller = Get.find();
+    final CurrentLeagueController currentController = Get.find();
     return  SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -51,7 +51,8 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                         onTap: (){
                           currentController.currentLeagueID(currentController.currentLeaguePojo.value.currentleague![index].id.toString());
                           currentController.getCurrentLeagueDetail();
-                          Get.to(()=>const CurrentLeagueDetail());
+                          Get.toNamed('/currentLeagueDetail');
+
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(top:8.0),
@@ -119,7 +120,7 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                       return GestureDetector(
                         behavior: HitTestBehavior.translucent,
                         onTap: () {
-                          Get.to(()=>const UpcomingLeagueDetail());
+                          Get.toNamed('/upcomingLeagueDetail');
                         },
 
                         child: Card(

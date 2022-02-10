@@ -16,7 +16,7 @@ import 'package:intl/intl.dart';
 class Home extends StatelessWidget  implements CallBackInterface{
   @override
   Widget build(BuildContext context) {
-    final HomeController controller = Get.put(HomeController());
+    final HomeController controller = Get.find();
     return SafeArea(
       child: Scaffold(
         body: Obx(()=>SingleChildScrollView(
@@ -79,7 +79,7 @@ class Home extends StatelessWidget  implements CallBackInterface{
                       return GestureDetector(
                         behavior: HitTestBehavior.translucent,
                         onTap: () {
-                          Get.to(()=>const UpcomingLeagueDetail());
+                          Get.toNamed('/upcomingLeagueDetail');
 
                         },
                         child: Card(
@@ -278,7 +278,8 @@ class Home extends StatelessWidget  implements CallBackInterface{
                       return GestureDetector(
                         onTap: (){
                           controller.updateLeagueID(controller.prevoiusLeaguePojo.value.data![index].id!.toString());
-                          Get.to(()=>const PreviousLeagueDetail());
+                          Get.toNamed('/previousLeagueDetail');
+
                         },
                           child: Padding(
                           padding: const EdgeInsets.only(top:8.0),
@@ -342,8 +343,7 @@ class Home extends StatelessWidget  implements CallBackInterface{
 
     switch(title){
       case Strings.play_practice_match:
-
-        Get.to(()=>PracticeMatch());
+        Get.toNamed('/practiceMatch');
 
         break;
     }

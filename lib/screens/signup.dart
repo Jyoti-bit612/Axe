@@ -38,7 +38,7 @@ class SignUp extends StatelessWidget implements CallBackInterface{
 
   @override
   Widget build(BuildContext context) {
-    final CounterController controller = Get.put(CounterController());
+    final CounterController controller = Get.find();
 
     return SafeArea(
       child: Scaffold(
@@ -314,7 +314,8 @@ class SignUp extends StatelessWidget implements CallBackInterface{
 
                           GestureDetector(
                             onTap: (){
-                              Get.to(()=> Login());
+                              Get.toNamed('/login');
+
 
                             },
                             child: Container(
@@ -444,7 +445,8 @@ class SignUp extends StatelessWidget implements CallBackInterface{
          Global.addStringToSF( response["access_token"],Constant.AccessToken);
          Global.addStringToSF(response["user"]["email"],Constant.email);
 
-         Get.to(()=> DashBoard(0));
+         Get.toNamed('/home');
+
 
        } else if (res.statusCode == 404) {
          Get.back();
@@ -468,7 +470,7 @@ class SignUp extends StatelessWidget implements CallBackInterface{
 
    @override
     Future<void> widgetCallBack(String title, String value, BuildContext context) async {
-     final CounterController controller = Get.put(CounterController());
+     final CounterController controller =Get.find();
      switch(title){
       case Strings.sign_up:
         if(CommonWidget.getInstance().isValidate(formKey)){

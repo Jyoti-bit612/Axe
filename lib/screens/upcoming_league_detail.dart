@@ -156,7 +156,7 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
                       return GestureDetector(
                         behavior: HitTestBehavior.translucent,
                         onTap: () {
-                          Get.to( ()=>OtherUserProfile("","","","","","","","","","",));
+                          Get.toNamed('/otherUserProfile');
 
                         },
                         child: Padding(
@@ -259,7 +259,8 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
   void widgetCallBack(String title, String value, BuildContext context) {
     switch (title) {
       case Strings.invite_player:
-        Get.to(()=> PlayerList(0));
+        Get.toNamed('/playerList');
+
         break;
 
   }
