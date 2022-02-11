@@ -24,6 +24,8 @@ class CurrentLeagueController extends GetxController {
     await Apiprovider.getApi(Constant.get_current_league).then((value) {
       currentLeaguePojo.value = CurrentLeaguePojo.fromJson(json.decode(value));
     }, onError: (error) {
+      currentLeaguePojo.value=CurrentLeaguePojo();
+
       print(error);
     });
   }
@@ -36,6 +38,8 @@ class CurrentLeagueController extends GetxController {
       currentLeagueDetailPojo.value = CurrentLeagueDetailPojo.fromJson(json.decode(value));
       print(value);
     }, onError: (error) {
+      currentLeagueDetailPojo.value=CurrentLeagueDetailPojo();
+
       Get.showSnackbar(
         GetSnackBar(
           duration: Duration(seconds: 1),

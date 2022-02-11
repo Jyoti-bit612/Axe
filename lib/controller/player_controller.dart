@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 
 class PlayerController extends GetxController {
   Rx<PlayerListPojo> playerpojo=PlayerListPojo().obs ;
+  Rx<PlayerListPojo> playerpojoDuplicate=PlayerListPojo().obs ;
   Rx<String> player1d="".obs;
   Rx<String> player2id="".obs;
   RxList<dynamic> player1List=[].obs;
@@ -36,7 +37,9 @@ class PlayerController extends GetxController {
   Future<void> getPlayerList() async {
    await Apiprovider.getApi(Constant.get_Player).then((value) {
       playerpojo.value= PlayerListPojo.fromJson(json.decode(value));
+      playerpojoDuplicate.value= PlayerListPojo.fromJson(json.decode(value));
     },onError: (error){
+     playerpojo.value=PlayerListPojo();
      print(error);
     });
   }

@@ -73,6 +73,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                                   controller.currentLeagueDetailPojo.value.leagueDetails!.leagueTitle.toString(),
                                   0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w900,fontfamily: false),
 
+                              controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?Container():
                               Container(
                                 decoration: BoxDecoration(
                                   color: CommonColors.red,
@@ -92,7 +93,9 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                             height: CommonWidget.getInstance().widthFactor(context) * 0.01,
                           ),
 
-                       CommonWidget.getInstance().normalText(
+
+
+                          CommonWidget.getInstance().normalText(
                          CommonColors.darkGray,
                            controller.currentLeagueDetailPojo.value.leagueDetails==null?"":
                            controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?""+"Season"+controller.currentLeagueDetailPojo.value.leagueDetails!.season.toString():
@@ -102,6 +105,14 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                             height: CommonWidget.getInstance().widthFactor(context) * 0.05,
                           ),
 
+
+                          Center(
+                            child: controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?
+                            Global.setEmptyText("No Current Match", context):Container(),
+                          ),
+
+
+                          controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?Container():
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -109,7 +120,6 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                                 behavior: HitTestBehavior.translucent,
                                 onTap: (){
                                   Get.toNamed('/otherUserProfile');
-
                                 },
                                 child: Container(
                                   width:  CommonWidget.getInstance().widthFactor(context) * 0.27,
@@ -179,6 +189,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                             ],
                           ),
 
+                          controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?Container():
                           Padding(
                             padding: const EdgeInsets.all(20.0),
                             child: Row(
@@ -211,6 +222,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                             ),
                           ),
 
+                          controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?Container():
                           GestureDetector(
                             onTap: (){
                               Get.toNamed('/scoreDashboard');
@@ -303,174 +315,170 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
 
   matchedWidget(){
     final CurrentLeagueController controller = Get.find();
-
     return Column(
       children: [
-        Expanded(
-          child:
           controller.currentLeagueDetailPojo.value.matches==null?
           Global.setEmptyText("No Matches",context):
           controller.currentLeagueDetailPojo.value.matches!.isEmpty?
           Global.setEmptyText("No Matches",context):
-          ListView.builder(
-              physics: const ClampingScrollPhysics(),
-              itemCount:    controller.currentLeagueDetailPojo.value.matches!.length,
-              itemBuilder: (context, index) {
-                return  Card(
-                    elevation: 4,
-                    child:Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              GestureDetector(
-                                onTap:(){
-                                  Get.toNamed('/playerlist');
-                                },
-                                child: Container(
-                                  width:  CommonWidget.getInstance().widthFactor(context) * 0.16,
-                                  height:  CommonWidget.getInstance().widthFactor(context) * 0.16,
-                                  decoration: const BoxDecoration(
-                                    gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomCenter,
-                                    ),
-                                    shape: BoxShape.circle,
-
-                                  ),
-                                  child:  Padding(
-                                    padding: EdgeInsets.all(1.0),
-                                    child:
-                                    controller.currentLeagueDetailPojo.value.matches![index].player1WithScore==null?
-                                        imageBox():
-                                      controller.currentLeagueDetailPojo.value.matches![index].player1WithScore!.playerDetail!.picture== null ?
-                                      imageBox():
-                                      CircleAvatar(
-                                      backgroundImage:
-                                      NetworkImage(Constant.imageUrl+controller.currentLeagueDetailPojo.value.matches![index].player1WithScore!.playerDetail!.picture!),
-                                    ),
-                                  ),
-                                ),
-                              ),
-
-                              SizedBox(
-                                height: CommonWidget.getInstance().widthFactor(context) * 0.02,
-                              ),
-
-                              CommonWidget.getInstance().normalText(
-                                  CommonColors.black,
-                                  controller.currentLeagueDetailPojo.value.matches![index].player1WithScore==null?"":
-                                  controller.currentLeagueDetailPojo.value.matches![index].player1WithScore!.playerDetail!.firstName.toString()
-                                  ,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,
-                                  FontWeight.w600,fontfamily: false),
-
-                              CommonWidget.getInstance().normalText(
-                                  CommonColors.darkGray,Strings.change_player,0,CommonWidget.getInstance().widthFactor(context)*0.026,FontStyle.normal,1,
-                                  FontWeight.w500,fontfamily: false),
-
-                            ],
-                          ),
-
-                          Column(
+          Expanded(
+            child: ListView.builder(
+                physics: const ClampingScrollPhysics(),
+                itemCount:    controller.currentLeagueDetailPojo.value.matches!.length,
+                itemBuilder: (context, index) {
+                  return  Card(
+                      elevation: 4,
+                      child:Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                GestureDetector(
+                                  onTap:(){
+                                    Get.toNamed('/playerlist',arguments: 1);
+                                  },
+                                  child: Container(
+                                    width:  CommonWidget.getInstance().widthFactor(context) * 0.16,
+                                    height:  CommonWidget.getInstance().widthFactor(context) * 0.16,
+                                    decoration: const BoxDecoration(
+                                      gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomCenter,
+                                      ),
+                                      shape: BoxShape.circle,
 
-                            children: [
-                              CommonWidget.getInstance().normalText(
-                                  CommonColors.darkGray,controller.currentLeagueDetailPojo.value.matches![index].matchTitle!+"/"+
-                                  controller.currentLeagueDetailPojo.value.leagueDetails!.leagueTitle!
-                                  ,0,CommonWidget.getInstance().widthFactor(context)*0.025,FontStyle.normal,0,FontWeight.w900,fontfamily: false),
-
-
-                              SizedBox(
-                                height: CommonWidget.getInstance().widthFactor(context) * 0.02,
-                              ),
-                                Container(
-                                  decoration: const BoxDecoration(
-                                  color: CommonColors.lightRed,
-                                  shape: BoxShape.circle,
-                                ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(6.0),
-                                    child: CommonWidget.getInstance().normalText(
-                                        CommonColors.red,"vs",0,CommonWidget.getInstance().widthFactor(context)*0.025,FontStyle.normal,0,
-                                        FontWeight.w600,fontfamily: false),
+                                    ),
+                                    child:  Padding(
+                                      padding: EdgeInsets.all(1.0),
+                                      child:
+                                      controller.currentLeagueDetailPojo.value.matches![index].player1WithScore==null?
+                                          imageBox():
+                                        controller.currentLeagueDetailPojo.value.matches![index].player1WithScore!.playerDetail!.picture== null ?
+                                        imageBox():
+                                        CircleAvatar(
+                                        backgroundImage:
+                                        NetworkImage(Constant.imageUrl+controller.currentLeagueDetailPojo.value.matches![index].player1WithScore!.playerDetail!.picture!),
+                                      ),
+                                    ),
                                   ),
                                 ),
 
-
-                              SizedBox(
-                                height: CommonWidget.getInstance().widthFactor(context) * 0.02,
-                              ),
-
-                              Container(
-                                decoration: const BoxDecoration(
-                                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                                  color: CommonColors.primaryColor1,
-
-                                ),
-                                child:
-                                Padding(
-                                  padding: const EdgeInsets.only(left:10,right:10,top:2.5,bottom:3),
-                                  child: CommonWidget.getInstance().normalText(
-                                      CommonColors.white,getStartDate(controller.currentLeagueDetailPojo.value.matches![index].matchSchedule),1,CommonWidget.getInstance().widthFactor(context)*0.017,FontStyle.normal,0,FontWeight.w400),
+                                SizedBox(
+                                  height: CommonWidget.getInstance().widthFactor(context) * 0.02,
                                 ),
 
-                              ),
+                                CommonWidget.getInstance().normalText(
+                                    CommonColors.black,
+                                    controller.currentLeagueDetailPojo.value.matches![index].player1WithScore==null?"No Player":
+                                    controller.currentLeagueDetailPojo.value.matches![index].player1WithScore!.playerDetail!.firstName.toString()
+                                    ,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,
+                                    FontWeight.w600,fontfamily: false),
+
+                                CommonWidget.getInstance().normalText(
+                                    CommonColors.darkGray,Strings.change_player,0,CommonWidget.getInstance().widthFactor(context)*0.026,FontStyle.normal,1,
+                                    FontWeight.w500,fontfamily: false),
                               ],
                             ),
 
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              GestureDetector(
-                                onTap:(){
-                                  Get.offNamed('/playerlist');
-                                },
-                                child: Container(
-                                  width:  CommonWidget.getInstance().widthFactor(context) * 0.16,
-                                  height:  CommonWidget.getInstance().widthFactor(context) * 0.16,
-                                  decoration: const BoxDecoration(
-                                    gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomCenter,
-                                    ),
+                            Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                              children: [
+                                CommonWidget.getInstance().normalText(
+                                    CommonColors.darkGray,controller.currentLeagueDetailPojo.value.matches![index].matchTitle!+" / Season"+
+                                    controller.currentLeagueDetailPojo.value.leagueDetails!.season!
+                                    ,0,CommonWidget.getInstance().widthFactor(context)*0.025,FontStyle.normal,0,FontWeight.w900,fontfamily: false),
+
+
+                                SizedBox(
+                                  height: CommonWidget.getInstance().widthFactor(context) * 0.02,
+                                ),
+                                  Container(
+                                    decoration: const BoxDecoration(
+                                    color: CommonColors.lightRed,
                                     shape: BoxShape.circle,
                                   ),
-                                  child:   Padding(
-                                      padding: EdgeInsets.all(1.0),
-                                      child:controller.currentLeagueDetailPojo.value.matches![index].player2WithScore==null?imageBox():
-                                      controller.currentLeagueDetailPojo.value.matches![index].player2WithScore!.playerDetail!.picture== null ? imageBox()
-                                          :CircleAvatar(
-                                        backgroundImage:
-                                        NetworkImage(Constant.imageUrl+controller.currentLeagueDetailPojo.value.matches![index].player2WithScore!.playerDetail!.picture!),
-                                      ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(6.0),
+                                      child: CommonWidget.getInstance().normalText(
+                                          CommonColors.red,"vs",0,CommonWidget.getInstance().widthFactor(context)*0.025,FontStyle.normal,0,
+                                          FontWeight.w600,fontfamily: false),
+                                    ),
+                                  ),
+
+
+                                SizedBox(
+                                  height: CommonWidget.getInstance().widthFactor(context) * 0.02,
+                                ),
+
+                                Container(
+                                  decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.all(Radius.circular(5)),
+                                    color: CommonColors.primaryColor1,
 
                                   ),
+                                  child:
+                                  Padding(
+                                    padding: const EdgeInsets.only(left:10,right:10,top:2.5,bottom:3),
+                                    child: CommonWidget.getInstance().normalText(
+                                        CommonColors.white,getStartDate(controller.currentLeagueDetailPojo.value.matches![index].matchSchedule),1,CommonWidget.getInstance().widthFactor(context)*0.017,FontStyle.normal,0,FontWeight.w400),
+                                  ),
                                 ),
+                                ],
                               ),
-                              SizedBox(
-                                height: CommonWidget.getInstance().widthFactor(context) * 0.02,
-                              ),
-                              CommonWidget.getInstance().normalText(
-                                  CommonColors.black,
-                                  controller.currentLeagueDetailPojo.value.matches![index].player2WithScore==null?"":
-                                  controller.currentLeagueDetailPojo.value.matches![index].player2WithScore!.playerDetail!.firstName.toString(),0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,
-                                  FontWeight.w600,fontfamily: false),
 
-                              CommonWidget.getInstance().normalText(
-                                  CommonColors.darkGray,Strings.change_player,0,CommonWidget.getInstance().widthFactor(context)*0.026,FontStyle.normal,1,
-                                  FontWeight.w500,fontfamily: false),
-                            ],
-                          ),
-                        ],
-                      ),
-                    )
-                );
-              }),
-        ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                GestureDetector(
+                                  onTap:(){
+                                    Get.offNamed('/playerlist',arguments: 2);
+                                  },
+                                  child: Container(
+                                    width:  CommonWidget.getInstance().widthFactor(context) * 0.16,
+                                    height:  CommonWidget.getInstance().widthFactor(context) * 0.16,
+                                    decoration: const BoxDecoration(
+                                      gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomCenter,
+                                      ),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child:   Padding(
+                                        padding: const EdgeInsets.all(1.0),
+                                        child:controller.currentLeagueDetailPojo.value.matches![index].player2WithScore==null?imageBox():
+                                        controller.currentLeagueDetailPojo.value.matches![index].player2WithScore!.playerDetail!.picture== null ? imageBox()
+                                            :CircleAvatar(
+                                          backgroundImage:
+                                          NetworkImage(Constant.imageUrl+controller.currentLeagueDetailPojo.value.matches![index].player2WithScore!.playerDetail!.picture!),
+                                        ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: CommonWidget.getInstance().widthFactor(context) * 0.02,
+                                ),
+                                CommonWidget.getInstance().normalText(
+                                    CommonColors.black,
+                                    controller.currentLeagueDetailPojo.value.matches![index].player2WithScore==null?"No Player":
+                                    controller.currentLeagueDetailPojo.value.matches![index].player2WithScore!.playerDetail!.firstName.toString(),0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,
+                                    FontWeight.w600,fontfamily: false),
+
+                                CommonWidget.getInstance().normalText(
+                                    CommonColors.darkGray,Strings.change_player,0,CommonWidget.getInstance().widthFactor(context)*0.026,FontStyle.normal,1,
+                                    FontWeight.w500,fontfamily: false),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                  );
+                }),
+          ),
+
 
         Visibility(
           visible: Global.loginType=="1"?false:true,
@@ -479,7 +487,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
               child: CommonWidget.getInstance().flexibleButton(
                 context,
                 Strings.create_match,
-                CommonWidget.getInstance().widthFactor(context) * 0.42,
+                CommonWidget.getInstance().widthFactor(context) * 0.35,
                 CommonWidget.getInstance().widthFactor(context) * 0.13,
                 CommonColors.primaryColor1,
                 CommonColors.primaryColor1,
@@ -489,7 +497,6 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
         ),
       ],
     );
-
   }
 
   DateFormat dateFormat = DateFormat("dd MMM HH:mm");
@@ -504,15 +511,14 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
     final CurrentLeagueController controller = Get.find();
     return   Column(
       children: [
-        Expanded(
-          child:
-          controller.currentLeagueDetailPojo.value.players==null?
-          Global.setEmptyText("No Players",context):
-          controller.currentLeagueDetailPojo.value.players!.isEmpty?
-          Global.setEmptyText("No Players",context)
-              : ListView.separated(
+        controller.currentLeagueDetailPojo.value.players==null?
+        Global.setEmptyText("No Players",context):
+        controller.currentLeagueDetailPojo.value.players!.isEmpty?
+        Global.setEmptyText("No Players",context)
+            : Expanded(
+              child: ListView.separated(
               physics: const ClampingScrollPhysics(),
-              itemCount:  4,
+              itemCount:  controller.currentLeagueDetailPojo.value.players!.length,
               separatorBuilder: (BuildContext context, int index) => Divider(height: 1),
               itemBuilder: (context, index) {
                 return Padding(
@@ -563,7 +569,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                   //   ),
                 );
               }),
-        ),
+            ),
 
         Visibility(
           visible: Global.loginType=="1"?false:true,
@@ -589,7 +595,6 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
   @override
   void widgetCallBack(String title, String value, BuildContext context) {
     switch(title){
-
       case Strings.create_match:
         Get.off(()=> CreateMatch());
         break;

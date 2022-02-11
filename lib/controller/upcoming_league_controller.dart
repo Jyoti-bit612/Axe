@@ -26,6 +26,7 @@ class UpcomingLeagueController extends GetxController  {
       upcomingLeaguePojo.value = UpcomingLeagueDetail.fromJson(json.decode(value));
         print(value);
     }, onError: (error) {
+      upcomingLeaguePojo.value=UpcomingLeagueDetail();
       Get.showSnackbar(
         GetSnackBar(
           duration: Duration(seconds: 1),

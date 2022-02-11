@@ -10,24 +10,28 @@ import 'package:get/get.dart';
 class PlayerList extends StatelessWidget implements CallBackInterface {
   TextEditingController searchController = TextEditingController();
 
+  PlayerList({Key? key}) : super(key: key);
+
  void filterSearchResults(String searchText) {
    final PlayerController controller = Get.find();
    controller.playerpojo.value.data!.clear();
 
    if (searchText.isEmpty) {
-     //controller.playerpojo.value=controller.playerpojoDuplicate.value;
-     controller.update();
+     controller.playerpojo.value.data!.addAll(controller.playerpojoDuplicate.value.data!);
+     controller.playerpojo.refresh();
      return;
    }
 
-  /* controller.playerpojoDuplicate.value.data!.forEach((item) {
+   controller.playerpojoDuplicate.value.data!.forEach((item) {
      if (item.firstName!.toLowerCase().contains(searchText) ||item.lastName!.toLowerCase().contains(searchText) ) {
        controller.playerpojo.value.data!.add(item);
-       controller.update();
+       controller.playerpojo.refresh();
+       return;
      }
-   });*/
+   });
 
    return;
+
  }
 
  var playerid1="";

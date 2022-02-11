@@ -30,6 +30,8 @@ class HomeController extends GetxController {
       upcomingLeaguePojo.value =
           UpcomingLeaguePojo.fromJson(json.decode(value));
     }, onError: (error) {
+      upcomingLeaguePojo.value=UpcomingLeaguePojo();
+
       print(error);
     });
   }
@@ -39,6 +41,8 @@ class HomeController extends GetxController {
       prevoiusLeaguePojo.value =
           PrevoiusLeaguePojo.fromJson(json.decode(value));
     }, onError: (error) {
+      prevoiusLeaguePojo.value=PrevoiusLeaguePojo();
+
       print(error);
     });
   }
@@ -50,6 +54,8 @@ class HomeController extends GetxController {
     await Apiprovider.postApi(Constant.get_topPlayer,jsonBody).then((value) {
       topPlayer.value = TopPlayer.fromJson(json.decode(value));
     }, onError: (error) {
+      topPlayer.value=TopPlayer();
+
       print(error);
     });
   }

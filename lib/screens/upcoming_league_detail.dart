@@ -18,9 +18,9 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
   @override
   Widget build(BuildContext context) {
     final UpcomingLeagueController controller = Get.find();
-    return Obx(()=>SafeArea(
+    return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
+        body:Obx(()=> SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Column(

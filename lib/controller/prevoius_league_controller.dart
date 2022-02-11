@@ -29,6 +29,7 @@ class PreviousLeagueController extends GetxController  {
       prevoiusLeaguePojo.value = PrevoiusLeagueDetailPojo.fromJson(json.decode(value));
         print(value);
     }, onError: (error) {
+      prevoiusLeaguePojo.value=PrevoiusLeagueDetailPojo();
       isDataFound.value=true;
       Get.showSnackbar(
         GetSnackBar(
@@ -49,6 +50,7 @@ class PreviousLeagueController extends GetxController  {
      topPlayer.value = TopPlayer.fromJson(json.decode(value));
      print(value);
    },onError: (error) {
+     topPlayer.value=TopPlayer();
 
    });
   }

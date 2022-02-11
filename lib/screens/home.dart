@@ -1,4 +1,6 @@
 import 'package:axe/controller/home_controller.dart';
+import 'package:axe/controller/prevoius_league_controller.dart';
+import 'package:axe/controller/upcoming_league_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
@@ -13,6 +15,8 @@ class Home extends StatelessWidget  implements CallBackInterface{
   @override
   Widget build(BuildContext context) {
     final HomeController controller = Get.find();
+    final PreviousLeagueController prevoiusController = Get.find();
+    final UpcomingLeagueController upcomingController = Get.find();
     return SafeArea(
       child: Scaffold(
         body: Obx(()=>SingleChildScrollView(
@@ -74,9 +78,10 @@ class Home extends StatelessWidget  implements CallBackInterface{
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         behavior: HitTestBehavior.translucent,
-                        onTap: () {
+                        onTap: () async {
                           controller.updateLeagueID(controller.upcomingLeaguePojo.value.data![index].id!.toString());
-                          Get.toNamed('/upcomingLeagueDetail');
+                           Get.toNamed('/upcomingLeagueDetail');
+                           upcomingController.getUpcomingLeagueDetail();
                         },
                         child: Card(
                           shadowColor: CommonColors.grayColor,
@@ -270,7 +275,7 @@ class Home extends StatelessWidget  implements CallBackInterface{
                         onTap: (){
                           controller.updateLeagueID(controller.prevoiusLeaguePojo.value.data![index].id!.toString());
                           Get.toNamed('/previousLeagueDetail');
-
+                          prevoiusController.getprevoiusLeagueDetail();
                         },
                           child: Padding(
                           padding: const EdgeInsets.only(top:8.0),

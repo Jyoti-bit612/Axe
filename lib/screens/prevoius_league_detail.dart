@@ -123,7 +123,6 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
                         child: Icon(Icons.arrow_forward,color: CommonColors.white,size:CommonWidget.getInstance().widthFactor(context) * 0.03,),
                       ),
                     ),
-
                   ],
                 ),
 
