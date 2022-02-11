@@ -1,23 +1,31 @@
+import 'dart:convert';
+import 'dart:io';
+import 'package:axe/controller/profile_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
-import 'package:axe/screens/change_password.dart';
-import 'package:axe/screens/create_league.dart';
-import 'package:axe/screens/create_match.dart';
-import 'package:axe/screens/login.dart';
-import 'package:axe/screens/new_invitation.dart';
-import 'package:axe/screens/notification.dart';
-import 'package:axe/screens/playerlist.dart';
-import 'package:axe/screens/practice_match.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/constants.dart';
-import 'package:axe/util/dropdownclass.dart';
 import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 class Profile extends StatelessWidget  implements CallBackInterface{
    Profile({Key? key}) : super(key: key);
+
+   final emailController = TextEditingController();
+   final firstnameController = TextEditingController();
+   final lastnameController = TextEditingController();
+   final passwordController = TextEditingController();
+   final contactController = TextEditingController();
+   final emailFocus = FocusNode();
+   final firstnameFocus = FocusNode();
+   final lastnameFocus = FocusNode();
+   final confirmPassFocus = FocusNode();
+   final contactFocus = FocusNode();
+   final passwordFocus = FocusNode();
+   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   var myMenuItems = <String>[
     Strings.privacy_profile,
@@ -46,6 +54,8 @@ class Profile extends StatelessWidget  implements CallBackInterface{
 
   @override
   Widget build(BuildContext context) {
+    final ProfileController controller = Get.find();
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: CommonColors.white,
@@ -89,28 +99,35 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                   height: CommonWidget.getInstance().heightFactor(context) * 0.01,
                 ),
 
-                Center(
-                  child: Container(
-                    width: CommonWidget.getInstance().widthFactor(context) * 0.30,
-                    height: CommonWidget.getInstance().widthFactor(context) * 0.30,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomCenter,
+              Center(
+                  child: GestureDetector(
+                    onTap: (){
+                      Global.showPicker(context,this);
+                    },
+                    child: Container(
+                      width: CommonWidget.getInstance().widthFactor(context) * 0.30,
+                      height: CommonWidget.getInstance().widthFactor(context) * 0.30,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomCenter,
+                        ),
+                        shape: BoxShape.circle,
                       ),
-                      shape: BoxShape.circle,
+                      child:  Padding(
+                        padding: const EdgeInsets.all(1.0),
+                        child: controller.pickedImage.value == "" ?CircleAvatar(
+                            backgroundColor: CommonColors.textfiled_gray,
+                            child: Image.asset("assets/images/camera.png")
+
+                        ):CircleAvatar(
+                            backgroundColor: CommonColors.textfiled_gray,
+                            backgroundImage:FileImage(File(controller.pickedImage.value)
+                            )
+                        ),
+                      )
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(1.0),
-                      child: DecoratedBox(
-                          decoration:  const BoxDecoration(
-                            color: CommonColors.textfiled_gray,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.asset("assets/images/camera.png")),
-                    ),
-                  ),
-                ),
+                  )),
 
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.02,
@@ -204,7 +221,6 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                       GestureDetector(
                         onTap: (){
                           Get.toNamed('/playerlist');
-
                         },
                         child: SizedBox(
                             width: CommonWidget.getInstance().widthFactor(context) * 0.3,
@@ -245,7 +261,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                   height: CommonWidget.getInstance().widthFactor(context) * 0.05,
                 ),
 
-                editTextWidget("john D. Henry",context,Icons.person,true,"name"),
+                editTextWidget("john D.",context,Icons.person,true,"name",firstnameController),
 
                 Padding(
                   padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
@@ -256,7 +272,8 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                   ),
                 ),
 
-                editTextWidget("xx@gmail.com",context,Icons.email_outlined,false,"email"),
+
+                editTextWidget("Henry",context,Icons.person,true,"name",lastnameController),
 
                 Padding(
                   padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
@@ -267,7 +284,18 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                   ),
                 ),
 
-                editTextWidget("+915263254563",context,Icons.phonelink_ring_outlined,true,"phone"),
+                editTextWidget("xx@gmail.com",context,Icons.email_outlined,false,"email",emailController),
+
+                Padding(
+                  padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
+                  child: const Divider(
+                    height: 20,
+                    thickness: 1,
+                    color: CommonColors.grayColor,
+                  ),
+                ),
+
+                editTextWidget("+915263254563",context,Icons.phonelink_ring_outlined,true,"phone",contactController),
 
                 Padding(
                   padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
@@ -302,6 +330,27 @@ class Profile extends StatelessWidget  implements CallBackInterface{
 
                 SizedBox(
                   height: CommonWidget.getInstance().widthFactor(context) * 0.06,
+                ),
+
+
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left:6.0),
+                    child: CommonWidget.getInstance().flexibleButton(
+                      context,
+                      Strings.update_profile,
+                      CommonWidget.getInstance().widthFactor(context) * 0.6,
+                      CommonWidget.getInstance().widthFactor(context) * 0.13,
+                      CommonColors.primaryColor1,
+                      CommonColors.primaryColor1,
+                      CommonColors.white,
+                      this,
+                    ),
+                  ),
+                ),
+
+                SizedBox(
+                  height: CommonWidget.getInstance().widthFactor(context) * 0.05,
                 ),
 
                 Center(
@@ -379,11 +428,10 @@ class Profile extends StatelessWidget  implements CallBackInterface{
         ],
       ),
     );
-
   }
 
 
-  editTextWidget(String title,BuildContext context, IconData icon, bool isOn, String type){
+  editTextWidget(String title,BuildContext context, IconData icon, bool isOn, String type,var _controller){
     return Row(
       //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -398,6 +446,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
 
         Expanded(
           child: TextField(
+            controller: _controller,
             decoration: InputDecoration(
               hintText: title,
               filled: true,
@@ -410,7 +459,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
         Visibility(
             visible: isOn,
             child: type=="password"?
-           Icon(Icons.loop,color: CommonColors.darkGray,):
+            Icon(Icons.loop,color: CommonColors.darkGray,):
             Icon(Icons.edit,color: CommonColors.darkGray,)),
 
         SizedBox(
@@ -419,10 +468,62 @@ class Profile extends StatelessWidget  implements CallBackInterface{
 
       ],
     );
-
   }
 
-  @override
+   var pickedImage;
+
+   Future<bool> updateprofile(BuildContext context) async {
+     final ProfileController controller = Get.find();
+     var token=await Global.getStringValuesSF(Constant.AccessToken);
+
+     Global.showLoaderDialog(context);
+     Map<String, String> headers = {
+       "Accept": "application/json",
+       "Authorization": 'Bearer '+token,
+     };
+
+     var request = http.MultipartRequest(
+         'POST', Uri.parse(Constant.baseUrl + Constant.update_venue_profile));
+     request.headers.addAll(headers);
+     if (pickedImage != null) {
+       request.files.add(await http.MultipartFile.fromPath(
+           "user_picture", pickedImage!.path));
+     }
+
+     request.fields['first_name'] = firstnameController.text;
+     request.fields['last_name'] = lastnameController.text;
+     request.fields['phone'] = contactController.text;
+     request.fields['address'] = "mohali";
+     request.fields['user_type'] = Constant.login;
+
+     await request.send().then((res) async {
+       final respStr = await res.stream.bytesToString();
+       var response = json.decode(respStr);
+
+       if (res.statusCode == 201 || res.statusCode == 200) {
+         Get.back();
+         Global.showSnackBar(context, response["message"]);
+         Global.addStringToSF( response["user"]["first_name"], Constant.firstname);
+         Global.addStringToSF( response["user"]["last_name"], Constant.lastname);
+
+       } else if (res.statusCode == 404) {
+         Get.back();
+       } else {
+         Get.back();
+         Global.showSnackBar(context, response["error"]);
+
+       }
+     }).catchError((error) {
+       Get.back();
+       error.message = jsonDecode(error.toString())["message"];
+       throw ("some arbitrary error");
+     });
+
+     return false;
+   }
+
+
+   @override
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
     switch(title){
       case Strings.player_request:

@@ -15,7 +15,7 @@ class PreviousLeagueController extends GetxController  {
   @override
   void onInit() {
     super.onInit();
-    getprevoiusLeagueDetail();
+   // getprevoiusLeagueDetail();
     getTopPlayer();
   }
 

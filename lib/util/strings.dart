@@ -13,6 +13,7 @@ class Strings{
   static const String rejected = "Rejected";
   static const String join_league = "Join League";
   static const String update_score = "Update Score";
+  static const String update_profile = "Update Profile";
   static const String end_game = "End Game";
   static const String call_killshot = "Call Killshot";
   static const String reset_throw = "Reset Throw";

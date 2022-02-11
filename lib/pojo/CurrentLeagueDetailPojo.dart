@@ -27,7 +27,9 @@ class CurrentLeagueDetailPojo {
       json['currentMatch'].forEach((v) {
         currentMatch!.add( CurrentMatch.fromJson(v));
       });
-    }
+    }else
+      currentMatch = <CurrentMatch>[];
+
     if (json['players'] != null) {
       players = <Players>[];
       json['players'].forEach((v) {

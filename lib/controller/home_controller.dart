@@ -31,7 +31,6 @@ class HomeController extends GetxController {
           UpcomingLeaguePojo.fromJson(json.decode(value));
     }, onError: (error) {
       upcomingLeaguePojo.value=UpcomingLeaguePojo();
-
       print(error);
     });
   }
@@ -42,7 +41,6 @@ class HomeController extends GetxController {
           PrevoiusLeaguePojo.fromJson(json.decode(value));
     }, onError: (error) {
       prevoiusLeaguePojo.value=PrevoiusLeaguePojo();
-
       print(error);
     });
   }
@@ -55,7 +53,6 @@ class HomeController extends GetxController {
       topPlayer.value = TopPlayer.fromJson(json.decode(value));
     }, onError: (error) {
       topPlayer.value=TopPlayer();
-
       print(error);
     });
   }

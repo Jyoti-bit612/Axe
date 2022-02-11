@@ -14,7 +14,7 @@ class UpcomingLeagueController extends GetxController  {
   @override
   void onInit() {
     super.onInit();
-    getUpcomingLeagueDetail();
+   // getUpcomingLeagueDetail();
   }
 
   Future<void> getUpcomingLeagueDetail() async {
