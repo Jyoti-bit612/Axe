@@ -25,7 +25,7 @@ class CurrentLeagueDetailPojo {
     if (json['currentMatch'] != null) {
       currentMatch = <CurrentMatch>[];
       json['currentMatch'].forEach((v) {
-        currentMatch!.add(new CurrentMatch.fromJson(v));
+        currentMatch!.add( CurrentMatch.fromJson(v));
       });
     }
     if (json['players'] != null) {
@@ -48,7 +48,8 @@ class CurrentLeagueDetailPojo {
     }
     if (this.currentMatch != null) {
       data['currentMatch'] = this.currentMatch!.map((v) => v.toJson()).toList();
-    }
+    }else
+      data['currentMatch'] =[];
     if (this.players != null) {
       data['players'] = this.players!.map((v) => v.toJson()).toList();
     }
@@ -56,91 +57,6 @@ class CurrentLeagueDetailPojo {
       data['leagueDetails'] = this.leagueDetails!.toJson();
     }
     data['message'] = this.message;
-    return data;
-  }
-}
-
-class Matches {
-  int? id;
-  int? userId;
-  int? leagueId;
-  String? matchTitle;
-  int? matchType;
-  String? matchSchedule;
-  String? description;
-  Null? logo;
-  Null? logoPath;
-  List<String>? players1Ids;
-  List<String>? players2Ids;
-  int? players1;
-  int? players2;
-  int? status;
-  String? createdAt;
-  String? updatedAt;
-  Null? player1WithScore;
-  Null? player2WithScore;
-
-  Matches(
-      {this.id,
-        this.userId,
-        this.leagueId,
-        this.matchTitle,
-        this.matchType,
-        this.matchSchedule,
-        this.description,
-        this.logo,
-        this.logoPath,
-        this.players1Ids,
-        this.players2Ids,
-        this.players1,
-        this.players2,
-        this.status,
-        this.createdAt,
-        this.updatedAt,
-        this.player1WithScore,
-        this.player2WithScore});
-
-  Matches.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    userId = json['user_id'];
-    leagueId = json['league_id'];
-    matchTitle = json['match_title'];
-    matchType = json['match_type'];
-    matchSchedule = json['match_schedule'];
-    description = json['description'];
-    logo = json['logo'];
-    logoPath = json['logo_path'];
-    players1Ids = json['players1_ids'].cast<String>();
-    players2Ids = json['players2_ids'].cast<String>();
-    players1 = json['players1'];
-    players2 = json['players2'];
-    status = json['status'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    player1WithScore = json['player1_with_score'];
-    player2WithScore = json['player2_with_score'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['league_id'] = this.leagueId;
-    data['match_title'] = this.matchTitle;
-    data['match_type'] = this.matchType;
-    data['match_schedule'] = this.matchSchedule;
-    data['description'] = this.description;
-    data['logo'] = this.logo;
-    data['logo_path'] = this.logoPath;
-    data['players1_ids'] = this.players1Ids;
-    data['players2_ids'] = this.players2Ids;
-    data['players1'] = this.players1;
-    data['players2'] = this.players2;
-    data['status'] = this.status;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['player1_with_score'] = this.player1WithScore;
-    data['player2_with_score'] = this.player2WithScore;
     return data;
   }
 }
@@ -153,8 +69,8 @@ class CurrentMatch {
   int? matchType;
   String? matchSchedule;
   String? description;
-  String? logo;
-  String? logoPath;
+  Null? logo;
+  Null? logoPath;
   List<String>? players1Ids;
   List<String>? players2Ids;
   int? players1;
@@ -203,10 +119,10 @@ class CurrentMatch {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     player1WithScore = json['player1_with_score'] != null
-        ? new Player1WithScore.fromJson(json['player1_with_score'])
+        ?  Player1WithScore.fromJson(json['player1_with_score'])
         : null;
     player2WithScore = json['player2_with_score'] != null
-        ? new Player1WithScore.fromJson(json['player2_with_score'])
+        ?  Player1WithScore.fromJson(json['player2_with_score'])
         : null;
   }
 
@@ -254,7 +170,7 @@ class Player1WithScore {
   int? throw7;
   int? throw8;
   int? throw9;
-  String? throw10;
+  int? throw10;
   String? killshot;
   String? suddendeaththrow;
   String? createdAt;
@@ -328,10 +244,10 @@ class Player1WithScore {
     data['throw8'] = this.throw8;
     data['throw9'] = this.throw9;
     data['throw10'] = this.throw10;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
     data['killshot'] = this.killshot;
     data['suddendeaththrow'] = this.suddendeaththrow;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
     if (this.playerDetail != null) {
       data['player_detail'] = this.playerDetail!.toJson();
     }
@@ -343,9 +259,9 @@ class PlayerDetail {
   String? firstName;
   String? lastName;
   String? picture;
-  Null? city;
-  Null? state;
-  Null? address;
+  String? city;
+  String? state;
+  String? address;
   int? teamplayScore;
   int? hatchetsScore;
   int? bigaxeScore;
@@ -400,6 +316,99 @@ class PlayerDetail {
     data['accuracy_user'] = this.accuracyUser;
     data['total_league'] = this.totalLeague;
     data['total_match'] = this.totalMatch;
+    return data;
+  }
+}
+
+class Matches {
+  int? id;
+  int? userId;
+  int? leagueId;
+  String? matchTitle;
+  int? matchType;
+  String? matchSchedule;
+  String? description;
+  Null? logo;
+  Null? logoPath;
+  List<String>? players1Ids;
+  List<String>? players2Ids;
+  int? players1;
+  int? players2;
+  int? status;
+  String? createdAt;
+  String? updatedAt;
+  Player1WithScore? player1WithScore;
+  Player1WithScore? player2WithScore;
+
+  Matches(
+      {this.id,
+        this.userId,
+        this.leagueId,
+        this.matchTitle,
+        this.matchType,
+        this.matchSchedule,
+        this.description,
+        this.logo,
+        this.logoPath,
+        this.players1Ids,
+        this.players2Ids,
+        this.players1,
+        this.players2,
+        this.status,
+        this.createdAt,
+        this.updatedAt,
+        this.player1WithScore,
+        this.player2WithScore});
+
+  Matches.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    userId = json['user_id'];
+    leagueId = json['league_id'];
+    matchTitle = json['match_title'];
+    matchType = json['match_type'];
+    matchSchedule = json['match_schedule'];
+    description = json['description'];
+    logo = json['logo'];
+    logoPath = json['logo_path'];
+    players1Ids = json['players1_ids'].cast<String>();
+    players2Ids = json['players2_ids'].cast<String>();
+    players1 = json['players1'];
+    players2 = json['players2'];
+    status = json['status'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+    player1WithScore = json['player1_with_score'] != null
+        ? new Player1WithScore.fromJson(json['player1_with_score'])
+        : null;
+    player2WithScore = json['player2_with_score'] != null
+        ? new Player1WithScore.fromJson(json['player2_with_score'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['user_id'] = this.userId;
+    data['league_id'] = this.leagueId;
+    data['match_title'] = this.matchTitle;
+    data['match_type'] = this.matchType;
+    data['match_schedule'] = this.matchSchedule;
+    data['description'] = this.description;
+    data['logo'] = this.logo;
+    data['logo_path'] = this.logoPath;
+    data['players1_ids'] = this.players1Ids;
+    data['players2_ids'] = this.players2Ids;
+    data['players1'] = this.players1;
+    data['players2'] = this.players2;
+    data['status'] = this.status;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    if (this.player1WithScore != null) {
+      data['player1_with_score'] = this.player1WithScore!.toJson();
+    }
+    if (this.player2WithScore != null) {
+      data['player2_with_score'] = this.player2WithScore!.toJson();
+    }
     return data;
   }
 }
@@ -629,7 +638,7 @@ class LeagueDetails {
 class MatchType {
   int? id;
   String? name;
-  int? throw1;
+  int? throws;
   Null? description;
   String? createdAt;
   String? updatedAt;
@@ -637,7 +646,7 @@ class MatchType {
   MatchType(
       {this.id,
         this.name,
-        this.throw1,
+        this.throws,
         this.description,
         this.createdAt,
         this.updatedAt});
@@ -645,7 +654,7 @@ class MatchType {
   MatchType.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    throw1 = json['throw1'];
+    throws = json['throws'];
     description = json['description'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
@@ -655,7 +664,7 @@ class MatchType {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
-    data['throw1'] = this.throw1;
+    data['throws'] = this.throws;
     data['description'] = this.description;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
@@ -666,7 +675,7 @@ class MatchType {
 class SeasonType {
   int? id;
   String? name;
-  Null? description;
+  String? description;
   String? createdAt;
   String? updatedAt;
 

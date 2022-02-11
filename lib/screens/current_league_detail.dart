@@ -1,10 +1,13 @@
+import 'package:axe/controller/current_league_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/create_match.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
+import 'package:axe/util/constants.dart';
 import 'package:axe/util/global.dart';import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class CurrentLeagueDetail extends StatefulWidget {
   const CurrentLeagueDetail({Key? key}) : super(key: key);
@@ -22,9 +25,20 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
     super.initState();
   }
 
+  Widget imageBox(){
+    final CurrentLeagueController controller = Get.find();
+    return const CircleAvatar(
+        radius: 30.0,
+        backgroundColor: CommonColors.textfiled_gray,
+        backgroundImage:AssetImage("assets/images/dummypic.jpg")
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    final CurrentLeagueController controller = Get.find();
+
+    return Obx(()=>SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
           child: Padding(
@@ -54,7 +68,10 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               CommonWidget.getInstance().normalText(
-                                  CommonColors.black,"AXE WORLD LEAGUE",0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w900,fontfamily: false),
+                                  CommonColors.black,
+                                  controller.currentLeagueDetailPojo.value.leagueDetails==null?"":
+                                  controller.currentLeagueDetailPojo.value.leagueDetails!.leagueTitle.toString(),
+                                  0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w900,fontfamily: false),
 
                               Container(
                                 decoration: BoxDecoration(
@@ -76,12 +93,14 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                           ),
 
                        CommonWidget.getInstance().normalText(
-                         CommonColors.darkGray,"Match 04/ Season 5",0,CommonWidget.getInstance().widthFactor(context)*0.019,FontStyle.normal,0,FontWeight.w900,fontfamily: false),
+                         CommonColors.darkGray,
+                           controller.currentLeagueDetailPojo.value.leagueDetails==null?"":
+                           controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?""+"Season"+controller.currentLeagueDetailPojo.value.leagueDetails!.season.toString():
+                           controller.currentLeagueDetailPojo.value.currentMatch![0].matchTitle.toString()+"/Season"+controller.currentLeagueDetailPojo.value.leagueDetails!.season.toString(),0,CommonWidget.getInstance().widthFactor(context)*0.019,FontStyle.normal,0,FontWeight.w900,fontfamily: false),
 
                          SizedBox(
                             height: CommonWidget.getInstance().widthFactor(context) * 0.05,
                           ),
-
 
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -103,12 +122,19 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                                     shape: BoxShape.circle,
 
                                   ),
-                                  child:  const Padding(
+                                  child:Padding(
                                       padding: EdgeInsets.all(1.0),
-                                      child: CircleAvatar(
-                                        radius: 30.0,
-                                        backgroundImage:AssetImage("assets/images/dummypic.jpg"),
-                                      )
+                                      child:
+                                      controller.currentLeagueDetailPojo.value.currentMatch!.isNotEmpty?
+                                      controller.currentLeagueDetailPojo.value.currentMatch![0].player1WithScore!=null?
+                                      controller.currentLeagueDetailPojo.value.currentMatch![0].player1WithScore!.playerDetail!.picture!=null?
+                                      CircleAvatar(
+                                        backgroundImage:
+                                        NetworkImage(Constant.imageUrl+controller.currentLeagueDetailPojo.value.currentMatch![0].player1WithScore!.playerDetail!.picture!),
+                                      ):
+                                          imageBox():
+                                          imageBox():
+                                          imageBox(),
                                   ),
                                 ),
                               ),
@@ -134,12 +160,19 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                                     shape: BoxShape.circle,
 
                                   ),
-                                  child:  const Padding(
-                                      padding: EdgeInsets.all(1.0),
-                                      child: CircleAvatar(
-                                        radius: 30.0,
-                                        backgroundImage:AssetImage("assets/images/dummypic.jpg"),
-                                      )
+                                  child: Padding(
+                                    padding: EdgeInsets.all(1.0),
+                                    child:
+                                    controller.currentLeagueDetailPojo.value.currentMatch!.isNotEmpty?
+                                    controller.currentLeagueDetailPojo.value.currentMatch![0].player2WithScore!=null?
+                                    controller.currentLeagueDetailPojo.value.currentMatch![0].player2WithScore!.playerDetail!.picture!=null?
+                                    CircleAvatar(
+                                      backgroundImage:
+                                      NetworkImage(Constant.imageUrl+controller.currentLeagueDetailPojo.value.currentMatch![0].player2WithScore!.playerDetail!.picture!),
+                                    ):
+                                    imageBox():
+                                    imageBox():
+                                    imageBox(),
                                   ),
                                 ),
                               )
@@ -154,7 +187,11 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                               children: [
 
                                 CommonWidget.getInstance().normalText(
-                                    CommonColors.black,"Ragnar",0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
+                                    CommonColors.black,
+                                    controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?"":
+                                    controller.currentLeagueDetailPojo.value.currentMatch![0].player1WithScore==null?"":
+                                    controller.currentLeagueDetailPojo.value.currentMatch![0].player1WithScore!.playerDetail!.firstName.toString(),
+                                    0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
                                     FontWeight.w600,fontfamily: false),
 
 
@@ -164,7 +201,11 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
 
 
                                 CommonWidget.getInstance().normalText(
-                                    CommonColors.black,"Floki",0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
+                                    CommonColors.black,
+                                    controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?"":
+                                    controller.currentLeagueDetailPojo.value.currentMatch![0].player2WithScore==null?"":
+                                    controller.currentLeagueDetailPojo.value.currentMatch![0].player2WithScore!.playerDetail!.firstName.toString(),
+                                    0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
                                     FontWeight.w600,fontfamily: false),
                               ],
                             ),
@@ -214,7 +255,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                   unselectedLabelColor: CommonColors.black,
                   controller: _tabController,
                  // indicatorSize: TabBarIndicatorSize.tab,
-                  indicatorPadding: EdgeInsets.only(top:CommonWidget.getInstance().widthFactor(context) * 0.12),
+                  indicatorPadding: EdgeInsets.only(top:43),
                   indicatorWeight: 0.1,
                   //labelPadding: const EdgeInsets.only(left: 0.0, right: 0.0),
                       indicator:  const BoxDecoration(
@@ -257,16 +298,23 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
           ),
         ),
       ),
-    );
+    ));
   }
 
   matchedWidget(){
+    final CurrentLeagueController controller = Get.find();
+
     return Column(
       children: [
         Expanded(
-          child: ListView.builder(
+          child:
+          controller.currentLeagueDetailPojo.value.matches==null?
+          Global.setEmptyText("No Matches",context):
+          controller.currentLeagueDetailPojo.value.matches!.isEmpty?
+          Global.setEmptyText("No Matches",context):
+          ListView.builder(
               physics: const ClampingScrollPhysics(),
-              itemCount:  5,
+              itemCount:    controller.currentLeagueDetailPojo.value.matches!.length,
               itemBuilder: (context, index) {
                 return  Card(
                     elevation: 4,
@@ -293,12 +341,17 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                                     shape: BoxShape.circle,
 
                                   ),
-                                  child: const Padding(
+                                  child:  Padding(
                                     padding: EdgeInsets.all(1.0),
-                                    child: CircleAvatar(
-                                      radius: 30.0,
-                                      backgroundImage:AssetImage("assets/images/dummypic.jpg"),
-                                    )
+                                    child:
+                                    controller.currentLeagueDetailPojo.value.matches![index].player1WithScore==null?
+                                        imageBox():
+                                      controller.currentLeagueDetailPojo.value.matches![index].player1WithScore!.playerDetail!.picture== null ?
+                                      imageBox():
+                                      CircleAvatar(
+                                      backgroundImage:
+                                      NetworkImage(Constant.imageUrl+controller.currentLeagueDetailPojo.value.matches![index].player1WithScore!.playerDetail!.picture!),
+                                    ),
                                   ),
                                 ),
                               ),
@@ -308,7 +361,10 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                               ),
 
                               CommonWidget.getInstance().normalText(
-                                  CommonColors.black,"David",0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,
+                                  CommonColors.black,
+                                  controller.currentLeagueDetailPojo.value.matches![index].player1WithScore==null?"":
+                                  controller.currentLeagueDetailPojo.value.matches![index].player1WithScore!.playerDetail!.firstName.toString()
+                                  ,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,
                                   FontWeight.w600,fontfamily: false),
 
                               CommonWidget.getInstance().normalText(
@@ -323,7 +379,9 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
 
                             children: [
                               CommonWidget.getInstance().normalText(
-                                  CommonColors.darkGray,"Match 04/ Season 5",0,CommonWidget.getInstance().widthFactor(context)*0.025,FontStyle.normal,0,FontWeight.w900,fontfamily: false),
+                                  CommonColors.darkGray,controller.currentLeagueDetailPojo.value.matches![index].matchTitle!+"/"+
+                                  controller.currentLeagueDetailPojo.value.leagueDetails!.leagueTitle!
+                                  ,0,CommonWidget.getInstance().widthFactor(context)*0.025,FontStyle.normal,0,FontWeight.w900,fontfamily: false),
 
 
                               SizedBox(
@@ -357,7 +415,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                                 Padding(
                                   padding: const EdgeInsets.only(left:10,right:10,top:2.5,bottom:3),
                                   child: CommonWidget.getInstance().normalText(
-                                      CommonColors.white,"26m 25 hr",1,CommonWidget.getInstance().widthFactor(context)*0.017,FontStyle.normal,0,FontWeight.w400),
+                                      CommonColors.white,getStartDate(controller.currentLeagueDetailPojo.value.matches![index].matchSchedule),1,CommonWidget.getInstance().widthFactor(context)*0.017,FontStyle.normal,0,FontWeight.w400),
                                 ),
 
                               ),
@@ -381,12 +439,15 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                                     ),
                                     shape: BoxShape.circle,
                                   ),
-                                  child:  const Padding(
+                                  child:   Padding(
                                       padding: EdgeInsets.all(1.0),
-                                      child: CircleAvatar(
-                                        radius: 30.0,
-                                        backgroundImage:AssetImage("assets/images/dummypic.jpg"),
-                                      )
+                                      child:controller.currentLeagueDetailPojo.value.matches![index].player2WithScore==null?imageBox():
+                                      controller.currentLeagueDetailPojo.value.matches![index].player2WithScore!.playerDetail!.picture== null ? imageBox()
+                                          :CircleAvatar(
+                                        backgroundImage:
+                                        NetworkImage(Constant.imageUrl+controller.currentLeagueDetailPojo.value.matches![index].player2WithScore!.playerDetail!.picture!),
+                                      ),
+
                                   ),
                                 ),
                               ),
@@ -394,7 +455,9 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                                 height: CommonWidget.getInstance().widthFactor(context) * 0.02,
                               ),
                               CommonWidget.getInstance().normalText(
-                                  CommonColors.black,"David",0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,
+                                  CommonColors.black,
+                                  controller.currentLeagueDetailPojo.value.matches![index].player2WithScore==null?"":
+                                  controller.currentLeagueDetailPojo.value.matches![index].player2WithScore!.playerDetail!.firstName.toString(),0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,
                                   FontWeight.w600,fontfamily: false),
 
                               CommonWidget.getInstance().normalText(
@@ -429,11 +492,25 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
 
   }
 
+  DateFormat dateFormat = DateFormat("dd MMM HH:mm");
+
+  String getStartDate(var date) {
+    var mDate1= DateTime.parse(date);
+    return dateFormat.format(mDate1);
+
+  }
+
   playerWidget(){
+    final CurrentLeagueController controller = Get.find();
     return   Column(
       children: [
         Expanded(
-          child: ListView.separated(
+          child:
+          controller.currentLeagueDetailPojo.value.players==null?
+          Global.setEmptyText("No Players",context):
+          controller.currentLeagueDetailPojo.value.players!.isEmpty?
+          Global.setEmptyText("No Players",context)
+              : ListView.separated(
               physics: const ClampingScrollPhysics(),
               itemCount:  4,
               separatorBuilder: (BuildContext context, int index) => Divider(height: 1),
@@ -457,21 +534,29 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
 
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.all(1.0),
+                          padding:  EdgeInsets.all(1.0),
                           child: DecoratedBox(
                               decoration:  const BoxDecoration(
                                 color: CommonColors.textfiled_gray,
                                 shape: BoxShape.circle,
                               ),
-                              child: Image.asset("assets/images/profile.png")),
-                        ),
-                      ),
+                              child:controller.currentLeagueDetailPojo.value.players![index].picture== null ?const CircleAvatar(
+                                backgroundColor: CommonColors.textfiled_gray,
+                                backgroundImage: AssetImage("assets/images/profile.png"),
+
+                              ):CircleAvatar(
+                                radius: 30.0,
+                                backgroundImage:
+                                NetworkImage(Constant.imageUrl+controller.currentLeagueDetailPojo.value.players![index].picture!),
+                              ),
+                          ),
+                      )),
 
                       title: CommonWidget.getInstance().normalText(
-                          CommonColors.black,"David",0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w900,fontfamily: false),
+                          CommonColors.black,controller.currentLeagueDetailPojo.value.players![index].firstName.toString(),0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w900,fontfamily: false),
 
                       subtitle:  CommonWidget.getInstance().normalText(
-                          CommonColors.darkGray,"Location: Southfield",0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w600),
+                          CommonColors.darkGray,"Location: "+ controller.currentLeagueDetailPojo.value.players![index].city.toString(),0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w600),
 
                     ),
                   ),

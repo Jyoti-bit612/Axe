@@ -199,7 +199,7 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
                   unselectedLabelColor: CommonColors.black,
                   controller: _tabController,
                   // indicatorSize: TabBarIndicatorSize.tab,
-                  indicatorPadding: EdgeInsets.only(top:CommonWidget.getInstance().widthFactor(context) * 0.12),
+                  indicatorPadding: EdgeInsets.only(top:43),
                   indicatorWeight: 0.1,
                   //labelPadding: const EdgeInsets.only(left: 0.0, right: 0.0),
                   indicator:  const BoxDecoration(
