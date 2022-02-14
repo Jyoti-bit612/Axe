@@ -43,7 +43,6 @@ class Profile extends StatelessWidget  implements CallBackInterface{
   @override
   Widget build(BuildContext context) {
     final ProfileController controller = Get.find();
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: CommonColors.white,
@@ -87,7 +86,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                   height: CommonWidget.getInstance().heightFactor(context) * 0.01,
                 ),
 
-              Center(
+              Obx(()=>Center(
                   child: GestureDetector(
                     onTap: (){
                       Global.showPicker(context,this);
@@ -115,7 +114,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                         ),
                       )
                     ),
-                  )),
+                  ))),
 
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.02,
@@ -419,6 +418,8 @@ class Profile extends StatelessWidget  implements CallBackInterface{
 
 
   editTextWidget(String title,BuildContext context, IconData icon, bool isOn, String type,var _controller){
+    final ProfileController controller = Get.find();
+
     return Row(
       //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -432,8 +433,9 @@ class Profile extends StatelessWidget  implements CallBackInterface{
         ),
 
         Expanded(
-          child: TextField(
+          child: Obx(()=>TextField(
             controller: _controller,
+            autofocus: controller.autofocus.value,
             readOnly: type=="email"?true:false,
             decoration: InputDecoration(
               hintText: title,
@@ -441,14 +443,20 @@ class Profile extends StatelessWidget  implements CallBackInterface{
               fillColor:CommonColors.white,
               border: InputBorder.none,
             ),
-          ),
+          )),
         ),
 
         Visibility(
             visible: isOn,
             child: type=="password"?
-            Icon(Icons.loop,color: CommonColors.darkGray,):
-            Icon(Icons.edit,color: CommonColors.darkGray,)),
+            const IconButton(
+                onPressed: null,
+                icon: Icon(Icons.loop,color: CommonColors.darkGray,)):
+            IconButton(
+                onPressed: (){
+                  controller.updateFocus();
+                },
+                icon: const Icon(Icons.edit,color: CommonColors.darkGray,))),
 
         SizedBox(
           width:  CommonWidget.getInstance().widthFactor(context) * 0.03,
@@ -489,13 +497,13 @@ class Profile extends StatelessWidget  implements CallBackInterface{
 
        if (res.statusCode == 201 || res.statusCode == 200) {
          Global.showSnackBar(context, response["message"]);
-         Global.addStringToSF( response["user"]["first_name"], Constant.firstname);
-         Global.addStringToSF( response["user"]["last_name"], Constant.lastname);
+         Get.back();
 
        } else if (res.statusCode == 404) {
+         Get.back();
        } else {
          Global.showSnackBar(context, response["message"]);
-
+         Get.back();
        }
      }).catchError((error) {
        error.message = jsonDecode(error.toString())["message"];

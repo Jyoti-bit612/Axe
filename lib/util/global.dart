@@ -13,7 +13,7 @@ import 'package:http/http.dart' as http;
 
 class Global {
 
-  static var loginType="2";  // from backend--> 1 for venue and 2 for user
+  static var loginType="1";  // from backend--> 1 for venue and 2 for user
 
   static final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 

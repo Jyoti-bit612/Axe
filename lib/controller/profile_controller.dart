@@ -22,11 +22,16 @@ class ProfileController extends GetxController {
   final contactFocus = FocusNode();
   final passwordFocus = FocusNode();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  Rx<bool> autofocus=false.obs;
 
   @override
   void onInit() {
     super.onInit();
     getprofile();
+  }
+
+  updateFocus() {
+    autofocus.value=!autofocus.value;
   }
 
   updateImage(var image) {
