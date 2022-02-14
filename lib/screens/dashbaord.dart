@@ -30,7 +30,7 @@ class _DashBoardState extends State<DashBoard> {
   void initState() {
     super.initState();
     getLoginType();
-    _children = [Home(),CurrentLeague(),PlayerList(), Global.loginType=="1"?UserProfile():Profile()];
+    _children = [Home(),CurrentLeague(),PlayerList(), Global.loginType=="2"?UserProfile():Profile()];  // 2 for user and 1 for vendor
      pre_backpress=DateTime.now();
   }
 

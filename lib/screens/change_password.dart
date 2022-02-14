@@ -197,7 +197,7 @@ class ChangePassword extends StatelessWidget  implements CallBackInterface{
               if (!currentFocus.hasPrimaryFocus) {
                 currentFocus.unfocus();
               }
-              Global.loginType=="1"?
+              Global.loginType=="2"?
               Global.postData(context,Constant.change_password_user,"changePassApi",jsonBody,this):
               Global.postData(context,Constant.change_password_venue,"changePassApi",jsonBody,this);
             }else

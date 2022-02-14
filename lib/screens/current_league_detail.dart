@@ -248,7 +248,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                   height: CommonWidget.getInstance().widthFactor(context) * 0.06,
                 ),
                 Visibility(
-                  visible: Global.loginType=="1"?true:false,
+                  visible: Global.loginType=="2"?true:false,
                   child: Center(
                     child: CommonWidget.getInstance().flexibleButton(
                       context,
@@ -484,7 +484,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
           ),
 
         Visibility(
-          visible: Global.loginType=="1"?false:true,
+          visible: Global.loginType=="2"?false:true,
           child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: CommonWidget.getInstance().flexibleButton(

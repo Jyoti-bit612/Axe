@@ -271,13 +271,14 @@ class Login extends StatelessWidget  implements CallBackInterface{
         }
 
         break;
+
       case "LoginApi":
         Get.back();
         Global.showSnackBar(context, jsonDecode(value)["message"]);
         Global.addStringToSF(jsonDecode(value)["access_token"],Constant.AccessToken);
         Global.addStringToSF(jsonDecode(value)["user"]["email"],Constant.email);
-        Global.loginType=jsonDecode(value)["user"]["user_type"]==1?"2":"1";
-        await Global.addStringToSF(jsonDecode(value)["user"]["user_type"]==1?"2":"1",Constant.LoginType);  // 1 for vendor 2 for Player
+        Global.loginType.toString();
+        await Global.addStringToSF(jsonDecode(value)["user"]["user_type"].toString(),Constant.LoginType);  // 1 for vendor 2 for Player from backend
 
         Get.toNamed('/home');
 

@@ -349,7 +349,7 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                                               CommonColors.black, "Match"+{index+1}.toString(),0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600),
 
                                           Visibility(
-                                              visible: Global.loginType=="1"?false:true,
+                                              visible: Global.loginType=="2"?false:true,
                                               child: const Icon(Icons.edit,color: CommonColors.primaryColor1,))
 
                                         ],
@@ -443,7 +443,7 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                           ),
 
                           Visibility(
-                            visible: Global.loginType=="1"?false:true,
+                            visible: Global.loginType=="2"?false:true,
                             child: Center(
                               child: Padding(
                                 padding: const EdgeInsets.only(left:6.0),

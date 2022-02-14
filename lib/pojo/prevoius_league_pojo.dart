@@ -143,22 +143,22 @@ class PostedBy {
   String? firstName;
   String? lastName;
   String? email;
-  Null? phone;
-  Null? city;
-  Null? state;
-  Null? zip;
-  Null? address;
-  Null? about;
+  String? phone;
+  String? city;
+  String? state;
+  String? zip;
+  String? address;
+  String? about;
   String? picture;
   String? deviceToken;
   int? isVenue;
   int? userType;
   String? createdAt;
   String? updatedAt;
-  Null? stripeId;
-  Null? pmType;
-  Null? pmLastFour;
-  Null? trialEndsAt;
+  String? stripeId;
+  String? pmType;
+  String? pmLastFour;
+  String? trialEndsAt;
 
   PostedBy({this.id, this.firstName, this.lastName, this.email, this.phone, this.city, this.state, this.zip, this.address, this.about, this.picture, this.deviceToken, this.isVenue, this.userType, this.createdAt, this.updatedAt, this.stripeId, this.pmType, this.pmLastFour, this.trialEndsAt});
 

@@ -73,7 +73,7 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
 
 
                 Visibility(
-                  visible: Global.loginType == "1" ? true : false,
+                  visible: Global.loginType == "2" ? true : false,
                   child: Center(
                     child: CommonWidget.getInstance().flexibleButton(
                       context,
@@ -244,7 +244,7 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
                 ),
 
                 Visibility(
-                  visible: Global.loginType == "1" ? false : true,
+                  visible: Global.loginType == "2" ? false : true,
                   child: CommonWidget.getInstance().flexibleButtonWithIcon(
                       context,
                       Strings.invite_player,

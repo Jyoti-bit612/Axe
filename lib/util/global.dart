@@ -9,13 +9,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import 'strings.dart';
 import 'package:http/http.dart' as http;
 
 class Global {
 
-  static var loginType="2";  // 1 for user and 2 for venue  and from backend--> 1 for venue and 2 for user
+  static var loginType="2";  // from backend--> 1 for venue and 2 for user
 
   static final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 

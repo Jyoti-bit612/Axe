@@ -1,5 +1,4 @@
-import 'dart:convert';
-import 'dart:io';
+
 import 'package:axe/controller/profile_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/util/commoncolors.dart';
@@ -10,24 +9,13 @@ import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:image_picker/image_picker.dart';
+import 'dart:convert';
+import 'dart:io';
 
 class Profile extends StatelessWidget  implements CallBackInterface{
    Profile({Key? key}) : super(key: key);
-
-   final emailController = TextEditingController();
-   final firstnameController = TextEditingController();
-   final lastnameController = TextEditingController();
-   final passwordController = TextEditingController();
-   final contactController = TextEditingController();
-   final emailFocus = FocusNode();
-   final firstnameFocus = FocusNode();
-   final lastnameFocus = FocusNode();
-   final confirmPassFocus = FocusNode();
-   final contactFocus = FocusNode();
-   final passwordFocus = FocusNode();
-   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  var myMenuItems = <String>[
+   var myMenuItems = <String>[
     Strings.privacy_profile,
     Strings.help_center,
     Strings.report,
@@ -261,7 +249,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                   height: CommonWidget.getInstance().widthFactor(context) * 0.05,
                 ),
 
-                editTextWidget("john D.",context,Icons.person,true,"name",firstnameController),
+                editTextWidget(Constant.firstname,context,Icons.person,true,"name",controller.firstnameController),
 
                 Padding(
                   padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
@@ -273,7 +261,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                 ),
 
 
-                editTextWidget("Henry",context,Icons.person,true,"name",lastnameController),
+                editTextWidget(Constant.lastname,context,Icons.person,true,"name",controller.lastnameController),
 
                 Padding(
                   padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
@@ -284,10 +272,10 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                   ),
                 ),
 
-                editTextWidget("xx@gmail.com",context,Icons.email_outlined,false,"email",emailController),
+                editTextWidget(Constant.email,context,Icons.email_outlined,false,"email",controller.emailController),
 
                 Padding(
-                  padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
+                  padding: EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
                   child: const Divider(
                     height: 20,
                     thickness: 1,
@@ -295,7 +283,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                   ),
                 ),
 
-                editTextWidget("+915263254563",context,Icons.phonelink_ring_outlined,true,"phone",contactController),
+                editTextWidget("+915263254563",context,Icons.phonelink_ring_outlined,true,"phone",controller.contactController),
 
                 Padding(
                   padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
@@ -395,7 +383,6 @@ class Profile extends StatelessWidget  implements CallBackInterface{
       },
 
       child: Row(
-        //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SizedBox(
             width:  CommonWidget.getInstance().widthFactor(context) * 0.01,
@@ -447,6 +434,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
         Expanded(
           child: TextField(
             controller: _controller,
+            readOnly: type=="email"?true:false,
             decoration: InputDecoration(
               hintText: title,
               filled: true,
@@ -465,7 +453,6 @@ class Profile extends StatelessWidget  implements CallBackInterface{
         SizedBox(
           width:  CommonWidget.getInstance().widthFactor(context) * 0.03,
         ),
-
       ],
     );
   }
@@ -490,31 +477,27 @@ class Profile extends StatelessWidget  implements CallBackInterface{
            "user_picture", pickedImage!.path));
      }
 
-     request.fields['first_name'] = firstnameController.text;
-     request.fields['last_name'] = lastnameController.text;
-     request.fields['phone'] = contactController.text;
-     request.fields['address'] = "mohali";
-     request.fields['user_type'] = Constant.login;
+     request.fields['first_name'] = controller.firstnameController.text;
+     request.fields['last_name'] = controller.lastnameController.text;
+     request.fields['phone'] = controller.contactController.text;
+     request.fields['address'] = "91 Heritage Lawn,Mohali";
+     request.fields['user_type'] = Global.loginType.toString();
 
      await request.send().then((res) async {
        final respStr = await res.stream.bytesToString();
        var response = json.decode(respStr);
 
        if (res.statusCode == 201 || res.statusCode == 200) {
-         Get.back();
          Global.showSnackBar(context, response["message"]);
          Global.addStringToSF( response["user"]["first_name"], Constant.firstname);
          Global.addStringToSF( response["user"]["last_name"], Constant.lastname);
 
        } else if (res.statusCode == 404) {
-         Get.back();
        } else {
-         Get.back();
-         Global.showSnackBar(context, response["error"]);
+         Global.showSnackBar(context, response["message"]);
 
        }
      }).catchError((error) {
-       Get.back();
        error.message = jsonDecode(error.toString())["message"];
        throw ("some arbitrary error");
      });
@@ -525,7 +508,9 @@ class Profile extends StatelessWidget  implements CallBackInterface{
 
    @override
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
-    switch(title){
+     final ProfileController controller = Get.find();
+
+     switch(title){
       case Strings.player_request:
         Get.toNamed('/newInvitaton');
 
@@ -534,6 +519,22 @@ class Profile extends StatelessWidget  implements CallBackInterface{
         case Strings.practice_match:
 
         break;
+
+      case Strings.update_profile:
+        updateprofile(context);
+        break;
+
+      case "Camera":
+        pickedImage = (await ImagePicker().pickImage(source: ImageSource.camera)) ;
+        controller.updateImage(pickedImage!.path);
+
+        break;
+
+      case "Gallery":
+        pickedImage = (await ImagePicker().pickImage(source: ImageSource.gallery)) ;
+        controller.updateImage(pickedImage!.path);
+        break;
+
     }
   }
 }

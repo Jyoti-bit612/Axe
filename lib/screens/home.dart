@@ -29,7 +29,7 @@ class Home extends StatelessWidget  implements CallBackInterface{
                 ),
 
                 Visibility(
-                  visible: Global.loginType=="1"?true:false,
+                  visible: Global.loginType=="2"?true:false,
                   child: CommonWidget.getInstance().flexibleButton(
                     context,
                     Strings.play_practice_match,

@@ -439,7 +439,7 @@ class SignUp extends StatelessWidget implements CallBackInterface{
          Global.addStringToSF( response["user"]["first_name"], Constant.firstname);
          Global.addStringToSF( response["user"]["last_name"], Constant.lastname);
          await Global.addStringToSF(response["user"]["user_type"].toString(),Constant.LoginType);  // 1 for user 2 for vender
-         Global.loginType=response["user"]["user_type"]==1?"2":"1";
+         Global.loginType=response["user"]["user_type"].toString();
          Global.addStringToSF( response["access_token"],Constant.AccessToken);
          Global.addStringToSF(response["user"]["email"],Constant.email);
 
