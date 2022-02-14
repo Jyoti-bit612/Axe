@@ -1,8 +1,6 @@
 import 'package:axe/controller/current_league_controller.dart';
 import 'package:axe/controller/home_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
-import 'package:axe/screens/current_league_detail.dart';
-import 'package:axe/screens/upcoming_league_detail.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/constants.dart';
@@ -10,7 +8,6 @@ import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-
 
 class CurrentLeague extends StatelessWidget implements CallBackInterface {
   @override
@@ -52,7 +49,6 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                           currentController.currentLeagueID(currentController.currentLeaguePojo.value.currentleague![index].id.toString());
                           currentController.getCurrentLeagueDetail();
                           Get.toNamed('/currentLeagueDetail');
-
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(top:8.0),

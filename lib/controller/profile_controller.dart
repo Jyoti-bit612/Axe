@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:axe/api/Apiprovider.dart';
 import 'package:axe/pojo/prevoius_league_pojo.dart';
+import 'package:axe/pojo/profilePojo.dart';
 import 'package:axe/pojo/top_player_pojo.dart';
 import 'package:axe/pojo/upcoming_league_pojo.dart';
 import 'package:axe/util/constants.dart';
@@ -15,14 +16,18 @@ class ProfileController extends GetxController {
   final lastnameController = TextEditingController();
   final passwordController = TextEditingController();
   final contactController = TextEditingController();
+  var address="".obs;
+  var picture="".obs;
   final emailFocus = FocusNode();
   final firstnameFocus = FocusNode();
   final lastnameFocus = FocusNode();
   final confirmPassFocus = FocusNode();
   final contactFocus = FocusNode();
   final passwordFocus = FocusNode();
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  Rx<bool> autofocus=false.obs;
+  Rx<Profile> profilePojo = Profile().obs;
+  Rx<bool> firstNameCheck=true.obs;
+  Rx<bool> lastNameCheck=true.obs;
+  Rx<bool> phoneCheck=true.obs;
 
   @override
   void onInit() {
@@ -30,8 +35,14 @@ class ProfileController extends GetxController {
     getprofile();
   }
 
-  updateFocus() {
-    autofocus.value=!autofocus.value;
+  updateFirstNameCheck() {
+    firstNameCheck.value=!firstNameCheck.value;
+  }
+  updateLastNameCheck() {
+    lastNameCheck.value=!lastNameCheck.value;
+  }
+  updatePhoneNameCheck() {
+    phoneCheck.value=!phoneCheck.value;
   }
 
   updateImage(var image) {
@@ -39,7 +50,27 @@ class ProfileController extends GetxController {
   }
 
   Future<void> getprofile() async {
-    emailController.text=await Global.getStringValuesSF(Constant.email);
+    var jsonBody = {
+      "user_type":Global.loginType,
+    };
+    await Apiprovider.postApi(Constant.get_venue_profile,jsonBody).then((value) {
+      profilePojo.value = Profile.fromJson(json.decode(value));
 
+      emailController.text=profilePojo.value.data!.email.toString();
+      firstnameController.text=profilePojo.value.data!.firstName.toString();
+      lastnameController.text=profilePojo.value.data!.lastName.toString();
+      contactController.text=profilePojo.value.data!.phone??"";
+      address.value=profilePojo.value.data!.address??"";
+      picture.value=profilePojo.value.data!.picture.toString();
+
+    }, onError: (error) {
+      profilePojo.value=Profile();
+      print(error);
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }

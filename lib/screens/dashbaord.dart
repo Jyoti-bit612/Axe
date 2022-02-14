@@ -1,3 +1,9 @@
+import 'package:axe/controller/current_league_controller.dart';
+import 'package:axe/controller/home_controller.dart';
+import 'package:axe/controller/player_controller.dart';
+import 'package:axe/controller/prevoius_league_controller.dart';
+import 'package:axe/controller/profile_controller.dart';
+import 'package:axe/controller/upcoming_league_controller.dart';
 import 'package:axe/screens/current_league.dart';
 import 'package:axe/screens/home.dart';
 import 'package:axe/screens/playerlist.dart';
@@ -9,6 +15,8 @@ import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:get/get_instance/src/extension_instance.dart';
 
 class DashBoard extends StatefulWidget {
   int _currentIndex = 0;
@@ -42,7 +50,7 @@ class _DashBoardState extends State<DashBoard> {
         final cantExit = timegap >= const Duration(seconds: 4);
         pre_backpress = DateTime.now();
         if(cantExit){
-          final snack = const SnackBar(content:  Text('Press Back button again to Exit'),duration: Duration(seconds: 2),);
+          final snack = SnackBar(content:  Text('Press Back button again to Exit'),duration: Duration(seconds: 2),);
           ScaffoldMessenger.of(context).showSnackBar(snack);
           return false; // false will do nothing when back press
         }else{
@@ -83,6 +91,36 @@ class _DashBoardState extends State<DashBoard> {
   }
 
   void onTabTapped(int index) {
+    final HomeController controller = Get.find();
+    final PlayerController playerController = Get.find();
+    final CurrentLeagueController currentController = Get.find();
+    final ProfileController profileController = Get.find();
+
+    switch(index){
+
+      case 0:
+        controller.getUpcomingLeague();
+        controller.getprevoiusLeague();
+        controller.getTopPlayer();
+
+        break;
+
+      case 1:
+        currentController.getCurrentLeague();
+        break;
+
+      case 2:
+        playerController.getPlayerList();
+
+        break;
+
+      case 3:
+        profileController.firstNameCheck.value=true;
+        profileController.lastNameCheck.value=true;
+        profileController.phoneCheck.value=true;
+        break;
+
+    }
     setState(() {
       widget._currentIndex = index;
     });

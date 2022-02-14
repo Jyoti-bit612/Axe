@@ -1,4 +1,3 @@
-
 import 'package:axe/controller/profile_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/util/commoncolors.dart';
@@ -40,6 +39,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
     }
   }
 
+
   @override
   Widget build(BuildContext context) {
     final ProfileController controller = Get.find();
@@ -56,7 +56,6 @@ class Profile extends StatelessWidget  implements CallBackInterface{
               IconButton(
                   onPressed: (){
                     Get.toNamed('/notificationClass');
-
                   },
                   icon: const Icon(Icons.notifications,color: CommonColors.black,)
               ),
@@ -103,7 +102,8 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                       ),
                       child:  Padding(
                         padding: const EdgeInsets.all(1.0),
-                        child: controller.pickedImage.value == "" ?CircleAvatar(
+                        child: controller.picture.value==""?
+                        controller.pickedImage.value == "" ?CircleAvatar(
                             backgroundColor: CommonColors.textfiled_gray,
                             child: Image.asset("assets/images/camera.png")
 
@@ -111,6 +111,10 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                             backgroundColor: CommonColors.textfiled_gray,
                             backgroundImage:FileImage(File(controller.pickedImage.value)
                             )
+                        ):
+                        CircleAvatar(
+                            backgroundColor: CommonColors.textfiled_gray,
+                            backgroundImage:NetworkImage(Constant.imageUrl+controller.picture.value)
                         ),
                       )
                     ),
@@ -142,7 +146,6 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                       GestureDetector(
                         onTap: (){
                           Get.toNamed('/createLeague');
-
 
                         },
                         child: SizedBox(
@@ -248,7 +251,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                   height: CommonWidget.getInstance().widthFactor(context) * 0.05,
                 ),
 
-                editTextWidget(Constant.firstname,context,Icons.person,true,"name",controller.firstnameController),
+                editTextWidget("firstName",controller.firstnameFocus,controller.firstnameController.text,context,Icons.person,true,"firstName",controller.firstnameController),
 
                 Padding(
                   padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
@@ -259,8 +262,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                   ),
                 ),
 
-
-                editTextWidget(Constant.lastname,context,Icons.person,true,"name",controller.lastnameController),
+                editTextWidget("lastName",controller.lastnameFocus,controller.lastnameController.text,context,Icons.person,true,"lastName",controller.lastnameController),
 
                 Padding(
                   padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
@@ -271,7 +273,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                   ),
                 ),
 
-                editTextWidget(Constant.email,context,Icons.email_outlined,false,"email",controller.emailController),
+                editTextWidget("email",controller.emailFocus,controller.emailController.text,context,Icons.email_outlined,false,"email",controller.emailController),
 
                 Padding(
                   padding: EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
@@ -282,7 +284,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                   ),
                 ),
 
-                editTextWidget("+915263254563",context,Icons.phonelink_ring_outlined,true,"phone",controller.contactController),
+                editTextWidget("12xxx",controller.contactFocus,controller.contactController.text,context,Icons.phonelink_ring_outlined,true,"phone",controller.contactController),
 
                 Padding(
                   padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
@@ -304,7 +306,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                   ),
                 ),
 
-                addressPasswordWidget("91 Heritage Lawn",context,Icons.location_on,true,"address"),
+                Obx(()=>addressPasswordWidget(controller.address.value,context,Icons.location_on,true,"address")),
 
                 Padding(
                   padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
@@ -317,27 +319,6 @@ class Profile extends StatelessWidget  implements CallBackInterface{
 
                 SizedBox(
                   height: CommonWidget.getInstance().widthFactor(context) * 0.06,
-                ),
-
-
-                Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left:6.0),
-                    child: CommonWidget.getInstance().flexibleButton(
-                      context,
-                      Strings.update_profile,
-                      CommonWidget.getInstance().widthFactor(context) * 0.6,
-                      CommonWidget.getInstance().widthFactor(context) * 0.13,
-                      CommonColors.primaryColor1,
-                      CommonColors.primaryColor1,
-                      CommonColors.white,
-                      this,
-                    ),
-                  ),
-                ),
-
-                SizedBox(
-                  height: CommonWidget.getInstance().widthFactor(context) * 0.05,
                 ),
 
                 Center(
@@ -417,10 +398,9 @@ class Profile extends StatelessWidget  implements CallBackInterface{
   }
 
 
-  editTextWidget(String title,BuildContext context, IconData icon, bool isOn, String type,var _controller){
+  editTextWidget(String hint,FocusNode _focusNode,String title,BuildContext context, IconData icon, bool isOn, String type,var _controller){
     final ProfileController controller = Get.find();
-
-    return Row(
+    return   Obx(()=>Row(
       //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         SizedBox(
@@ -432,18 +412,28 @@ class Profile extends StatelessWidget  implements CallBackInterface{
           width:  CommonWidget.getInstance().widthFactor(context) * 0.03,
         ),
 
-        Expanded(
-          child: Obx(()=>TextField(
+      Expanded(
+          child: TextField(
             controller: _controller,
-            autofocus: controller.autofocus.value,
-            readOnly: type=="email"?true:false,
+            focusNode: _focusNode,
+            keyboardType: type=="phone"?TextInputType.phone:TextInputType.name,
+            readOnly: type=="email"?true:
+            type=="firstName"?controller.firstNameCheck.value?true:false:
+            type=="lastName"?controller.lastNameCheck.value?true:false:
+            controller.phoneCheck.value?true:false,
             decoration: InputDecoration(
-              hintText: title,
+              hintText: hint,
+              hintStyle: const TextStyle(
+                color: CommonColors.grayColor
+              ),
+              labelStyle: const TextStyle(
+                color: CommonColors.black
+              ),
               filled: true,
               fillColor:CommonColors.white,
               border: InputBorder.none,
             ),
-          )),
+          ),
         ),
 
         Visibility(
@@ -454,15 +444,45 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                 icon: Icon(Icons.loop,color: CommonColors.darkGray,)):
             IconButton(
                 onPressed: (){
-                  controller.updateFocus();
-                },
-                icon: const Icon(Icons.edit,color: CommonColors.darkGray,))),
+                  FocusScope.of(context).requestFocus(_focusNode);
 
+                  if(type=="firstName"){
+                  if(!controller.firstNameCheck.value)
+                    updateprofile(context);
+                  }
+
+                  if(type=="lastName"){
+                    if(!controller.lastNameCheck.value)
+                      updateprofile(context);
+                  }
+
+                  if(type=="phone"){
+                    if(!controller.phoneCheck.value)
+                      updateprofile(context);
+                  }
+
+                  type=="firstName"?controller.updateFirstNameCheck():
+                  type=="lastName"?controller.updateLastNameCheck():
+                  controller.updatePhoneNameCheck();
+                },
+                icon: type=="firstName"?controller.firstNameCheck.value?
+                const Icon(Icons.edit,color: CommonColors.darkGray,):
+                const Icon(Icons.check,color: CommonColors.green):
+                type=="lastName"?
+                controller.lastNameCheck.value?
+                const Icon(Icons.edit,color: CommonColors.darkGray,):
+                const Icon(Icons.check,color: CommonColors.green):
+                controller.phoneCheck.value?
+                const Icon(Icons.edit,color: CommonColors.darkGray,):
+                const Icon(Icons.check,color: CommonColors.green)
+
+            )
+        ),
         SizedBox(
           width:  CommonWidget.getInstance().widthFactor(context) * 0.03,
         ),
       ],
-    );
+    ));
   }
 
    var pickedImage;

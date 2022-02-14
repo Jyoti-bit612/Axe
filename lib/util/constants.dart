@@ -14,6 +14,7 @@ class Constant{
   static const String logout="logout";
   static const String create_league="api/venues/create-league";
   static const String update_venue_profile="api/venues/updateProfile";
+  static const String get_venue_profile="api/venues/getProfile";
   static const String create_match="api/venues/create-match";
   static const String get_league="api/venues/getleague";
   static const String get_match="api/venues/getmatch";
