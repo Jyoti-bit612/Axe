@@ -363,8 +363,8 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
   void widgetCallBack(String title, String value, BuildContext context) {
     switch(title){
       case Strings.update_score:
-
         Global.showLoaderDialog(context);
+
           var scoreArrayList = <Map<String, String>>[
             {
               'id': "1",
@@ -394,7 +394,10 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
             },
           ];
 
-          var  jsonBody  = jsonEncode(scoreArrayList);
+        var jsonBody={
+          "scoreArray":scoreArrayList
+        };
+
 
           FocusScopeNode currentFocus = FocusScope.of(context);
           if (!currentFocus.hasPrimaryFocus) {
@@ -402,15 +405,13 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
           }
           Global.postData(context,Constant.updateScore,"updateScoreApi",jsonBody,this);
 
-
         break;
 
       case "updateScoreApi":
-
         Get.back();
 
-
         break;
+
   }
   }
 }
