@@ -152,7 +152,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                               ),
 
                               CommonWidget.getInstance().normalText(
-                                  CommonColors.black,"05 : 07",0,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,
+                                  CommonColors.black,"00 : 00",0,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,
                                   FontWeight.w900,fontfamily: false),
 
                               GestureDetector(
@@ -511,14 +511,14 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
 
   playerWidget(){
     final CurrentLeagueController controller = Get.find();
-    return   Expanded(
-      child: Column(
-        children: [
-          controller.currentLeagueDetailPojo.value.players==null?
-          Global.setEmptyText("No Players",context):
-          controller.currentLeagueDetailPojo.value.players!.isEmpty?
-          Global.setEmptyText("No Players",context)
-              : ListView.separated(
+    return   Column(
+      children: [
+        controller.currentLeagueDetailPojo.value.players==null?
+        Global.setEmptyText("No Players",context):
+        controller.currentLeagueDetailPojo.value.players!.isEmpty?
+        Global.setEmptyText("No Players",context)
+            : Expanded(
+              child: ListView.separated(
                 physics: const ClampingScrollPhysics(),
                 itemCount:  controller.currentLeagueDetailPojo.value.players!.length,
                 separatorBuilder: (BuildContext context, int index) => Divider(height: 1),
@@ -571,32 +571,32 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                     //   ),
                   );
                 }),
+            ),
 
-          Visibility(
-            visible: Global.loginType=="1"?false:false, // No need of add more player here ...for future use if required
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: (){
-                  Get.toNamed('/playerlist',arguments: 1);
-                },
-                child: Row(
-                  children: [
-                    CommonWidget.getInstance().normalText(
-                        CommonColors.primaryColor1, Strings.add_more_player,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600),
+        Visibility(
+          visible: Global.loginType=="1"?false:false, // No need of add more player here ...for future use if required
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: GestureDetector(
+              behavior: HitTestBehavior.translucent,
+              onTap: (){
+                Get.toNamed('/playerlist',arguments: 1);
+              },
+              child: Row(
+                children: [
+                  CommonWidget.getInstance().normalText(
+                      CommonColors.primaryColor1, Strings.add_more_player,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600),
 
-                    SizedBox(
-                      width: CommonWidget.getInstance().widthFactor(context) * 0.02,
-                    ),
-                    Icon(Icons.add_circle_outline_rounded,color: CommonColors.primaryColor1,)
-                  ],
-                ),
+                  SizedBox(
+                    width: CommonWidget.getInstance().widthFactor(context) * 0.02,
+                  ),
+                  Icon(Icons.add_circle_outline_rounded,color: CommonColors.primaryColor1,)
+                ],
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

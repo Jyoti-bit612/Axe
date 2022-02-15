@@ -1,13 +1,16 @@
+import 'dart:convert';
+
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/util/commoncolors.dart';
-import 'package:axe/util/commonwidget.dart';import 'package:axe/util/strings.dart';
+import 'package:axe/util/commonwidget.dart';
+import 'package:axe/util/constants.dart';
+import 'package:axe/util/global.dart';import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 
 class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
   const ScoreDashboard({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -112,7 +115,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                             ),
 
                             CommonWidget.getInstance().normalText(
-                                CommonColors.black,"05 : 07",0,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,
+                                CommonColors.black,"00 : 00",0,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,
                                 FontWeight.w900,fontfamily: false),
 
 
@@ -146,7 +149,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                             children: [
 
                               CommonWidget.getInstance().normalText(
-                                  CommonColors.black,"Ragnar",0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
+                                  CommonColors.black,"",0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
                                   FontWeight.w600,fontfamily: false),
 
                               CommonWidget.getInstance().normalText(
@@ -154,7 +157,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                                   FontWeight.w600,fontfamily: false),
 
                               CommonWidget.getInstance().normalText(
-                                  CommonColors.black,"Floki",0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
+                                  CommonColors.black,"",0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
                                   FontWeight.w600,fontfamily: false),
                             ],
                           ),
@@ -257,7 +260,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                     child:Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: CommonWidget.getInstance().normalText(
-                          CommonColors.white,"31",0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
+                          CommonColors.white,"0",0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
                           FontWeight.w600,fontfamily: false),
                     ) ,
 
@@ -268,7 +271,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                     child:Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: CommonWidget.getInstance().normalText(
-                          CommonColors.white,"31",0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
+                          CommonColors.white,"0",0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
                           FontWeight.w600,fontfamily: false),
                     ) ,
                   ),
@@ -358,9 +361,57 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
 
   @override
   void widgetCallBack(String title, String value, BuildContext context) {
-    // TODO: implement widgetCallBack
+    switch(title){
+      case Strings.update_score:
+
+        Global.showLoaderDialog(context);
+          var scoreArrayList = <Map<String, String>>[
+            {
+              'id': "1",
+              'throw1': "1",
+              'throw2': "2",
+              'throw3': "1",
+              'throw4': "3",
+              'throw5': "1",
+              'throw6': "2",
+              'throw7': "1",
+              'throw8': "1",
+              'throw9': "5",
+              'throw10': "1",
+            },
+            {
+              'id': "1",
+              'throw1': "2",
+              'throw2': "3",
+              'throw3': "4",
+              'throw4': "1",
+              'throw5': "2",
+              'throw6': "1",
+              'throw7': "2",
+              'throw8': "1",
+              'throw9': "2",
+              'throw10': "5",
+            },
+          ];
+
+          var  jsonBody  = jsonEncode(scoreArrayList);
+
+          FocusScopeNode currentFocus = FocusScope.of(context);
+          if (!currentFocus.hasPrimaryFocus) {
+            currentFocus.unfocus();
+          }
+          Global.postData(context,Constant.updateScore,"updateScoreApi",jsonBody,this);
+
+
+        break;
+
+      case "updateScoreApi":
+
+        Get.back();
+
+
+        break;
   }
-
-
+  }
 }
 

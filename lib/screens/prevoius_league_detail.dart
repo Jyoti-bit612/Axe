@@ -39,6 +39,7 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
     final PreviousLeagueController controller = Get.find();
     return SafeArea(
       child: Scaffold(
+        backgroundColor: CommonColors.white,
         body:Obx(()=>
             SingleChildScrollView(
           child:Padding(
@@ -602,7 +603,8 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
                               itemBuilder: (context,innerIndex){
                                 return  Padding(
                                   padding: const EdgeInsets.only(top:8.0,bottom: 0),
-                                  child:Table(
+                                  child:
+                                Table(
                                     defaultColumnWidth: innerIndex==0?
                                     FixedColumnWidth(CommonWidget.getInstance().widthFactor(context)*0.25):
                                     FixedColumnWidth(CommonWidget.getInstance().widthFactor(context)*0.14),
@@ -618,21 +620,45 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
                                               padding: EdgeInsets.fromLTRB(0.0,CommonWidget.getInstance().widthFactor(context)*0.015,0.0,
                                                   CommonWidget.getInstance().widthFactor(context)*0.015),
                                               child: CommonWidget.getInstance().normalText(
-                                                  CommonColors.grayColor, innerIndex==0?"Throw":innerIndex==11?"T.P":innerIndex.toString(),1,
+                                                  CommonColors.grayColor,
+                                                  controller.prevoiusLeaguePojo.value.matches![index].matchType==3?
+                                                  innerIndex==0?"Throw":
+                                                  innerIndex==6?"T.P":
+                                                  innerIndex.toString()
+                                                  :innerIndex==0?"Throw":
+                                                  innerIndex==11?"T.P":
+                                                  innerIndex.toString(),
+                                                  1,
                                                   CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600),
                                             ),
                                           ]
                                       ),
-                                      TableRow(
+
+                                       TableRow(
                                           children: [
-                                            innerIndex==0?columnNameWidget(controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.playerDetail!.firstName.toString(),
+
+                                                 innerIndex==0?
+                                              columnNameWidget(controller.prevoiusLeaguePojo.value.matches![index].player1WithScore==null?"":
+                                              controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.playerDetail!.firstName.toString(),
+                                                  controller.prevoiusLeaguePojo.value.matches![index].player1WithScore==null?"":
                                                 controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.playerDetail!.picture):
                                             Container(
-                                              color:innerIndex==11?CommonColors.black:CommonColors.white,
+                                              color:
+                                              controller.prevoiusLeaguePojo.value.matches![index].matchType==3?
+                                              innerIndex==6?CommonColors.black:CommonColors.white
+                                               :innerIndex==11?CommonColors.black:CommonColors.white,
                                               child: Padding(
                                                 padding:  EdgeInsets.fromLTRB(0.0,CommonWidget.getInstance().widthFactor(context)*0.0845,0.0,
                                                     CommonWidget.getInstance().widthFactor(context)*0.0845),
-                                                child: CommonWidget.getInstance().normalText(
+                                                    child:
+
+                                                    controller.prevoiusLeaguePojo.value.matches![index].player1WithScore==null?
+                                                    CommonWidget.getInstance().normalText(
+                                                        CommonColors.black,"",0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600):
+
+                                                    CommonWidget.getInstance().normalText(
+                                                        controller.prevoiusLeaguePojo.value.matches![index].matchType==3?
+                                                    innerIndex==6?CommonColors.white:CommonColors.black:
                                                     innerIndex==11?CommonColors.white:CommonColors.black,
                                                     innerIndex==1?controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww1.toString():
                                                     innerIndex==2?controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww2.toString():
@@ -657,12 +683,21 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
 
                                       TableRow(
                                           children: [
-                                            innerIndex==0?columnNameWidget(controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.playerDetail!.firstName!,
+
+                                                 innerIndex==0?columnNameWidget(
+                                                     controller.prevoiusLeaguePojo.value.matches![index].player2WithScore==null?"":
+                                                     controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.playerDetail!.firstName!,
+                                                     controller.prevoiusLeaguePojo.value.matches![index].player2WithScore==null?"":
                                                 controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.playerDetail!.picture):
                                               Padding(
                                               padding:  EdgeInsets.fromLTRB(0.0,CommonWidget.getInstance().widthFactor(context)*0.0845,0.0,
                                                   CommonWidget.getInstance().widthFactor(context)*0.0845),
-                                              child: CommonWidget.getInstance().normalText(
+                                              child:
+                                              controller.prevoiusLeaguePojo.value.matches![index].player2WithScore==null?
+                                              CommonWidget.getInstance().normalText(
+                                                  CommonColors.black,"",0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600):
+
+                                              CommonWidget.getInstance().normalText(
                                                   CommonColors.black,
                                                  innerIndex==1?controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww1.toString():
                                                  innerIndex==2?controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww2.toString():
@@ -717,8 +752,7 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
               ),
               child:  Padding(
                   padding: const EdgeInsets.all(1.0),
-                  child: image== null ?const CircleAvatar(
-                     // radius: 30.0,
+                  child: image== null || image=="" ?const CircleAvatar(
                       backgroundColor: CommonColors.textfiled_gray,
                       backgroundImage:AssetImage("assets/images/dummypic.jpg")
 

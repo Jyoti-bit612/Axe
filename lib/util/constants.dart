@@ -9,6 +9,7 @@ class Constant{
 
   static const String signup="api/register";
   static const String login="api/login";
+  static const String updateScore="api/venues/updateMatchScores";
   static const String change_password_user="api/player/change-password";
   static const String change_password_venue="api/venues/change-password";
   static const String logout="logout";

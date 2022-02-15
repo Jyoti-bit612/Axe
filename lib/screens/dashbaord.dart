@@ -1,9 +1,7 @@
 import 'package:axe/controller/current_league_controller.dart';
 import 'package:axe/controller/home_controller.dart';
 import 'package:axe/controller/player_controller.dart';
-import 'package:axe/controller/prevoius_league_controller.dart';
 import 'package:axe/controller/profile_controller.dart';
-import 'package:axe/controller/upcoming_league_controller.dart';
 import 'package:axe/screens/current_league.dart';
 import 'package:axe/screens/home.dart';
 import 'package:axe/screens/playerlist.dart';
