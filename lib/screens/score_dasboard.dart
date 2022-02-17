@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:axe/controller/current_league_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
@@ -10,9 +11,13 @@ import 'package:get/get.dart';
 
 
 class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
-  const ScoreDashboard({Key? key}) : super(key: key);
+  List<String> player1ListScore=[];
+  List<String> player2ListScore=[];
+  var type;
+
   @override
   Widget build(BuildContext context) {
+    final CurrentLeagueController controller = Get.find();
     return SafeArea(
       child: Scaffold(
         body: Padding(
@@ -51,8 +56,8 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                 height: CommonWidget.getInstance().widthFactor(context) * 0.02,
               ),
 
-              Card(
-                elevation: 4,
+              Obx(()=>Card(
+                  elevation: 4,
                   child:Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Column(
@@ -62,11 +67,16 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             CommonWidget.getInstance().normalText(
-                                CommonColors.black,"AXE WORLD LEAGUE",0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w900,fontfamily: false),
+                                CommonColors.black,
+                                controller.currentLeagueDetailPojo.value.leagueDetails==null?"":
+                                controller.currentLeagueDetailPojo.value.leagueDetails!.leagueTitle.toString(),
+                                0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w900,fontfamily: false),
 
+                            controller.currentLeagueDetailPojo.value.currentMatch==null?Container():
+                            controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?Container():
                             Container(
                               decoration: BoxDecoration(
-                                color: CommonColors.red,
+                                  color: CommonColors.red,
                                   borderRadius: BorderRadius.circular(12.0),
                                   border: Border.all(color:CommonColors.red)
                               ),
@@ -83,34 +93,59 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                           height: CommonWidget.getInstance().widthFactor(context) * 0.01,
                         ),
 
-                     CommonWidget.getInstance().normalText(
-                       CommonColors.darkGray,"Match 04/ Season 5",0,CommonWidget.getInstance().widthFactor(context)*0.019,FontStyle.normal,0,FontWeight.w900,fontfamily: false),
 
-                       SizedBox(
+                        CommonWidget.getInstance().normalText(
+                            CommonColors.darkGray,
+                            controller.currentLeagueDetailPojo.value.leagueDetails==null?"":
+                            controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?""+"Season"+controller.currentLeagueDetailPojo.value.leagueDetails!.season.toString():
+                            controller.currentLeagueDetailPojo.value.currentMatch![0].matchTitle.toString()+"/Season"+controller.currentLeagueDetailPojo.value.leagueDetails!.season.toString(),0,CommonWidget.getInstance().widthFactor(context)*0.019,FontStyle.normal,0,FontWeight.w900,fontfamily: false),
+
+                        SizedBox(
                           height: CommonWidget.getInstance().widthFactor(context) * 0.05,
                         ),
 
 
+                        Center(
+                          child: controller.currentLeagueDetailPojo.value.currentMatch==null?Container():
+                          controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?
+                          Global.setEmptyText("No Current Match", context):Container(),
+                        ),
+
+                        controller.currentLeagueDetailPojo.value.currentMatch==null?Container():
+                        controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?Container():
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              width:  CommonWidget.getInstance().widthFactor(context) * 0.27,
-                              height:  CommonWidget.getInstance().widthFactor(context) * 0.27,
-                              decoration: const BoxDecoration(
-                                gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomCenter,
-                                ),
-                                shape: BoxShape.circle,
+                            GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTap: (){
+                                Get.toNamed('/otherUserProfile');
+                              },
+                              child: Container(
+                                width:  CommonWidget.getInstance().widthFactor(context) * 0.27,
+                                height:  CommonWidget.getInstance().widthFactor(context) * 0.27,
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomCenter,
+                                  ),
+                                  shape: BoxShape.circle,
 
-                              ),
-                              child:  const Padding(
+                                ),
+                                child:Padding(
                                   padding: EdgeInsets.all(1.0),
-                                  child: CircleAvatar(
-                                    radius: 30.0,
-                                    backgroundImage:AssetImage("assets/images/dummypic.jpg"),
-                                  )
+                                  child:
+                                  controller.currentLeagueDetailPojo.value.currentMatch!.isNotEmpty?
+                                  controller.currentLeagueDetailPojo.value.currentMatch![0].player1WithScore!=null?
+                                  controller.currentLeagueDetailPojo.value.currentMatch![0].player1WithScore!.playerDetail!.picture!=null?
+                                  CircleAvatar(
+                                    backgroundImage:
+                                    NetworkImage(Constant.imageUrl+controller.currentLeagueDetailPojo.value.currentMatch![0].player1WithScore!.playerDetail!.picture!),
+                                  ):
+                                  imageBox():
+                                  imageBox():
+                                  imageBox(),
+                                ),
                               ),
                             ),
 
@@ -118,29 +153,44 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                                 CommonColors.black,"00 : 00",0,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,
                                 FontWeight.w900,fontfamily: false),
 
+                            GestureDetector(
+                              behavior: HitTestBehavior.translucent,
+                              onTap: (){
+                                Get.toNamed('/otherUserProfile');
 
-                            Container(
-                              width:  CommonWidget.getInstance().widthFactor(context) * 0.27,
-                              height:  CommonWidget.getInstance().widthFactor(context) * 0.27,
-                              decoration: const BoxDecoration(
-                                gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomCenter,
+                              },
+                              child: Container(
+                                width:  CommonWidget.getInstance().widthFactor(context) * 0.27,
+                                height:  CommonWidget.getInstance().widthFactor(context) * 0.27,
+                                decoration: const BoxDecoration(
+                                  gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomCenter,
+                                  ),
+                                  shape: BoxShape.circle,
+
                                 ),
-                                shape: BoxShape.circle,
-
-                              ),
-                              child:  const Padding(
+                                child: Padding(
                                   padding: EdgeInsets.all(1.0),
-                                  child: CircleAvatar(
-                                    radius: 30.0,
-                                    backgroundImage:AssetImage("assets/images/dummypic.jpg"),
-                                  )
+                                  child:
+                                  controller.currentLeagueDetailPojo.value.currentMatch!.isNotEmpty?
+                                  controller.currentLeagueDetailPojo.value.currentMatch![0].player2WithScore!=null?
+                                  controller.currentLeagueDetailPojo.value.currentMatch![0].player2WithScore!.playerDetail!.picture!=null?
+                                  CircleAvatar(
+                                    backgroundImage:
+                                    NetworkImage(Constant.imageUrl+controller.currentLeagueDetailPojo.value.currentMatch![0].player2WithScore!.playerDetail!.picture!),
+                                  ):
+                                  imageBox():
+                                  imageBox():
+                                  imageBox(),
+                                ),
                               ),
                             )
                           ],
                         ),
 
+                        controller.currentLeagueDetailPojo.value.currentMatch==null?Container():
+                        controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?Container():
                         Padding(
                           padding: const EdgeInsets.all(20.0),
                           child: Row(
@@ -149,24 +199,33 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                             children: [
 
                               CommonWidget.getInstance().normalText(
-                                  CommonColors.black,"",0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
+                                  CommonColors.black,
+                                  controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?"Player1":
+                                  controller.currentLeagueDetailPojo.value.currentMatch![0].player1WithScore==null?"Player1":
+                                  controller.currentLeagueDetailPojo.value.currentMatch![0].player1WithScore!.playerDetail!.firstName.toString(),
+                                  0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
                                   FontWeight.w600,fontfamily: false),
+
 
                               CommonWidget.getInstance().normalText(
                                   CommonColors.red,"vs",0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,0,
                                   FontWeight.w600,fontfamily: false),
 
+
                               CommonWidget.getInstance().normalText(
-                                  CommonColors.black,"",0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
+                                  CommonColors.black,
+                                  controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?"Player2":
+                                  controller.currentLeagueDetailPojo.value.currentMatch![0].player2WithScore==null?"Player2":
+                                  controller.currentLeagueDetailPojo.value.currentMatch![0].player2WithScore!.playerDetail!.firstName.toString(),
+                                  0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
                                   FontWeight.w600,fontfamily: false),
                             ],
                           ),
                         ),
-
                       ],
-          ),
+                    ),
                   )
-              ),
+              )),
 
               SizedBox(
                 height: CommonWidget.getInstance().widthFactor(context) * 0.05,
@@ -183,8 +242,19 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                     child: ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemCount:  10,
+                        itemCount: controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?0:
+                        controller.currentLeagueDetailPojo.value.currentMatch![0].matchType.toString()=="3"?6:11,
                         itemBuilder: (context, index) {
+
+                          if(player1ListScore.isEmpty){
+                            type=controller.currentLeagueDetailPojo.value.currentMatch![0].matchType.toString()=="3"?5:10;
+                            player1ListScore=List.filled(controller.currentLeagueDetailPojo.value.currentMatch![0].matchType.toString()=="3"?5:10, "0");
+                          }
+                          if( player2ListScore.isEmpty){
+                            type=controller.currentLeagueDetailPojo.value.currentMatch![0].matchType.toString()=="3"?5:10;
+                            player2ListScore=List.filled(controller.currentLeagueDetailPojo.value.currentMatch![0].matchType.toString()=="3"?5:10, "0");
+                          }
+
                           return Padding(
                             padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context)*0.045,
                                 right:CommonWidget.getInstance().widthFactor(context)*0.045),
@@ -208,8 +278,8 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                                               decoration: const InputDecoration.collapsed(
                                                 hintText: '0',
                                               ),
-                                              onSaved: (String? value) {
-
+                                              onChanged: (String? value) {
+                                                player1ListScore[index]=value.toString();
                                               },
                                             )
                                           ),
@@ -226,8 +296,8 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                                               decoration: const InputDecoration.collapsed(
                                                 hintText: '0',
                                               ),
-                                              onSaved: (String? value) {
-
+                                              onChanged: (String? value) {
+                                                player2ListScore[index]=value.toString();
                                               },
                                             )
                                           ),
@@ -240,6 +310,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                           );
                         }),
                   ),
+
 
                   Image.asset("assets/images/score.png",width:CommonWidget.getInstance().widthFactor(context)*0.3,)
                 ],
@@ -332,6 +403,15 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
     );
   }
 
+  Widget imageBox(){
+    final CurrentLeagueController controller = Get.find();
+    return const CircleAvatar(
+        radius: 30.0,
+        backgroundColor: CommonColors.textfiled_gray,
+        backgroundImage:AssetImage("assets/images/dummypic.jpg")
+    );
+  }
+
   buttonWidget(String text,double width,BuildContext context) {
     return SizedBox(
       height: CommonWidget.getInstance().widthFactor(context) * 0.1,
@@ -364,40 +444,63 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
     switch(title){
       case Strings.update_score:
         Global.showLoaderDialog(context);
+        var scoreArrayList;
 
-          var scoreArrayList = <Map<String, String>>[
+        if(type==10){
+           scoreArrayList = <Map<String, String>>[
             {
               'id': "1",
-              'throw1': "1",
-              'throw2': "2",
-              'throw3': "1",
-              'throw4': "3",
-              'throw5': "1",
-              'throw6': "2",
-              'throw7': "1",
-              'throw8': "1",
-              'throw9': "5",
-              'throw10': "1",
+              'throw1': player1ListScore[0],
+              'throw2': player1ListScore[1],
+              'throw3': player1ListScore[2],
+              'throw4': player1ListScore[3],
+              'throw5': player1ListScore[4],
+              'throw6': player1ListScore[5],
+              'throw7': player1ListScore[6],
+              'throw8': player1ListScore[7],
+              'throw9': player1ListScore[8],
+              'throw10':player1ListScore[9]
             },
             {
-              'id': "1",
-              'throw1': "2",
-              'throw2': "3",
-              'throw3': "4",
-              'throw4': "1",
-              'throw5': "2",
-              'throw6': "1",
-              'throw7': "2",
-              'throw8': "1",
-              'throw9': "2",
-              'throw10': "5",
+              'id': "2",
+              'throw1':  player2ListScore[0],
+              'throw2':  player2ListScore[1],
+              'throw3':  player2ListScore[2],
+              'throw4':  player2ListScore[3],
+              'throw5':  player2ListScore[4],
+              'throw6':  player2ListScore[5],
+              'throw7':  player2ListScore[6],
+              'throw8':  player2ListScore[7],
+              'throw9':  player2ListScore[8],
+              'throw10': player2ListScore[9]
             },
           ];
+        }else{
+
+          scoreArrayList = <Map<String, String>>[
+            {
+              'id': "1",
+              'throw1': player1ListScore[0],
+              'throw2': player1ListScore[1],
+              'throw3': player1ListScore[2],
+              'throw4': player1ListScore[3],
+              'throw5': player1ListScore[4],
+            },
+            {
+              'id': "2",
+              'throw1':  player2ListScore[0],
+              'throw2':  player2ListScore[1],
+              'throw3':  player2ListScore[2],
+              'throw4':  player2ListScore[3],
+              'throw5':  player2ListScore[4],
+            },
+          ];
+        }
+
 
         var jsonBody={
           "scoreArray":scoreArrayList
         };
-
 
           FocusScopeNode currentFocus = FocusScope.of(context);
           if (!currentFocus.hasPrimaryFocus) {
@@ -409,6 +512,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
 
       case "updateScoreApi":
         Get.back();
+        Global.showSnackBar(context,  json.decode(value)["message"].toString());
 
         break;
 

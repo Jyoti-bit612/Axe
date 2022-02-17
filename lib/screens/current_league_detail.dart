@@ -95,7 +95,6 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                           ),
 
 
-
                           CommonWidget.getInstance().normalText(
                          CommonColors.darkGray,
                            controller.currentLeagueDetailPojo.value.leagueDetails==null?"":
@@ -202,8 +201,8 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
 
                                 CommonWidget.getInstance().normalText(
                                     CommonColors.black,
-                                    controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?"":
-                                    controller.currentLeagueDetailPojo.value.currentMatch![0].player1WithScore==null?"":
+                                    controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?"Player1":
+                                    controller.currentLeagueDetailPojo.value.currentMatch![0].player1WithScore==null?"Player1":
                                     controller.currentLeagueDetailPojo.value.currentMatch![0].player1WithScore!.playerDetail!.firstName.toString(),
                                     0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
                                     FontWeight.w600,fontfamily: false),
@@ -216,8 +215,8 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
 
                                 CommonWidget.getInstance().normalText(
                                     CommonColors.black,
-                                    controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?"":
-                                    controller.currentLeagueDetailPojo.value.currentMatch![0].player2WithScore==null?"":
+                                    controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?"Player2":
+                                    controller.currentLeagueDetailPojo.value.currentMatch![0].player2WithScore==null?"Player2":
                                     controller.currentLeagueDetailPojo.value.currentMatch![0].player2WithScore!.playerDetail!.firstName.toString(),
                                     0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
                                     FontWeight.w600,fontfamily: false),
