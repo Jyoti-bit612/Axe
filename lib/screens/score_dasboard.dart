@@ -13,7 +13,7 @@ import 'package:get/get.dart';
 class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
   List<String> player1ListScore=[];
   List<String> player2ListScore=[];
-  var type;
+  var type,player1killshot,player2killshot,sdthrowPlayer1,sdthrowPlayer2;
 
   @override
   Widget build(BuildContext context) {
@@ -374,7 +374,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
 
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  buttonWidget(Strings.switch_side,CommonWidget.getInstance().widthFactor(context) * 0.4,context),
+                  buttonWidget(Strings.sudden_death_throw,CommonWidget.getInstance().widthFactor(context) * 0.4,context),
                   buttonWidget(Strings.sudden_death_throw,CommonWidget.getInstance().widthFactor(context) * 0.4,context),
 
                 ],
@@ -426,7 +426,23 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
 
               )),
 
-          onPressed: () {},
+          onPressed: () {
+
+            switch(text){
+
+              case Strings.sudden_death_throw:
+
+                break;
+
+              case Strings.call_killshot:
+
+                break;
+
+              case Strings.winner:
+
+                break;
+            }
+          },
 
           child: Text(text,
               textAlign: TextAlign.center,
@@ -434,7 +450,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                   color: CommonColors.darkGray,
                   fontFamily: "Lato",
                   fontSize: CommonWidget.getInstance().widthFactor(context) *
-                      0.04,
+                      0.035,
                   fontWeight: FontWeight.bold))),
     );
   }
@@ -459,7 +475,9 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
               'throw7': player1ListScore[6],
               'throw8': player1ListScore[7],
               'throw9': player1ListScore[8],
-              'throw10':player1ListScore[9]
+              'throw10':player1ListScore[9],
+              'killshot':player1ListScore[9],
+              'suddendeaththrow':player1ListScore[9],
             },
             {
               'id': "2",
@@ -472,7 +490,10 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
               'throw7':  player2ListScore[6],
               'throw8':  player2ListScore[7],
               'throw9':  player2ListScore[8],
-              'throw10': player2ListScore[9]
+              'throw10': player2ListScore[9],
+              'killshot':player1ListScore[9],
+              'suddendeaththrow':player1ListScore[9],
+
             },
           ];
         }else{
@@ -485,7 +506,8 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
               'throw3': player1ListScore[2],
               'throw4': player1ListScore[3],
               'throw5': player1ListScore[4],
-            },
+              'killshot':player1ListScore[9],
+              'suddendeaththrow':player1ListScore[9],            },
             {
               'id': "2",
               'throw1':  player2ListScore[0],
@@ -493,6 +515,8 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
               'throw3':  player2ListScore[2],
               'throw4':  player2ListScore[3],
               'throw5':  player2ListScore[4],
+              'killshot':player1ListScore[9],
+              'suddendeaththrow':player1ListScore[9],
             },
           ];
         }
