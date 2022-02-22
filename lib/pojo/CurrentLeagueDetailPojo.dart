@@ -80,8 +80,7 @@ class CurrentMatch {
   int? status;
   String? createdAt;
   String? updatedAt;
-  Player1WithScore? player1WithScore;
-  Player1WithScore? player2WithScore;
+  List<PlayersWithScore>? playersWithScore;
 
   CurrentMatch(
       {this.id,
@@ -100,8 +99,7 @@ class CurrentMatch {
         this.status,
         this.createdAt,
         this.updatedAt,
-        this.player1WithScore,
-        this.player2WithScore});
+        this.playersWithScore});
 
   CurrentMatch.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -120,12 +118,12 @@ class CurrentMatch {
     status = json['status'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    player1WithScore = json['player1_with_score'] != null
-        ?  Player1WithScore.fromJson(json['player1_with_score'])
-        : null;
-    player2WithScore = json['player2_with_score'] != null
-        ?  Player1WithScore.fromJson(json['player2_with_score'])
-        : null;
+    if (json['players_with_score'] != null) {
+      playersWithScore = <PlayersWithScore>[];
+      json['players_with_score'].forEach((v) {
+        playersWithScore!.add(new PlayersWithScore.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -146,17 +144,15 @@ class CurrentMatch {
     data['status'] = this.status;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
-    if (this.player1WithScore != null) {
-      data['player1_with_score'] = this.player1WithScore!.toJson();
-    }
-    if (this.player2WithScore != null) {
-      data['player2_with_score'] = this.player2WithScore!.toJson();
+    if (this.playersWithScore != null) {
+      data['players_with_score'] =
+          this.playersWithScore!.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
-class Player1WithScore {
+class PlayersWithScore {
   int? id;
   int? userId;
   int? matchTypeId;
@@ -179,7 +175,7 @@ class Player1WithScore {
   String? updatedAt;
   PlayerDetail? playerDetail;
 
-  Player1WithScore(
+  PlayersWithScore(
       {this.id,
         this.userId,
         this.matchTypeId,
@@ -202,7 +198,7 @@ class Player1WithScore {
         this.updatedAt,
         this.playerDetail});
 
-  Player1WithScore.fromJson(Map<String, dynamic> json) {
+  PlayersWithScore.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userId = json['user_id'];
     matchTypeId = json['match_type_id'];
@@ -339,8 +335,8 @@ class Matches {
   int? status;
   String? createdAt;
   String? updatedAt;
-  Player1WithScore? player1WithScore;
-  Player1WithScore? player2WithScore;
+  List<PlayersWithScore>? playersWithScore;
+
 
   Matches(
       {this.id,
@@ -359,8 +355,7 @@ class Matches {
         this.status,
         this.createdAt,
         this.updatedAt,
-        this.player1WithScore,
-        this.player2WithScore});
+        this.playersWithScore});
 
   Matches.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -379,12 +374,13 @@ class Matches {
     status = json['status'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    player1WithScore = json['player1_with_score'] != null
-        ? new Player1WithScore.fromJson(json['player1_with_score'])
-        : null;
-    player2WithScore = json['player2_with_score'] != null
-        ? new Player1WithScore.fromJson(json['player2_with_score'])
-        : null;
+    updatedAt = json['updated_at'];
+    if (json['players_with_score'] != null) {
+      playersWithScore = <PlayersWithScore>[];
+      json['players_with_score'].forEach((v) {
+        playersWithScore!.add(new PlayersWithScore.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -405,11 +401,9 @@ class Matches {
     data['status'] = this.status;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
-    if (this.player1WithScore != null) {
-      data['player1_with_score'] = this.player1WithScore!.toJson();
-    }
-    if (this.player2WithScore != null) {
-      data['player2_with_score'] = this.player2WithScore!.toJson();
+    if (this.playersWithScore != null) {
+      data['players_with_score'] =
+          this.playersWithScore!.map((v) => v.toJson()).toList();
     }
     return data;
   }

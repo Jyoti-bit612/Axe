@@ -10,8 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
-  List<String> player1ListScore=[];
-  List<String> player2ListScore=[];
+
   var type,player1killshot,player2killshot,sdthrowPlayer1,sdthrowPlayer2;
 
   @override
@@ -22,7 +21,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(12.0),
-          child: Obx(()=>ListView(
+          child: ListView(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -134,11 +133,11 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                                   padding: EdgeInsets.all(1.0),
                                   child:
                                   controller.currentLeagueDetailPojo.value.currentMatch!.isNotEmpty?
-                                  controller.currentLeagueDetailPojo.value.currentMatch![0].player1WithScore!=null?
-                                  controller.currentLeagueDetailPojo.value.currentMatch![0].player1WithScore!.playerDetail!.picture!=null?
+                                  controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore!.isNotEmpty?
+                                  controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore![0].playerDetail!.picture!=null?
                                   CircleAvatar(
                                     backgroundImage:
-                                    NetworkImage(Constant.imageUrl+controller.currentLeagueDetailPojo.value.currentMatch![0].player1WithScore!.playerDetail!.picture!),
+                                    NetworkImage(Constant.imageUrl+controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore![0].playerDetail!.picture!),
                                   ):
                                   imageBox():
                                   imageBox():
@@ -172,11 +171,11 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                                   padding: EdgeInsets.all(1.0),
                                   child:
                                   controller.currentLeagueDetailPojo.value.currentMatch!.isNotEmpty?
-                                  controller.currentLeagueDetailPojo.value.currentMatch![0].player2WithScore!=null?
-                                  controller.currentLeagueDetailPojo.value.currentMatch![0].player2WithScore!.playerDetail!.picture!=null?
+                                  controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore!.isNotEmpty?
+                                  controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore![1].playerDetail!.picture!=null?
                                   CircleAvatar(
                                     backgroundImage:
-                                    NetworkImage(Constant.imageUrl+controller.currentLeagueDetailPojo.value.currentMatch![0].player2WithScore!.playerDetail!.picture!),
+                                    NetworkImage(Constant.imageUrl+controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore![1].playerDetail!.picture!),
                                   ):
                                   imageBox():
                                   imageBox():
@@ -199,8 +198,8 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                               CommonWidget.getInstance().normalText(
                                   CommonColors.black,
                                   controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?"Player1":
-                                  controller.currentLeagueDetailPojo.value.currentMatch![0].player1WithScore==null?"Player1":
-                                  controller.currentLeagueDetailPojo.value.currentMatch![0].player1WithScore!.playerDetail!.firstName.toString(),
+                                  controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore!.isEmpty?"Player1":
+                                  controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore![0].playerDetail!.firstName.toString(),
                                   0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
                                   FontWeight.w600,fontfamily: false),
 
@@ -213,8 +212,8 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                               CommonWidget.getInstance().normalText(
                                   CommonColors.black,
                                   controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?"Player2":
-                                  controller.currentLeagueDetailPojo.value.currentMatch![0].player2WithScore==null?"Player2":
-                                  controller.currentLeagueDetailPojo.value.currentMatch![0].player2WithScore!.playerDetail!.firstName.toString(),
+                                  controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore!.isEmpty?"Player2":
+                                  controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore![1].playerDetail!.firstName.toString(),
                                   0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
                                   FontWeight.w600,fontfamily: false),
                             ],
@@ -236,7 +235,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
 
                   Image.asset("assets/images/score.png",width:CommonWidget.getInstance().widthFactor(context)*0.3),
 
-                  Expanded(
+                  Obx(()=> Expanded(
                     child: ListView.builder(
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
@@ -244,45 +243,46 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                         controller.currentLeagueDetailPojo.value.currentMatch![0].matchType.toString()=="3"?6:11,
                         itemBuilder: (context, index) {
 
-                          if(player1ListScore.isEmpty){
+                          if(scoreController.player1ListScore.isEmpty){
                             type=controller.currentLeagueDetailPojo.value.currentMatch![0].matchType.toString()=="3"?5:10;
-                            player1ListScore=List.filled(controller.currentLeagueDetailPojo.value.currentMatch![0].matchType.toString()=="3"?5:10, "0");
+                            scoreController.player1ListScore=List.filled(controller.currentLeagueDetailPojo.value.currentMatch![0].matchType.toString()=="3"?5:10, "");
 
                             if(scoreController.scorePojo.value.data!=null && scoreController.scorePojo.value.data!.length>0){
 
-                              player1ListScore[0]==scoreController.scorePojo.value.data![0].throw1.toString();
-                              player1ListScore[1]==scoreController.scorePojo.value.data![0].throw2.toString();
-                              player1ListScore[2]==scoreController.scorePojo.value.data![0].throw3.toString();
-                              player1ListScore[3]==scoreController.scorePojo.value.data![0].throw4.toString();
-                              player1ListScore[4]==scoreController.scorePojo.value.data![0].throw5.toString();
+                              scoreController.player1ListScore[0]=scoreController.scorePojo.value.data![0].throw1.toString();
+                              scoreController.player1ListScore[1]=scoreController.scorePojo.value.data![0].throw2.toString();
+                              scoreController.player1ListScore[2]=scoreController.scorePojo.value.data![0].throw3.toString();
+                              scoreController.player1ListScore[3]=scoreController.scorePojo.value.data![0].throw4.toString();
+                              scoreController.player1ListScore[4]=scoreController.scorePojo.value.data![0].throw5.toString();
                               if(type==10){
-                                player1ListScore[5]==scoreController.scorePojo.value.data![0].throw6.toString();
-                                player1ListScore[6]==scoreController.scorePojo.value.data![0].throw7.toString();
-                                player1ListScore[7]==scoreController.scorePojo.value.data![0].throw8.toString();
-                                player1ListScore[8]==scoreController.scorePojo.value.data![0].throw9.toString();
-                                player1ListScore[9]==scoreController.scorePojo.value.data![0].throw10.toString();
+                               scoreController.player1ListScore[5]=scoreController.scorePojo.value.data![0].throw6.toString();
+                               scoreController.player1ListScore[6]=scoreController.scorePojo.value.data![0].throw7.toString();
+                               scoreController.player1ListScore[7]=scoreController.scorePojo.value.data![0].throw8.toString();
+                               scoreController.player1ListScore[8]=scoreController.scorePojo.value.data![0].throw9.toString();
+                               scoreController.player1ListScore[9]=scoreController.scorePojo.value.data![0].throw10.toString();
                               }
 
                             }
 
                           }
-                          if( player2ListScore.isEmpty){
+                          if( scoreController.player2ListScore.isEmpty){
                             type=controller.currentLeagueDetailPojo.value.currentMatch![0].matchType.toString()=="3"?5:10;
-                            player2ListScore=List.filled(controller.currentLeagueDetailPojo.value.currentMatch![0].matchType.toString()=="3"?5:10, "0");
+                            scoreController.player2ListScore=List.filled(controller.currentLeagueDetailPojo.value.currentMatch![0].matchType.toString()=="3"?5:10,"");
 
                             if(scoreController.scorePojo.value.data!=null && scoreController.scorePojo.value.data!.length>0  ){
-                              player2ListScore[0]==scoreController.scorePojo.value.data![1].throw1.toString();
-                             player2ListScore[1]==scoreController.scorePojo.value.data![1].throw2.toString();
-                             player2ListScore[2]==scoreController.scorePojo.value.data![1].throw3.toString();
-                             player2ListScore[3]==scoreController.scorePojo.value.data![1].throw4.toString();
-                             player2ListScore[4]==scoreController.scorePojo.value.data![1].throw5.toString();
+                              scoreController.player2ListScore[0]=scoreController.scorePojo.value.data![1].throw1.toString();
+                            scoreController.player2ListScore[1]=scoreController.scorePojo.value.data![1].throw2.toString();
+                            scoreController.player2ListScore[2]=scoreController.scorePojo.value.data![1].throw3.toString();
+                            scoreController.player2ListScore[3]=scoreController.scorePojo.value.data![1].throw4.toString();
+                            scoreController.player2ListScore[4]=scoreController.scorePojo.value.data![1].throw5.toString();
                               if(type==10){
-                                player2ListScore[5]==scoreController.scorePojo.value.data![1].throw6.toString();
-                                player2ListScore[6]==scoreController.scorePojo.value.data![1].throw7.toString();
-                                player2ListScore[7]==scoreController.scorePojo.value.data![1].throw8.toString();
-                                player2ListScore[8]==scoreController.scorePojo.value.data![1].throw9.toString();
-                                player2ListScore[9]==scoreController.scorePojo.value.data![1].throw10.toString();
-                              }                          }}
+                               scoreController.player2ListScore[5]=scoreController.scorePojo.value.data![1].throw6.toString();
+                               scoreController.player2ListScore[6]=scoreController.scorePojo.value.data![1].throw7.toString();
+                               scoreController.player2ListScore[7]=scoreController.scorePojo.value.data![1].throw8.toString();
+                               scoreController.player2ListScore[8]=scoreController.scorePojo.value.data![1].throw9.toString();
+                               scoreController.player2ListScore[9]=scoreController.scorePojo.value.data![1].throw10.toString();
+                              }
+                            }}
 
                           return Padding(
                             padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context)*0.045,
@@ -295,7 +295,6 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                                   width: 1),
 
                               children: [
-
                                 index==0?
                                     TableRow(
                                       children:[
@@ -320,14 +319,14 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                                           Padding(
                                             padding: const EdgeInsets.fromLTRB(0.0,6.0,0.0,6.0),
                                             child: TextFormField(
-                                              controller: TextEditingController(text: player1ListScore[index-1]),
+                                              controller: TextEditingController(text: scoreController.player1ListScore[index-1]),
                                               textAlign: TextAlign.center,
                                               keyboardType: TextInputType.number,
                                               decoration: const InputDecoration.collapsed(
                                                 hintText: '0',
                                               ),
                                               onChanged: (String? value) {
-                                                player1ListScore[index]=value.toString();
+                                                scoreController.player1ListScore[index-1]=value.toString();
                                               },
                                             )
                                           ),
@@ -339,14 +338,14 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                                           Padding(
                                             padding: const EdgeInsets.fromLTRB(0.0,6.0,0.0,6.0),
                                             child: TextFormField(
-                                              controller:  TextEditingController(text: player2ListScore[index-1]),
+                                              controller:  TextEditingController(text: scoreController.player2ListScore[index-1]),
                                               textAlign: TextAlign.center,
                                               keyboardType: TextInputType.number,
                                               decoration: const InputDecoration.collapsed(
                                                 hintText: '0',
                                               ),
                                               onChanged: (String? value) {
-                                                player2ListScore[index]=value.toString();
+                                                scoreController.player2ListScore[index-1]=value.toString();
                                               },
                                             )
                                           ),
@@ -358,7 +357,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                             )
                           );
                         }),
-                  ),
+                  )),
 
 
                   Image.asset("assets/images/score.png",width:CommonWidget.getInstance().widthFactor(context)*0.3,)
@@ -446,7 +445,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                 ),
               ),
             ],
-          ))
+          )
         ),
       ),
     );
@@ -505,6 +504,9 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
 
   @override
   void widgetCallBack(String title, String value, BuildContext context) {
+    final CurrentLeagueController controller = Get.find();
+    final ScoreDashController scoreController = Get.find();
+
     switch(title){
       case Strings.update_score:
         Global.showLoaderDialog(context);
@@ -513,34 +515,34 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
         if(type==10){
            scoreArrayList = <Map<String, String>>[
             {
-              'id': "1",
-              'throw1': player1ListScore[0],
-              'throw2': player1ListScore[1],
-              'throw3': player1ListScore[2],
-              'throw4': player1ListScore[3],
-              'throw5': player1ListScore[4],
-              'throw6': player1ListScore[5],
-              'throw7': player1ListScore[6],
-              'throw8': player1ListScore[7],
-              'throw9': player1ListScore[8],
-              'throw10':player1ListScore[9],
-              'killshot':player1ListScore[9],
-              'suddendeaththrow':player1ListScore[9],
+              'id': controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore![0].id.toString(),
+              'throw1': scoreController.player1ListScore[0],
+              'throw2': scoreController.player1ListScore[1],
+              'throw3': scoreController.player1ListScore[2],
+              'throw4': scoreController.player1ListScore[3],
+              'throw5': scoreController.player1ListScore[4],
+              'throw6': scoreController.player1ListScore[5],
+              'throw7': scoreController.player1ListScore[6],
+              'throw8': scoreController.player1ListScore[7],
+              'throw9': scoreController.player1ListScore[8],
+              'throw10':scoreController.player1ListScore[9],
+              'killshot':scoreController.player1ListScore[9],
+              'suddendeaththrow':scoreController.player1ListScore[9],
             },
             {
-              'id': "2",
-              'throw1':  player2ListScore[0],
-              'throw2':  player2ListScore[1],
-              'throw3':  player2ListScore[2],
-              'throw4':  player2ListScore[3],
-              'throw5':  player2ListScore[4],
-              'throw6':  player2ListScore[5],
-              'throw7':  player2ListScore[6],
-              'throw8':  player2ListScore[7],
-              'throw9':  player2ListScore[8],
-              'throw10': player2ListScore[9],
-              'killshot':player1ListScore[9],
-              'suddendeaththrow':player1ListScore[9],
+              'id': controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore![1].id.toString(),
+              'throw1':  scoreController.player2ListScore[0],
+              'throw2':  scoreController.player2ListScore[1],
+              'throw3':  scoreController.player2ListScore[2],
+              'throw4':  scoreController.player2ListScore[3],
+              'throw5':  scoreController.player2ListScore[4],
+              'throw6':  scoreController.player2ListScore[5],
+              'throw7':  scoreController.player2ListScore[6],
+              'throw8':  scoreController.player2ListScore[7],
+              'throw9':  scoreController.player2ListScore[8],
+              'throw10': scoreController.player2ListScore[9],
+              'killshot':scoreController.player1ListScore[9],
+              'suddendeaththrow':scoreController.player1ListScore[9],
 
             },
           ];
@@ -549,22 +551,23 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
           scoreArrayList = <Map<String, String>>[
             {
               'id': "1",
-              'throw1': player1ListScore[0],
-              'throw2': player1ListScore[1],
-              'throw3': player1ListScore[2],
-              'throw4': player1ListScore[3],
-              'throw5': player1ListScore[4],
-              'killshot':player1ListScore[9],
-              'suddendeaththrow':player1ListScore[9],            },
+              'throw1': scoreController.player1ListScore[0],
+              'throw2': scoreController.player1ListScore[1],
+              'throw3': scoreController.player1ListScore[2],
+              'throw4': scoreController.player1ListScore[3],
+              'throw5': scoreController.player1ListScore[4],
+              'killshot':scoreController.player1ListScore[9],
+              'suddendeaththrow':scoreController.player1ListScore[9],
+            },
             {
               'id': "2",
-              'throw1':  player2ListScore[0],
-              'throw2':  player2ListScore[1],
-              'throw3':  player2ListScore[2],
-              'throw4':  player2ListScore[3],
-              'throw5':  player2ListScore[4],
-              'killshot':player1ListScore[9],
-              'suddendeaththrow':player1ListScore[9],
+              'throw1':  scoreController.player2ListScore[0],
+              'throw2':  scoreController.player2ListScore[1],
+              'throw3':  scoreController.player2ListScore[2],
+              'throw4':  scoreController.player2ListScore[3],
+              'throw5':  scoreController.player2ListScore[4],
+              'killshot':scoreController.player1ListScore[9],
+              'suddendeaththrow':scoreController.player1ListScore[9],
             },
           ];
         }

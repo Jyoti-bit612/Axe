@@ -62,8 +62,7 @@ class Matches {
   int? status;
   String? createdAt;
   String? updatedAt;
-  Player1WithScore? player1WithScore;
-  Player1WithScore? player2WithScore;
+  List<PlayersWithScore>? playersWithScore;
 
   Matches(
       {this.id,
@@ -82,8 +81,7 @@ class Matches {
         this.status,
         this.createdAt,
         this.updatedAt,
-        this.player1WithScore,
-        this.player2WithScore});
+        this.playersWithScore});
 
   Matches.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -102,12 +100,13 @@ class Matches {
     status = json['status'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    player1WithScore = json['player1_with_score'] != null
-        ?  Player1WithScore.fromJson(json['player1_with_score'])
-        : null;
-    player2WithScore = json['player2_with_score'] != null
-        ?  Player1WithScore.fromJson(json['player2_with_score'])
-        : null;
+    if (json['players_with_score'] != null) {
+      playersWithScore = <PlayersWithScore>[];
+      json['players_with_score'].forEach((v) {
+        playersWithScore!.add(new PlayersWithScore.fromJson(v));
+      });
+    }
+
   }
 
   Map<String, dynamic> toJson() {
@@ -128,11 +127,9 @@ class Matches {
     data['status'] = this.status;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
-    if (this.player1WithScore != null) {
-      data['player1_with_score'] = this.player1WithScore!.toJson();
-    }
-    if (this.player2WithScore != null) {
-      data['player2_with_score'] = this.player2WithScore!.toJson();
+    if (this.playersWithScore != null) {
+      data['players_with_score'] =
+          this.playersWithScore!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -227,69 +224,69 @@ class LeagueDetails {
   }
 }
 
-class Player1WithScore {
+class PlayersWithScore {
   int? id;
   int? userId;
   int? matchTypeId;
   int? throws;
   int? matchId;
   int? leagueId;
-  int? throww1;
-  int? throww2;
-  int? throww3;
-  int? throww4;
-  int? throww5;
-  int? throww6;
-  int? throww7;
-  int? throww8;
-  int? throww9;
-  int? throww10;
+  int? throw1;
+  int? throw2;
+  int? throw3;
+  int? throw4;
+  int? throw5;
+  int? throw6;
+  int? throw7;
+  int? throw8;
+  int? throw9;
+  int? throw10;
   String? killshot;
   String? suddendeaththrow;
   String? createdAt;
   String? updatedAt;
   PlayerDetail? playerDetail;
 
-  Player1WithScore(
+  PlayersWithScore(
       {this.id,
         this.userId,
         this.matchTypeId,
         this.throws,
         this.matchId,
         this.leagueId,
-        this.throww1,
-        this.throww2,
-        this.throww3,
-        this.throww4,
-        this.throww5,
-        this.throww6,
-        this.throww7,
-        this.throww8,
-        this.throww9,
-        this.throww10,
+        this.throw1,
+        this.throw2,
+        this.throw3,
+        this.throw4,
+        this.throw5,
+        this.throw6,
+        this.throw7,
+        this.throw8,
+        this.throw9,
+        this.throw10,
         this.killshot,
         this.suddendeaththrow,
         this.createdAt,
         this.updatedAt,
         this.playerDetail});
 
-  Player1WithScore.fromJson(Map<String, dynamic> json) {
+  PlayersWithScore.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     userId = json['user_id'];
     matchTypeId = json['match_type_id'];
     throws = json['throws'];
     matchId = json['match_id'];
     leagueId = json['league_id'];
-    throww1 = json['throw1'];
-    throww2 = json['throw2'];
-    throww3 = json['throw3'];
-    throww4 = json['throw4'];
-    throww5 = json['throw5'];
-    throww6 = json['throw6'];
-    throww7 = json['throw7'];
-    throww8 = json['throw8'];
-    throww9 = json['throw9'];
-    throww10 = json['throw10'];
+    throw1 = json['throw1'];
+    throw2 = json['throw2'];
+    throw3 = json['throw3'];
+    throw4 = json['throw4'];
+    throw5 = json['throw5'];
+    throw6 = json['throw6'];
+    throw7 = json['throw7'];
+    throw8 = json['throw8'];
+    throw9 = json['throw9'];
+    throw10 = json['throw10'];
     killshot = json['killshot'];
     suddendeaththrow = json['suddendeaththrow'];
     createdAt = json['created_at'];
@@ -307,20 +304,20 @@ class Player1WithScore {
     data['throws'] = this.throws;
     data['match_id'] = this.matchId;
     data['league_id'] = this.leagueId;
-    data['throw1'] = this.throww1;
-    data['throw2'] = this.throww2;
-    data['throw3'] = this.throww3;
-    data['throw4'] = this.throww4;
-    data['throw5'] = this.throww5;
-    data['throw6'] = this.throww6;
-    data['throw7'] = this.throww7;
-    data['throw8'] = this.throww8;
-    data['throw9'] = this.throww9;
-    data['throw10'] = this.throww10;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
+    data['throw1'] = this.throw1;
+    data['throw2'] = this.throw2;
+    data['throw3'] = this.throw3;
+    data['throw4'] = this.throw4;
+    data['throw5'] = this.throw5;
+    data['throw6'] = this.throw6;
+    data['throw7'] = this.throw7;
+    data['throw8'] = this.throw8;
+    data['throw9'] = this.throw9;
+    data['throw10'] = this.throw10;
     data['killshot'] = this.killshot;
     data['suddendeaththrow'] = this.suddendeaththrow;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
     if (this.playerDetail != null) {
       data['player_detail'] = this.playerDetail!.toJson();
     }

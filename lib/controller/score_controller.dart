@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 class ScoreDashController extends GetxController {
   Rx<ScorePojo> scorePojo=ScorePojo().obs ;
   var matchId="".obs;
+  List<String> player1ListScore=[];
+  List<String> player2ListScore=[];
 
  @override
   void onInit() {
@@ -18,9 +20,11 @@ class ScoreDashController extends GetxController {
 
   Future<void> getScoreMatch() async {
     var jsonBody = {
-      "match_id":matchId,
+      "match_id":matchId.value,
     };
    await Apiprovider.postApi(Constant.get_score_match,jsonBody).then((value) {
+     player1ListScore=[];
+     player2ListScore=[];
      scorePojo.value= ScorePojo.fromJson(json.decode(value));
     },onError: (error){
      print(error);

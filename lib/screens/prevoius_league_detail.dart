@@ -637,11 +637,11 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
                                        TableRow(
                                           children: [
 
-                                                 innerIndex==0?
-                                              columnNameWidget(controller.prevoiusLeaguePojo.value.matches![index].player1WithScore==null?"":
-                                              controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.playerDetail!.firstName.toString(),
-                                                  controller.prevoiusLeaguePojo.value.matches![index].player1WithScore==null?"":
-                                                controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.playerDetail!.picture):
+                                            innerIndex==0?
+                                              columnNameWidget(controller.prevoiusLeaguePojo.value.matches![index].playersWithScore!.isEmpty?"":
+                                              controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![0].playerDetail!.firstName.toString(),
+                                                  controller.prevoiusLeaguePojo.value.matches![index].playersWithScore!.isEmpty?"":
+                                                controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![0].playerDetail!.picture):
                                             Container(
                                               color:
                                               controller.prevoiusLeaguePojo.value.matches![index].matchType==3?
@@ -652,7 +652,7 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
                                                     CommonWidget.getInstance().widthFactor(context)*0.0845),
                                                     child:
 
-                                                    controller.prevoiusLeaguePojo.value.matches![index].player1WithScore==null?
+                                                    controller.prevoiusLeaguePojo.value.matches![index].playersWithScore!.isEmpty?
                                                     CommonWidget.getInstance().normalText(
                                                         CommonColors.black,"",0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600):
 
@@ -660,16 +660,16 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
                                                         controller.prevoiusLeaguePojo.value.matches![index].matchType==3?
                                                     innerIndex==6?CommonColors.white:CommonColors.black:
                                                     innerIndex==11?CommonColors.white:CommonColors.black,
-                                                    innerIndex==1?controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww1.toString():
-                                                    innerIndex==2?controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww2.toString():
-                                                    innerIndex==3?controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww3.toString():
-                                                    innerIndex==4? controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww4.toString():
-                                                    innerIndex==5? controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww5.toString():
-                                                    innerIndex==6? controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww6.toString():
-                                                    innerIndex==7? controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww7.toString():
-                                                    innerIndex==8? controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww8.toString():
-                                                    innerIndex==9? controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww9.toString():
-                                                    innerIndex==10? controller.prevoiusLeaguePojo.value.matches![index].player1WithScore!.throww10.toString():
+                                                    innerIndex==1?controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![0].throw1.toString():
+                                                    innerIndex==2?controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![0].throw2.toString():
+                                                    innerIndex==3?controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![0].throw3.toString():
+                                                    innerIndex==4? controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![0].throw4.toString():
+                                                    innerIndex==5? controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![0].throw5.toString():
+                                                    innerIndex==6? controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![0].throw6.toString():
+                                                    innerIndex==7? controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![0].throw7.toString():
+                                                    innerIndex==8? controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![0].throw8.toString():
+                                                    innerIndex==9? controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![0].throw9.toString():
+                                                    innerIndex==10? controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![0].throw10.toString():
                                                     "42",
                                                     1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,
                                                     innerIndex==11?
@@ -684,31 +684,31 @@ class _MatchesState extends State<Matches> implements CallBackInterface {
                                       TableRow(
                                           children: [
 
-                                                 innerIndex==0?columnNameWidget(
-                                                     controller.prevoiusLeaguePojo.value.matches![index].player2WithScore==null?"":
-                                                     controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.playerDetail!.firstName!,
-                                                     controller.prevoiusLeaguePojo.value.matches![index].player2WithScore==null?"":
-                                                controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.playerDetail!.picture):
+                                            innerIndex==0?columnNameWidget(
+                                                     controller.prevoiusLeaguePojo.value.matches![index].playersWithScore!.isEmpty?"":
+                                                     controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![1].playerDetail!.firstName!,
+                                                     controller.prevoiusLeaguePojo.value.matches![index].playersWithScore!.isEmpty?"":
+                                                controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![1].playerDetail!.picture):
                                               Padding(
                                               padding:  EdgeInsets.fromLTRB(0.0,CommonWidget.getInstance().widthFactor(context)*0.0845,0.0,
                                                   CommonWidget.getInstance().widthFactor(context)*0.0845),
                                               child:
-                                              controller.prevoiusLeaguePojo.value.matches![index].player2WithScore==null?
+                                              controller.prevoiusLeaguePojo.value.matches![index].playersWithScore!.isEmpty?
                                               CommonWidget.getInstance().normalText(
                                                   CommonColors.black,"",0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600):
 
                                               CommonWidget.getInstance().normalText(
                                                   CommonColors.black,
-                                                 innerIndex==1?controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww1.toString():
-                                                 innerIndex==2?controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww2.toString():
-                                                 innerIndex==3?controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww3.toString():
-                                                 innerIndex==4? controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww4.toString():
-                                                 innerIndex==5? controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww5.toString():
-                                                 innerIndex==6? controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww6.toString():
-                                                 innerIndex==7? controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww7.toString():
-                                                 innerIndex==8? controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww8.toString():
-                                                 innerIndex==9? controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww9.toString():
-                                                 innerIndex==10? controller.prevoiusLeaguePojo.value.matches![index].player2WithScore!.throww10.toString():
+                                                 innerIndex==1?controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![1].throw1.toString():
+                                                 innerIndex==2?controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![1].throw2.toString():
+                                                 innerIndex==3?controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![1].throw3.toString():
+                                                 innerIndex==4? controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![1].throw4.toString():
+                                                 innerIndex==5? controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![1].throw5.toString():
+                                                 innerIndex==6? controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![1].throw6.toString():
+                                                 innerIndex==7? controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![1].throw7.toString():
+                                                 innerIndex==8? controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![1].throw8.toString():
+                                                 innerIndex==9? controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![1].throw9.toString():
+                                                 innerIndex==10? controller.prevoiusLeaguePojo.value.matches![index].playersWithScore![1].throw10.toString():
                                                   "32",
                                                   1,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,2,
                                                   innerIndex==11?
