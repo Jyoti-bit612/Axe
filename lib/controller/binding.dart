@@ -4,6 +4,7 @@ import 'package:axe/controller/pasword_counter.dart';
 import 'package:axe/controller/player_controller.dart';
 import 'package:axe/controller/prevoius_league_controller.dart';
 import 'package:axe/controller/profile_controller.dart';
+import 'package:axe/controller/score_controller.dart';
 import 'package:axe/controller/upcoming_league_controller.dart';
 import 'package:get/get.dart';
 import 'package:get/get_instance/src/bindings_interface.dart';
@@ -20,5 +21,6 @@ class HomeBinding implements Bindings {
     Get.lazyPut(()=>PreviousLeagueController());
     Get.lazyPut(()=>UpcomingLeagueController());
     Get.lazyPut(()=>ProfileController());
+    Get.lazyPut(()=>ScoreDashController());
   }
 }

@@ -1,4 +1,5 @@
 import 'package:axe/controller/current_league_controller.dart';
+import 'package:axe/controller/score_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/create_match.dart';
 import 'package:axe/util/commoncolors.dart';
@@ -37,6 +38,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
   @override
   Widget build(BuildContext context) {
     final CurrentLeagueController controller = Get.find();
+    final ScoreDashController scoreController = Get.find();
 
     return Obx(()=>SafeArea(
       child: Scaffold(
@@ -228,6 +230,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                           controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?Container():
                           GestureDetector(
                             onTap: (){
+                              scoreController.matchId.value= controller.currentLeagueDetailPojo.value.currentMatch![0].id.toString();
                               Get.toNamed('/scoreDashboard');
                             },
                             child: Padding(

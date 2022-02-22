@@ -27,6 +27,7 @@ class Constant{
   static const String get_UpcomingLeagueDetail="api/venues/upcomingleaguedetail";
   static const String get_topPlayer="api/venues/gettopplayers";
   static const String get_Player="api/venues/getplayers";
+  static const String get_score_match="api/venues/getmatchscores";
   static const String get_current_league="api/venues/getCurrentLeague";
   static const String get_current_league_detail="api/venues/getCurrentLeagueDetail";
 
