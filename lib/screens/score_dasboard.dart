@@ -101,7 +101,6 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                           height: CommonWidget.getInstance().widthFactor(context) * 0.05,
                         ),
 
-
                         Center(
                           child: controller.currentLeagueDetailPojo.value.currentMatch==null?Container():
                           controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?
