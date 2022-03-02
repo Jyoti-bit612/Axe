@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:axe/api/Apiprovider.dart';
+import 'package:axe/api/apiprovider.dart';
 import 'package:axe/pojo/ScorePojo.dart';
 import 'package:axe/pojo/playerlist_pojo.dart';
 import 'package:axe/util/constants.dart';

@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:axe/api/Apiprovider.dart';
+import 'package:axe/api/apiprovider.dart';
 import 'package:axe/pojo/prevoius_league_pojo.dart';
 import 'package:axe/pojo/profilePojo.dart';
 import 'package:axe/pojo/top_player_pojo.dart';

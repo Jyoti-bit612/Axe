@@ -54,11 +54,11 @@ class Global {
 
   static showLoaderDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
-      content: new Row(
+      content: Row(
         children: [
-          CircularProgressIndicator(),
+          const CircularProgressIndicator(),
           Container(
-              margin: EdgeInsets.only(left: 5), child: Text("Please Wait...")),
+              margin: const EdgeInsets.only(left: 5), child: const Text("Please Wait...")),
         ],
       ),
     );
@@ -92,10 +92,11 @@ class Global {
       callBackInterface.widgetCallBack(apiName, response.body,context);
     } else if (response.statusCode == 404) {
       Get.back();
-      if (json.decode(response.body)["message"] != null)
+      if (json.decode(response.body)["message"] != null) {
         showSnackBar(context,json.decode(response.body)["message"].toString());
-      else
+      } else {
         showSnackBar(context,json.decode(response.body)["errors"].toString());
+      }
     }
     else {
       if(endUrl==Constant.login ||endUrl.contains(Constant.login) || endUrl==Constant.login ||endUrl.contains(Constant.login)){
@@ -114,32 +115,32 @@ class Global {
     return "Success!";
   }
 
+
+
   static showPicker(BuildContext context,CallBackInterface callBackInterface) {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext bc) {
           return SafeArea(
-            child: Container(
-              child: Wrap(
-                children: <Widget>[
-                   ListTile(
-                      leading:  Icon(Icons.photo_library,size: CommonWidget.getInstance().widthFactor(context)*0.046,),
-                      title:  Text('Gallery',style: TextStyle(fontFamily: "Lato",fontSize: CommonWidget.getInstance().widthFactor(context)*0.046),),
-                      onTap: () {
-                        callBackInterface.widgetCallBack('Gallery',"",context);
-                        Get.back();
-
-                      }),
-                   ListTile(
-                    leading:  Icon(Icons.photo_camera,size: CommonWidget.getInstance().widthFactor(context)*0.046,),
-                    title:  Text('Camera',style: TextStyle(fontFamily: "Lato",fontSize: CommonWidget.getInstance().widthFactor(context)*0.046),),
+            child: Wrap(
+              children: <Widget>[
+                 ListTile(
+                    leading:  Icon(Icons.photo_library,size: CommonWidget.getInstance().widthFactor(context)*0.046,),
+                    title:  Text('Gallery',style: TextStyle(fontFamily: "Lato",fontSize: CommonWidget.getInstance().widthFactor(context)*0.046),),
                     onTap: () {
-                      callBackInterface.widgetCallBack('Camera',"",context);
-                     Get.back();
-                    },
-                  ),
-                ],
-              ),
+                      callBackInterface.widgetCallBack('Gallery',"",context);
+                      Get.back();
+
+                    }),
+                 ListTile(
+                  leading:  Icon(Icons.photo_camera,size: CommonWidget.getInstance().widthFactor(context)*0.046,),
+                  title:  Text('Camera',style: TextStyle(fontFamily: "Lato",fontSize: CommonWidget.getInstance().widthFactor(context)*0.046),),
+                  onTap: () {
+                    callBackInterface.widgetCallBack('Camera',"",context);
+                   Get.back();
+                  },
+                ),
+              ],
             ),
           );
         }
@@ -192,6 +193,52 @@ class Global {
       case  "empty":
 
         break;
+    }
+  }
+
+  static logOut() async {
+    var token=await Global.getStringValuesSF(Constant.AccessToken);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var url = Constant.baseUrl + Constant.logout;
+
+    var response = await http.post(Uri.parse(url),
+        headers: {
+          "Accept": "application/json",
+          "Authorization": 'Bearer '+token,
+          'Content-Type': 'application/json; charset=UTF-8',
+        }
+    );
+    if (response.statusCode == 201 ||response.statusCode == 200) {
+      prefs.clear();
+      Get.offAndToNamed('/login');
+      Get.showSnackbar(
+        GetSnackBar(
+          duration: const Duration(seconds: 4),
+          title: "Axe Throwing",
+          message: json.decode(response.body)["message"].toString(),
+          isDismissible: true,
+        ),
+      );
+    } else {
+      if (json.decode(response.body)["message"] != null) {
+        Get.showSnackbar(
+          GetSnackBar(
+            duration: const Duration(seconds: 1),
+            title: "Axe Throwing",
+            message: json.decode(response.body)["message"].toString(),
+            isDismissible: true,
+          ),
+        );
+      } else {
+        Get.showSnackbar(
+          GetSnackBar(
+            duration: const Duration(seconds: 2),
+            title: "Axe Throwing",
+            message: json.decode(response.body)["errors"].toString(),
+            isDismissible: true,
+          ),
+        );
+      }
     }
   }
 }

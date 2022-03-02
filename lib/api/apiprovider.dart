@@ -1,6 +1,5 @@
 
 import 'dart:convert';
-
 import 'package:axe/util/constants.dart';
 import 'package:axe/util/global.dart';
 import 'package:http/http.dart';
@@ -10,7 +9,6 @@ class Apiprovider {
     var token=await Global.getStringValuesSF(Constant.AccessToken);
     final response = await get(Uri.parse(Constant.baseUrl + endUrl),
         headers: {"Accept": "application/json",
-
           "Authorization": 'Bearer '+token,
         });
 

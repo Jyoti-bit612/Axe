@@ -152,5 +152,4 @@ class Strings{
   static const String change_pass = "Change Password";
   static const String setting = "Settings";
 
-
 }

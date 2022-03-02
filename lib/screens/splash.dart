@@ -42,15 +42,15 @@ class SplashState extends State<Splash> {
   String token="";
 
   Future<Timer> loadPage() async {
-    return Timer(Duration(seconds: 1), onDoneLoading);
+    return Timer(const Duration(seconds: 1), onDoneLoading);
   }
 
   onDoneLoading() async {
     if (token == "") {
-      Get.toNamed('/login');
+      Get.offAndToNamed('/login');
 
     } else {
-      Get.toNamed('/home');
+      Get.offAndToNamed('/home');
 
     }
   }

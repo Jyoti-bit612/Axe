@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:axe/api/Apiprovider.dart';
+import 'package:axe/api/apiprovider.dart';
 import 'package:axe/pojo/prevoius_league_pojo.dart';
 import 'package:axe/pojo/top_player_pojo.dart';
 import 'package:axe/pojo/upcoming_league_pojo.dart';
@@ -27,8 +27,7 @@ class HomeController extends GetxController {
 
   Future<void> getUpcomingLeague() async {
     await Apiprovider.getApi(Constant.get_upcomingLeague).then((value) {
-      upcomingLeaguePojo.value =
-          UpcomingLeaguePojo.fromJson(json.decode(value));
+      upcomingLeaguePojo.value = UpcomingLeaguePojo.fromJson(json.decode(value));
     }, onError: (error) {
       upcomingLeaguePojo.value=UpcomingLeaguePojo();
       print(error);
@@ -56,5 +55,4 @@ class HomeController extends GetxController {
       print(error);
     });
   }
-
 }

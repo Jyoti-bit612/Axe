@@ -12,7 +12,7 @@ class Constant{
   static const String updateScore="api/venues/updateMatchScores";
   static const String change_password_user="api/player/change-password";
   static const String change_password_venue="api/venues/change-password";
-  static const String logout="logout";
+  static const String logout="api/venues/logout";
   static const String create_league="api/venues/create-league";
   static const String update_venue_profile="api/venues/updateProfile";
   static const String get_venue_profile="api/venues/getProfile";
@@ -30,6 +30,7 @@ class Constant{
   static const String get_score_match="api/venues/getmatchscores";
   static const String get_current_league="api/venues/getCurrentLeague";
   static const String get_current_league_detail="api/venues/getCurrentLeagueDetail";
+  static const String forgotPassword = "api/forgetpassword";
 
   //key for sharedPrefrence
   static const String LoginType="login_type";

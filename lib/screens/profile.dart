@@ -24,17 +24,37 @@ class Profile extends StatelessWidget  implements CallBackInterface{
   void onSelect(item) {
     switch (item) {
       case Strings.privacy_profile:
-        print('Home clicked');
+
         break;
       case Strings.help_center:
-        print('Profile clicked');
+
         break;
       case Strings.report:
-        print('Setting clicked');
+
         break;
 
       case Strings.logout:
-        print('Setting clicked');
+        Get.defaultDialog(
+          title:  "Do yo want to logout?",
+          barrierDismissible: true,
+          middleText: "",
+          actions: [
+            TextButton(
+              //Click on no to reset/go to previous state
+              onPressed: () {
+                Get.back();
+              },
+              child: const Text('No'),
+            ),
+            TextButton(
+              //Click on yes to perform operation according to use
+              onPressed: () {
+                Global.logOut();
+              },
+              child: const Text('Yes'),
+            ),
+          ]
+        );
         break;
     }
   }
@@ -61,7 +81,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
               ),
 
               PopupMenuButton<String>(
-                icon: Icon(Icons.more_vert_rounded,color: CommonColors.black),
+                icon: const Icon(Icons.more_vert_rounded,color: CommonColors.black),
                   onSelected: onSelect,
                   itemBuilder: (BuildContext context) {
                     return myMenuItems.map((String choice) {
@@ -385,8 +405,8 @@ class Profile extends StatelessWidget  implements CallBackInterface{
           Visibility(
               visible: isOn,
               child: type=="password"?
-              Icon(Icons.loop,color: CommonColors.darkGray,):
-              Icon(Icons.edit,color: CommonColors.darkGray,)),
+              const Icon(Icons.loop,color: CommonColors.darkGray,):
+              const Icon(Icons.edit,color: CommonColors.darkGray,)),
 
           SizedBox(
             width:  CommonWidget.getInstance().widthFactor(context) * 0.03,
@@ -447,18 +467,21 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                   FocusScope.of(context).requestFocus(_focusNode);
 
                   if(type=="firstName"){
-                  if(!controller.firstNameCheck.value)
+                  if(!controller.firstNameCheck.value) {
                     updateprofile(context);
+                  }
                   }
 
                   if(type=="lastName"){
-                    if(!controller.lastNameCheck.value)
+                    if(!controller.lastNameCheck.value) {
                       updateprofile(context);
+                    }
                   }
 
                   if(type=="phone"){
-                    if(!controller.phoneCheck.value)
+                    if(!controller.phoneCheck.value) {
                       updateprofile(context);
+                    }
                   }
 
                   type=="firstName"?controller.updateFirstNameCheck():
@@ -485,6 +508,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
     ));
   }
 
+   // ignore: prefer_typing_uninitialized_variables
    var pickedImage;
 
    Future<bool> updateprofile(BuildContext context) async {

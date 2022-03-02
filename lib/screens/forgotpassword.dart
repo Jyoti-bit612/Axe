@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/dashbaord.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
+import 'package:axe/util/constants.dart';
+import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,7 +33,7 @@ final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
             IconButton(onPressed: (){
               Get.back();
-            }, icon: Icon(Icons.arrow_back_rounded)),
+            }, icon: const Icon(Icons.arrow_back_rounded)),
 
             SizedBox(
               height: CommonWidget.getInstance().heightFactor(context) * 0.04,
@@ -98,11 +102,7 @@ final GlobalKey<FormState> formKey = GlobalKey<FormState>();
                         CommonColors.white,
                         this,
                       ),
-
-                      SizedBox(
-                        height: CommonWidget.getInstance().heightFactor(context) * 0.04,
-                      ),
-
+                      SizedBox(height: CommonWidget.getInstance().heightFactor(context) * 0.04),
                     ],
                   )),
             ),
@@ -116,11 +116,17 @@ final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
     switch(title){
       case Strings.reset_password:
-        Get.toNamed('/home');
-
+        if(CommonWidget.getInstance().isValidate(formKey)){
+          Global.showLoaderDialog(context);
+          Map jsonBody = {
+            "email": emailController.text
+          };
+          Global.postData(context, Constant.forgotPassword, Constant.forgotPassword, jsonBody, this);
+        }
         break;
-
+      case Constant.forgotPassword:
+        Global.showSnackBar(context, jsonDecode(value)["message"]);
+        Get.toNamed('/login');
     }
   }
-
 }

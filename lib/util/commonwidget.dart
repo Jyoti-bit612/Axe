@@ -23,13 +23,14 @@ class CommonWidget {
       context: context,
       initialDate: DateTime(1980), // Refer step 1
       firstDate: DateTime(1960),
-      lastDate:  DateTime(DateTime.now().year).subtract(Duration(days: 1)),
+      lastDate:  DateTime(DateTime.now().year).subtract(const Duration(days: 1)),
     );
     DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm:ss');
-    if (picked != null)
+    if (picked != null) {
       callBackInterface.widgetCallBack(title, formatter.format(picked), context);
-    else
+    } else {
       callBackInterface.widgetCallBack(title, "Any", context);
+    }
   }
 
   heightFactor(BuildContext context) {
@@ -101,7 +102,7 @@ class CommonWidget {
           leading: Visibility(
             visible: visivlityLeading,
             child: IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_back_ios_outlined,
                   color: CommonColors.black,
                 ),
@@ -200,7 +201,7 @@ class CommonWidget {
       obscureText: _hideText,
       readOnly: _readOnly,
       focusNode: _focus,
-      style: TextStyle(
+      style: const TextStyle(
         fontFamily: 'nunito_regular.ttf',
       ),
       cursorColor: CommonColors.black,
@@ -232,10 +233,10 @@ class CommonWidget {
         filled: true,
         enabledBorder: OutlineInputBorder(
             borderSide:
-                BorderSide(color: CommonColors.darkGray, width: 0.9),
+                const BorderSide(color: CommonColors.darkGray, width: 0.9),
             borderRadius: BorderRadius.circular(5.0)),
         fillColor: CommonColors.white,
-        contentPadding: EdgeInsets.fromLTRB(10.0, 15.0, 2.0, 15.0),
+        contentPadding: const EdgeInsets.fromLTRB(10.0, 15.0, 2.0, 15.0),
       ),
     );
   }
@@ -365,7 +366,7 @@ class CommonWidget {
         padding: const EdgeInsets.all(8.0),
         child: RichText(
           text: TextSpan(
-            style: new TextStyle(
+            style: const TextStyle(
               fontSize: 12.0,
               fontWeight: FontWeight.bold,
               color: Colors.black,
@@ -374,7 +375,7 @@ class CommonWidget {
               TextSpan(text: text1),
               TextSpan(
                   text: text2,
-                  style: TextStyle(color: CommonColors.primaryColor1)),
+                  style: const TextStyle(color: CommonColors.primaryColor1)),
             ],
           ),
         ),
@@ -389,7 +390,7 @@ class CommonWidget {
     return Text(
       title,
       style: TextStyle(
-        shadows: [Shadow(color: Colors.grey, offset: Offset(0, -5))],
+        shadows: const [Shadow(color: Colors.grey, offset: Offset(0, -5))],
         color: Colors.transparent,
         fontSize: size,
         decoration: TextDecoration.underline,
