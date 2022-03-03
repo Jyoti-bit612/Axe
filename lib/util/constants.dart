@@ -31,6 +31,7 @@ class Constant{
   static const String get_current_league="api/venues/getCurrentLeague";
   static const String get_current_league_detail="api/venues/getCurrentLeagueDetail";
   static const String forgotPassword = "api/forgetpassword";
+  static const String inviteByVenue = "api/venues/sendinvitation";
 
   //key for sharedPrefrence
   static const String LoginType="login_type";

@@ -9,7 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class CurrentLeague extends StatelessWidget implements CallBackInterface {
+  CurrentLeague({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final CurrentLeagueController currentController = Get.find();
@@ -39,7 +42,7 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                 currentController.currentLeaguePojo.value.currentleague!.isEmpty?
                 CommonWidget.getInstance().normalText(
                     CommonColors.red,"No Current League",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false):
-                ListView.builder(
+                 ListView.builder(
                     physics: const ClampingScrollPhysics(),
                     shrinkWrap: true,
                     itemCount:  currentController.currentLeaguePojo.value.currentleague!.length,

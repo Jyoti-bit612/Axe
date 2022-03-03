@@ -210,7 +210,7 @@ class Global {
     );
     if (response.statusCode == 201 ||response.statusCode == 200) {
       prefs.clear();
-      Get.offAndToNamed('/login');
+      Get.offAllNamed('/login');
       Get.showSnackbar(
         GetSnackBar(
           duration: const Duration(seconds: 4),

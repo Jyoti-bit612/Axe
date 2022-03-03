@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:axe/api/apiprovider.dart';
-import 'package:axe/pojo/CurrentLeagueDetailPojo.dart';
-import 'package:axe/pojo/CurrentLeaguePojo.dart';
+import 'package:axe/pojo/currentleaguedetailpojo.dart';
+import 'package:axe/pojo/currentleaguepojo.dart';
 import 'package:axe/util/constants.dart';
 import 'package:get/get.dart';
 

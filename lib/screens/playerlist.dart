@@ -3,6 +3,7 @@ import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/constants.dart';
+import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -164,42 +165,48 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                         trailing: IconButton(
                           onPressed: ()  async {
 
-                            controller.playerpojo.value.data![index].invitation= await controller.playerpojo.value.data![index].invitation==1?0:1;
+                            controller.playerpojo.value.data![index].invitation= controller.playerpojo.value.data![index].invitation==1?0:1;
 
-                            if(Get.arguments==1){ //for player 1
-                              if(controller.playerpojo.value.data![index].invitation==1){
-                                player1List.add(controller.playerpojo.value.data![index].id.toString());
-                                controller.updatePlayer1IList(controller.playerpojo.value.data![index].firstName.toString());
-
-                                controller.updatePlayer1Id(player1List.join(","));
-
-                            }else{
-                                player1List.remove(controller.playerpojo.value.data![index].id.toString());
-                                controller.player1List.remove(controller.playerpojo.value.data![index].firstName.toString());
-
-                                controller.updatePlayer1Id(player1List.join(","));
-
-                             }
-
-                              controller.playerpojo.refresh();
-
-                            }else{ //for player 2
-                              if(controller.playerpojo.value.data![index].invitation==1){
-                                player2List.add(controller.playerpojo.value.data![index].id.toString());
-                                controller.updatePlayer2List(controller.playerpojo.value.data![index].firstName.toString());
-
-                                controller.updatePlayer2Id(player2List.join(","));
-
+                            if(Get.arguments[0]["playerType"]==1){ //for player 1
+                              if(Get.arguments[0]["navigationType"]=="change_player"){
+                                Map jsonBody = {
+                                  "match_id":Get.arguments[0]["match_id"].toString(),
+                                  "players1_ids":controller.playerpojo.value.data![index].id.toString(),
+                                  "players2_ids":""
+                                };print(jsonBody);
+                                // Global.postData(context, Constant.inviteByVenue, Constant.inviteByVenue, jsonBody, this);
                               }else{
-                                player2List.remove(controller.playerpojo.value.data![index].id.toString());
-                                controller.player2List.remove(controller.playerpojo.value.data![index].firstName.toString());
-
-                                controller.updatePlayer2Id(player2List.join(","));
-
+                                if(controller.playerpojo.value.data![index].invitation==1){
+                                  player1List.add(controller.playerpojo.value.data![index].id.toString());
+                                  controller.updatePlayer1IList(controller.playerpojo.value.data![index].firstName.toString());
+                                  controller.updatePlayer1Id(player1List.join(","));
+                                }else{
+                                  player1List.remove(controller.playerpojo.value.data![index].id.toString());
+                                  controller.player1List.remove(controller.playerpojo.value.data![index].firstName.toString());
+                                  controller.updatePlayer1Id(player1List.join(","));
+                                }
                               }
-
                               controller.playerpojo.refresh();
-
+                            }else{ //for player 2
+                              if(Get.arguments[0]["navigationType"]=="change_player"){
+                                Map jsonBody = {
+                                  "match_id":"4",
+                                  "players1_ids":"",
+                                  "players2_ids":controller.playerpojo.value.data![index].id.toString()
+                                };
+                                Global.postData(context, Constant.inviteByVenue, Constant.inviteByVenue, jsonBody, this);
+                              }else{
+                                if(controller.playerpojo.value.data![index].invitation==1){
+                                  player2List.add(controller.playerpojo.value.data![index].id.toString());
+                                  controller.updatePlayer2List(controller.playerpojo.value.data![index].firstName.toString());
+                                  controller.updatePlayer2Id(player2List.join(","));
+                                }else{
+                                  player2List.remove(controller.playerpojo.value.data![index].id.toString());
+                                  controller.player2List.remove(controller.playerpojo.value.data![index].firstName.toString());
+                                  controller.updatePlayer2Id(player2List.join(","));
+                                }
+                              }
+                              controller.playerpojo.refresh();
                             }
 
                           },
@@ -324,6 +331,5 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
 
   @override
   void widgetCallBack(String title, String value, BuildContext context) {
-
   }
 }

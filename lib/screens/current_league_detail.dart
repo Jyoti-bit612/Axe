@@ -346,7 +346,10 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                               children: [
                                 GestureDetector(
                                   onTap:(){
-                                    Get.toNamed('/playerlist',arguments: 1);
+                                    // Get.toNamed('/playerlist',arguments: 1);
+                                    Get.toNamed('/playerlist',arguments: [{"playerType": 1,
+                                      "navigationType": "change_player","match_id": controller.currentLeagueDetailPojo.value.matches![index].id}]
+                                    );
                                   },
                                   child: Container(
                                     width:  CommonWidget.getInstance().widthFactor(context) * 0.16,
@@ -360,10 +363,10 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
 
                                     ),
                                     child:  Padding(
-                                      padding: EdgeInsets.all(1.0),
+                                      padding: const EdgeInsets.all(1.0),
                                       child:
                                       controller.currentLeagueDetailPojo.value.matches![index].playersWithScore!.isEmpty?
-                                          imageBox():
+                                        imageBox():
                                         controller.currentLeagueDetailPojo.value.matches![index].playersWithScore![0].playerDetail!.picture== null ?
                                         imageBox():
                                         CircleAvatar(
@@ -443,7 +446,10 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                               children: [
                                 GestureDetector(
                                   onTap:(){
-                                    Get.offNamed('/playerlist',arguments: 2);
+                                    // Get.offNamed('/playerlist',arguments: 2);
+                                    Get.toNamed('/playerlist',arguments: [{"playerType": 2,
+                                      "navigationType": "change_player","match_id": controller.currentLeagueDetailPojo.value.matches![index].id}]
+                                    );
                                   },
                                   child: Container(
                                     width:  CommonWidget.getInstance().widthFactor(context) * 0.16,
@@ -525,7 +531,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
               child: ListView.separated(
                 physics: const ClampingScrollPhysics(),
                 itemCount:  controller.currentLeagueDetailPojo.value.players!.length,
-                separatorBuilder: (BuildContext context, int index) => Divider(height: 1),
+                separatorBuilder: (BuildContext context, int index) => const Divider(height: 1),
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(top:8.0),
@@ -546,7 +552,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
 
                           ),
                           child: Padding(
-                            padding:  EdgeInsets.all(1.0),
+                            padding:  const EdgeInsets.all(1.0),
                             child: DecoratedBox(
                                 decoration:  const BoxDecoration(
                                   color: CommonColors.textfiled_gray,
@@ -590,11 +596,10 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                 children: [
                   CommonWidget.getInstance().normalText(
                       CommonColors.primaryColor1, Strings.add_more_player,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600),
-
                   SizedBox(
                     width: CommonWidget.getInstance().widthFactor(context) * 0.02,
                   ),
-                  Icon(Icons.add_circle_outline_rounded,color: CommonColors.primaryColor1,)
+                  const Icon(Icons.add_circle_outline_rounded,color: CommonColors.primaryColor1,)
                 ],
               ),
             ),

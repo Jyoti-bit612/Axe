@@ -19,7 +19,7 @@ class CurrentLeagueDetailPojo {
     if (json['matches'] != null) {
       matches = <Matches>[];
       json['matches'].forEach((v) {
-        matches!.add(new Matches.fromJson(v));
+        matches!.add(Matches.fromJson(v));
       });
     }
     if (json['currentMatch'] != null) {
@@ -27,38 +27,40 @@ class CurrentLeagueDetailPojo {
       json['currentMatch'].forEach((v) {
         currentMatch!.add( CurrentMatch.fromJson(v));
       });
-    }else
+    }else {
       currentMatch = <CurrentMatch>[];
+    }
 
     if (json['players'] != null) {
       players = <Players>[];
       json['players'].forEach((v) {
-        players!.add(new Players.fromJson(v));
+        players!.add(Players.fromJson(v));
       });
     }
     leagueDetails = json['leagueDetails'] != null
-        ? new LeagueDetails.fromJson(json['leagueDetails'])
+        ? LeagueDetails.fromJson(json['leagueDetails'])
         : null;
     message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['success'] = this.success;
-    if (this.matches != null) {
-      data['matches'] = this.matches!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = Map<String, dynamic>();
+    data['success'] = success;
+    if (matches != null) {
+      data['matches'] = matches!.map((v) => v.toJson()).toList();
     }
-    if (this.currentMatch != null) {
-      data['currentMatch'] = this.currentMatch!.map((v) => v.toJson()).toList();
-    }else
+    if (currentMatch != null) {
+      data['currentMatch'] = currentMatch!.map((v) => v.toJson()).toList();
+    }else {
       data['currentMatch'] =[];
-    if (this.players != null) {
-      data['players'] = this.players!.map((v) => v.toJson()).toList();
     }
-    if (this.leagueDetails != null) {
-      data['leagueDetails'] = this.leagueDetails!.toJson();
+    if (players != null) {
+      data['players'] = players!.map((v) => v.toJson()).toList();
     }
-    data['message'] = this.message;
+    if (leagueDetails != null) {
+      data['leagueDetails'] = leagueDetails!.toJson();
+    }
+    data['message'] = message;
     return data;
   }
 }
@@ -121,13 +123,13 @@ class CurrentMatch {
     if (json['players_with_score'] != null) {
       playersWithScore = <PlayersWithScore>[];
       json['players_with_score'].forEach((v) {
-        playersWithScore!.add(new PlayersWithScore.fromJson(v));
+        playersWithScore!.add(PlayersWithScore.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['user_id'] = this.userId;
     data['league_id'] = this.leagueId;
@@ -220,12 +222,12 @@ class PlayersWithScore {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     playerDetail = json['player_detail'] != null
-        ? new PlayerDetail.fromJson(json['player_detail'])
+        ? PlayerDetail.fromJson(json['player_detail'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['user_id'] = this.userId;
     data['match_type_id'] = this.matchTypeId;
@@ -300,7 +302,7 @@ class PlayerDetail {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['first_name'] = this.firstName;
     data['last_name'] = this.lastName;
     data['picture'] = this.picture;
@@ -378,13 +380,13 @@ class Matches {
     if (json['players_with_score'] != null) {
       playersWithScore = <PlayersWithScore>[];
       json['players_with_score'].forEach((v) {
-        playersWithScore!.add(new PlayersWithScore.fromJson(v));
+        playersWithScore!.add(PlayersWithScore.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['user_id'] = this.userId;
     data['league_id'] = this.leagueId;
@@ -498,7 +500,7 @@ class Players {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['first_name'] = this.firstName;
     data['last_name'] = this.lastName;
@@ -588,7 +590,7 @@ class LeagueDetails {
     endDate = json['end_date'];
     season = json['season'];
     matchType = json['match_type'] != null
-        ? new MatchType.fromJson(json['match_type'])
+        ? MatchType.fromJson(json['match_type'])
         : null;
     logo = json['logo'];
     logoPath = json['logo_path'];
@@ -597,12 +599,12 @@ class LeagueDetails {
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
     seasonType = json['season_type'] != null
-        ? new SeasonType.fromJson(json['season_type'])
+        ? SeasonType.fromJson(json['season_type'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['user_id'] = this.userId;
     data['league_title'] = this.leagueTitle;
@@ -657,7 +659,7 @@ class MatchType {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
     data['throws'] = this.throws;
@@ -687,7 +689,7 @@ class SeasonType {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['id'] = this.id;
     data['name'] = this.name;
     data['description'] = this.description;
