@@ -147,6 +147,35 @@ class Global {
     );
   }
 
+
+  static popUpAlert({required BuildContext context,required CallBackInterface callBackInterface,
+    required acceptButtonText,required cancelButtonText,required  title, var value}){
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(title.toString()),
+            actions: <Widget>[
+              TextButton(
+                //Click on yes to perform operation according to use
+                onPressed: () {
+                 callBackInterface.widgetCallBack(acceptButtonText.toString(), value, context);
+                },
+                child: Text(acceptButtonText.toString()),
+              ),
+              TextButton(
+                //Click on no to reset/go to previous state
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(cancelButtonText.toString()),
+              ),
+            ],
+          );
+        });
+  }
+
   static showSnackBar(BuildContext context,String message){
     final snackBar = SnackBar(
         content: CommonWidget.getInstance().normalText(

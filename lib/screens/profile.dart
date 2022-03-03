@@ -166,7 +166,6 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                       GestureDetector(
                         onTap: (){
                           Get.toNamed('/createLeague');
-
                         },
                         child: SizedBox(
                             width: CommonWidget.getInstance().widthFactor(context) * 0.3,
@@ -178,7 +177,6 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                                     begin: Alignment.topRight,
                                     end: Alignment.bottomCenter,
                                   )),
-
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,

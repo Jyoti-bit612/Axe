@@ -10,6 +10,7 @@ import 'package:axe/screens/login.dart';
 import 'package:axe/screens/new_invitation.dart';
 import 'package:axe/screens/notification.dart';
 import 'package:axe/screens/other_user_profile.dart';
+import 'package:axe/screens/playerlist.dart';
 import 'package:axe/screens/practice_match.dart';
 import 'package:axe/screens/prevoius_league_detail.dart';
 import 'package:axe/screens/score_dasboard.dart';
@@ -36,7 +37,8 @@ class App extends StatelessWidget {
         '/signup':(context)=>SignUp(),
         '/home':(context)=>DashBoard(0),
         '/currentLeague':(context)=>DashBoard(1),
-        '/playerlist':(context)=>DashBoard(2),
+        // '/playerlist':(context)=>DashBoard(2),
+        '/playerlist':(context)=>PlayerList(),
         '/profile':(context)=>DashBoard(3),
         '/createMatch':(context)=>CreateMatch(),
         '/createLeague':(context)=>CreateLeague(),

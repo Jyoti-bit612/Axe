@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:axe/controller/league_controller.dart';
 import 'package:axe/controller/player_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
+import 'package:axe/util/common_arguments.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/constants.dart';
@@ -33,7 +34,6 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
-
             children: [
               IconButton(
                   padding: EdgeInsets.zero,
@@ -243,7 +243,7 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
 
                                   GestureDetector(
                                     onTap:(){
-                                      Get.toNamed('/playerlist',arguments: 1);
+                                      Get.toNamed('/playerlist',arguments: [{CommonArguments.argPlayerType: 1}]);
                                     },
                                     child: Container(
                                       width:  CommonWidget.getInstance().widthFactor(context) * 0.24,
@@ -307,7 +307,7 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
 
                                   GestureDetector(
                                     onTap:(){
-                                      Get.toNamed('/playerlist',arguments: 2);
+                                      Get.toNamed('/playerlist',arguments: [{CommonArguments.argPlayerType: 2}]);
 
                                     },
                                     child: Container(

@@ -2,6 +2,7 @@ import 'package:axe/controller/current_league_controller.dart';
 import 'package:axe/controller/score_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/screens/create_match.dart';
+import 'package:axe/util/common_arguments.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/constants.dart';
@@ -347,8 +348,8 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                                 GestureDetector(
                                   onTap:(){
                                     // Get.toNamed('/playerlist',arguments: 1);
-                                    Get.toNamed('/playerlist',arguments: [{"playerType": 1,
-                                      "navigationType": "change_player","match_id": controller.currentLeagueDetailPojo.value.matches![index].id}]
+                                    Get.toNamed('/playerlist',arguments: [{CommonArguments.argPlayerType: 1,
+                                      CommonArguments.argNavigationType: "change_player",CommonArguments.argMatchId: controller.currentLeagueDetailPojo.value.matches![index].id}]
                                     );
                                   },
                                   child: Container(
@@ -447,8 +448,8 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                                 GestureDetector(
                                   onTap:(){
                                     // Get.offNamed('/playerlist',arguments: 2);
-                                    Get.toNamed('/playerlist',arguments: [{"playerType": 2,
-                                      "navigationType": "change_player","match_id": controller.currentLeagueDetailPojo.value.matches![index].id}]
+                                    Get.toNamed('/playerlist',arguments: [{CommonArguments.argPlayerType: 2,
+                                      CommonArguments.argNavigationType: "change_player",CommonArguments.argMatchId: controller.currentLeagueDetailPojo.value.matches![index].id}]
                                     );
                                   },
                                   child: Container(
@@ -590,7 +591,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: (){
-                Get.toNamed('/playerlist',arguments: 1);
+                Get.toNamed('/playerlist',arguments: [{CommonArguments.argPlayerType: 1}]);
               },
               child: Row(
                 children: [

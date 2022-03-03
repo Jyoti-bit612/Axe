@@ -103,7 +103,10 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                   height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                 ),
 
-                controller.upcomingLeaguePojo.value.data==null?const CircularProgressIndicator():
+                controller.upcomingLeaguePojo.value.data==null? CommonWidget.getInstance().normalText(
+                    CommonColors.red,"No Upcoming League",0,CommonWidget.getInstance().widthFactor(context)*0.045,
+                    FontStyle.normal,1,FontWeight.w900,fontfamily: false) :
+                // const CircularProgressIndicator():
                 controller.upcomingLeaguePojo.value.data!.isEmpty?
                 CommonWidget.getInstance().normalText(
                     CommonColors.red,"No Upcoming League",0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w900,fontfamily: false)

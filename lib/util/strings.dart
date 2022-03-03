@@ -152,4 +152,10 @@ class Strings{
   static const String change_pass = "Change Password";
   static const String setting = "Settings";
 
+  static const String sendInvite = "Send";
+  static const String cancelInvite = "Cancel";
+  static const String inviteApproval = "Send Invite";
+
+
+
 }
