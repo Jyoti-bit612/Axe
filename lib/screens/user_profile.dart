@@ -40,7 +40,27 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
         break;
 
       case Strings.logout:
-        print('Setting clicked');
+        Get.defaultDialog(
+            title:  "Do yo want to logout?",
+            barrierDismissible: true,
+            middleText: "",
+            actions: [
+              TextButton(
+                //Click on no to reset/go to previous state
+                onPressed: () {
+                  Get.back();
+                },
+                child: const Text('No'),
+              ),
+              TextButton(
+                //Click on yes to perform operation according to use
+                onPressed: () {
+                  Global.logOut();
+                },
+                child: const Text('Yes'),
+              ),
+            ]
+        );
         break;
     }
   }

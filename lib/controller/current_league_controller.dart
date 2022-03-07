@@ -3,6 +3,7 @@ import 'package:axe/api/apiprovider.dart';
 import 'package:axe/pojo/currentleaguedetailpojo.dart';
 import 'package:axe/pojo/currentleaguepojo.dart';
 import 'package:axe/util/constants.dart';
+import 'package:axe/util/global.dart';
 import 'package:get/get.dart';
 
 class CurrentLeagueController extends GetxController {
@@ -13,7 +14,9 @@ class CurrentLeagueController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    getCurrentLeague();
+    if(Global.loginType==Constant.userVenue){
+      getCurrentLeague();
+    }
   }
 
   currentLeagueID(String leagueId) {
@@ -25,7 +28,6 @@ class CurrentLeagueController extends GetxController {
       currentLeaguePojo.value = CurrentLeaguePojo.fromJson(json.decode(value));
     }, onError: (error) {
       currentLeaguePojo.value=CurrentLeaguePojo();
-
       print(error);
     });
   }

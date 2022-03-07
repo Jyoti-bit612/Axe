@@ -5,6 +5,7 @@ import 'package:axe/pojo/prevoius_league_detail_pojo.dart';
 import 'package:axe/pojo/top_player_pojo.dart';
 import 'package:axe/pojo/upcoming_league_detail.dart';
 import 'package:axe/util/constants.dart';
+import 'package:axe/util/global.dart';
 import 'package:get/get.dart';
 
 class UpcomingLeagueController extends GetxController  {
@@ -21,17 +22,17 @@ class UpcomingLeagueController extends GetxController  {
     var jsonBody = {
       "league_id": controller.leagueId.value.toString(),
     };
-
-    await Apiprovider.postApi(Constant.get_UpcomingLeagueDetail, jsonBody).then((value) {
+    String url = Global.loginType==Constant.userPlayer?Constant.playerUpcomingLeagueDetail:Constant.get_UpcomingLeagueDetail;
+    await Apiprovider.postApi(url, jsonBody).then((value) {
       upcomingLeaguePojo.value = UpcomingLeagueDetail.fromJson(json.decode(value));
         print(value);
     }, onError: (error) {
       upcomingLeaguePojo.value=UpcomingLeagueDetail();
       Get.showSnackbar(
         GetSnackBar(
-          duration: Duration(seconds: 1),
+          duration: const Duration(seconds: 1),
           title: "Axe Throwing",
-          message: json.decode(error)["message"],
+          message: json.decode(error)["message"] ?? json.decode(error)["error"],
           isDismissible: true,
         ),
       );

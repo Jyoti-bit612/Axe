@@ -106,19 +106,17 @@ class Home extends StatelessWidget  implements CallBackInterface{
                               height: CommonWidget.getInstance().widthFactor(context) * 0.14,),
 
                               CommonWidget.getInstance().normalText(
-                                  CommonColors.black,controller.upcomingLeaguePojo.value.data![index].leagueTitle!,1,CommonWidget.getInstance().widthFactor(context)*0.024,FontStyle.normal,1,FontWeight.w900,),
+                                  CommonColors.black,controller.upcomingLeaguePojo.value.data![index].leagueTitle!,1,
+                                CommonWidget.getInstance().widthFactor(context)*0.02,FontStyle.normal,1,FontWeight.w900,),
 
                               SizedBox(
                                 height: CommonWidget.getInstance().widthFactor(context) * 0.01,
                               ),
 
                               CommonWidget.getInstance().normalText(
-                                  CommonColors.darkGray,"starting from "+getStartDate(controller.upcomingLeaguePojo.value.data![index].startsFrom!),1,CommonWidget.getInstance().widthFactor(context)*0.023,FontStyle.normal,0,FontWeight.w600,fontfamily: false),
-
-                              SizedBox(
-                                height: CommonWidget.getInstance().widthFactor(context) * 0.01,
-                              ),
-
+                                  CommonColors.darkGray,"starting from "+getStartDate(controller.upcomingLeaguePojo.value.data![index].startsFrom!),1,
+                                  CommonWidget.getInstance().widthFactor(context)*0.023,FontStyle.normal,0,FontWeight.w600,fontfamily: false),
+                              SizedBox(height: CommonWidget.getInstance().widthFactor(context) * 0.01),
                               Container(
                                 decoration: const BoxDecoration(
                                   borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -220,9 +218,7 @@ class Home extends StatelessWidget  implements CallBackInterface{
                                     ],
                                   ),
                                 ),
-
-                                Divider(height:10,thickness:1,color: CommonColors.white,),
-
+                                const Divider(height:10,thickness:1,color: CommonColors.white,),
                                 Padding(
                                   padding: const EdgeInsets.only(left:20.0,right:20),
                                   child: Row(

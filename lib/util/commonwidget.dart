@@ -21,9 +21,9 @@ class CommonWidget {
       String title) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: DateTime(1980), // Refer step 1
-      firstDate: DateTime(1960),
-      lastDate:  DateTime(DateTime.now().year).subtract(const Duration(days: 1)),
+      initialDate: DateTime.now(), // Refer step 1
+      firstDate: DateTime.now(),
+      lastDate:  DateTime(DateTime.now().year+1),
     );
     DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm:ss');
     if (picked != null) {

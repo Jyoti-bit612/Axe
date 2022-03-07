@@ -28,6 +28,12 @@ class SplashState extends State<Splash> {
     firebaseCloudMessaging_Listeners();
     getToken();
     loadPage();
+    getLoginType();
+  }
+
+  getLoginType() async {
+    print(await Global.getStringValuesSF(Constant.LoginType));
+    Global.loginType= await Global.getStringValuesSF(Constant.LoginType);
   }
 
 

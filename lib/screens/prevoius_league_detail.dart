@@ -473,7 +473,6 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
         SizedBox(
           height: CommonWidget.getInstance().heightFactor(context) * 0.03,
         ),
-
       ],
     );
   }

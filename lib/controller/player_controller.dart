@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:axe/api/apiprovider.dart';
 import 'package:axe/pojo/playerlist_pojo.dart';
 import 'package:axe/util/constants.dart';
+import 'package:axe/util/global.dart';
 import 'package:get/get.dart';
 
 class PlayerController extends GetxController {
@@ -15,7 +16,9 @@ class PlayerController extends GetxController {
  @override
   void onInit() {
     super.onInit();
-    getPlayerList();
+    if(Global.loginType==Constant.userVenue){
+      getPlayerList();
+    }
   }
 
   updatePlayer1Id(String id) {

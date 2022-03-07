@@ -389,16 +389,11 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                             height:
                             CommonWidget.getInstance().heightFactor(context) *
                                 0.09,
-                            child:controller.matchList.isNotEmpty?
-                            DropDownClass(
-                                CommonColors.darkGray,
-                                "matchDropDown",
-                                controller.matchList.value[0]["match_title"],
-                                controller.matchList.value,
-                                this,
-                                "0",
-                                false,
-                                true)
+                            child:controller.matchTypeList.isNotEmpty?
+                            DropDownClass(CommonColors.darkGray, "matchTypeDropDown", controller.matchTypeList.value[0]["name"],
+                                controller.matchTypeList.value, this, "0", false, true)
+                            // DropDownClass(CommonColors.darkGray, "matchDropDown", controller.matchList.value[0]["match_title"],
+                            //     controller.matchList.value, this, "0", false, true)
                         :Container()
                         )),
 
@@ -530,9 +525,6 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
      if (res.statusCode == 201 || res.statusCode == 200) {
        Get.back();
        Global.showSnackBar(context, response["message"]);
-       Global.addStringToSF( response["user"]["first_name"], Constant.firstname);
-       Global.addStringToSF( response["user"]["last_name"], Constant.lastname);
-
      } else if (res.statusCode == 404) {
        Get.back();
        if (json.decode(respStr)["data"]["email"] != null) {
@@ -563,12 +555,12 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
    switch(title){
      case Strings.create_league:
         if(CommonWidget.getInstance().isValidate(formKey)){
-          if(controller.startDate=="")
+          if(controller.startDate=="") {
             Global.showSnackBar(context, "Please enter in Start Date field");
-          else
-          if(controller.endDate=="")
+          } else
+          if(controller.endDate=="") {
             Global.showSnackBar(context, "Please enter in End Date field");
-          else{
+          } else{
             FocusScopeNode currentFocus = FocusScope.of(context);
             if (!currentFocus.hasPrimaryFocus) {
               currentFocus.unfocus();
@@ -579,7 +571,7 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
 
         break;
 
-     case "matchDropDown":
+     case "matchTypeDropDown":
        var map = json.decode(value);
         matchTypeId = map["id"].toString();
        break;

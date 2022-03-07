@@ -10,14 +10,14 @@ class CurrentLeaguePojo {
     if (json['currentleague'] != null) {
       currentleague = <Currentleague>[];
       json['currentleague'].forEach((v) {
-        currentleague!.add(new Currentleague.fromJson(v));
+        currentleague!.add(Currentleague.fromJson(v));
       });
     }
     message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['success'] = this.success;
     if (this.currentleague != null) {
       data['currentleague'] =

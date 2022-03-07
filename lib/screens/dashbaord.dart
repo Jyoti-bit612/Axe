@@ -30,12 +30,11 @@ class DashBoard extends StatefulWidget {
 class _DashBoardState extends State<DashBoard> {
   late List<Widget> _children;
   var pre_backpress;
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    getLoginType();
     _children = [Home(),CurrentLeague(),PlayerList(), Global.loginType=="2"?UserProfile():Profile()];  // 2 for user and 1 for venue
      pre_backpress=DateTime.now();
   }
@@ -44,11 +43,11 @@ class _DashBoardState extends State<DashBoard> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async{
-        final timegap = DateTime.now().difference(pre_backpress);
-        final cantExit = timegap >= const Duration(seconds: 4);
+        final timeGap = DateTime.now().difference(pre_backpress);
+        final cantExit = timeGap >= const Duration(seconds: 4);
         pre_backpress = DateTime.now();
         if(cantExit){
-          final snack = SnackBar(content:  Text('Press Back button again to Exit'),duration: Duration(seconds: 2),);
+          const snack = SnackBar(content:  Text('Press Back button again to Exit'),duration:  Duration(seconds: 2),);
           ScaffoldMessenger.of(context).showSnackBar(snack);
           return false; // false will do nothing when back press
         }else{
@@ -100,7 +99,6 @@ class _DashBoardState extends State<DashBoard> {
         controller.getUpcomingLeague();
         controller.getprevoiusLeague();
         controller.getTopPlayer();
-
         break;
 
       case 1:
@@ -109,15 +107,14 @@ class _DashBoardState extends State<DashBoard> {
 
       case 2:
         playerController.getPlayerList();
-
         break;
 
       case 3:
+        profileController.getprofile();
         profileController.firstNameCheck.value=true;
         profileController.lastNameCheck.value=true;
         profileController.phoneCheck.value=true;
         break;
-
     }
     setState(() {
       widget._currentIndex = index;
@@ -125,7 +122,7 @@ class _DashBoardState extends State<DashBoard> {
   }
 
    getLoginType() async {
-     Global.loginType=await Global.getStringValuesSF(Constant.LoginType);
+    print(await Global.getStringValuesSF(Constant.LoginType));
+     Global.loginType= await Global.getStringValuesSF(Constant.LoginType);
   }
-
 }

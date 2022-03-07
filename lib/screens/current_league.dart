@@ -113,7 +113,7 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                     : GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount:controller.upcomingLeaguePojo.value==null?0: controller.upcomingLeaguePojo.value.data!.length,
+                    itemCount:controller.upcomingLeaguePojo.value.data==null?0: controller.upcomingLeaguePojo.value.data!.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
                         crossAxisSpacing: CommonWidget.getInstance().widthFactor(context) * 0.01,
@@ -124,7 +124,6 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                         onTap: () {
                           Get.toNamed('/upcomingLeagueDetail');
                         },
-
                         child: Card(
                           shadowColor: CommonColors.grayColor,
                           elevation: 4,
@@ -145,7 +144,8 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                                 height: CommonWidget.getInstance().widthFactor(context) * 0.14,),
 
                               CommonWidget.getInstance().normalText(
-                                CommonColors.black,controller.upcomingLeaguePojo.value.data![index].leagueTitle!,1,CommonWidget.getInstance().widthFactor(context)*0.024,FontStyle.normal,1,FontWeight.w900,),
+                                CommonColors.black,controller.upcomingLeaguePojo.value.data![index].leagueTitle!,1,
+                                CommonWidget.getInstance().widthFactor(context)*0.02,FontStyle.normal,1,FontWeight.w900,),
 
                               SizedBox(
                                 height: CommonWidget.getInstance().widthFactor(context) * 0.01,

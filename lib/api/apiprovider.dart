@@ -30,7 +30,9 @@ class Apiprovider {
 
     if (response.statusCode == 201 || response.statusCode == 200) {
       return response.body;
-    } else {
+    }else if (response.statusCode == 404) {
+      return Future.error("{\"error\":\"Something went wrong.\"}");
+    }else {
       return Future.error(response.body);
     }
   }

@@ -13,7 +13,7 @@ import 'package:http/http.dart' as http;
 
 class Global {
 
-  static var loginType="1";  // from backend--> 1 for venue and 2 for user
+  static var loginType;  // from backend--> 1 for venue and 2 for user
 
   static final GlobalKey<NavigatorState> navigatorKey = new GlobalKey<NavigatorState>();
 
@@ -227,6 +227,7 @@ class Global {
 
   static logOut() async {
     var token=await Global.getStringValuesSF(Constant.AccessToken);
+    print(token);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var url = Constant.baseUrl + Constant.logout;
 

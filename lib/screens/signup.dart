@@ -478,8 +478,9 @@ class SignUp extends StatelessWidget implements CallBackInterface{
               currentFocus.unfocus();
             }
             signUp(context);
-          }else
+          }else {
             Global.showSnackBar(context,"Password does not match");
+          }
         }
 
         break;
@@ -488,7 +489,8 @@ class SignUp extends StatelessWidget implements CallBackInterface{
         var map = json.decode(value);
         var type = map["name"];
         controller.userRole( map["name"]);
-        type=="Venue"?roleId=="1":roleId=="2";
+        // type=="Venue"?roleId="1":roleId="2";
+        roleId = type=="Venue"?"1":"2";
 
         break;
 

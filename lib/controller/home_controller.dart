@@ -4,6 +4,7 @@ import 'package:axe/pojo/prevoius_league_pojo.dart';
 import 'package:axe/pojo/top_player_pojo.dart';
 import 'package:axe/pojo/upcoming_league_pojo.dart';
 import 'package:axe/util/constants.dart';
+import 'package:axe/util/global.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
@@ -26,21 +27,25 @@ class HomeController extends GetxController {
   }
 
   Future<void> getUpcomingLeague() async {
-    await Apiprovider.getApi(Constant.get_upcomingLeague).then((value) {
+    String url = Global.loginType==Constant.userPlayer?Constant.playerUpcomingLeague:Constant.get_upcomingLeague;
+    await Apiprovider.getApi(url).then((value) {
       upcomingLeaguePojo.value = UpcomingLeaguePojo.fromJson(json.decode(value));
     }, onError: (error) {
       upcomingLeaguePojo.value=UpcomingLeaguePojo();
       print(error);
+      print(url);
     });
   }
 
   Future<void> getprevoiusLeague() async {
-    await Apiprovider.getApi(Constant.get_prevoiusLeague).then((value) {
+    String url = Global.loginType==Constant.userPlayer?Constant.playerPrevoiusLeague:Constant.get_prevoiusLeague;
+    await Apiprovider.getApi(url).then((value) {
       prevoiusLeaguePojo.value =
           PrevoiusLeaguePojo.fromJson(json.decode(value));
     }, onError: (error) {
       prevoiusLeaguePojo.value=PrevoiusLeaguePojo();
       print(error);
+      print(url);
     });
   }
 
@@ -53,6 +58,7 @@ class HomeController extends GetxController {
     }, onError: (error) {
       topPlayer.value=TopPlayer();
       print(error);
+      print(Constant.get_topPlayer);
     });
   }
 }

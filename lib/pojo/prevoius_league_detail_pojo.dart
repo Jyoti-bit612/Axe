@@ -17,7 +17,7 @@ class PrevoiusLeagueDetailPojo {
       });
     }
     leagueDetails = json['leagueDetails'] != null
-        ? new LeagueDetails.fromJson(json['leagueDetails'])
+        ? LeagueDetails.fromJson(json['leagueDetails'])
         : null;
     if (json['players'] != null) {
       players = <Players>[];
@@ -29,7 +29,7 @@ class PrevoiusLeagueDetailPojo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['success'] = this.success;
     if (this.matches != null) {
       data['matches'] = this.matches!.map((v) => v.toJson()).toList();
