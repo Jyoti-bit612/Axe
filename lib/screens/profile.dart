@@ -49,7 +49,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
             TextButton(
               //Click on yes to perform operation according to use
               onPressed: () {
-                Global.logOut();
+                Global.logOut(endUrl: Constant.logout);
               },
               child: const Text('Yes'),
             ),

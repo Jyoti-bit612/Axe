@@ -230,11 +230,13 @@ class Global {
     }
   }
 
-  static logOut() async {
+  static logOut({required String endUrl}) async {
     var token=await Global.getStringValuesSF(Constant.AccessToken);
     print(token);
+    print(Global.loginType);
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    var url = Constant.baseUrl + Constant.logout;
+    var url = Constant.baseUrl + endUrl;
+    print(url);
 
     var response = await http.post(Uri.parse(url),
         headers: {

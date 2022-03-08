@@ -20,6 +20,8 @@ class Constant{
   static const String change_password_venue="api/venues/change-password";
 
   static const String logout="api/venues/logout";
+  static const String playerLogout="api/player/logout";
+
   static const String create_league="api/venues/create-league";
   static const String update_venue_profile="api/venues/updateProfile";
   static const String get_venue_profile="api/venues/getProfile";

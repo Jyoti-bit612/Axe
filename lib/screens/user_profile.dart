@@ -55,7 +55,7 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
               TextButton(
                 //Click on yes to perform operation according to use
                 onPressed: () {
-                  Global.logOut();
+                  Global.logOut(endUrl: Constant.playerLogout);
                 },
                 child: const Text('Yes'),
               ),
