@@ -524,6 +524,7 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
 
      if (res.statusCode == 201 || res.statusCode == 200) {
        Get.back();
+       Get.back();
        Global.showSnackBar(context, response["message"]);
      } else if (res.statusCode == 404) {
        Get.back();

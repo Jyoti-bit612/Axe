@@ -118,7 +118,7 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
                             DropDownClass(
                                 CommonColors.darkGray,
                                 "leagueDropDown",
-                                controller.leagueList.length>0?
+                                controller.leagueList.isNotEmpty?
                                 controller.leagueList.value[0]["league_title"]:"",
                                 controller.leagueList.value,
                                 this,
@@ -385,34 +385,31 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
     switch(title){
       case Strings.create_match:
         if(CommonWidget.getInstance().isValidate(formKey)){
-          if(controller.startDate=="")
+          if(controller.startDate=="") {
             Global.showSnackBar(context, "Please enter in Schedule Match field");
-          else{
+          } else{
             Global.showLoaderDialog(context);
           var  jsonBody  =  {
             "match_title":titleController.text,
             "league_id":leagueId ,
             "match_type":matchTypeId,
-            "match_schedule":controller.startDate,
-            "players1_ids":playerController.player1d,
-            "players2_ids":playerController.player2id,
+            "match_schedule":controller.startDate.toString(),
+            "players1_ids":playerController.player1d.toString(),
+            "players2_ids":playerController.player2id.toString(),
             "description":descriptionController.text,
-          };
+          };print(jsonBody);
           FocusScopeNode currentFocus = FocusScope.of(context);
           if (!currentFocus.hasPrimaryFocus) {
             currentFocus.unfocus();
           }
           Global.postData(context,Constant.create_match,"createMatchApi",jsonBody,this);
-
         }}
-
         break;
 
       case "createMatchApi":
         Get.back();
         Global.showSnackBar(context, jsonDecode(value)["message"]);
         break;
-
 
       case "StartDate":
         controller.startDate(value);
@@ -428,6 +425,5 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
         matchTypeId = map["id"].toString();
         break;
     }
-
   }
 }

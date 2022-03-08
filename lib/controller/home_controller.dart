@@ -14,6 +14,7 @@ class HomeController extends GetxController {
   Rx<TopPlayer> topPlayer = TopPlayer().obs;
   Rx<String> leagueId = "".obs;
 
+
   @override
   void onInit() {
     super.onInit();

@@ -105,9 +105,9 @@ class Home extends StatelessWidget  implements CallBackInterface{
                                 width:CommonWidget.getInstance().widthFactor(context) * 0.14,
                               height: CommonWidget.getInstance().widthFactor(context) * 0.14,),
 
-                              CommonWidget.getInstance().normalText(
-                                  CommonColors.black,controller.upcomingLeaguePojo.value.data![index].leagueTitle!,1,
-                                CommonWidget.getInstance().widthFactor(context)*0.02,FontStyle.normal,1,FontWeight.w900,),
+                              CommonWidget.getInstance().normalText(CommonColors.black,
+                                Global.subStringFormat(text: controller.upcomingLeaguePojo.value.data![index].leagueTitle!),
+                                1,CommonWidget.getInstance().widthFactor(context)*0.02,FontStyle.normal,1,FontWeight.w900,),
 
                               SizedBox(
                                 height: CommonWidget.getInstance().widthFactor(context) * 0.01,

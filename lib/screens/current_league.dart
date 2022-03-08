@@ -25,7 +25,6 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                 ),

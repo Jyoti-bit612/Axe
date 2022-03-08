@@ -34,6 +34,11 @@ class Global {
         CommonColors.red,text,0,CommonWidget.getInstance().widthFactor(context)*0.045,FontStyle.normal,1,FontWeight.w600,fontfamily: false);
   }
 
+  //Substring
+  static String subStringFormat({required String text, int textLength = 16}){
+    return text.length>textLength?text.substring(0,12)+"..":text;
+  }
+
 
   static Future<String> getData(BuildContext context,String endUrl, String apiName, CallBackInterface callBackInterface) async {
    var token=await Global.getStringValuesSF(Constant.AccessToken);
