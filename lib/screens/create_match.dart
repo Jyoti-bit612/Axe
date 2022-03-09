@@ -136,7 +136,7 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
                           height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                         ),
 
-                        Obx(()=>SizedBox(
+                        /*Obx(()=>*/SizedBox(
                             height:
                             CommonWidget.getInstance().heightFactor(context) *
                                 0.09,
@@ -151,7 +151,7 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
                                 false,
                                 true)
                                 :Container()
-                        )),
+                        )/*)*/,
 
                         CommonWidget.getInstance().normalText(
                             CommonColors.black, Strings.schedule_match,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),

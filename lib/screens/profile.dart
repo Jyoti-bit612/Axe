@@ -1,3 +1,4 @@
+import 'package:axe/controller/league_controller.dart';
 import 'package:axe/controller/profile_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/util/commoncolors.dart';
@@ -63,6 +64,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
   @override
   Widget build(BuildContext context) {
     final ProfileController controller = Get.find();
+    final LeagueController leagueController = Get.find();
     return SafeArea(
       child: Scaffold(
         backgroundColor: CommonColors.white,
@@ -197,7 +199,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                       GestureDetector(
                         onTap: (){
                           Get.toNamed('/createMatch');
-
+                          leagueController.getLeague();
                         },
                         child: SizedBox(
                             width: CommonWidget.getInstance().widthFactor(context) * 0.3,

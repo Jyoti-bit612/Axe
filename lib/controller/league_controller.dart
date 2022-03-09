@@ -17,10 +17,10 @@ class LeagueController extends GetxController {
   RxBool unOfficial=false.obs;
 
   isOffical(bool isvalue) {
-    isOfficial.value=isvalue;
+    isOfficial.value= isvalue;
     unOfficial.value=!isvalue;
-
   }
+
   unOffical(bool isvalue) {
     unOfficial.value=isvalue;
     isOfficial.value=!isvalue;
@@ -49,23 +49,20 @@ class LeagueController extends GetxController {
 
   Future<void> getMatch() async {
     var response=await Apiprovider.getApi(Constant.get_match);
-    matchList.value=jsonDecode(response)["data"];
+    matchList.value = jsonDecode(response)["data"];
     print(response);
-
   }
 
   Future<void> getSeason() async {
     var response=await Apiprovider.getApi(Constant.get_Season);
-    seasonList.value=jsonDecode(response)["data"];
+    seasonList.value = jsonDecode(response)["data"];
     print(response);
-
   }
 
   Future<void> getLeague() async {
     var response=await Apiprovider.getApi(Constant.get_league);
-    leagueList.value=jsonDecode(response)["data"];
+    leagueList.value = jsonDecode(response)["data"];
     print(response);
-
   }
 
   Future<void> getMatchType() async {

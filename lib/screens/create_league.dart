@@ -71,11 +71,11 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
               ),
 
 
-        GestureDetector(
-          onTap: (){
+           GestureDetector(
+            onTap: (){
             Global.showPicker(context,this);
-          },
-          child: Obx(()=>Center(
+            },
+            child: Obx(()=>Center(
             child: Container(
               width:  CommonWidget.getInstance().widthFactor(context) * 0.29,
               height:  CommonWidget.getInstance().widthFactor(context) * 0.29,
@@ -85,14 +85,12 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                   end: Alignment.bottomCenter,
                 ),
                 shape: BoxShape.circle,
-
               ),
               child: Padding(
                 padding: const EdgeInsets.all(1.0),
                 child: controller.pickedImage.value == "" ?CircleAvatar(
                     backgroundColor: CommonColors.textfiled_gray,
                     child: Image.asset("assets/images/camera.png")
-
                 ):CircleAvatar(
                     backgroundColor: CommonColors.textfiled_gray,
                     backgroundImage:

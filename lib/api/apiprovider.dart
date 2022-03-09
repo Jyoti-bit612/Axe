@@ -20,6 +20,8 @@ class Apiprovider {
   }
 
   static Future<dynamic>  postApi(String endUrl,var jsonBody) async{
+    print(jsonBody);
+    print(endUrl);
     var token=await Global.getStringValuesSF(Constant.AccessToken);
     final response = await post(Uri.parse(Constant.baseUrl + endUrl),
         headers: {"Accept": "application/json",
@@ -27,7 +29,7 @@ class Apiprovider {
           "Authorization": 'Bearer '+token,
         },
         body: jsonEncode(jsonBody));
-
+    print(response.body);
     if (response.statusCode == 201 || response.statusCode == 200) {
       return response.body;
     }else if (response.statusCode == 404) {

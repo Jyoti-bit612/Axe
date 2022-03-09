@@ -43,7 +43,7 @@ class SignUp extends StatelessWidget implements CallBackInterface{
         backgroundColor: CommonColors.white,
         resizeToAvoidBottomInset: true,
         body:Obx(()=>
-        SingleChildScrollView(
+         SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -64,7 +64,7 @@ class SignUp extends StatelessWidget implements CallBackInterface{
 
                   },
                   child: Center(
-                    child: Container(
+                    child: controller.pickedImage.value == ""?Container(
                       width:  CommonWidget.getInstance().widthFactor(context) * 0.25,
                       height:  CommonWidget.getInstance().widthFactor(context) * 0.25,
                       decoration: const BoxDecoration(
@@ -90,6 +90,9 @@ class SignUp extends StatelessWidget implements CallBackInterface{
                               height:  CommonWidget.getInstance().widthFactor(context) * 0.20,
                             )),
                       ),
+                    ):CircleAvatar(
+                      backgroundImage: FileImage(File(controller.pickedImage.value),),
+                      radius: CommonWidget.getInstance().widthFactor(context) * 0.1,
                     ),
                   ),
                 ),

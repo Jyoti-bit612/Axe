@@ -4,6 +4,7 @@ import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/constants.dart';
+import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -68,13 +69,10 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                               Image.network(Constant.imageUrl+currentController.currentLeaguePojo.value.currentleague![index].logoPath!,
                                 width:CommonWidget.getInstance().widthFactor(context) * 0.14,
                                 height: CommonWidget.getInstance().widthFactor(context) * 0.14,),
-
                               title: CommonWidget.getInstance().normalText(
                                   CommonColors.black,currentController.currentLeaguePojo.value.currentleague![index].leagueTitle!,0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w900,fontfamily: false),
-
                               subtitle:  CommonWidget.getInstance().normalText(
                                   CommonColors.darkGray,"Season "+ currentController.currentLeaguePojo.value.currentleague![index].season!,0,CommonWidget.getInstance().widthFactor(context)*0.02,FontStyle.normal,2,FontWeight.w600),
-
                               trailing: Icon(Icons.arrow_forward_ios_outlined,size: CommonWidget.getInstance().heightFactor(context) * 0.02),
                             ),
                           ),
@@ -142,10 +140,9 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                                 width:CommonWidget.getInstance().widthFactor(context) * 0.14,
                                 height: CommonWidget.getInstance().widthFactor(context) * 0.14,),
 
-                              CommonWidget.getInstance().normalText(
-                                CommonColors.black,controller.upcomingLeaguePojo.value.data![index].leagueTitle!,1,
-                                CommonWidget.getInstance().widthFactor(context)*0.02,FontStyle.normal,1,FontWeight.w900,),
-
+                              CommonWidget.getInstance().normalText(CommonColors.black,
+                                Global.subStringFormat(text: controller.upcomingLeaguePojo.value.data![index].leagueTitle!),
+                                1, CommonWidget.getInstance().widthFactor(context)*0.02,FontStyle.normal,1,FontWeight.w900,),
                               SizedBox(
                                 height: CommonWidget.getInstance().widthFactor(context) * 0.01,
                               ),
@@ -174,8 +171,6 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                         ),
                       );
                     }),
-
-
               ],
             ),
           ),
@@ -190,7 +185,6 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
   String getStartDate(var date) {
     var mDate1= DateTime.parse(date);
     return dateFormat.format(mDate1);
-
   }
 
 
