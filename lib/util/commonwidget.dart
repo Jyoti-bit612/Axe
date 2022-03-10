@@ -18,16 +18,39 @@ class CommonWidget {
   }
 
   datePickerDialog(BuildContext context, CallBackInterface callBackInterface,
-      String title) async {
+      String title,{bool timePicker = false}) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(), // Refer step 1
-      firstDate: DateTime.now(),
+      initialDate: timePicker?DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day+1):DateTime.now(),// if timepicker is true means user wants to set time and league/match start time must be for tomorrow
+      firstDate: timePicker?DateTime(DateTime.now().year,DateTime.now().month,DateTime.now().day+1):DateTime.now(),
       lastDate:  DateTime(DateTime.now().year+1),
     );
-    DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm:ss');
+    // DateFormat formatter = DateFormat('yyyy-MM-dd HH:mm:ss');
+    DateFormat formatter = DateFormat('yyyy-MM-dd');
+    print(picked);
     if (picked != null) {
-      callBackInterface.widgetCallBack(title, formatter.format(picked), context);
+      if(timePicker){
+        timePickerDialog(context, callBackInterface, title,formatter.format(picked));
+      }else{
+        callBackInterface.widgetCallBack(title, formatter.format(picked), context);
+      }
+    }else {
+      callBackInterface.widgetCallBack(title, "Any", context);
+    }
+  }
+
+  timePickerDialog(BuildContext context, CallBackInterface callBackInterface, String title, String _picked) async {
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
+    print("time");
+    print(_picked.toString()+" "+picked!.hour.toString()+":"+picked.minute.toString()+":00");
+    // String selectedTime = _picked.toString()+" "+picked.hour.toString()+":"+picked.minute.toString()+":00";
+    String selectedTime = _picked.toString()+" "+picked.hour.toString()+":"+picked.minute.toString()+":00";
+    // TimeOfDayFormat formatter = TimeOfDayFormat('HH:mm:ss');
+    if (picked != null) {
+      callBackInterface.widgetCallBack(title, selectedTime, context);
     } else {
       callBackInterface.widgetCallBack(title, "Any", context);
     }

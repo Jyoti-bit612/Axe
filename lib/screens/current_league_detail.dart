@@ -179,11 +179,13 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                                     child:
                                     controller.currentLeagueDetailPojo.value.currentMatch!.isNotEmpty?
                                     controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore!.isNotEmpty?
+                                    controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore!.length>1?
                                     controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore![1].playerDetail!.picture!=null?
                                     CircleAvatar(
                                       backgroundImage:
                                       NetworkImage(Constant.imageUrl+controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore![1].playerDetail!.picture!),
                                     ):
+                                    imageBox():
                                     imageBox():
                                     imageBox():
                                     imageBox(),
@@ -204,9 +206,12 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
 
                                 CommonWidget.getInstance().normalText(
                                     CommonColors.black,
-                                    controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?"Player1":
-                                    controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore!.isEmpty?"Player1":
+                                    // controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?"Player1":
+                                    controller.currentLeagueDetailPojo.value.currentMatch![0].players1.toString() == "null"?"Player1":
                                     controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore![0].playerDetail!.firstName.toString(),
+                                    // controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?"Player1":
+                                    // controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore!.isEmpty?"Player1":
+                                    // controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore![0].playerDetail!.firstName.toString(),
                                     0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
                                     FontWeight.w600,fontfamily: false),
 
@@ -218,9 +223,13 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
 
                                 CommonWidget.getInstance().normalText(
                                     CommonColors.black,
-                                    controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?"Player2":
-                                    controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore!.isEmpty?"Player2":
+                                    // controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?"Player2":
+                                    controller.currentLeagueDetailPojo.value.currentMatch![0].players2!.toString() == "null"?"Player2":
                                     controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore![1].playerDetail!.firstName.toString(),
+                                    // controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?"Player2":
+                                    // controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore!.isEmpty?"Player2":
+                                    // controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore!.length==1?"Player2":
+                                    // controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore![1].playerDetail!.firstName.toString(),
                                     0,CommonWidget.getInstance().widthFactor(context)*0.029,FontStyle.normal,0,
                                     FontWeight.w600,fontfamily: false),
                               ],

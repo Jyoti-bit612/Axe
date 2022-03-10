@@ -157,5 +157,8 @@ class Strings{
   static const String inviteApproval = "Send Invite";
 
 
+  static const String selectAgain = "Select Again";
+
+
 
 }

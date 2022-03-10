@@ -8,10 +8,11 @@ class Apiprovider {
   static Future<dynamic>  getApi(String endUrl) async{
     var token=await Global.getStringValuesSF(Constant.AccessToken);
     final response = await get(Uri.parse(Constant.baseUrl + endUrl),
-        headers: {"Accept": "application/json",
+        headers: {
+          "Accept": "application/json",
           "Authorization": 'Bearer '+token,
         });
-
+    print(response.statusCode);
     if (response.statusCode == 201 || response.statusCode == 200) {
       return response.body;
     } else {

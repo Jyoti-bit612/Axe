@@ -1,3 +1,4 @@
+import 'package:axe/controller/invitationcontroller.dart';
 import 'package:axe/controller/league_controller.dart';
 import 'package:axe/controller/profile_controller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
@@ -561,11 +562,12 @@ class Profile extends StatelessWidget  implements CallBackInterface{
    @override
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
      final ProfileController controller = Get.find();
+     final InvitationController invitationController = Get.find();
 
      switch(title){
       case Strings.player_request:
         Get.toNamed('/newInvitaton');
-
+        invitationController.getInvitationList();
         break;
 
         case Strings.practice_match:

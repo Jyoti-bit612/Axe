@@ -51,6 +51,8 @@ class Constant{
   static const String forgotPassword = "api/forgetpassword";
   static const String inviteByVenue = "api/venues/sendinvitation";
 
+  static const String playerInviteList = "api/player/getplayerinvitation";
+
   //key for sharedPrefrence
   static const String LoginType="login_type";
   static const String AccessToken="acccess_token"; // api authorizationtoken

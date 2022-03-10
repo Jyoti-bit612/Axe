@@ -291,7 +291,7 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                         ),
                         Obx(()=> GestureDetector(
                           onTap: (){
-                            CommonWidget.getInstance().datePickerDialog(context, this, "StartDate");
+                            CommonWidget.getInstance().datePickerDialog(context, this, "StartDate",timePicker: true);
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -325,7 +325,7 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                         ),
                         Obx(()=>GestureDetector(
                           onTap: (){
-                            CommonWidget.getInstance().datePickerDialog(context, this, "EndDate");
+                            CommonWidget.getInstance().datePickerDialog(context, this, "EndDate",timePicker: true);
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -511,10 +511,12 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
    request.fields['starts_from'] = controller.startDate.value;
    request.fields['end_date'] =controller.endDate.value ;
    request.fields['season'] =seasonId;
-   request.fields['match_type'] =matchTypeId ;
+   request.fields['match_type'] =matchTypeId;
    request.fields['description'] = descriptionController.text;
    request.fields['official'] = controller.isOfficial.value==true?"1":"0";
    request.fields['description'] = descriptionController.text;
+
+   print(request.fields);
 
    await request.send().then((res) async {
      final respStr = await res.stream.bytesToString();

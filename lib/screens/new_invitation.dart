@@ -1,3 +1,4 @@
+import 'package:axe/controller/invitationcontroller.dart';
 import 'package:axe/interface/CallBackInterface.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
@@ -110,11 +111,12 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
   void widgetCallBack(String title, String value, BuildContext context) {
   }
 
-  upperView(int type,String text) {
+  upperView(int type,String text) {//type 1 is for new invitations
+    final InvitationController invitationController = Get.find();
     return ListView.builder(
           physics: const ClampingScrollPhysics(),
           shrinkWrap: true,
-          itemCount:  3,
+          itemCount:  invitationController.playerInvitationPojo.value.invitationData==null?0:invitationController.playerInvitationPojo.value.invitationData!.length,
           itemBuilder: (context, index) {
             return Card(
               elevation: 4,
