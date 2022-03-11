@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:axe/controller/invitationcontroller.dart';
-import 'package:axe/interface/CallBackInterface.dart';
+import 'package:axe/interface/callbackinterface.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
+import 'package:axe/util/constants.dart';
+import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -27,7 +31,7 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
+        body: Obx(()=>SingleChildScrollView(
           child: Padding(
             padding:  EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.02),
             child: Column(
@@ -103,28 +107,24 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
               ],
             ),
           ),
-        ),
+        )),
       ),
-    );  }
-
-  @override
-  void widgetCallBack(String title, String value, BuildContext context) {
+    );
   }
 
   upperView(int type,String text) {//type 1 is for new invitations
     final InvitationController invitationController = Get.find();
-    return ListView.builder(
+    return invitationController.playerInvitationPojo.value.invitationData==null?const Center(child: CircularProgressIndicator()):ListView.builder(
           physics: const ClampingScrollPhysics(),
           shrinkWrap: true,
-          itemCount:  invitationController.playerInvitationPojo.value.invitationData==null?0:invitationController.playerInvitationPojo.value.invitationData!.length,
+          itemCount:  invitationController.playerInvitationPojo.value.invitationData!.length,
           itemBuilder: (context, index) {
             return Card(
               elevation: 4,
               child: Padding(
-                padding:EdgeInsets.all( CommonWidget.getInstance().widthFactor(context) * 0.04),
+                padding:EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.04),
                 child: Row(
                   children: [
-
                     Container(
                       width:  CommonWidget.getInstance().widthFactor(context) * 0.15,
                       height:  CommonWidget.getInstance().widthFactor(context) * 0.15,
@@ -155,13 +155,18 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CommonWidget.getInstance().normalText(
-                                CommonColors.black,"David",0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600,fontfamily: false),
+                            CommonWidget.getInstance().normalText(CommonColors.black,
+                                invitationController.playerInvitationPojo.value.invitationData![index].leagueDetails!.leagueTitle!.toUpperCase(),
+                                0,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w800,fontfamily: true),
+                            CommonWidget.getInstance().normalText(CommonColors.black.withOpacity(0.8),
+                                "Match: "+invitationController.playerInvitationPojo.value.invitationData![index].matchTitle!.toUpperCase(),
+                                0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w600,fontfamily: false),
                             SizedBox(
                               height: CommonWidget.getInstance().widthFactor(context) * 0.01,
                             ),
-                            CommonWidget.getInstance().normalText(
-                                CommonColors.darkGray,"Location: Southfield",0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
+                            CommonWidget.getInstance().normalText(CommonColors.darkGray,
+                                "Location: "+ invitationController.playerInvitationPojo.value.invitationData![index].leagueDetails!.city!,
+                                0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
                             SizedBox(
                               height: CommonWidget.getInstance().widthFactor(context) * 0.01,
                             ),
@@ -193,7 +198,11 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
                               padding: EdgeInsets.all(CommonWidget.getInstance().widthFactor(context)*0.02),
                             ),
                             child: const Icon(Icons.check,color:CommonColors.green),
-                            onPressed: () {},
+                            onPressed: () {
+                              Global.popUpAlert(context: context, callBackInterface: this, acceptButtonText: Strings.accept,
+                                  cancelButtonText: Strings.cancel, title: Strings.acceptInvitation,
+                                  value: invitationController.playerInvitationPojo.value.invitationData![index].id.toString());
+                            },
                           ),
                         ],
                       ),
@@ -204,5 +213,27 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
             );
           });
   }
+
+  @override
+  void widgetCallBack(String title, String value, BuildContext context) {
+    switch(title){
+      case Strings.accept:
+      Navigator.pop(context);
+      Global.showLoaderDialog(context);
+        Map jsonBody = {
+          "match_id": value
+        };
+        Global.postData(context,Constant.playerAcceptInvite,Constant.playerAcceptInvite,jsonBody,this);
+        break;
+      case Constant.playerAcceptInvite:
+        Get.back();
+        var data = jsonDecode(value);
+        print(data["message"]);
+        Global.showSnackBar(context, data["message"]);
+        break;
+    }
+
+  }
+
 
 }

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:axe/controller/player_controller.dart';
-import 'package:axe/interface/CallBackInterface.dart';
+import 'package:axe/interface/callbackinterface.dart';
 import 'package:axe/util/common_arguments.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
@@ -310,7 +310,7 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                               onPrimary: Colors.transparent,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(6),
-                                  side: BorderSide(color: CommonColors.black)
+                                  side: const BorderSide(color: CommonColors.black)
 
                               )),
 

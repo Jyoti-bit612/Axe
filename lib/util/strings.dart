@@ -158,6 +158,9 @@ class Strings{
 
 
   static const String selectAgain = "Select Again";
+  static const String accept = "Accept";
+  static const String reject = "Reject";
+  static const String acceptInvitation = "Are you sure you want to accept the invitation ?";
 
 
 

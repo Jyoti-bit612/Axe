@@ -19,7 +19,7 @@ class InvitationController extends GetxController {
 
 
   Future<void> getInvitationList() async {
-    String url = Global.loginType==Constant.userPlayer?Constant.playerInviteList:Constant.playerInviteList;
+    String url = Global.loginType==Constant.userPlayer?Constant.playerNewInviteList:Constant.playerNewInviteList;
     await Apiprovider.getApi(url).then((value) {
       playerInvitationPojo.value = PlayerInvitationPojo.fromJson(json.decode(value));
     }, onError: (error) {

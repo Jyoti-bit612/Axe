@@ -1,6 +1,6 @@
 import 'package:axe/controller/current_league_controller.dart';
 import 'package:axe/controller/home_controller.dart';
-import 'package:axe/interface/CallBackInterface.dart';
+import 'package:axe/interface/callbackinterface.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/constants.dart';

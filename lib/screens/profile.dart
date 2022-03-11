@@ -1,7 +1,7 @@
 import 'package:axe/controller/invitationcontroller.dart';
 import 'package:axe/controller/league_controller.dart';
 import 'package:axe/controller/profile_controller.dart';
-import 'package:axe/interface/CallBackInterface.dart';
+import 'package:axe/interface/callbackinterface.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/constants.dart';

@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:axe/interface/CallBackInterface.dart';
+import 'package:axe/interface/callbackinterface.dart';
 import 'package:axe/screens/change_password.dart';
 import 'package:axe/screens/create_league.dart';
 import 'package:axe/screens/create_match.dart';

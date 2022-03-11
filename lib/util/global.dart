@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
-import 'package:axe/interface/CallBackInterface.dart';
+import 'package:axe/interface/callbackinterface.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/constants.dart';
@@ -75,7 +75,6 @@ class Global {
       },
     );
   }
-
 
   static Future<String> postData(BuildContext context, String endUrl, String apiName, Map jsonBody, CallBackInterface callBackInterface) async {
     print(jsonBody.toString());
@@ -154,27 +153,35 @@ class Global {
 
 
   static popUpAlert({required BuildContext context,required CallBackInterface callBackInterface,
-    required acceptButtonText,required cancelButtonText,required  title, var value}){
+    required acceptButtonText,required cancelButtonText,required  title, var value = "", Color acceptButtonColor =  Colors.blue,
+    Color acceptTextColor =  Colors.white}){
     return showDialog(
         context: context,
         barrierDismissible: false,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text(title.toString()),
+            title: Text(title.toString(),style: TextStyle(fontSize: CommonWidget.getInstance().widthFactor(context)*0.038),),
             actions: <Widget>[
-              TextButton(
-                //Click on yes to perform operation according to use
-                onPressed: () {
-                 callBackInterface.widgetCallBack(acceptButtonText.toString(), value, context);
-                },
-                child: Text(acceptButtonText.toString()),
-              ),
               TextButton(
                 //Click on no to reset/go to previous state
                 onPressed: () {
                   Navigator.pop(context);
                 },
                 child: Text(cancelButtonText.toString()),
+              ),
+              ElevatedButton(
+                style:ElevatedButton.styleFrom(
+                    primary: acceptButtonColor,
+                    onPrimary: Colors.transparent,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        side: BorderSide(color: acceptButtonColor)
+
+                    )),
+                onPressed: () {
+                 callBackInterface.widgetCallBack(acceptButtonText.toString(), value, context);
+                },
+                child: Text(acceptButtonText.toString(),style: TextStyle(color: acceptTextColor),),
               ),
             ],
           );
@@ -184,7 +191,7 @@ class Global {
   static showSnackBar(BuildContext context,String message){
     final snackBar = SnackBar(
         content: CommonWidget.getInstance().normalText(
-            CommonColors.white, message,1,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w200),
+            CommonColors.white, message,1,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w500),
         backgroundColor: CommonColors.primaryColor1);
     return ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
