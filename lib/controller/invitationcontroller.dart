@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 
 class InvitationController extends GetxController {
   Rx<PlayerInvitationPojo> playerInvitationPojo = PlayerInvitationPojo().obs;
+  Rx<PlayerInvitationPojo> playerRejectionPojo = PlayerInvitationPojo().obs;
 
   @override
   void onInit() {
@@ -28,4 +29,16 @@ class InvitationController extends GetxController {
       print(url);
     });
   }
+
+  Future<void> getRejectionList() async {
+    String url = Global.loginType==Constant.userPlayer?Constant.playerRejectInviteList:Constant.playerRejectInviteList;
+    await Apiprovider.getApi(url).then((value) {
+      playerRejectionPojo.value = PlayerInvitationPojo.fromJson(json.decode(value));
+    }, onError: (error) {
+      playerRejectionPojo.value=PlayerInvitationPojo();
+      print(error);
+      print(url);
+    });
+  }
+
 }
