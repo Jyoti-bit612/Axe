@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:axe/controller/home_controller.dart';
 import 'package:axe/controller/pasword_counter.dart';
 import 'package:axe/interface/callbackinterface.dart';
 import 'package:axe/util/commoncolors.dart';
@@ -252,6 +253,7 @@ class Login extends StatelessWidget  implements CallBackInterface{
 
   @override
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
+    final HomeController controller = Get.find();
     switch(title){
       case Strings.login:
         if(CommonWidget.getInstance().isValidate(formKey)){
@@ -279,7 +281,9 @@ class Login extends StatelessWidget  implements CallBackInterface{
         Global.loginType=jsonDecode(value)["user"]["user_type"].toString();
         await Global.addStringToSF(jsonDecode(value)["user"]["user_type"].toString(),Constant.LoginType);  // 1 for vendor 2 for Player from backend
         Get.offAllNamed('/home');
-
+        controller.getUpcomingLeague();
+        controller.getprevoiusLeague();
+        controller.getTopPlayer();
         break;
     }
   }

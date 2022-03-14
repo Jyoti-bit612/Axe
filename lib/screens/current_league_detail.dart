@@ -223,8 +223,8 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
 
                                 CommonWidget.getInstance().normalText(
                                     CommonColors.black,
-                                    // controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?"Player2":
-                                    controller.currentLeagueDetailPojo.value.currentMatch![0].players2!.toString() == "null"?"Player2":
+                                    controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?"Player2":
+                                    controller.currentLeagueDetailPojo.value.currentMatch![0].players2.toString() == "null"?"Player2":
                                     controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore![1].playerDetail!.firstName.toString(),
                                     // controller.currentLeagueDetailPojo.value.currentMatch!.isEmpty?"Player2":
                                     // controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore!.isEmpty?"Player2":

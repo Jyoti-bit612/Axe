@@ -11,6 +11,7 @@ class Strings{
   static const String login = "Login";
   static const String play_practice_match ="Play Practice Match";
   static const String rejected = "Rejected";
+  static const String expired = "Expired";
   static const String join_league = "Join League";
   static const String update_score = "Update Score";
   static const String update_profile = "Update Profile";

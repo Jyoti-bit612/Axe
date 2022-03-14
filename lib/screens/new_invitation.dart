@@ -1,7 +1,7 @@
 import 'dart:convert';
-
 import 'package:axe/controller/invitationcontroller.dart';
 import 'package:axe/interface/callbackinterface.dart';
+import 'package:axe/pojo/player_invitation_pojo.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/constants.dart';
@@ -23,12 +23,13 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final InvitationController invitationController = Get.find();
     return SafeArea(
       child: Scaffold(
         body: Obx(()=>SingleChildScrollView(
@@ -58,18 +59,26 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
                   height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                 ),
 
-                upperView(1,""),
+                upperView(Constant.newInvite,"",playerInvitationPojo: invitationController.playerInvitationPojo),
 
                 SizedBox(
                   height: CommonWidget.getInstance().heightFactor(context) * 0.03,
                 ),
 
-
                 TabBar(
+                  onTap: (index){
+                    if(index==0){
+                      invitationController.getAcceptedList();
+                    }else if(index==1){
+                      invitationController.getRejectionList();
+                    }else{
+                      invitationController.getExpiredList();
+                    }
+                  },
                   labelColor: CommonColors.black,
                   unselectedLabelColor: CommonColors.black,
                   controller: _tabController,
-                  indicatorPadding: EdgeInsets.only(top:43),
+                  indicatorPadding: const EdgeInsets.only(top:43),
                   indicatorWeight: 0.1,
                   indicator:  const BoxDecoration(
                     gradient: LinearGradient(
@@ -81,26 +90,22 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
                   ),
 
                   tabs: const [
-                    Tab(
-                      text:Strings.accepted,),
-
-                    Tab(
-                      text:Strings.rejected ,
-                    ),
+                    Tab(text:Strings.accepted),
+                    Tab(text:Strings.rejected),
+                    Tab(text:Strings.expired),
                   ],
                 ),
-
-                SizedBox(
-                  height: CommonWidget.getInstance().widthFactor(context) * 0.05,
-                ),
-
-               SizedBox(
-                 height: CommonWidget.getInstance().heightFactor(context) * 0.6,
+                SizedBox(height: CommonWidget.getInstance().widthFactor(context) * 0.05,),
+                SizedBox(height: CommonWidget.getInstance().heightFactor(context) * 0.6,
                  child: TabBarView(
                    controller: _tabController,
                    children: <Widget>[
-                     upperView(2,Strings.accepted),
-                     upperView(3,Strings.rejected),
+                     upperView(Constant.acceptedInvite,Strings.accepted,
+                         playerInvitationPojo: invitationController.playerAcceptedPojo),
+                     upperView(Constant.rejectedInvite,Strings.rejected,
+                     playerInvitationPojo: invitationController.playerRejectionPojo),
+                     upperView(Constant.expiredInvite,Strings.expired,
+                         playerInvitationPojo: invitationController.playerExpiredPojo),
                    ],
                  ),
                ),
@@ -112,12 +117,11 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
     );
   }
 
-  upperView(int type,String text) {//type 1 is for new invitations
-    final InvitationController invitationController = Get.find();
-    return invitationController.playerInvitationPojo.value.invitationData==null?const Center(child: CircularProgressIndicator()):ListView.builder(
+  upperView(int type,String text, {required Rx<PlayerInvitationPojo> playerInvitationPojo}) {//type 1 is for new invitations
+    return playerInvitationPojo.value.invitationData==null?const Center(child: CircularProgressIndicator()):ListView.builder(
           physics: const ClampingScrollPhysics(),
           shrinkWrap: true,
-          itemCount:  invitationController.playerInvitationPojo.value.invitationData!.length,
+          itemCount:  playerInvitationPojo.value.invitationData!.length,
           itemBuilder: (context, index) {
             return Card(
               elevation: 4,
@@ -156,16 +160,16 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             CommonWidget.getInstance().normalText(CommonColors.black,
-                                invitationController.playerInvitationPojo.value.invitationData![index].leagueDetails!.leagueTitle!.toUpperCase(),
+                                playerInvitationPojo.value.invitationData![index].leagueDetails!.leagueTitle!.toUpperCase(),
                                 0,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w800,fontfamily: true),
                             CommonWidget.getInstance().normalText(CommonColors.black.withOpacity(0.8),
-                                "Match: "+invitationController.playerInvitationPojo.value.invitationData![index].matchTitle!.toUpperCase(),
+                                "Match: "+playerInvitationPojo.value.invitationData![index].matchTitle!.toUpperCase(),
                                 0,CommonWidget.getInstance().widthFactor(context)*0.028,FontStyle.normal,1,FontWeight.w600,fontfamily: false),
                             SizedBox(
                               height: CommonWidget.getInstance().widthFactor(context) * 0.01,
                             ),
                             CommonWidget.getInstance().normalText(CommonColors.darkGray,
-                                "Location: "+ invitationController.playerInvitationPojo.value.invitationData![index].leagueDetails!.city!,
+                                "Location: "+ playerInvitationPojo.value.invitationData![index].leagueDetails!.city!,
                                 0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
                             SizedBox(
                               height: CommonWidget.getInstance().widthFactor(context) * 0.01,
@@ -177,32 +181,38 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
                     ),
 
                     Visibility(
-                      visible: type==1?true:false,
+                      // visible: type==Constant.newInvite?true:false,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              side: const BorderSide(color: CommonColors.imageRed,),
-                              shape: const CircleBorder(),
-                              padding: EdgeInsets.all(CommonWidget.getInstance().widthFactor(context)*0.02),
+                          Visibility(
+                            visible: type==Constant.newInvite||type==Constant.rejectedInvite,
+                            child: OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                side: const BorderSide(color: CommonColors.imageRed,),
+                                shape: const CircleBorder(),
+                                padding: EdgeInsets.all(CommonWidget.getInstance().widthFactor(context)*0.02),
+                              ),
+                              child: const Icon(Icons.clear_outlined,color:CommonColors.imageRed),
+                              onPressed: () {},
                             ),
-                            child: const Icon(Icons.clear_outlined,color:CommonColors.imageRed),
-                            onPressed: () {},
                           ),
 
-                          OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              side: const BorderSide(color: CommonColors.green,),
-                              shape: const CircleBorder(),
-                              padding: EdgeInsets.all(CommonWidget.getInstance().widthFactor(context)*0.02),
+                          Visibility(
+                            visible: type==Constant.newInvite||type==Constant.acceptedInvite,
+                            child: OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                side: const BorderSide(color: CommonColors.green,),
+                                shape: const CircleBorder(),
+                                padding: EdgeInsets.all(CommonWidget.getInstance().widthFactor(context)*0.02),
+                              ),
+                              child: const Icon(Icons.check,color:CommonColors.green),
+                              onPressed: () {
+                                Global.popUpAlert(context: context, callBackInterface: this, acceptButtonText: Strings.accept,
+                                    cancelButtonText: Strings.cancel, title: Strings.acceptInvitation,
+                                    value: playerInvitationPojo.value.invitationData![index].id.toString());
+                              },
                             ),
-                            child: const Icon(Icons.check,color:CommonColors.green),
-                            onPressed: () {
-                              Global.popUpAlert(context: context, callBackInterface: this, acceptButtonText: Strings.accept,
-                                  cancelButtonText: Strings.cancel, title: Strings.acceptInvitation,
-                                  value: invitationController.playerInvitationPojo.value.invitationData![index].id.toString());
-                            },
                           ),
                         ],
                       ),

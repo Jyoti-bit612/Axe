@@ -4,6 +4,13 @@ class Constant{
   static const userPlayer="2";
   static const userVenue="1";
 
+  //InviteList type
+
+  static const newInvite = 1;
+  static const acceptedInvite = 2;
+  static const rejectedInvite = 3;
+  static const expiredInvite = 4;
+
   static const String baseUrl="http://112.196.38.115:4171/axethrowing/";
   static const String imageUrl="http://112.196.38.115:4171/axethrowing";
   static const google_map_key="";
@@ -49,15 +56,19 @@ class Constant{
   static const String get_current_league="api/venues/getCurrentLeague";
   static const String get_current_league_detail="api/venues/getCurrentLeagueDetail";
   static const String forgotPassword = "api/forgetpassword";
+
   static const String inviteByVenue = "api/venues/sendinvitation";
+  static const String cancelInviteByVenue = "api/venues/cancelinvitation";
 
   static const String playerNewInviteList = "api/player/getplayerinvitation";
   static const String playerRejectInviteList = "api/player/getrejectinvitation";
+  static const String playerAcceptedInviteList = "api/player/getacceptedinvitationlist";
+  static const String playerExpiredInviteList = "api/player/getexpiredinvitation";
   static const String playerAcceptInvite = "api/player/inviteAccept";
 
   //key for sharedPrefrence
   static const String LoginType="login_type";
-  static const String AccessToken="acccess_token"; // api authorizationtoken
+  static const String AccessToken="acccess_token"; // api authorization token
   static const String firstname="firstName";
   static const String lastname="lastName";
 }

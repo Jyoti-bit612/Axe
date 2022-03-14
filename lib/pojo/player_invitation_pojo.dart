@@ -21,7 +21,7 @@ class PlayerInvitationPojo {
 
   factory PlayerInvitationPojo.fromJson(Map<String, dynamic> json) => PlayerInvitationPojo(
     success: json["success"],
-    invitationData: List<InvitationDatum>.from(json["invitationData"].map((x) => InvitationDatum.fromJson(x))),
+    invitationData: json["invitationData"]==null?[]:List<InvitationDatum>.from(json["invitationData"].map((x) => InvitationDatum.fromJson(x))),
     message: json["message"],
   );
 
