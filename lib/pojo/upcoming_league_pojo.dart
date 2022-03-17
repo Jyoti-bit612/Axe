@@ -39,7 +39,7 @@ class Data {
   String? endDate;
   String? season;
   MatchType? matchType;
-  Null? logo;
+  String? logo;
   String? logoPath;
   int? official;
   int? status;

@@ -29,7 +29,7 @@ class Home extends StatelessWidget  implements CallBackInterface{
                 ),
 
                 Visibility(
-                  visible: Global.loginType=="2"?true:false,
+                  visible: Global.loginType=="2",
                   child: CommonWidget.getInstance().flexibleButton(
                     context,
                     Strings.play_practice_match,
@@ -50,10 +50,16 @@ class Home extends StatelessWidget  implements CallBackInterface{
                     CommonWidget.getInstance().normalText(
                         CommonColors.black, Strings.upcoming_league,0,CommonWidget.getInstance().widthFactor(context)*0.052,FontStyle.normal,2,FontWeight.w600),
 
-                    Visibility(
-                      visible: false,
-                      child: CommonWidget.getInstance().normalText(
-                          CommonColors.red, Strings.view_all,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
+                    controller.upcomingLeaguePojo.value.data==null?Container():Visibility(
+                      visible: controller.upcomingLeaguePojo.value.data!.length>6,
+                      child: InkWell(
+                        onTap: (){
+                          Get.toNamed(Strings.screenViewAllLeagues);
+                        },
+                        child: CommonWidget.getInstance().normalText(
+                            CommonColors.red, Strings.view_all+"(${controller.upcomingLeaguePojo.value.data!.length})",
+                            0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
+                      ),
                     ),
                   ],
                 ),
@@ -73,7 +79,8 @@ class Home extends StatelessWidget  implements CallBackInterface{
                 GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount:controller.upcomingLeaguePojo.value.data==null?0: controller.upcomingLeaguePojo.value.data!.length,
+                    // itemCount: controller.upcomingLeaguePojo.value.data==null?0: controller.upcomingLeaguePojo.value.data!.length,
+                    itemCount: controller.upcomingLeaguePojo.value.data!.length>6?6:controller.upcomingLeaguePojo.value.data!.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
                         crossAxisSpacing: CommonWidget.getInstance().widthFactor(context) * 0.01,

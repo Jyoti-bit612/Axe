@@ -1,44 +1,36 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:axe/controller/invitationcontroller.dart';
+import 'package:axe/controller/profile_controller.dart';
 import 'package:axe/interface/callbackinterface.dart';
-import 'package:axe/screens/change_password.dart';
-import 'package:axe/screens/create_league.dart';
-import 'package:axe/screens/create_match.dart';
-import 'package:axe/screens/edit_score.dart';
-import 'package:axe/screens/login.dart';
-import 'package:axe/screens/new_invitation.dart';
-import 'package:axe/screens/notification.dart';
-import 'package:axe/screens/playerlist.dart';
-import 'package:axe/screens/practice_match.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/constants.dart';
-import 'package:axe/util/dropdownclass.dart';
 import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UserProfile extends StatelessWidget  implements CallBackInterface{
   UserProfile({Key? key}) : super(key: key);
 
-  var myMenuItems = <String>[
+  final myMenuItems = <String>[
     Strings.privacy_profile,
     Strings.help_center,
     Strings.report,
     Strings.logout,
   ];
+  var pickedImage;
 
   void onSelect(item) {
     switch (item) {
       case Strings.privacy_profile:
-        print('Home clicked');
         break;
       case Strings.help_center:
-        print('Profile clicked');
         break;
       case Strings.report:
-        print('Setting clicked');
         break;
-
       case Strings.logout:
         Get.defaultDialog(
             title:  "Do yo want to logout?",
@@ -46,14 +38,12 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
             middleText: "",
             actions: [
               TextButton(
-                //Click on no to reset/go to previous state
                 onPressed: () {
                   Get.back();
                 },
                 child: const Text('No'),
               ),
               TextButton(
-                //Click on yes to perform operation according to use
                 onPressed: () {
                   Global.logOut(endUrl: Constant.playerLogout);
                 },
@@ -67,6 +57,7 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
 
   @override
   Widget build(BuildContext context) {
+    final ProfileController profileController = Get.find();
     return SafeArea(
       child: Scaffold(
         backgroundColor: CommonColors.white,
@@ -86,7 +77,7 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
               ),
 
               PopupMenuButton<String>(
-                icon: Icon(Icons.more_vert_rounded,color: CommonColors.black),
+                icon: const Icon(Icons.more_vert_rounded,color: CommonColors.black),
                   onSelected: onSelect,
                   itemBuilder: (BuildContext context) {
                     return myMenuItems.map((String choice) {
@@ -99,8 +90,8 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
             ],
           ),
 
-        body: SingleChildScrollView(
-          child: Padding(
+        body: Obx(()=>SingleChildScrollView(
+          child: profileController.playerProfilePojo.value.data==null?const Center(child: CircularProgressIndicator()):Padding(
             padding: EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.02),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -139,15 +130,17 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
                 ),
 
                 Center(
-                  child: CommonWidget.getInstance().normalText(
-                      CommonColors.black, "John D. McHenry",0,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w400),
+                  child: CommonWidget.getInstance().normalText(CommonColors.black,
+                      profileController.firstnameController.text+" "+profileController.lastnameController.text,
+                      0,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w400),
                 ),
                 SizedBox(
                   height: CommonWidget.getInstance().widthFactor(context) * 0.01,
                 ),
                 Center(
-                  child: CommonWidget.getInstance().normalText(
-                      CommonColors.darkGray, "Spending some budget in the axe tournaments. event coordinator Texas",1,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
+                  child: CommonWidget.getInstance().normalText(CommonColors.darkGray,
+                      profileController.aboutController.text==""?"About you":profileController.aboutController.text,
+                      1,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w600),
                 ),
 
                 SizedBox(
@@ -164,8 +157,9 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
                           SizedBox(
                             height: CommonWidget.getInstance().widthFactor(context) * 0.02,
                           ),
-                          CommonWidget.getInstance().normalText(
-                              CommonColors.primaryColor1, "72",1,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                          CommonWidget.getInstance().normalText(CommonColors.primaryColor1,
+                              profileController.playerProfilePojo.value.data!.bigaxeScore!.toString(),
+                              1,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
                         ],
                       ),
 
@@ -183,25 +177,27 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
                           SizedBox(
                             height: CommonWidget.getInstance().widthFactor(context) * 0.02,
                           ),
-                          CommonWidget.getInstance().normalText(
-                              CommonColors.primaryColor1, "18",1,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                          CommonWidget.getInstance().normalText(CommonColors.primaryColor1,
+                              profileController.playerProfilePojo.value.data!.hatchetsScore!.toString(),
+                              1,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
                         ],
                       ),
                       Container(
                         color: CommonColors.grayColor,
                         width: 1,
                         height: CommonWidget.getInstance().widthFactor(context)*0.2,
-
                       ),
                       Column(
                         children: [
-                          CommonWidget.getInstance().normalText(
-                              CommonColors.black, "Teamplay",1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                          CommonWidget.getInstance().normalText(CommonColors.black,
+                              "Teamplay",
+                              1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
                           SizedBox(
                             height: CommonWidget.getInstance().widthFactor(context) * 0.02,
                           ),
-                          CommonWidget.getInstance().normalText(
-                              CommonColors.primaryColor1, "23",1,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                          CommonWidget.getInstance().normalText(CommonColors.primaryColor1,
+                              profileController.playerProfilePojo.value.data!.teamplayScore!.toString(),
+                              1,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
                         ],
                       ),
 
@@ -234,9 +230,10 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
                     children: [
                       GestureDetector(
                         onTap: (){
+                          final InvitationController invitationController = Get.find();
                           Get.toNamed('/newInvitaton');
-
-
+                          invitationController.getInvitationList();
+                          invitationController.getAcceptedList();
                         },
                         child: SizedBox(
                             width: CommonWidget.getInstance().widthFactor(context) * 0.3,
@@ -309,22 +306,10 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
 
                 CommonWidget.getInstance().normalText(
                     CommonColors.black, Strings.personal_info,0,CommonWidget.getInstance().widthFactor(context)*0.06,FontStyle.normal,1,FontWeight.w400),
-                SizedBox(
-                  height: CommonWidget.getInstance().widthFactor(context) * 0.05,
-                ),
+                SizedBox(height: CommonWidget.getInstance().widthFactor(context) * 0.05,),
 
-                editTextWidget("john D. Henry",context,Icons.person,true,"name"),
-
-                Padding(
-                  padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
-                  child: const Divider(
-                    height: 20,
-                    thickness: 1,
-                    color: CommonColors.grayColor,
-                  ),
-                ),
-
-                editTextWidget("xx@gmail.com",context,Icons.email_outlined,false,"email"),
+                editTextWidget(profileController.aboutController.text,context,Icons.info_outline,true,Strings.myStatus,
+                    profileController.aboutFocus,profileController.aboutController),
 
                 Padding(
                   padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
@@ -335,7 +320,8 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
                   ),
                 ),
 
-                editTextWidget("+915263254563",context,Icons.phonelink_ring_outlined,true,"phone"),
+                editTextWidget(profileController.firstnameController.text,context,Icons.person,true,Strings.firstname,
+                    profileController.firstnameFocus,profileController.firstnameController),
 
                 Padding(
                   padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
@@ -346,7 +332,8 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
                   ),
                 ),
 
-                addressPasswordWidget("password",context,Icons.remove_red_eye_outlined,true,"password"),
+                editTextWidget(profileController.lastnameController.text,context,Icons.person,true,Strings.lastname,
+                    profileController.lastnameFocus,profileController.lastnameController),
 
                 Padding(
                   padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
@@ -357,7 +344,42 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
                   ),
                 ),
 
-                addressPasswordWidget("91 Heritage Lawn",context,Icons.location_on,true,"address"),
+                editTextWidget(profileController.emailController.text,context,Icons.email_outlined,false,Strings.email,
+                    profileController.emailFocus,profileController.emailController),
+
+                Padding(
+                  padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
+                  child: const Divider(
+                    height: 20,
+                    thickness: 1,
+                    color: CommonColors.grayColor,
+                  ),
+                ),
+
+                editTextWidget(profileController.contactController.text,context,Icons.phonelink_ring_outlined,true,Strings.phone,
+                    profileController.contactFocus,profileController.contactController),
+
+                Padding(
+                  padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
+                  child: const Divider(
+                    height: 20,
+                    thickness: 1,
+                    color: CommonColors.grayColor,
+                  ),
+                ),
+
+                addressPasswordWidget("password",context,Icons.remove_red_eye_outlined,true,Strings.pass),
+
+                Padding(
+                  padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
+                  child: const Divider(
+                    height: 20,
+                    thickness: 1,
+                    color: CommonColors.grayColor,
+                  ),
+                ),
+
+                addressPasswordWidget(profileController.address.value,context,Icons.location_on,true,Strings.address),
 
                 Padding(
                   padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.05,right:CommonWidget.getInstance().widthFactor(context) * 0.05,),
@@ -375,19 +397,18 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
           ]),
         ),
 
-    )));
+    ))));
   }
 
   addressPasswordWidget(String title,BuildContext context, IconData icon, bool isOn, String type){
     return GestureDetector(
       onTap: (){
         switch(type){
-          case "password":
-
+          case Strings.pass:
             Get.toNamed('/changePassword');
             break;
 
-          case "address":
+          case Strings.address:
 
             break;
         }
@@ -416,9 +437,9 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
 
           Visibility(
               visible: isOn,
-              child: type=="password"?
-              Icon(Icons.loop,color: CommonColors.darkGray,):
-              Icon(Icons.edit,color: CommonColors.darkGray,)),
+              child: type==Strings.pass?
+              const Icon(Icons.loop,color: CommonColors.darkGray,):
+              const Icon(Icons.edit,color: CommonColors.darkGray,)),
 
           SizedBox(
             width:  CommonWidget.getInstance().widthFactor(context) * 0.03,
@@ -431,7 +452,9 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
   }
 
 
-  editTextWidget(String title,BuildContext context, IconData icon, bool isOn, String type){
+  editTextWidget(String title,BuildContext context, IconData icon, bool isOn, String type,FocusNode _focusNode,
+      var _controller){
+    final ProfileController profileController = Get.find();
     return Row(
       //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -446,8 +469,23 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
 
         Expanded(
           child: TextField(
+            controller: _controller,
+            focusNode: _focusNode,
+            keyboardType: type==Strings.phone?TextInputType.phone:TextInputType.name,
+            readOnly: type==Strings.email?true:
+            type==Strings.firstname?profileController.firstNameCheck.value:
+            type==Strings.lastname?profileController.lastNameCheck.value:
+            type==Strings.myStatus?profileController.myStatusCheck.value:
+            profileController.phoneCheck.value,
             decoration: InputDecoration(
-              hintText: title,
+              hintText: type,
+              labelText: type,
+              hintStyle: const TextStyle(
+                  color: CommonColors.grayColor
+              ),
+              labelStyle: const TextStyle(
+                  color: CommonColors.black
+              ),
               filled: true,
               fillColor:CommonColors.white,
               border: InputBorder.none,
@@ -457,23 +495,125 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
 
         Visibility(
             visible: isOn,
-            child: type=="password"?
-           Icon(Icons.loop,color: CommonColors.darkGray,):
-            Icon(Icons.edit,color: CommonColors.darkGray,)),
+            child: IconButton(
+                onPressed: (){
+                  FocusScope.of(context).requestFocus(_focusNode);
 
-        SizedBox(
-          width:  CommonWidget.getInstance().widthFactor(context) * 0.03,
+                  if(type==Strings.firstname){
+                    if(!profileController.firstNameCheck.value) {
+                      updatePlayerProfile(context);
+                    }
+                  }
+
+                  if(type==Strings.lastname){
+                    if(!profileController.lastNameCheck.value) {
+                      updatePlayerProfile(context);
+                    }
+                  }
+
+                  if(type==Strings.phone){
+                    if(!profileController.phoneCheck.value) {
+                      updatePlayerProfile(context);
+                    }
+                  }
+
+                  if(type==Strings.myStatus){
+                    if(!profileController.myStatusCheck.value) {
+                      updatePlayerProfile(context);
+                    }
+                  }
+
+                  type==Strings.firstname?profileController.updateFirstNameCheck():
+                  type==Strings.lastname?profileController.updateLastNameCheck():
+                  type==Strings.myStatus?profileController.updateMyStatusCheck():
+                  profileController.updatePhoneNameCheck();
+                },
+                icon: type==Strings.firstname?profileController.firstNameCheck.value?
+                const Icon(Icons.edit,color: CommonColors.darkGray,):
+                const Icon(Icons.check,color: CommonColors.green):
+                type==Strings.lastname?
+                profileController.lastNameCheck.value?
+                const Icon(Icons.edit,color: CommonColors.darkGray):
+                const Icon(Icons.check,color: CommonColors.green):
+                type==Strings.myStatus?
+                profileController.myStatusCheck.value?
+                const Icon(Icons.edit,color: CommonColors.darkGray):
+                const Icon(Icons.check,color: CommonColors.green):
+                profileController.phoneCheck.value?
+                const Icon(Icons.edit,color: CommonColors.darkGray,):
+                const Icon(Icons.check,color: CommonColors.green)
+
+            )
         ),
-
+        SizedBox(width:  CommonWidget.getInstance().widthFactor(context) * 0.03),
       ],
     );
 
   }
 
+  Future<bool> updatePlayerProfile(BuildContext context) async {
+    final ProfileController controller = Get.find();
+    var token=await Global.getStringValuesSF(Constant.AccessToken);
+
+    Global.showLoaderDialog(context);
+    Map<String, String> headers = {
+      "Accept": "application/json",
+      "Authorization": 'Bearer '+token,
+    };
+
+    var request = http.MultipartRequest(
+        'POST', Uri.parse(Constant.baseUrl + Constant.update_player_profile));
+    request.headers.addAll(headers);
+    if (pickedImage != null) {
+      request.files.add(await http.MultipartFile.fromPath(
+          "user_picture", pickedImage!.path));
+    }
+
+    request.fields['first_name'] = controller.firstnameController.text;
+    request.fields['last_name'] = controller.lastnameController.text;
+    request.fields['phone'] = controller.contactController.text;
+    request.fields['address'] = "91 Heritage Lawn,Mohali";
+    request.fields['user_type'] = Global.loginType.toString();
+    request.fields['about'] = controller.aboutController.text;
+
+    print(request.fields);
+
+    await request.send().then((res) async {
+      final respStr = await res.stream.bytesToString();
+      var response = json.decode(respStr);
+
+      if (res.statusCode == 201 || res.statusCode == 200) {
+        Global.showSnackBar(context, response["message"]);
+        Get.back();
+
+      } else if (res.statusCode == 404) {
+        Get.back();
+      } else {
+        Global.showSnackBar(context, response["message"]??response["error"]);
+        Get.back();
+      }
+    }).catchError((error) {
+      print(error);
+      throw ("some arbitrary error");
+    });
+
+    return false;
+  }
+
   @override
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
+    final ProfileController profileController = Get.find();
     switch(title){
+      case "Camera":
+        pickedImage = (await ImagePicker().pickImage(source: ImageSource.camera)) ;
+        profileController.updateImage(pickedImage!.path);
 
+        break;
+
+      case "Gallery":
+        pickedImage = (await ImagePicker().pickImage(source: ImageSource.gallery)) ;
+        profileController.updateImage(pickedImage!.path);
+        break;
 
     }
   }

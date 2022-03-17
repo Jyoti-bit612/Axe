@@ -51,15 +51,16 @@ class HomeController extends GetxController {
   }
 
   Future<void> getTopPlayer() async {
+    String url = Global.loginType==Constant.userPlayer?Constant.playerSideTopPlayer:Constant.get_topPlayer;
     var jsonBody = {
       "league_id": "",
     };
-    await Apiprovider.postApi(Constant.get_topPlayer,jsonBody).then((value) {
+    await Apiprovider.postApi(url,jsonBody).then((value) {
       topPlayer.value = TopPlayer.fromJson(json.decode(value));
     }, onError: (error) {
       topPlayer.value=TopPlayer();
       print(error);
-      print(Constant.get_topPlayer);
+      print(url);
     });
   }
 }

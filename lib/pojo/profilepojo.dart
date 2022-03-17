@@ -1,11 +1,11 @@
-class Profile {
+class ProfilePojo {
   bool? success;
   Data? data;
   String? message;
 
-  Profile({this.success, this.data, this.message});
+  ProfilePojo({this.success, this.data, this.message});
 
-  Profile.fromJson(Map<String, dynamic> json) {
+  ProfilePojo.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     message = json['message'];

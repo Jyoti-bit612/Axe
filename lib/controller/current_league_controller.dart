@@ -24,7 +24,8 @@ class CurrentLeagueController extends GetxController {
   }
 
   Future<void> getCurrentLeague() async {
-    await Apiprovider.getApi(Constant.get_current_league).then((value) {
+    String url = Global.loginType==Constant.userPlayer?Constant.playerCurrentLeague:Constant.get_current_league;
+    await Apiprovider.getApi(url).then((value) {
       currentLeaguePojo.value = CurrentLeaguePojo.fromJson(json.decode(value));
     }, onError: (error) {
       currentLeaguePojo.value=CurrentLeaguePojo();
@@ -33,15 +34,17 @@ class CurrentLeagueController extends GetxController {
   }
 
   Future<void> getCurrentLeagueDetail() async {
+    String url = Global.loginType==Constant.userPlayer?Constant.playerCurrentLeagueDetail:Constant.get_current_league_detail;
     var jsonBody = {
       "league_id": currentLeagueId.value.toString(),
     };
-    await Apiprovider.postApi(Constant.get_current_league_detail, jsonBody).then((value) {
+    await Apiprovider.postApi(url, jsonBody).then((value) {
       currentLeagueDetailPojo.value = CurrentLeagueDetailPojo.fromJson(json.decode(value));
       print(value);
+      print(url);
     }, onError: (error) {
       currentLeagueDetailPojo.value=CurrentLeagueDetailPojo();
-
+      print(url);
       Get.showSnackbar(
         GetSnackBar(
           duration: Duration(seconds: 1),

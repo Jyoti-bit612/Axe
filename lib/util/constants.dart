@@ -21,6 +21,8 @@ class Constant{
 
   static const String signup="api/register";
   static const String login="api/login";
+  static const String forgotPassword = "api/forgetpassword";
+
   static const String updateScore="api/venues/updateMatchScores";
 
   static const String change_password_user="api/player/change-password";
@@ -30,8 +32,13 @@ class Constant{
   static const String playerLogout="api/player/logout";
 
   static const String create_league="api/venues/create-league";
+
   static const String update_venue_profile="api/venues/updateProfile";
+  static const String update_player_profile="api/player/updateProfile";
+
   static const String get_venue_profile="api/venues/getProfile";
+  static const String getPlayerProfile="api/player/getProfile";
+
   static const String create_match="api/venues/create-match";
   static const String get_league="api/venues/getleague";
   static const String get_match="api/venues/getmatch";
@@ -51,11 +58,16 @@ class Constant{
   static const String playerUpcomingLeagueDetail="api/player/upcomingleaguedetail";
 
   static const String get_topPlayer="api/venues/gettopplayers";
+  static const String playerSideTopPlayer="api/player/gettopplayers";
+
   static const String get_Player="api/venues/getplayers";
   static const String get_score_match="api/venues/getmatchscores";
+
   static const String get_current_league="api/venues/getCurrentLeague";
+  static const String playerCurrentLeague="api/player/getCurrentLeague";
+
   static const String get_current_league_detail="api/venues/getCurrentLeagueDetail";
-  static const String forgotPassword = "api/forgetpassword";
+  static const String playerCurrentLeagueDetail="api/player/getCurrentLeagueDetail";
 
   static const String inviteByVenue = "api/venues/sendinvitation";
   static const String cancelInviteByVenue = "api/venues/cancelinvitation";

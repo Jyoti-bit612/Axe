@@ -393,7 +393,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
 
                                 CommonWidget.getInstance().normalText(
                                     CommonColors.black,
-                                    controller.currentLeagueDetailPojo.value.matches![index].playersWithScore!.isEmpty?"No Player":
+                                    controller.currentLeagueDetailPojo.value.matches![index].players1.toString()=="null"?"No Player":
                                     controller.currentLeagueDetailPojo.value.matches![index].playersWithScore![0].playerDetail!.firstName.toString()
                                     ,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,
                                     FontWeight.w600,fontfamily: false),
@@ -473,7 +473,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                                     ),
                                     child:   Padding(
                                         padding: const EdgeInsets.all(1.0),
-                                        child:controller.currentLeagueDetailPojo.value.matches![index].playersWithScore!.isEmpty?imageBox():
+                                        child:controller.currentLeagueDetailPojo.value.matches![index].players2.toString() == "null"?imageBox():
                                         controller.currentLeagueDetailPojo.value.matches![index].playersWithScore![1].playerDetail!.picture== null ? imageBox()
                                             :CircleAvatar(
                                           backgroundImage:
@@ -487,7 +487,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                                 ),
                                 CommonWidget.getInstance().normalText(
                                     CommonColors.black,
-                                    controller.currentLeagueDetailPojo.value.matches![index].playersWithScore!.isEmpty?"No Player":
+                                    controller.currentLeagueDetailPojo.value.matches![index].players2.toString() == "null"?"No Player":
                                     controller.currentLeagueDetailPojo.value.matches![index].playersWithScore![1].playerDetail!.firstName.toString(),0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,
                                     FontWeight.w600,fontfamily: false),
 

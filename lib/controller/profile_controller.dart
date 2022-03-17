@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'package:axe/api/apiprovider.dart';
+import 'package:axe/pojo/playerprofilepojo.dart';
 import 'package:axe/pojo/prevoius_league_pojo.dart';
-import 'package:axe/pojo/profilePojo.dart';
+import 'package:axe/pojo/profilepojo.dart';
 import 'package:axe/pojo/top_player_pojo.dart';
 import 'package:axe/pojo/upcoming_league_pojo.dart';
 import 'package:axe/util/constants.dart';
@@ -16,6 +17,7 @@ class ProfileController extends GetxController {
   final lastnameController = TextEditingController();
   final passwordController = TextEditingController();
   final contactController = TextEditingController();
+  final aboutController = TextEditingController();
   var address="".obs;
   var picture="".obs;
   final emailFocus = FocusNode();
@@ -24,10 +26,13 @@ class ProfileController extends GetxController {
   final confirmPassFocus = FocusNode();
   final contactFocus = FocusNode();
   final passwordFocus = FocusNode();
-  Rx<Profile> profilePojo = Profile().obs;
+  final aboutFocus = FocusNode();
+  Rx<ProfilePojo> profilePojo = ProfilePojo().obs;
+  Rx<PlayerProfilePojo> playerProfilePojo = PlayerProfilePojo().obs;
   Rx<bool> firstNameCheck=true.obs;
   Rx<bool> lastNameCheck=true.obs;
   Rx<bool> phoneCheck=true.obs;
+  Rx<bool> myStatusCheck=true.obs;
 
   @override
   void onInit() {
@@ -44,27 +49,43 @@ class ProfileController extends GetxController {
   updatePhoneNameCheck() {
     phoneCheck.value=!phoneCheck.value;
   }
+  updateMyStatusCheck() {
+    myStatusCheck.value=!myStatusCheck.value;
+  }
 
   updateImage(var image) {
     pickedImage.value=image;
   }
 
   Future<void> getprofile() async {
+    String url = Global.loginType==Constant.userPlayer?Constant.getPlayerProfile:Constant.get_venue_profile;
     var jsonBody = {
       "user_type":Global.loginType,
     };
-    await Apiprovider.postApi(Constant.get_venue_profile,jsonBody).then((value) {
-      profilePojo.value = Profile.fromJson(json.decode(value));
+    await Apiprovider.postApi(url,jsonBody).then((value) {
+      if(url==Constant.get_venue_profile){
+        profilePojo.value = ProfilePojo.fromJson(json.decode(value));
+        emailController.text=profilePojo.value.data!.email.toString();
+        firstnameController.text=profilePojo.value.data!.firstName.toString();
+        lastnameController.text=profilePojo.value.data!.lastName.toString();
+        contactController.text=profilePojo.value.data!.phone??"";
+        address.value=profilePojo.value.data!.address??"";
+        picture.value=profilePojo.value.data!.picture.toString();
+      }else{
+        playerProfilePojo.value = PlayerProfilePojo.fromJson(json.decode(value));
+        emailController.text = playerProfilePojo.value.data!.email.toString();
+        firstnameController.text = playerProfilePojo.value.data!.firstName.toString();
+        lastnameController.text = playerProfilePojo.value.data!.lastName.toString();
+        contactController.text = playerProfilePojo.value.data!.phone??"";
+        address.value = playerProfilePojo.value.data!.address??"";
+        picture.value = playerProfilePojo.value.data!.picture.toString();
+        aboutController.text = playerProfilePojo.value.data!.about??"";
+      }
 
-      emailController.text=profilePojo.value.data!.email.toString();
-      firstnameController.text=profilePojo.value.data!.firstName.toString();
-      lastnameController.text=profilePojo.value.data!.lastName.toString();
-      contactController.text=profilePojo.value.data!.phone??"";
-      address.value=profilePojo.value.data!.address??"";
-      picture.value=profilePojo.value.data!.picture.toString();
 
     }, onError: (error) {
-      profilePojo.value=Profile();
+      url==Constant.get_venue_profile?profilePojo.value = ProfilePojo()
+          :playerProfilePojo.value = PlayerProfilePojo();
       print(error);
     });
   }

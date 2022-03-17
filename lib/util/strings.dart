@@ -33,6 +33,8 @@ class Strings{
   static const String new_invitation = "New Invitations";
   static const String remember_me = "Remember me";
   static const String email = "Email";
+  static const String phone = "Phone";
+  static const String address = "Address";
   static const String live_match = "Live Match";
   static const String matches = "Matches";
 
@@ -122,6 +124,7 @@ class Strings{
   static const String plz_enter_your_mail = "Please enter your registered email";
   static const String firstname = "FirstName";
   static const String lastname = "Last Name";
+  static const String myStatus = "My Status";
   static const String enter_name_first = "Enter first Name";
   static const String enter_name_last = "Enter Last Name";
   static const String enter_email = "Enter Your Email";
@@ -164,5 +167,10 @@ class Strings{
   static const String acceptInvitation = "Are you sure you want to accept the invitation ?";
 
 
+
+
+  //////////Routing Constants////////////////
+
+  static const String screenViewAllLeagues = "'/viewAllLeagues'";
 
 }

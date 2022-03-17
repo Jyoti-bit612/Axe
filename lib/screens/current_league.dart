@@ -66,7 +66,7 @@ class CurrentLeague extends StatelessWidget implements CallBackInterface {
                               Image.asset("assets/images/champion.png",
                                 width:CommonWidget.getInstance().widthFactor(context) * 0.14,
                                 height: CommonWidget.getInstance().widthFactor(context) * 0.14,):
-                              Image.network(Constant.imageUrl+currentController.currentLeaguePojo.value.currentleague![index].logoPath!,
+                              Image.network(Constant.imageUrl+currentController.currentLeaguePojo.value.currentleague![index].logoPath.toString(),
                                 width:CommonWidget.getInstance().widthFactor(context) * 0.14,
                                 height: CommonWidget.getInstance().widthFactor(context) * 0.14,),
                               title: CommonWidget.getInstance().normalText(

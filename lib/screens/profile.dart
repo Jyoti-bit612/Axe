@@ -419,7 +419,8 @@ class Profile extends StatelessWidget  implements CallBackInterface{
   }
 
 
-  editTextWidget(String hint,FocusNode _focusNode,String title,BuildContext context, IconData icon, bool isOn, String type,var _controller){
+  editTextWidget(String hint,FocusNode _focusNode,String title,BuildContext context, IconData icon, bool isOn, String type,
+      var _controller){
     final ProfileController controller = Get.find();
     return   Obx(()=>Row(
       //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -567,7 +568,6 @@ class Profile extends StatelessWidget  implements CallBackInterface{
      switch(title){
       case Strings.player_request:
         Get.toNamed('/newInvitaton');
-        invitationController.getInvitationList();
         break;
 
         case Strings.practice_match:

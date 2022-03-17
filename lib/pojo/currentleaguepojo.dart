@@ -42,7 +42,7 @@ class Currentleague {
   String? endDate;
   String? season;
   int? matchType;
-  Null? logo;
+  String? logo;
   String? logoPath;
   int? official;
   int? status;

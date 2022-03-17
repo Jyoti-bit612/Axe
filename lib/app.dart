@@ -18,7 +18,9 @@ import 'package:axe/screens/signup.dart';
 import 'package:axe/screens/splash.dart';
 import 'package:axe/screens/upcoming_league_detail.dart';
 import 'package:axe/screens/user_profile.dart';
+import 'package:axe/screens/view_all_leagues/upcoming_league_view_all.dart';
 import 'package:axe/util/global.dart';
+import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -54,6 +56,7 @@ class App extends StatelessWidget {
         '/scoreDashboard':(context)=>ScoreDashboard(),
         '/upcomingLeagueDetail':(context)=>const UpcomingLeagueDetail(),
         '/userProfile':(context)=>UserProfile(),
+        Strings.screenViewAllLeagues:(context)=>UpcomingLeagues(),
       },
       navigatorKey: Global.navigatorKey,
       debugShowCheckedModeBanner: false,
