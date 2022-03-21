@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:axe/controller/score_controller.dart';
 import 'package:http/http.dart' as http;
 import 'package:axe/controller/invitationcontroller.dart';
 import 'package:axe/controller/profile_controller.dart';
@@ -254,8 +255,9 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
                       ),
                       GestureDetector(
                         onTap: (){
+                          final ScoreDashController scoreController = Get.find();
                           Get.toNamed('/editScore');
-
+                          scoreController.getPlayerPersonalScores();
                         },
                         child: SizedBox(
                             width: CommonWidget.getInstance().widthFactor(context) * 0.22,

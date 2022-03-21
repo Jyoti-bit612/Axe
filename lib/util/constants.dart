@@ -77,6 +77,8 @@ class Constant{
   static const String playerAcceptedInviteList = "api/player/getacceptedinvitationlist";
   static const String playerExpiredInviteList = "api/player/getexpiredinvitation";
   static const String playerAcceptInvite = "api/player/inviteAccept";
+  static const String getMatchList = "api/player/getmatchesbyleagueId";
+  static const String getPlayerScore="api/player/getmatchscores";
 
   //key for sharedPrefrence
   static const String LoginType="login_type";

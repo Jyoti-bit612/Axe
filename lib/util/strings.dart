@@ -172,5 +172,6 @@ class Strings{
   //////////Routing Constants////////////////
 
   static const String screenViewAllLeagues = "'/viewAllLeagues'";
+  static const String screenMatchList = "'/matchList'";
 
 }

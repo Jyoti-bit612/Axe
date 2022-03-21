@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:axe/app.dart';
 import 'package:axe/controller/home_controller.dart';
 import 'package:axe/controller/prevoius_league_controller.dart';
@@ -14,8 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class UpcomingLeagues extends StatelessWidget  implements CallBackInterface{
-  UpcomingLeagues({Key? key}) : super(key: key);
+class MatchList extends StatelessWidget  implements CallBackInterface{
+  MatchList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +21,15 @@ class UpcomingLeagues extends StatelessWidget  implements CallBackInterface{
     final UpcomingLeagueController upcomingController = Get.find();
     return SafeArea(
       child: Scaffold(
-          backgroundColor: CommonColors.white,
+        backgroundColor: CommonColors.white,
         appBar: AppBar(
           leading: IconButton(onPressed: (){Get.back();}, icon: const Icon(Icons.arrow_back,color: CommonColors.black,)),
           backgroundColor: CommonColors.white,elevation: 0.0,
-          /*title: CommonWidget.getInstance().normalText(CommonColors.black, Strings.upcoming_league,
-            0,CommonWidget.getInstance().widthFactor(context)*0.052,FontStyle.normal,2,FontWeight.w600),*/),
+          title: CommonWidget.getInstance().normalText(CommonColors.black, Strings.matches,
+            0,CommonWidget.getInstance().widthFactor(context)*0.052,FontStyle.normal,2,FontWeight.w600),),
         body: Obx(()=>SingleChildScrollView(
-          child: Padding(
+          child: upcomingController.matchListPojo.value.data==null?const Center(child: CircularProgressIndicator()):
+          upcomingController.matchListPojo.value.data!.isEmpty?const Center(child: Text("No data")):Padding(
             padding: const EdgeInsets.all(12.0),
             child: Column(
               children: [
@@ -38,7 +37,7 @@ class UpcomingLeagues extends StatelessWidget  implements CallBackInterface{
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CommonWidget.getInstance().normalText(CommonColors.black, Strings.upcoming_league,
+                    CommonWidget.getInstance().normalText(CommonColors.black, upcomingController.matchListPojo.value.data![0].leagueDetails!.leagueTitle!+" League",
                         0,CommonWidget.getInstance().widthFactor(context)*0.052,FontStyle.normal,2,FontWeight.w600),
                   ],
                 ),
@@ -47,18 +46,18 @@ class UpcomingLeagues extends StatelessWidget  implements CallBackInterface{
                   height: CommonWidget.getInstance().heightFactor(context) * 0.02,
                 ),
 
-                controller.upcomingLeaguePojo.value.data==null?CommonWidget.getInstance().normalText(
+                upcomingController.matchListPojo.value.data==null?CommonWidget.getInstance().normalText(
                     CommonColors.red,"No Upcoming League",0,CommonWidget.getInstance().widthFactor(context)*0.045,
                     FontStyle.normal,1,FontWeight.w900,fontfamily: false):
                 // const CircularProgressIndicator():
-                controller.upcomingLeaguePojo.value.data!.isEmpty?
+                upcomingController.matchListPojo.value.data!.isEmpty?
                 CommonWidget.getInstance().normalText(
                     CommonColors.red,"No Upcoming League",0,CommonWidget.getInstance().widthFactor(context)*0.045,
                     FontStyle.normal,1,FontWeight.w900,fontfamily: false):
                 GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: controller.upcomingLeaguePojo.value.data==null?0: controller.upcomingLeaguePojo.value.data!.length,
+                    itemCount: upcomingController.matchListPojo.value.data!.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
                         crossAxisSpacing: CommonWidget.getInstance().widthFactor(context) * 0.01,
@@ -67,9 +66,7 @@ class UpcomingLeagues extends StatelessWidget  implements CallBackInterface{
                       return GestureDetector(
                         behavior: HitTestBehavior.translucent,
                         onTap: () async {
-                          controller.updateLeagueID(controller.upcomingLeaguePojo.value.data![index].id!.toString());
-                          Get.toNamed('/upcomingLeagueDetail');
-                          upcomingController.getUpcomingLeagueDetail();
+
                         },
                         child: Card(
                           shadowColor: CommonColors.grayColor,
@@ -82,16 +79,16 @@ class UpcomingLeagues extends StatelessWidget  implements CallBackInterface{
                                 height: CommonWidget.getInstance().widthFactor(context) * 0.01,
                               ),
 
-                              controller.upcomingLeaguePojo.value.data![index].logoPath==null?
+                              upcomingController.matchListPojo.value.data![index].logoPath==null?
                               Image.asset("assets/images/champion.png",
                                 width:CommonWidget.getInstance().widthFactor(context) * 0.14,
                                 height: CommonWidget.getInstance().widthFactor(context) * 0.14,):
-                              Image.network(Constant.imageUrl+controller.upcomingLeaguePojo.value.data![index].logoPath!,
+                              Image.network(Constant.imageUrl+upcomingController.matchListPojo.value.data![index].logoPath!,
                                 width:CommonWidget.getInstance().widthFactor(context) * 0.14,
                                 height: CommonWidget.getInstance().widthFactor(context) * 0.14,),
 
                               CommonWidget.getInstance().normalText(CommonColors.black,
-                                Global.subStringFormat(text: controller.upcomingLeaguePojo.value.data![index].leagueTitle!),
+                                Global.subStringFormat(text: upcomingController.matchListPojo.value.data![index].matchTitle!),
                                 1,CommonWidget.getInstance().widthFactor(context)*0.02,FontStyle.normal,1,FontWeight.w900,),
 
                               SizedBox(
@@ -99,10 +96,10 @@ class UpcomingLeagues extends StatelessWidget  implements CallBackInterface{
                               ),
 
                               CommonWidget.getInstance().normalText(
-                                  CommonColors.darkGray,"starting from "+getStartDate(controller.upcomingLeaguePojo.value.data![index].startsFrom!),1,
+                                  CommonColors.darkGray,"starting from "+getStartDate(upcomingController.matchListPojo.value.data![index].matchSchedule!),1,
                                   CommonWidget.getInstance().widthFactor(context)*0.023,FontStyle.normal,0,FontWeight.w600,fontfamily: false),
                               SizedBox(height: CommonWidget.getInstance().widthFactor(context) * 0.01),
-                              Container(
+                              /*Container(
                                 decoration: const BoxDecoration(
                                   borderRadius: BorderRadius.all(Radius.circular(5)),
                                   color: CommonColors.primaryColor1,
@@ -111,18 +108,14 @@ class UpcomingLeagues extends StatelessWidget  implements CallBackInterface{
                                 Padding(
                                   padding: const EdgeInsets.only(left:6,right:6,top:2.5,bottom:3),
                                   child: CommonWidget.getInstance().normalText(
-                                      CommonColors.white,getStartDate(controller.upcomingLeaguePojo.value.data![index].endDate!),1,CommonWidget.getInstance().widthFactor(context)*0.015,FontStyle.normal,0,FontWeight.w400),
+                                      CommonColors.white,getStartDate(upcomingController.matchListPojo.value.data![index].endDate!),1,CommonWidget.getInstance().widthFactor(context)*0.015,FontStyle.normal,0,FontWeight.w400),
                                 ),
-                              ),
+                              ),*/
                             ],
                           ),
                         ),
                       );
                     }),
-
-
-
-
               ],
             ),
           ),

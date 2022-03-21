@@ -1,3 +1,4 @@
+import 'package:axe/controller/score_controller.dart';
 import 'package:axe/interface/callbackinterface.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
@@ -22,6 +23,7 @@ class EditScore extends StatelessWidget implements CallBackInterface {
 
   @override
   Widget build(BuildContext context) {
+    final ScoreDashController scoreController = Get.find();
     return SafeArea(
         child: Scaffold(
             body: SingleChildScrollView(
@@ -96,8 +98,9 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                                           CommonWidget.getInstance().normalText(
                                               CommonColors.black, Strings.match_played,1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
 
-                                          CommonWidget.getInstance().normalText(
-                                              CommonColors.primaryColor1, "277",1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true)
+                                          CommonWidget.getInstance().normalText(CommonColors.primaryColor1,
+                                              scoreController.playerPersonalScore.value.extraInfo!.matchPlayed!.toString(),
+                                              1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true)
 
                                         ],
                                       ),

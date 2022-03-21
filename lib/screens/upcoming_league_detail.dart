@@ -88,10 +88,7 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
                   ),
                 ),
 
-                SizedBox(
-                  height: CommonWidget.getInstance().heightFactor(context) *
-                      0.03,
-                ),
+                SizedBox(height: CommonWidget.getInstance().heightFactor(context) * 0.03,),
 
                 CommonWidget.getInstance().normalText(
                     CommonColors.black,
@@ -267,12 +264,14 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
 
   @override
   void widgetCallBack(String title, String value, BuildContext context) {
+    final UpcomingLeagueController upcomingController = Get.find();
     switch (title) {
       case Strings.invite_player:
         Get.toNamed('/playerlist');
-
         break;
-
+      case Strings.join_league:
+        Get.toNamed(Strings.screenMatchList);
+        upcomingController.getMatchList();
   }
   }
 
