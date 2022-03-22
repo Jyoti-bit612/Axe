@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PlayerList extends StatelessWidget implements CallBackInterface {
-  TextEditingController searchController = TextEditingController();
+  final TextEditingController searchController = TextEditingController();
 
   PlayerList({Key? key}) : super(key: key);
 
@@ -81,11 +81,7 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                     ),
                   ),
                 ),
-
-                SizedBox(
-                  height: CommonWidget.getInstance().widthFactor(context) * 0.04,
-                ),
-
+                SizedBox(height: CommonWidget.getInstance().widthFactor(context) * 0.04),
                 Padding(
                   padding:  EdgeInsets.only(left:CommonWidget.getInstance().widthFactor(context) * 0.02,right:CommonWidget.getInstance().widthFactor(context) * 0.02),
                   child: Row(

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:axe/api/apiprovider.dart';
 import 'package:axe/controller/invitationcontroller.dart';
 import 'package:axe/interface/callbackinterface.dart';
 import 'package:axe/pojo/player_invitation_pojo.dart';
@@ -194,7 +195,11 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
                                 padding: EdgeInsets.all(CommonWidget.getInstance().widthFactor(context)*0.02),
                               ),
                               child: const Icon(Icons.clear_outlined,color:CommonColors.imageRed),
-                              onPressed: () {},
+                              onPressed: () {
+                                Global.popUpAlert(context: context, callBackInterface: this, acceptButtonText: Strings.reject,
+                                    cancelButtonText: Strings.cancel, title: Strings.acceptInvitation,
+                                    value: playerInvitationPojo.value.invitationData![index].id.toString());
+                              },
                             ),
                           ),
 
@@ -225,7 +230,7 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
   }
 
   @override
-  void widgetCallBack(String title, String value, BuildContext context) {
+  Future<void> widgetCallBack(String title, String value, BuildContext context) async {
     switch(title){
       case Strings.accept:
       Navigator.pop(context);
@@ -240,6 +245,22 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
         var data = jsonDecode(value);
         print(data["message"]);
         Global.showSnackBar(context, data["message"]);
+        break;
+      case Strings.reject:
+        Navigator.pop(context);
+        Global.showLoaderDialog(context);
+        Map jsonBody = {
+          "match_id": value
+        };
+        await Apiprovider.postApi(Constant.playerRejectInvite, jsonBody).then((value) {
+          Get.back();
+          var data = jsonDecode(value);
+          print(data["message"]);
+          Global.showSnackBar(context, data["message"]);
+        },onError: ((error){
+          print(error);
+        }));
+        // Global.postData(context,Constant.playerAcceptInvite,Constant.playerAcceptInvite,jsonBody,this);
         break;
     }
 

@@ -54,7 +54,6 @@ class SplashState extends State<Splash> {
   onDoneLoading() async {
     if (token == "") {
       Get.offAndToNamed('/login');
-
     } else {
       Get.offAndToNamed('/home');
 

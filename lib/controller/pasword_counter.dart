@@ -5,15 +5,15 @@ class CounterController extends GetxController {
   var isValueNew = true.obs;
   var isValueConfirm = true.obs;
   var pickedImage = "".obs;
-  var userRole="Venue".obs;
+
 
   updateValue() {
     isValue.value=!isValue.value;
   }
 
-  updateRole(var role) {
-    userRole.value=role;
-  }
+  // updateRole(var role) {
+  //   userRole.value=role;
+  // }
 
   updateValueNew() {
     isValueNew.value=!isValueNew.value;

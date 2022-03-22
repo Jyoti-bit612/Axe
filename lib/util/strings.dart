@@ -76,7 +76,7 @@ class Strings{
   static const String choose_player= "Choose Players :";
   static const String player1= "Player 1";
   static const String player2= "Player 2";
-  static const String personal_info= "Personel Info:";
+  static const String personal_info= "Personal Info:";
   static const String choose= "Choose...";
   static const String choose_logo= "Choose Logo";
   static const String select_type_match= "Select type of match";
@@ -171,7 +171,8 @@ class Strings{
 
   //////////Routing Constants////////////////
 
-  static const String screenViewAllLeagues = "'/viewAllLeagues'";
-  static const String screenMatchList = "'/matchList'";
+  static const String screenViewAllLeagues = "/viewAllLeagues";
+  static const String screenMatchList = "/matchList";
+  static const String screenPlayerList = "/playerlist";
 
 }

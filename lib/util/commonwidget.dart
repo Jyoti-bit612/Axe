@@ -229,8 +229,10 @@ class CommonWidget {
       ),
       cursorColor: CommonColors.black,
       onFieldSubmitted: (term) {
-        CommonWidget.getInstance()
-            .fieldFocusChange(context, _focus, _nextFocus);
+        if(_nextFocus!=null){
+          CommonWidget.getInstance()
+              .fieldFocusChange(context, _focus, _nextFocus);
+        }
       },
       decoration: InputDecoration(
         hintText: hint,

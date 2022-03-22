@@ -28,6 +28,9 @@ class SignUp extends StatelessWidget implements CallBackInterface{
   final contactFocus = FocusNode();
   final passwordFocus = FocusNode();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  final RxBool _isSelectUserType = true.obs;
+  var roleId ="".obs;
+  var userRole ="Select user role".obs;
 
    final list = [
      {"name": "Venue"}, // 1 for venue
@@ -181,12 +184,9 @@ class SignUp extends StatelessWidget implements CallBackInterface{
                               CommonWidget.getInstance().heightFactor(context) *
                                   0.09,
                               child: DropDownClass(
-                                CommonColors.darkGray,
-                                  "usertypeDropdown",
-                                  controller.userRole.value,
-                                  list,
-                                  this,
-                                  "0",false, true)),
+                                  roleId.value==""&&!_isSelectUserType.value?CommonColors.red:CommonColors.darkGray, "usertypeDropdown",
+                                  userRole.value, list,
+                                  this, "0",false, true)),
 
 
                           CommonWidget.getInstance().normalText(
@@ -407,7 +407,7 @@ class SignUp extends StatelessWidget implements CallBackInterface{
   }
 
   XFile? pickedImage;
-  var roleId="1";
+
 
    Future<bool> signUp(BuildContext context) async {
 
@@ -426,7 +426,7 @@ class SignUp extends StatelessWidget implements CallBackInterface{
 
      request.fields['first_name'] = firstnameController.text;
      request.fields['last_name'] = lastnameController.text;
-     request.fields['user_type'] = roleId;
+     request.fields['user_type'] = roleId.value;
      request.fields['email'] = emailController.text;
      request.fields['password'] = passwordController.text;
      request.fields['c_password'] = confirmpasswordController.text;
@@ -474,7 +474,9 @@ class SignUp extends StatelessWidget implements CallBackInterface{
      final CounterController controller =Get.find();
      switch(title){
       case Strings.sign_up:
+        print(roleId);
         if(CommonWidget.getInstance().isValidate(formKey)){
+          if(roleId.value !=""){
           if(passwordController.text==confirmpasswordController.text){
             FocusScopeNode currentFocus = FocusScope.of(context);
             if (!currentFocus.hasPrimaryFocus) {
@@ -484,6 +486,10 @@ class SignUp extends StatelessWidget implements CallBackInterface{
           }else {
             Global.showSnackBar(context,"Password does not match");
           }
+          }else {
+            _isSelectUserType.value = false;
+            Global.showSnackBar(context,"Please select user role");
+          }
         }
 
         break;
@@ -491,10 +497,9 @@ class SignUp extends StatelessWidget implements CallBackInterface{
       case "usertypeDropdown":
         var map = json.decode(value);
         var type = map["name"];
-        controller.userRole( map["name"]);
+        userRole.value = map["name"];
         // type=="Venue"?roleId="1":roleId="2";
-        roleId = type=="Venue"?"1":"2";
-
+        roleId.value= type=="Venue"?"1":"2";
         break;
 
       case "Camera":

@@ -243,7 +243,7 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
 
                                   GestureDetector(
                                     onTap:(){
-                                      Get.toNamed('/playerlist',arguments: [{CommonArguments.argPlayerType: 1}]);
+                                      Get.toNamed(Strings.screenPlayerList,arguments: [{CommonArguments.argPlayerType: 1}]);
                                     },
                                     child: Container(
                                       width:  CommonWidget.getInstance().widthFactor(context) * 0.24,
@@ -307,7 +307,7 @@ class CreateMatch extends StatelessWidget implements CallBackInterface{
 
                                   GestureDetector(
                                     onTap:(){
-                                      Get.toNamed('/playerlist',arguments: [{CommonArguments.argPlayerType: 2}]);
+                                      Get.toNamed(Strings.screenPlayerList,arguments: [{CommonArguments.argPlayerType: 2}]);
 
                                     },
                                     child: Container(

@@ -105,7 +105,7 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
                 ),
 
                 Padding(
-                  padding: EdgeInsets.only(left: 8.0, right: 8,),
+                  padding: const EdgeInsets.only(left: 8.0, right: 8,),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -152,13 +152,12 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
                     shrinkWrap: true,
                     itemCount: controller.upcomingLeaguePojo.value.players!.length,
                     separatorBuilder: (BuildContext context, int index) =>
-                        Divider(height: 1),
+                        const Divider(height: 1),
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         behavior: HitTestBehavior.translucent,
                         onTap: () {
                           Get.toNamed('/otherUserProfile');
-
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(top: 8.0),
@@ -267,7 +266,7 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
     final UpcomingLeagueController upcomingController = Get.find();
     switch (title) {
       case Strings.invite_player:
-        Get.toNamed('/playerlist');
+        Get.toNamed(Strings.screenPlayerList);
         break;
       case Strings.join_league:
         Get.toNamed(Strings.screenMatchList);

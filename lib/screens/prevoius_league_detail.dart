@@ -50,7 +50,7 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
               children: [
                 IconButton(
                     padding: EdgeInsets.zero,
-                    constraints: BoxConstraints(),
+                    constraints: const BoxConstraints(),
                     onPressed: (){
                     Get.back();
                 }, icon: const Icon(Icons.arrow_back_rounded)),
@@ -171,7 +171,7 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
                                   ),
                                 ),
 
-                                Divider(height:10,thickness:1,color: CommonColors.white,),
+                                const Divider(height:10,thickness:1,color: CommonColors.white,),
 
                                 Padding(
                                   padding: const EdgeInsets.only(left:20.0,right:20),
@@ -199,7 +199,7 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
                   unselectedLabelColor: CommonColors.black,
                   controller: _tabController,
                   // indicatorSize: TabBarIndicatorSize.tab,
-                  indicatorPadding: EdgeInsets.only(top:43),
+                  indicatorPadding: const EdgeInsets.only(top:43),
                   indicatorWeight: 0.1,
                   //labelPadding: const EdgeInsets.only(left: 0.0, right: 0.0),
                   indicator:  const BoxDecoration(
@@ -231,7 +231,7 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
                       controller: _tabController,
                       children: <Widget>[
                       playerWidget(context),
-                        Matches(),
+                        const Matches(),
                      // matchedWidget(context),
 
                      ])
@@ -357,9 +357,7 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
                     CommonColors.black, Strings.avatar,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600),
               ),
 
-              SizedBox(
-                height: CommonWidget.getInstance().heightFactor(context) * 0.03,
-              ),
+              SizedBox(height: CommonWidget.getInstance().heightFactor(context) * 0.03),
 
               CommonWidget.getInstance().normalText(
                   CommonColors.black, Strings.pt,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
@@ -378,11 +376,7 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
 
         const Padding(
           padding: EdgeInsets.only(left:4.0,right:4),
-          child: Divider(
-            height: 20,
-            thickness: 1,
-            color: CommonColors.grayColor,
-          ),
+          child: Divider(height: 20, thickness: 1, color: CommonColors.grayColor),
         ),
 
         Expanded(
@@ -397,7 +391,7 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
               physics: const ClampingScrollPhysics(),
               // shrinkWrap: true,
               itemCount: controller.prevoiusLeaguePojo.value.players!.length,
-              separatorBuilder: (BuildContext context, int index) => Divider(height: 1),
+              separatorBuilder: (BuildContext context, int index) => const Divider(height: 1),
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(top:8.0,bottom: 8),
@@ -417,11 +411,10 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
                                   end: Alignment.bottomCenter,
                                 ),
                                 shape: BoxShape.circle,
-
                               ),
-                              child:  Padding(
-                                  padding: EdgeInsets.all(1.0),
-                                  child: controller.prevoiusLeaguePojo.value.players![index].picture== null ?const CircleAvatar(
+                              child: Padding(
+                                  padding: const EdgeInsets.all(1.0),
+                                  child: controller.prevoiusLeaguePojo.value.players![index].picture== null?const CircleAvatar(
                                       backgroundColor: CommonColors.textfiled_gray,
                                       backgroundImage: AssetImage("assets/images/dummypic.jpg"),
 
@@ -452,7 +445,6 @@ class _PreviousState extends State<PreviousLeagueDetail>  with SingleTickerProvi
                           ],
                         ),
                       ),
-
                       CommonWidget.getInstance().normalText(
                           CommonColors.primaryColor1,controller.prevoiusLeaguePojo.value.players![index].rankUser.toString(),0,CommonWidget.getInstance().widthFactor(context)*0.026,FontStyle.normal,2,FontWeight.w600),
 

@@ -71,6 +71,7 @@ class ProfileController extends GetxController {
         contactController.text=profilePojo.value.data!.phone??"";
         address.value=profilePojo.value.data!.address??"";
         picture.value=profilePojo.value.data!.picture.toString();
+        aboutController.text = profilePojo.value.data!.about??"";
       }else{
         playerProfilePojo.value = PlayerProfilePojo.fromJson(json.decode(value));
         emailController.text = playerProfilePojo.value.data!.email.toString();

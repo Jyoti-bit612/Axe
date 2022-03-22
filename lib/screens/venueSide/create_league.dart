@@ -39,10 +39,7 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
               children: [
-
-              SizedBox(
-                height: CommonWidget.getInstance().widthFactor(context) * 0.04,
-              ),
+                SizedBox(height: CommonWidget.getInstance().widthFactor(context) * 0.04),
                 Padding(
                   padding: EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.01),
                   child: IconButton(
@@ -52,7 +49,6 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                         Get.back();
                       }, icon: const Icon(Icons.arrow_back_rounded)),
                 ),
-
 
                 Center(child: Image.asset("assets/images/trophy.png")),
 
@@ -126,25 +122,12 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                         CommonWidget.getInstance().normalText(
                             CommonColors.black, Strings.league_title,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
 
-                        SizedBox(
-                          height: CommonWidget.getInstance().heightFactor(context) * 0.02,
-                        ),
+                        SizedBox(height: CommonWidget.getInstance().heightFactor(context) * 0.02),
 
-                        CommonWidget.getInstance().editTextField(
-                            "name",
-                            context,
-                            false,
-                            CommonColors.textfiled_gray,
-                            Strings.league_title,
-                            "",
-                            titleController,
-                            TextInputType.emailAddress,
-                            titleFocus,
-                            adress1Focus,
-                            false,
-                            false,
-                            "email",
-                            0),
+                        CommonWidget.getInstance().editTextField("name", context, false,
+                            CommonColors.textfiled_gray, Strings.league_title, "",
+                            titleController, TextInputType.emailAddress, titleFocus,
+                            adress1Focus, false, false, "email", 0),
 
                         SizedBox(
                           height:
@@ -307,7 +290,7 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                                   CommonWidget.getInstance().normalText(
                                       CommonColors.black, controller.startDate.value,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w200),
 
-                                  Icon(Icons.calendar_today_outlined,color: CommonColors.primaryColor2,)
+                                  const Icon(Icons.calendar_today_outlined,color: CommonColors.primaryColor2,)
                                 ],
                               ),
                             ),
@@ -341,7 +324,7 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                                   CommonWidget.getInstance().normalText(
                                       CommonColors.black, controller.endDate.value,0,CommonWidget.getInstance().widthFactor(context)*0.03,FontStyle.normal,1,FontWeight.w200),
 
-                                  Icon(Icons.calendar_today_outlined,color: CommonColors.primaryColor2,)
+                                  const Icon(Icons.calendar_today_outlined,color: CommonColors.primaryColor2,)
                                 ],
                               ),
                             ),
@@ -367,7 +350,8 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                             DropDownClass(
                                 CommonColors.darkGray,
                                 "seasonDropDown",
-                                controller.seasonList.value[0]["name"],
+                                controller.seasonName.value,
+                                // controller.seasonList.value[0]["name"],
                                 controller.seasonList.value,
                                 this,
                                 "0",
@@ -376,24 +360,24 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
                             :Container()
                             )),
 
-                        CommonWidget.getInstance().normalText(
-                            CommonColors.black, Strings.select_match_type,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
-
-                        SizedBox(
-                          height: CommonWidget.getInstance().heightFactor(context) * 0.02,
-                        ),
-
-                        Obx(()=>SizedBox(
-                            height:
-                            CommonWidget.getInstance().heightFactor(context) *
-                                0.09,
-                            child:controller.matchTypeList.isNotEmpty?
-                            DropDownClass(CommonColors.darkGray, "matchTypeDropDown", controller.matchTypeList.value[0]["name"],
-                                controller.matchTypeList.value, this, "0", false, true)
-                            // DropDownClass(CommonColors.darkGray, "matchDropDown", controller.matchList.value[0]["match_title"],
-                            //     controller.matchList.value, this, "0", false, true)
-                        :Container()
-                        )),
+                        // CommonWidget.getInstance().normalText(
+                        //     CommonColors.black, Strings.select_match_type,0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w600),
+                        //
+                        // SizedBox(
+                        //   height: CommonWidget.getInstance().heightFactor(context) * 0.02,
+                        // ),
+                        //
+                        // Obx(()=>SizedBox(
+                        //     height:
+                        //     CommonWidget.getInstance().heightFactor(context) *
+                        //         0.09,
+                        //     child:controller.matchTypeList.isNotEmpty?
+                        //     DropDownClass(CommonColors.darkGray, "matchTypeDropDown", controller.matchTypeList.value[0]["name"],
+                        //         controller.matchTypeList.value, this, "0", false, true)
+                        //     // DropDownClass(CommonColors.darkGray, "matchDropDown", controller.matchList.value[0]["match_title"],
+                        //     //     controller.matchList.value, this, "0", false, true)
+                        // :Container()
+                        // )),
 
 
                         CommonWidget.getInstance().normalText(
@@ -509,9 +493,9 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
    request.fields['city'] = "Mohali";
    request.fields['state'] = "Punjab";
    request.fields['starts_from'] = controller.startDate.value;
-   request.fields['end_date'] =controller.endDate.value ;
-   request.fields['season'] =seasonId;
-   request.fields['match_type'] =matchTypeId;
+   request.fields['end_date'] = controller.endDate.value ;
+   request.fields['season'] = seasonId;
+   // request.fields['match_type'] =matchTypeId;
    request.fields['description'] = descriptionController.text;
    request.fields['official'] = controller.isOfficial.value==true?"1":"0";
    request.fields['description'] = descriptionController.text;
@@ -535,13 +519,10 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
        }
      } else {
        Get.back();
-       Global.showSnackBar(context, response["error"]);
-       Get.toNamed('/login');
-
+       Global.showSnackBar(context, response["message"]??response["error"]);
      }
    }).catchError((error) {
      Get.back();
-     error.message = jsonDecode(error.toString())["message"];
      throw ("some arbitrary error");
    });
 
@@ -555,11 +536,12 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
 
    switch(title){
      case Strings.create_league:
+       print(seasonId);
         if(CommonWidget.getInstance().isValidate(formKey)){
-          if(controller.startDate=="") {
+          if(controller.startDate.value=="") {
             Global.showSnackBar(context, "Please enter in Start Date field");
           } else
-          if(controller.endDate=="") {
+          if(controller.endDate.value=="") {
             Global.showSnackBar(context, "Please enter in End Date field");
           } else{
             FocusScopeNode currentFocus = FocusScope.of(context);
@@ -579,6 +561,7 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
 
      case "seasonDropDown":
        var map = json.decode(value);
+       controller.seasonName.value = map["name"].toString();
         seasonId = map["id"].toString();
        break;
 

@@ -13,6 +13,7 @@ class LeagueController extends GetxController {
   RxList leagueList=[].obs;
   var startDate="".obs;
   var endDate="".obs;
+  var seasonName = "Select Season".obs;
   RxBool isOfficial=true.obs;
   RxBool unOfficial=false.obs;
 

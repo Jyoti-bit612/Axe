@@ -2,11 +2,11 @@ import 'dart:math';
 
 import 'package:axe/interface/callbackinterface.dart';
 import 'package:axe/screens/change_password.dart';
-import 'package:axe/screens/create_league.dart';
-import 'package:axe/screens/create_match.dart';
+import 'package:axe/screens/venueSide/create_league.dart';
+import 'package:axe/screens/venueSide/create_match.dart';
 import 'package:axe/screens/edit_score.dart';
 import 'package:axe/screens/login.dart';
-import 'package:axe/screens/new_invitation.dart';
+import 'package:axe/screens/playerSide/new_invitation.dart';
 import 'package:axe/screens/notification.dart';
 import 'package:axe/screens/playerlist.dart';
 import 'package:axe/util/commoncolors.dart';

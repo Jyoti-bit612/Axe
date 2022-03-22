@@ -26,8 +26,8 @@ class EditScore extends StatelessWidget implements CallBackInterface {
     final ScoreDashController scoreController = Get.find();
     return SafeArea(
         child: Scaffold(
-            body: SingleChildScrollView(
-                child: Padding(
+            body: Obx(()=>SingleChildScrollView(
+                child: scoreController.playerPersonalScore.value.extraInfo==null?const Center(child: CircularProgressIndicator()):Padding(
                     padding:  EdgeInsets.all(CommonWidget.getInstance().widthFactor(context) * 0.02),
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -85,8 +85,9 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
 
-                                      CommonWidget.getInstance().normalText(
-                                          CommonColors.black, "John Bradley",0,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,2,FontWeight.w600,fontfamily: true),
+                                      CommonWidget.getInstance().normalText(CommonColors.black,
+                                          "John Bradley",
+                                          0,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,2,FontWeight.w600,fontfamily: true),
 
                                       SizedBox(
                                         height: CommonWidget.getInstance().widthFactor(context) * 0.04,
@@ -120,8 +121,9 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                                           CommonWidget.getInstance().normalText(
                                               CommonColors.black, Strings.won,1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
 
-                                          CommonWidget.getInstance().normalText(
-                                              CommonColors.primaryColor1, "277",1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true)
+                                          CommonWidget.getInstance().normalText(CommonColors.primaryColor1,
+                                              scoreController.playerPersonalScore.value.extraInfo!.won.toString(),
+                                              1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true)
 
                                         ],
                                       ),
@@ -141,8 +143,9 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                                           CommonWidget.getInstance().normalText(
                                               CommonColors.black, Strings.loss,1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
 
-                                          CommonWidget.getInstance().normalText(
-                                              CommonColors.primaryColor1, "277",1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true)
+                                          CommonWidget.getInstance().normalText(CommonColors.primaryColor1,
+                                              scoreController.playerPersonalScore.value.extraInfo!.loss.toString(),
+                                              1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true)
 
                                         ],
                                       ),
@@ -159,11 +162,12 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                                       Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          CommonWidget.getInstance().normalText(
-                                              CommonColors.black, Strings.overall_point,1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                                          CommonWidget.getInstance().normalText(CommonColors.black,
+                                              Strings.overall_point,1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
 
-                                          CommonWidget.getInstance().normalText(
-                                              CommonColors.primaryColor1, "277",1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true)
+                                          CommonWidget.getInstance().normalText(CommonColors.primaryColor1,
+                                              scoreController.playerPersonalScore.value.extraInfo!.overallPoints.toString(),
+                                              1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true)
 
                                         ],
                                       ),
@@ -464,7 +468,7 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                             ),
                           ),
 
-                        ]))))
+                        ])))))
     );
   }
 
