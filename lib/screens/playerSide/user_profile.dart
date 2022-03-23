@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:axe/controller/score_controller.dart';
 import 'package:http/http.dart' as http;
 import 'package:axe/controller/invitationcontroller.dart';
@@ -15,6 +16,7 @@ import 'package:image_picker/image_picker.dart';
 
 class UserProfile extends StatelessWidget  implements CallBackInterface{
   UserProfile({Key? key}) : super(key: key);
+
 
   final myMenuItems = <String>[
     Strings.privacy_profile,
@@ -104,24 +106,43 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
                 ),
 
                 Center(
-                  child: Container(
-                    width: CommonWidget.getInstance().widthFactor(context) * 0.30,
-                    height: CommonWidget.getInstance().widthFactor(context) * 0.30,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomCenter,
+                  child: GestureDetector(
+                    onTap: (){
+                      Global.showPicker(context,this);
+                    },
+                    child: Container(
+                      width: CommonWidget.getInstance().widthFactor(context) * 0.30,
+                      height: CommonWidget.getInstance().widthFactor(context) * 0.30,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(colors: [CommonColors.primaryColor1 ,CommonColors.imageRed],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomCenter,
+                        ),
+                        shape: BoxShape.circle,
                       ),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(1.0),
-                      child: DecoratedBox(
-                          decoration:  const BoxDecoration(
-                            color: CommonColors.textfiled_gray,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Image.asset("assets/images/camera.png")),
+                      child: Padding(
+                        padding: const EdgeInsets.all(1.0),
+                        child: DecoratedBox(
+                            decoration:  const BoxDecoration(
+                              color: CommonColors.textfiled_gray,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(1.0),
+                              child: profileController.pickedImage.value == ""?
+                              profileController.picture.value=="null"?CircleAvatar(
+                                  backgroundColor: CommonColors.textfiled_gray,
+                                  child: Image.asset("assets/images/camera.png")
+                              ):CircleAvatar(
+                                  backgroundColor: CommonColors.textfiled_gray,
+                                  backgroundImage:NetworkImage(Constant.imageUrl+profileController.picture.value)
+                              ):CircleAvatar(
+                                  backgroundColor: CommonColors.textfiled_gray,
+                                  backgroundImage:FileImage(File(profileController.pickedImage.value)
+                                  )
+                              ),
+                            )),
+                      ),
                     ),
                   ),
                 ),
@@ -232,7 +253,7 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
                       GestureDetector(
                         onTap: (){
                           final InvitationController invitationController = Get.find();
-                          Get.toNamed('/newInvitaton');
+                          Get.toNamed(Strings.screenNewInvitation);
                           invitationController.getInvitationList();
                           invitationController.getAcceptedList();
                         },
@@ -606,15 +627,20 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
     final ProfileController profileController = Get.find();
     switch(title){
-      case "Camera":
+      case Strings.camera:
         pickedImage = (await ImagePicker().pickImage(source: ImageSource.camera)) ;
-        profileController.updateImage(pickedImage!.path);
-
+        if(pickedImage != null){
+          profileController.updateImage(pickedImage!.path);
+          updatePlayerProfile(context);
+        }
         break;
+      case Strings.gallery:
+        pickedImage = (await ImagePicker().pickImage(source: ImageSource.gallery));
+        if(pickedImage != null){
+          profileController.updateImage(pickedImage!.path);
+          updatePlayerProfile(context);
+        }
 
-      case "Gallery":
-        pickedImage = (await ImagePicker().pickImage(source: ImageSource.gallery)) ;
-        profileController.updateImage(pickedImage!.path);
         break;
 
     }

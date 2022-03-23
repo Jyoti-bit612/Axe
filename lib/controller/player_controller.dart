@@ -38,7 +38,8 @@ class PlayerController extends GetxController {
   }
 
   Future<void> getPlayerList() async {
-   await Apiprovider.getApi(Constant.get_Player).then((value) {
+   String url = Global.loginType==Constant.userVenue?Constant.get_Player:Constant.getPlayerListPlayerSide;
+   await ApiProvider.getApi(url).then((value) {
       playerpojo.value= PlayerListPojo.fromJson(json.decode(value));
       playerpojoDuplicate.value= PlayerListPojo.fromJson(json.decode(value));
     },onError: (error){

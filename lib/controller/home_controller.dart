@@ -29,7 +29,7 @@ class HomeController extends GetxController {
 
   Future<void> getUpcomingLeague() async {
     String url = Global.loginType==Constant.userPlayer?Constant.playerUpcomingLeague:Constant.get_upcomingLeague;
-    await Apiprovider.getApi(url).then((value) {
+    await ApiProvider.getApi(url).then((value) {
       upcomingLeaguePojo.value = UpcomingLeaguePojo.fromJson(json.decode(value));
     }, onError: (error) {
       upcomingLeaguePojo.value=UpcomingLeaguePojo();
@@ -40,7 +40,7 @@ class HomeController extends GetxController {
 
   Future<void> getprevoiusLeague() async {
     String url = Global.loginType==Constant.userPlayer?Constant.playerPrevoiusLeague:Constant.get_prevoiusLeague;
-    await Apiprovider.getApi(url).then((value) {
+    await ApiProvider.getApi(url).then((value) {
       prevoiusLeaguePojo.value =
           PrevoiusLeaguePojo.fromJson(json.decode(value));
     }, onError: (error) {
@@ -55,7 +55,7 @@ class HomeController extends GetxController {
     var jsonBody = {
       "league_id": "",
     };
-    await Apiprovider.postApi(url,jsonBody).then((value) {
+    await ApiProvider.postApi(url,jsonBody).then((value) {
       topPlayer.value = TopPlayer.fromJson(json.decode(value));
     }, onError: (error) {
       topPlayer.value=TopPlayer();

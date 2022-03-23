@@ -19,12 +19,14 @@ class InvitationController extends GetxController {
     super.onInit();
     getInvitationList();
     getAcceptedList();
+    getRejectionList();
+    getExpiredList();
   }
 
 
   Future<void> getInvitationList() async {
     String url = Global.loginType==Constant.userPlayer?Constant.playerNewInviteList:Constant.playerNewInviteList;
-    await Apiprovider.getApi(url).then((value) {
+    await ApiProvider.getApi(url).then((value) {
       playerInvitationPojo.value = PlayerInvitationPojo.fromJson(json.decode(value));
     }, onError: (error) {
       playerInvitationPojo.value=PlayerInvitationPojo();
@@ -35,7 +37,7 @@ class InvitationController extends GetxController {
 
   Future<void> getRejectionList() async {
     String url = Global.loginType==Constant.userPlayer?Constant.playerRejectInviteList:Constant.playerRejectInviteList;
-    await Apiprovider.getApi(url).then((value) {
+    await ApiProvider.getApi(url).then((value) {
       playerRejectionPojo.value = PlayerInvitationPojo.fromJson(json.decode(value));
     }, onError: (error) {
       playerRejectionPojo.value=PlayerInvitationPojo();
@@ -46,7 +48,7 @@ class InvitationController extends GetxController {
 
   Future<void> getAcceptedList() async {
     String url = Global.loginType==Constant.userPlayer?Constant.playerAcceptedInviteList:Constant.playerAcceptedInviteList;
-    await Apiprovider.getApi(url).then((value) {
+    await ApiProvider.getApi(url).then((value) {
       playerAcceptedPojo.value = PlayerInvitationPojo.fromJson(json.decode(value));
     }, onError: (error) {
       playerAcceptedPojo.value=PlayerInvitationPojo();
@@ -57,7 +59,7 @@ class InvitationController extends GetxController {
 
   Future<void> getExpiredList() async {
     String url = Global.loginType==Constant.userPlayer?Constant.playerExpiredInviteList:Constant.playerExpiredInviteList;
-    await Apiprovider.getApi(url).then((value) {
+    await ApiProvider.getApi(url).then((value) {
       playerExpiredPojo.value = PlayerInvitationPojo.fromJson(json.decode(value));
     }, onError: (error) {
       playerExpiredPojo.value=PlayerInvitationPojo();

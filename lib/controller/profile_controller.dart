@@ -62,7 +62,7 @@ class ProfileController extends GetxController {
     var jsonBody = {
       "user_type":Global.loginType,
     };
-    await Apiprovider.postApi(url,jsonBody).then((value) {
+    await ApiProvider.postApi(url,jsonBody).then((value) {
       if(url==Constant.get_venue_profile){
         profilePojo.value = ProfilePojo.fromJson(json.decode(value));
         emailController.text=profilePojo.value.data!.email.toString();

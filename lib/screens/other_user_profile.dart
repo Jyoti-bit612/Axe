@@ -9,6 +9,7 @@ import 'package:axe/screens/login.dart';
 import 'package:axe/screens/playerSide/new_invitation.dart';
 import 'package:axe/screens/notification.dart';
 import 'package:axe/screens/playerlist.dart';
+import 'package:axe/util/common_arguments.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/constants.dart';
@@ -141,8 +142,9 @@ class OtherUserProfile extends StatelessWidget  implements CallBackInterface{
                 ),
 
                 Center(
-                  child: CommonWidget.getInstance().normalText(
-                      CommonColors.black, name,0,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,2,FontWeight.w600,fontfamily: true),
+                  child: CommonWidget.getInstance().normalText(CommonColors.black,
+                      Get.arguments!=null?Get.arguments[0][CommonArguments.argOtherPlayerName]??"":"",
+                      0,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,2,FontWeight.w600,fontfamily: true),
                 ),
                 SizedBox(
                   height: CommonWidget.getInstance().widthFactor(context) * 0.01,

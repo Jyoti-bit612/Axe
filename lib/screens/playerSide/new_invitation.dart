@@ -11,14 +11,14 @@ import 'package:axe/util/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class NewInvitaton extends StatefulWidget {
-  const NewInvitaton({Key? key}) : super(key: key);
+class NewInvitation extends StatefulWidget {
+  const NewInvitation({Key? key}) : super(key: key);
 
   @override
-  NewInvitatonState createState() => NewInvitatonState();
+  NewInvitationState createState() => NewInvitationState();
 }
 
-class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderStateMixin implements CallBackInterface  {
+class NewInvitationState extends State<NewInvitation> with SingleTickerProviderStateMixin implements CallBackInterface  {
 
   TabController? _tabController;
 
@@ -119,7 +119,10 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
   }
 
   upperView(int type,String text, {required Rx<PlayerInvitationPojo> playerInvitationPojo}) {//type 1 is for new invitations
-    return playerInvitationPojo.value.invitationData==null?const Center(child: CircularProgressIndicator()):ListView.builder(
+    return playerInvitationPojo.value.invitationData==null?const Center(child: CircularProgressIndicator()):
+    playerInvitationPojo.value.invitationData!.isEmpty?Center(child: CommonWidget.getInstance().normalText(CommonColors.black,
+        "No data to show",
+        0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,1,FontWeight.w800,fontfamily: true),):ListView.builder(
           physics: const ClampingScrollPhysics(),
           shrinkWrap: true,
           itemCount:  playerInvitationPojo.value.invitationData!.length,
@@ -231,6 +234,7 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
 
   @override
   Future<void> widgetCallBack(String title, String value, BuildContext context) async {
+    final InvitationController invitationController = Get.find();
     switch(title){
       case Strings.accept:
       Navigator.pop(context);
@@ -252,11 +256,12 @@ class NewInvitatonState extends State<NewInvitaton> with SingleTickerProviderSta
         Map jsonBody = {
           "match_id": value
         };
-        await Apiprovider.postApi(Constant.playerRejectInvite, jsonBody).then((value) {
+        await ApiProvider.postApi(Constant.playerRejectInvite, jsonBody).then((value) {
           Get.back();
           var data = jsonDecode(value);
           print(data["message"]);
           Global.showSnackBar(context, data["message"]);
+          invitationController.refresh();
         },onError: ((error){
           print(error);
         }));

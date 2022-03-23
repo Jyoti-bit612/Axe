@@ -123,7 +123,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                               GestureDetector(
                                 behavior: HitTestBehavior.translucent,
                                 onTap: (){
-                                  Get.toNamed('/otherUserProfile');
+                                  Get.toNamed(Strings.screenOtherUserProfile);
                                 },
                                 child: Container(
                                   width:  CommonWidget.getInstance().widthFactor(context) * 0.27,
@@ -160,7 +160,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                               GestureDetector(
                                 behavior: HitTestBehavior.translucent,
                                 onTap: (){
-                                  Get.toNamed('/otherUserProfile');
+                                  Get.toNamed(Strings.screenOtherUserProfile);
 
                                 },
                                 child: Container(
@@ -358,7 +358,8 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                                   onTap:(){
                                     // Get.toNamed('/playerlist',arguments: 1);
                                     Get.toNamed(Strings.screenPlayerList,arguments: [{CommonArguments.argPlayerType: 1,
-                                      CommonArguments.argNavigationType: "change_player",CommonArguments.argMatchId: controller.currentLeagueDetailPojo.value.matches![index].id}]
+                                      CommonArguments.argNavigationType: "change_player",
+                                      CommonArguments.argMatchId: controller.currentLeagueDetailPojo.value.matches![index].id}]
                                     );
                                   },
                                   child: Container(
@@ -547,7 +548,7 @@ class _CurrentLeagueDetailState extends State<CurrentLeagueDetail> with SingleTi
                     padding: const EdgeInsets.only(top:8.0),
                     child: GestureDetector(
                       onTap: (){
-                        Get.toNamed('/otherUserProfile');
+                        Get.toNamed(Strings.screenOtherUserProfile);
                       },
                       child: ListTile(
                         leading: Container(

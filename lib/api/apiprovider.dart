@@ -1,10 +1,9 @@
-
 import 'dart:convert';
 import 'package:axe/util/constants.dart';
 import 'package:axe/util/global.dart';
 import 'package:http/http.dart';
 
-class Apiprovider {
+class ApiProvider {
 
   static Future<dynamic>  getApi(String endUrl) async{
     var token=await Global.getStringValuesSF(Constant.AccessToken);
@@ -15,6 +14,7 @@ class Apiprovider {
           "Authorization": 'Bearer '+token,
         });
     print(response.statusCode);
+    print(response.body);
     if (response.statusCode == 201 || response.statusCode == 200) {
       return response.body;
     } else {

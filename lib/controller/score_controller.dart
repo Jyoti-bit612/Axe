@@ -23,7 +23,7 @@ class ScoreDashController extends GetxController {
     var jsonBody = {
       "match_id":matchId.value,
     };
-   await Apiprovider.postApi(Constant.get_score_match,jsonBody).then((value) {
+   await ApiProvider.postApi(Constant.get_score_match,jsonBody).then((value) {
      player1ListScore=[];
      player2ListScore=[];
      scorePojo.value= ScorePojo.fromJson(json.decode(value));
@@ -34,7 +34,7 @@ class ScoreDashController extends GetxController {
 
 
   Future<void> getPlayerPersonalScores() async {
-   await Apiprovider.getApi(Constant.getPlayerScore).then((value) {
+   await ApiProvider.getApi(Constant.getPlayerScore).then((value) {
      playerPersonalScore.value= PersonalScorePOJO.fromJson(json.decode(value));
     },onError: (error){
      print(error);

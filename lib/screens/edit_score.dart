@@ -2,6 +2,7 @@ import 'package:axe/controller/score_controller.dart';
 import 'package:axe/interface/callbackinterface.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
+import 'package:axe/util/constants.dart';
 import 'package:axe/util/dropdownclass.dart';
 import 'package:axe/util/global.dart';
 import 'package:axe/util/strings.dart';
@@ -69,7 +70,9 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                                         color: CommonColors.textfiled_gray,
                                         shape: BoxShape.rectangle,
                                       ),
-                                      child: Image.asset("assets/images/profile.png")),
+                                      child: scoreController.playerPersonalScore.value.userInfo!.picture==null?Image.asset("assets/images/profile.png"):
+                                      Image.network(Constant.imageUrl+scoreController.playerPersonalScore.value.userInfo!.picture!),
+                                  ),
                                 ),
                               ),
 
@@ -86,7 +89,7 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                                     children: [
 
                                       CommonWidget.getInstance().normalText(CommonColors.black,
-                                          "John Bradley",
+                                          scoreController.playerPersonalScore.value.userInfo!.firstName!+" "+scoreController.playerPersonalScore.value.userInfo!.lastName!,
                                           0,CommonWidget.getInstance().widthFactor(context)*0.05,FontStyle.normal,2,FontWeight.w600,fontfamily: true),
 
                                       SizedBox(
@@ -97,7 +100,8 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           CommonWidget.getInstance().normalText(
-                                              CommonColors.black, Strings.match_played,1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,FontWeight.w600,fontfamily: true),
+                                              CommonColors.black, Strings.match_played,1,CommonWidget.getInstance().widthFactor(context)*0.035,FontStyle.normal,1,
+                                              FontWeight.w600,fontfamily: true),
 
                                           CommonWidget.getInstance().normalText(CommonColors.primaryColor1,
                                               scoreController.playerPersonalScore.value.extraInfo!.matchPlayed!.toString(),
@@ -302,8 +306,8 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                                       child: DropDownClass(
                                           CommonColors.white,
                                           "commonDropdown",
-                                          list[0]["name"],
-                                          list,
+                                          list1[0]["name"],
+                                          list1,
                                           this,
                                           "0",
                                           true,
@@ -340,7 +344,7 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                           ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
                                shrinkWrap: true,
-                              itemCount:  6,
+                              itemCount:  scoreController.playerPersonalScore.value.hatchets!.length,
                               itemBuilder: (context, index) {
                                 return SizedBox(
                                   child: Column(
@@ -353,10 +357,10 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
                                           CommonWidget.getInstance().normalText(
-                                              CommonColors.black, "Match"+{index+1}.toString(),0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600),
+                                              CommonColors.black, "Match"+(index+1).toString(),0,CommonWidget.getInstance().widthFactor(context)*0.04,FontStyle.normal,2,FontWeight.w600),
 
                                           Visibility(
-                                              visible: Global.loginType=="2"?false:true,
+                                              visible: Global.loginType==Constant.userVenue,
                                               child: const Icon(Icons.edit,color: CommonColors.primaryColor1,))
 
                                         ],
@@ -378,12 +382,7 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                                                   defaultColumnWidth: index1==0?
                                                   FixedColumnWidth(CommonWidget.getInstance().widthFactor(context)*0.25):
                                                   FixedColumnWidth(CommonWidget.getInstance().widthFactor(context)*0.14),
-
-                                                  border: TableBorder.all(
-                                                      color: CommonColors.lightgrayColor,
-                                                      style: BorderStyle.solid,
-                                                      width: 1),
-
+                                                  border: TableBorder.all(color: CommonColors.lightgrayColor, style: BorderStyle.solid, width: 1),
                                                   children: [
                                                     TableRow(
                                                         children: [
@@ -419,6 +418,7 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                                                                   CommonWidget.getInstance().widthFactor(context)*0.05),
                                                               child: TextField(
                                                                 maxLength:2,
+                                                                readOnly: Global.loginType==Constant.userPlayer,
                                                                 keyboardType: TextInputType.number,
                                                                decoration: InputDecoration(
                                                                   hintText: index1==0?"Points":'',
@@ -450,7 +450,7 @@ class EditScore extends StatelessWidget implements CallBackInterface {
                           ),
 
                           Visibility(
-                            visible: Global.loginType=="2"?false:true,
+                            visible: Global.loginType==Constant.userVenue,
                             child: Center(
                               child: Padding(
                                 padding: const EdgeInsets.only(left:6.0),

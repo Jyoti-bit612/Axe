@@ -1,9 +1,12 @@
+import 'package:axe/pojo/user_info_pojo.dart';
+
 class PersonalScorePOJO {
   bool? success;
   List<Hatchets>? hatchets;
   List<BigAxe>? bigAxe;
   List<TeamPlay>? teamPlay;
   ExtraInfo? extraInfo;
+  UserInfoPojo? userInfo;
   String? message;
 
   PersonalScorePOJO({this.success, this.hatchets, this.bigAxe, this.teamPlay, this.extraInfo, this.message});
@@ -23,25 +26,29 @@ class PersonalScorePOJO {
       json['teamPlay'].forEach((v) { teamPlay!.add(TeamPlay.fromJson(v)); });
     }
     extraInfo = json['extraInfo'] != null ? ExtraInfo.fromJson(json['extraInfo']) : null;
+    userInfo = json['userInfo'] != null ? UserInfoPojo.fromJson(json['userInfo']) : null;
     message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['success'] = this.success;
-    if (this.hatchets != null) {
-      data['hatchets'] = this.hatchets!.map((v) => v.toJson()).toList();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['success'] = success;
+    if (hatchets != null) {
+      data['hatchets'] = hatchets!.map((v) => v.toJson()).toList();
     }
-    if (this.bigAxe != null) {
-      data['bigAxe'] = this.bigAxe!.map((v) => v.toJson()).toList();
+    if (bigAxe != null) {
+      data['bigAxe'] = bigAxe!.map((v) => v.toJson()).toList();
     }
-    if (this.teamPlay != null) {
-      data['teamPlay'] = this.teamPlay!.map((v) => v.toJson()).toList();
+    if (teamPlay != null) {
+      data['teamPlay'] = teamPlay!.map((v) => v.toJson()).toList();
     }
-    if (this.extraInfo != null) {
-      data['extraInfo'] = this.extraInfo!.toJson();
+    if (extraInfo != null) {
+      data['extraInfo'] = extraInfo!.toJson();
     }
-    data['message'] = this.message;
+    if (userInfo != null) {
+      data['userInfo'] = userInfo!.toJson();
+    }
+    data['message'] = message;
     return data;
   }
 }
@@ -92,33 +99,33 @@ killshot = json['killshot'];
 suddendeaththrow = json['suddendeaththrow'];
 createdAt = json['created_at'];
 updatedAt = json['updated_at'];
-playerDetail = json['player_detail'] != null ? new PlayerDetail.fromJson(json['player_detail']) : null;
+playerDetail = json['player_detail'] != null ? PlayerDetail.fromJson(json['player_detail']) : null;
 }
 
 Map<String, dynamic> toJson() {
-  final Map<String, dynamic> data = new Map<String, dynamic>();
-  data['id'] = this.id;
-  data['user_id'] = this.userId;
-  data['match_type_id'] = this.matchTypeId;
-  data['throw'] = this.throw00;
-  data['match_id'] = this.matchId;
-  data['league_id'] = this.leagueId;
-  data['throw1'] = this.throw1;
-  data['throw2'] = this.throw2;
-  data['throw3'] = this.throw3;
-  data['throw4'] = this.throw4;
-  data['throw5'] = this.throw5;
-  data['throw6'] = this.throw6;
-  data['throw7'] = this.throw7;
-  data['throw8'] = this.throw8;
-  data['throw9'] = this.throw9;
-  data['throw10'] = this.throw10;
-  data['killshot'] = this.killshot;
-  data['suddendeaththrow'] = this.suddendeaththrow;
-  data['created_at'] = this.createdAt;
-  data['updated_at'] = this.updatedAt;
-  if (this.playerDetail != null) {
-  data['player_detail'] = this.playerDetail!.toJson();
+  final Map<String, dynamic> data = <String, dynamic>{};
+  data['id'] = id;
+  data['user_id'] = userId;
+  data['match_type_id'] = matchTypeId;
+  data['throw'] = throw00;
+  data['match_id'] = matchId;
+  data['league_id'] = leagueId;
+  data['throw1'] = throw1;
+  data['throw2'] = throw2;
+  data['throw3'] = throw3;
+  data['throw4'] = throw4;
+  data['throw5'] = throw5;
+  data['throw6'] = throw6;
+  data['throw7'] = throw7;
+  data['throw8'] = throw8;
+  data['throw9'] = throw9;
+  data['throw10'] = throw10;
+  data['killshot'] = killshot;
+  data['suddendeaththrow'] = suddendeaththrow;
+  data['created_at'] = createdAt;
+  data['updated_at'] = updatedAt;
+  if (playerDetail != null) {
+  data['player_detail'] = playerDetail!.toJson();
   }
   return data;
 }
@@ -174,29 +181,29 @@ class TeamPlay {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['match_type_id'] = this.matchTypeId;
-    data['throw'] = this.throw00;
-    data['match_id'] = this.matchId;
-    data['league_id'] = this.leagueId;
-    data['throw1'] = this.throw1;
-    data['throw2'] = this.throw2;
-    data['throw3'] = this.throw3;
-    data['throw4'] = this.throw4;
-    data['throw5'] = this.throw5;
-    data['throw6'] = this.throw6;
-    data['throw7'] = this.throw7;
-    data['throw8'] = this.throw8;
-    data['throw9'] = this.throw9;
-    data['throw10'] = this.throw10;
-    data['killshot'] = this.killshot;
-    data['suddendeaththrow'] = this.suddendeaththrow;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    if (this.playerDetail != null) {
-      data['player_detail'] = this.playerDetail!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['user_id'] = userId;
+    data['match_type_id'] = matchTypeId;
+    data['throw'] = throw00;
+    data['match_id'] = matchId;
+    data['league_id'] = leagueId;
+    data['throw1'] = throw1;
+    data['throw2'] = throw2;
+    data['throw3'] = throw3;
+    data['throw4'] = throw4;
+    data['throw5'] = throw5;
+    data['throw6'] = throw6;
+    data['throw7'] = throw7;
+    data['throw8'] = throw8;
+    data['throw9'] = throw9;
+    data['throw10'] = throw10;
+    data['killshot'] = killshot;
+    data['suddendeaththrow'] = suddendeaththrow;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    if (playerDetail != null) {
+      data['player_detail'] = playerDetail!.toJson();
     }
     return data;
   }
@@ -252,29 +259,29 @@ class BigAxe {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['user_id'] = this.userId;
-    data['match_type_id'] = this.matchTypeId;
-    data['throw'] = this.throw00;
-    data['match_id'] = this.matchId;
-    data['league_id'] = this.leagueId;
-    data['throw1'] = this.throw1;
-    data['throw2'] = this.throw2;
-    data['throw3'] = this.throw3;
-    data['throw4'] = this.throw4;
-    data['throw5'] = this.throw5;
-    data['throw6'] = this.throw6;
-    data['throw7'] = this.throw7;
-    data['throw8'] = this.throw8;
-    data['throw9'] = this.throw9;
-    data['throw10'] = this.throw10;
-    data['killshot'] = this.killshot;
-    data['suddendeaththrow'] = this.suddendeaththrow;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    if (this.playerDetail != null) {
-      data['player_detail'] = this.playerDetail!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['user_id'] = userId;
+    data['match_type_id'] = matchTypeId;
+    data['throw'] = throw00;
+    data['match_id'] = matchId;
+    data['league_id'] = leagueId;
+    data['throw1'] = throw1;
+    data['throw2'] = throw2;
+    data['throw3'] = throw3;
+    data['throw4'] = throw4;
+    data['throw5'] = throw5;
+    data['throw6'] = throw6;
+    data['throw7'] = throw7;
+    data['throw8'] = throw8;
+    data['throw9'] = throw9;
+    data['throw10'] = throw10;
+    data['killshot'] = killshot;
+    data['suddendeaththrow'] = suddendeaththrow;
+    data['created_at'] = createdAt;
+    data['updated_at'] = updatedAt;
+    if (playerDetail != null) {
+      data['player_detail'] = playerDetail!.toJson();
     }
     return data;
   }
@@ -283,9 +290,9 @@ class BigAxe {
 class PlayerDetail {
   String? firstName;
   String? lastName;
-  Null? picture;
-  Null? city;
-  Null? state;
+  String? picture;
+  String? city;
+  String? state;
   String? address;
   int? teamplayScore;
   int? hatchetsScore;
@@ -314,20 +321,20 @@ class PlayerDetail {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['first_name'] = this.firstName;
-    data['last_name'] = this.lastName;
-    data['picture'] = this.picture;
-    data['city'] = this.city;
-    data['state'] = this.state;
-    data['address'] = this.address;
-    data['teamplay_score'] = this.teamplayScore;
-    data['hatchets_score'] = this.hatchetsScore;
-    data['bigaxe_score'] = this.bigaxeScore;
-    data['rank_user'] = this.rankUser;
-    data['accuracy_user'] = this.accuracyUser;
-    data['total_league'] = this.totalLeague;
-    data['total_match'] = this.totalMatch;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['first_name'] = firstName;
+    data['last_name'] = lastName;
+    data['picture'] = picture;
+    data['city'] = city;
+    data['state'] = state;
+    data['address'] = address;
+    data['teamplay_score'] = teamplayScore;
+    data['hatchets_score'] = hatchetsScore;
+    data['bigaxe_score'] = bigaxeScore;
+    data['rank_user'] = rankUser;
+    data['accuracy_user'] = accuracyUser;
+    data['total_league'] = totalLeague;
+    data['total_match'] = totalMatch;
     return data;
   }
 }
@@ -348,11 +355,11 @@ class ExtraInfo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['match_played'] = this.matchPlayed;
-    data['won'] = this.won;
-    data['loss'] = this.loss;
-    data['overall_points'] = this.overallPoints;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['match_played'] = matchPlayed;
+    data['won'] = won;
+    data['loss'] = loss;
+    data['overall_points'] = overallPoints;
     return data;
   }
 }

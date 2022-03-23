@@ -4,6 +4,7 @@ import 'package:axe/interface/callbackinterface.dart';
 import 'package:axe/util/commoncolors.dart';
 import 'package:axe/util/commonwidget.dart';
 import 'package:axe/util/constants.dart';
+import 'package:axe/util/strings.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -130,17 +131,17 @@ class Global {
               children: <Widget>[
                  ListTile(
                     leading:  Icon(Icons.photo_library,size: CommonWidget.getInstance().widthFactor(context)*0.046,),
-                    title:  Text('Gallery',style: TextStyle(fontFamily: "Lato",fontSize: CommonWidget.getInstance().widthFactor(context)*0.046),),
+                    title:  Text(Strings.gallery,style: TextStyle(fontFamily: "Lato",fontSize: CommonWidget.getInstance().widthFactor(context)*0.046),),
                     onTap: () {
-                      callBackInterface.widgetCallBack('Gallery',"",context);
+                      callBackInterface.widgetCallBack(Strings.gallery,"",context);
                       Get.back();
 
                     }),
                  ListTile(
                   leading:  Icon(Icons.photo_camera,size: CommonWidget.getInstance().widthFactor(context)*0.046,),
-                  title:  Text('Camera',style: TextStyle(fontFamily: "Lato",fontSize: CommonWidget.getInstance().widthFactor(context)*0.046),),
+                  title:  Text(Strings.camera,style: TextStyle(fontFamily: "Lato",fontSize: CommonWidget.getInstance().widthFactor(context)*0.046),),
                   onTap: () {
-                    callBackInterface.widgetCallBack('Camera',"",context);
+                    callBackInterface.widgetCallBack(Strings.camera,"",context);
                    Get.back();
                   },
                 ),

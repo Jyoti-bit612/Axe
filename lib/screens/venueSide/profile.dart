@@ -121,19 +121,17 @@ class Profile extends StatelessWidget  implements CallBackInterface{
                       ),
                       child:  Padding(
                         padding: const EdgeInsets.all(1.0),
-                        child: controller.picture.value==""?
-                        controller.pickedImage.value == "" ?CircleAvatar(
+                        child: controller.pickedImage.value == ""?
+                        controller.picture.value==""? CircleAvatar(
                             backgroundColor: CommonColors.textfiled_gray,
                             child: Image.asset("assets/images/camera.png")
-
+                        ):CircleAvatar(
+                            backgroundColor: CommonColors.textfiled_gray,
+                            backgroundImage:NetworkImage(Constant.imageUrl+controller.picture.value)
                         ):CircleAvatar(
                             backgroundColor: CommonColors.textfiled_gray,
                             backgroundImage:FileImage(File(controller.pickedImage.value)
                             )
-                        ):
-                        CircleAvatar(
-                            backgroundColor: CommonColors.textfiled_gray,
-                            backgroundImage:NetworkImage(Constant.imageUrl+controller.picture.value)
                         ),
                       )
                     ),
@@ -584,26 +582,29 @@ class Profile extends StatelessWidget  implements CallBackInterface{
 
      switch(title){
       case Strings.player_request:
-        Get.toNamed('/newInvitaton');
+        Get.toNamed(Strings.screenNewInvitation);
         break;
-
         case Strings.practice_match:
 
         break;
-
-      case Strings.update_profile:
+        case Strings.update_profile:
         updateprofile(context);
         break;
 
-      case "Camera":
-        pickedImage = (await ImagePicker().pickImage(source: ImageSource.camera)) ;
-        controller.updateImage(pickedImage!.path);
-
+        case Strings.camera:
+        pickedImage = (await ImagePicker().pickImage(source: ImageSource.camera));
+        if(pickedImage != null){
+          controller.updateImage(pickedImage!.path);
+          updateprofile(context);
+        }
         break;
 
-      case "Gallery":
-        pickedImage = (await ImagePicker().pickImage(source: ImageSource.gallery)) ;
-        controller.updateImage(pickedImage!.path);
+       case Strings.gallery:
+        pickedImage = (await ImagePicker().pickImage(source: ImageSource.gallery));
+        if(pickedImage != null){
+          controller.updateImage(pickedImage!.path);
+          updateprofile(context);
+        }
         break;
 
     }

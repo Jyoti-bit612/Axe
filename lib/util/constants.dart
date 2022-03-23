@@ -61,7 +61,10 @@ class Constant{
   static const String playerSideTopPlayer="api/player/gettopplayers";
 
   static const String get_Player="api/venues/getplayers";
+  static const String getPlayerListPlayerSide="api/player/getallplayers";
+
   static const String get_score_match="api/venues/getmatchscores";
+  static const String getPlayerScore="api/player/getmatchscores";
 
   static const String get_current_league="api/venues/getCurrentLeague";
   static const String playerCurrentLeague="api/player/getCurrentLeague";
@@ -79,7 +82,6 @@ class Constant{
   static const String playerAcceptInvite = "api/player/inviteAccept";
   static const String playerRejectInvite = "api/player/cancelinvitation";
   static const String getMatchList = "api/player/getmatchesbyleagueId";
-  static const String getPlayerScore="api/player/getmatchscores";
 
   //key for sharedPrefrence
   static const String LoginType="login_type";

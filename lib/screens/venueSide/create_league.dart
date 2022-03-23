@@ -574,13 +574,13 @@ class CreateLeague extends  StatelessWidget  implements CallBackInterface{
         controller.startDate(value);
         break;
 
-     case "Camera":
+     case Strings.camera:
        pickedImage = (await ImagePicker().pickImage(source: ImageSource.camera)) ;
         controller.updateImage(pickedImage!.path);
 
       break;
 
-   case "Gallery":
+   case Strings.gallery:
    pickedImage = (await ImagePicker().pickImage(source: ImageSource.gallery)) ;
    controller.updateImage(pickedImage!.path);
    break;

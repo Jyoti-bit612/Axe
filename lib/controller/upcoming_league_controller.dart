@@ -25,7 +25,7 @@ class UpcomingLeagueController extends GetxController  {
       "league_id": controller.leagueId.value.toString(),
     };
     String url = Global.loginType==Constant.userPlayer?Constant.playerUpcomingLeagueDetail:Constant.get_UpcomingLeagueDetail;
-    await Apiprovider.postApi(url, jsonBody).then((value) {
+    await ApiProvider.postApi(url, jsonBody).then((value) {
       upcomingLeaguePojo.value = UpcomingLeagueDetail.fromJson(json.decode(value));
         print(value);
     }, onError: (error) {
@@ -46,7 +46,7 @@ class UpcomingLeagueController extends GetxController  {
       "league_id": controller.leagueId.value.toString(),
     };
 
-    await Apiprovider.postApi(Constant.getMatchList, jsonBody).then((value) {
+    await ApiProvider.postApi(Constant.getMatchList, jsonBody).then((value) {
       matchListPojo.value = MatchListPOJO.fromJson(json.decode(value));
       print(value);
     }, onError: (error) {

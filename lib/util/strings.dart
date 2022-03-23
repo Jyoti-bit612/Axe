@@ -3,6 +3,8 @@ class Strings{
   static const String signup = "Signup";
   static const String sign_up = "Signup";
   static const String here = " here";
+  static const String gallery = "Gallery";
+  static const String camera = "Camera";
   static const String already_account = "Already have an account? ";
   static const String donot_account = "Don't have an account? ";
   static const String have_read = "I acknowledge that I have read and agree to the terms and conditions presented in the ";
@@ -173,6 +175,8 @@ class Strings{
 
   static const String screenViewAllLeagues = "/viewAllLeagues";
   static const String screenMatchList = "/matchList";
-  static const String screenPlayerList = "/playerlist";
+  static const String screenPlayerList = "/playerList";
+  static const String screenNewInvitation = "/newInvitation";
+  static const String screenOtherUserProfile = "/otherUserProfile";
 
 }

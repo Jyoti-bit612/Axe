@@ -28,12 +28,12 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                 children: [
                   IconButton(
                       padding: EdgeInsets.zero,
-                      constraints: BoxConstraints(),
+                      constraints: const BoxConstraints(),
                       onPressed: (){
                     Get.back();
                   }, icon: const Icon(Icons.arrow_back_rounded)),
 
-                  Padding(
+                  Global.loginType==Constant.userVenue?Padding(
                     padding: const EdgeInsets.only(left:6.0),
                     child: CommonWidget.getInstance().flexibleButton(
                       context,
@@ -45,7 +45,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                       CommonColors.white,
                       this,
                     ),
-                  ),
+                  ):Container(),
                 ],
               ),
 
@@ -115,7 +115,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                             GestureDetector(
                               behavior: HitTestBehavior.translucent,
                               onTap: (){
-                                Get.toNamed('/otherUserProfile');
+                                Get.toNamed(Strings.screenOtherUserProfile);
                               },
                               child: Container(
                                 width:  CommonWidget.getInstance().widthFactor(context) * 0.27,
@@ -129,7 +129,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
 
                                 ),
                                 child:Padding(
-                                  padding: EdgeInsets.all(1.0),
+                                  padding: const EdgeInsets.all(1.0),
                                   child:
                                   controller.currentLeagueDetailPojo.value.currentMatch!.isNotEmpty?
                                   controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore!.isNotEmpty?
@@ -152,7 +152,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                             GestureDetector(
                               behavior: HitTestBehavior.translucent,
                               onTap: (){
-                                Get.toNamed('/otherUserProfile');
+                                Get.toNamed(Strings.screenOtherUserProfile);
 
                               },
                               child: Container(
@@ -167,7 +167,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
 
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(1.0),
+                                  padding: const EdgeInsets.all(1.0),
                                   child:
                                   controller.currentLeagueDetailPojo.value.currentMatch!.isNotEmpty?
                                   controller.currentLeagueDetailPojo.value.currentMatch![0].playersWithScore!.isNotEmpty?
@@ -246,7 +246,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                             type=controller.currentLeagueDetailPojo.value.currentMatch![0].matchType.toString()=="3"?5:10;
                             scoreController.player1ListScore=List.filled(controller.currentLeagueDetailPojo.value.currentMatch![0].matchType.toString()=="3"?5:10, "");
 
-                            if(scoreController.scorePojo.value.data!=null && scoreController.scorePojo.value.data!.length>0){
+                            if(scoreController.scorePojo.value.data!=null && scoreController.scorePojo.value.data!.isNotEmpty){
 
                               scoreController.player1ListScore[0]=scoreController.scorePojo.value.data![0].throw1.toString();
                               scoreController.player1ListScore[1]=scoreController.scorePojo.value.data![0].throw2.toString();
@@ -264,16 +264,16 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                             }
 
                           }
-                          if( scoreController.player2ListScore.isEmpty){
+                          if(scoreController.player2ListScore.isEmpty){
                             type=controller.currentLeagueDetailPojo.value.currentMatch![0].matchType.toString()=="3"?5:10;
                             scoreController.player2ListScore=List.filled(controller.currentLeagueDetailPojo.value.currentMatch![0].matchType.toString()=="3"?5:10,"");
 
-                            if(scoreController.scorePojo.value.data!=null && scoreController.scorePojo.value.data!.length>0  ){
+                            if(scoreController.scorePojo.value.data!=null && scoreController.scorePojo.value.data!.isNotEmpty){
                               scoreController.player2ListScore[0]=scoreController.scorePojo.value.data![1].throw1.toString();
-                            scoreController.player2ListScore[1]=scoreController.scorePojo.value.data![1].throw2.toString();
-                            scoreController.player2ListScore[2]=scoreController.scorePojo.value.data![1].throw3.toString();
-                            scoreController.player2ListScore[3]=scoreController.scorePojo.value.data![1].throw4.toString();
-                            scoreController.player2ListScore[4]=scoreController.scorePojo.value.data![1].throw5.toString();
+                              scoreController.player2ListScore[1]=scoreController.scorePojo.value.data![1].throw2.toString();
+                              scoreController.player2ListScore[2]=scoreController.scorePojo.value.data![1].throw3.toString();
+                              scoreController.player2ListScore[3]=scoreController.scorePojo.value.data![1].throw4.toString();
+                              scoreController.player2ListScore[4]=scoreController.scorePojo.value.data![1].throw5.toString();
                               if(type==10){
                                scoreController.player2ListScore[5]=scoreController.scorePojo.value.data![1].throw6.toString();
                                scoreController.player2ListScore[6]=scoreController.scorePojo.value.data![1].throw7.toString();
@@ -321,6 +321,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                                               controller: TextEditingController(text: scoreController.player1ListScore[index-1]),
                                               textAlign: TextAlign.center,
                                               keyboardType: TextInputType.number,
+                                              readOnly: Global.loginType==Constant.userPlayer,
                                               decoration: const InputDecoration.collapsed(
                                                 hintText: '0',
                                               ),
@@ -339,6 +340,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                                             child: TextFormField(
                                               controller:  TextEditingController(text: scoreController.player2ListScore[index-1]),
                                               textAlign: TextAlign.center,
+                                              readOnly: Global.loginType==Constant.userPlayer,//this true means field is not editale for players
                                               keyboardType: TextInputType.number,
                                               decoration: const InputDecoration.collapsed(
                                                 hintText: '0',
@@ -430,7 +432,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
               SizedBox(
                 height: CommonWidget.getInstance().widthFactor(context) * 0.05,
               ),
-              Padding(
+              Global.loginType==Constant.userVenue?Padding(
                 padding: const EdgeInsets.only(left:6.0),
                 child: CommonWidget.getInstance().flexibleButton(
                   context,
@@ -442,7 +444,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
                   CommonColors.white,
                   this,
                 ),
-              ),
+              ):Container(),
             ],
           )
         ),
@@ -469,7 +471,7 @@ class ScoreDashboard extends StatelessWidget implements CallBackInterface  {
               onPrimary: Colors.transparent,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(6),
-                  side: BorderSide(color: CommonColors.darkGray)
+                  side: const BorderSide(color: CommonColors.darkGray)
 
               )),
 

@@ -127,7 +127,17 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                                 controller.playerpojo.value.data![index].address,
 
                             ));*/
-
+                            Get.toNamed(Strings.screenOtherUserProfile,arguments: [{
+                              CommonArguments.argOtherPlayerName: controller.playerpojo.value.data![index].firstName!+" " +controller.playerpojo.value.data![index].lastName!,
+                              CommonArguments.argMatchId: controller.playerpojo.value.data![index].bigaxeScore,
+                              CommonArguments.argMatchId: controller.playerpojo.value.data![index].hatchetsScore,
+                              CommonArguments.argMatchId: controller.playerpojo.value.data![index].teamplayScore,
+                              CommonArguments.argMatchId: controller.playerpojo.value.data![index].picture,
+                              CommonArguments.argMatchId: controller.playerpojo.value.data![index].phone,
+                              CommonArguments.argMatchId: controller.playerpojo.value.data![index].email,
+                              CommonArguments.argMatchId: controller.playerpojo.value.data![index].city,
+                              CommonArguments.argMatchId: controller.playerpojo.value.data![index].state,
+                              CommonArguments.argMatchId: controller.playerpojo.value.data![index].address,}]);
                           },
                           child: Container(
                             width:  CommonWidget.getInstance().widthFactor(context) * 0.15,
@@ -194,7 +204,7 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                               }else{ //for player 2
                                 if(Get.arguments[0][CommonArguments.argNavigationType]=="change_player"){
                                   Map jsonBody = {
-                                    "match_id":"4",
+                                    "match_id":Get.arguments[0][CommonArguments.argMatchId].toString(),
                                     "players1_ids":"",
                                     "players2_ids":controller.playerpojo.value.data![index].id.toString()
                                   };

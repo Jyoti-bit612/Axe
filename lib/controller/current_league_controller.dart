@@ -25,7 +25,7 @@ class CurrentLeagueController extends GetxController {
 
   Future<void> getCurrentLeague() async {
     String url = Global.loginType==Constant.userPlayer?Constant.playerCurrentLeague:Constant.get_current_league;
-    await Apiprovider.getApi(url).then((value) {
+    await ApiProvider.getApi(url).then((value) {
       currentLeaguePojo.value = CurrentLeaguePojo.fromJson(json.decode(value));
     }, onError: (error) {
       currentLeaguePojo.value=CurrentLeaguePojo();
@@ -38,7 +38,7 @@ class CurrentLeagueController extends GetxController {
     var jsonBody = {
       "league_id": currentLeagueId.value.toString(),
     };
-    await Apiprovider.postApi(url, jsonBody).then((value) {
+    await ApiProvider.postApi(url, jsonBody).then((value) {
       currentLeagueDetailPojo.value = CurrentLeagueDetailPojo.fromJson(json.decode(value));
       print(value);
       print(url);

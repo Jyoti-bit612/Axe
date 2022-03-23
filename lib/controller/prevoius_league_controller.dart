@@ -25,7 +25,7 @@ class PreviousLeagueController extends GetxController  {
     var jsonBody = {
       "league_id": controller.leagueId.value.toString(),
     };
-    await Apiprovider.postApi(url, jsonBody).then((value) {
+    await ApiProvider.postApi(url, jsonBody).then((value) {
       isDataFound.value=false;
       prevoiusLeaguePojo.value = PrevoiusLeagueDetailPojo.fromJson(json.decode(value));
         print(value);
@@ -47,7 +47,7 @@ class PreviousLeagueController extends GetxController  {
     var  jsonBody  =  {
       "league_id":controller.leagueId.value.toString(),
     };
-   await Apiprovider.postApi(Constant.get_topPlayer,jsonBody).then((value) {
+   await ApiProvider.postApi(Constant.get_topPlayer,jsonBody).then((value) {
      topPlayer.value = TopPlayer.fromJson(json.decode(value));
      print(value);
    },onError: (error) {

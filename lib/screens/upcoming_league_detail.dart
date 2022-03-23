@@ -157,7 +157,7 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
                       return GestureDetector(
                         behavior: HitTestBehavior.translucent,
                         onTap: () {
-                          Get.toNamed('/otherUserProfile');
+                          Get.toNamed(Strings.screenOtherUserProfile);
                         },
                         child: Padding(
                           padding: const EdgeInsets.only(top: 8.0),
@@ -219,7 +219,7 @@ class _HomeState extends State<UpcomingLeagueDetail> implements CallBackInterfac
 
 
                             trailing: CommonWidget.getInstance().normalText(
-                                CommonColors.red,
+                                controller.upcomingLeaguePojo.value.players![index].invited=="1"?CommonColors.green:CommonColors.red,
                                 controller.upcomingLeaguePojo.value.players![index].invited=="1"?Strings.accepted:Strings.pending,
                                 0,
                                 CommonWidget.getInstance().widthFactor(
