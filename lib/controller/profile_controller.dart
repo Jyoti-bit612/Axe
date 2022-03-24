@@ -1,10 +1,8 @@
 import 'dart:convert';
 import 'package:axe/api/apiprovider.dart';
 import 'package:axe/pojo/playerprofilepojo.dart';
-import 'package:axe/pojo/prevoius_league_pojo.dart';
 import 'package:axe/pojo/profilepojo.dart';
-import 'package:axe/pojo/top_player_pojo.dart';
-import 'package:axe/pojo/upcoming_league_pojo.dart';
+import 'package:axe/pojo/user_info_pojo.dart';
 import 'package:axe/util/constants.dart';
 import 'package:axe/util/global.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,15 +27,17 @@ class ProfileController extends GetxController {
   final aboutFocus = FocusNode();
   Rx<ProfilePojo> profilePojo = ProfilePojo().obs;
   Rx<PlayerProfilePojo> playerProfilePojo = PlayerProfilePojo().obs;
+  Rx<UserInfoPojo> userInfoPojo = UserInfoPojo().obs;
   Rx<bool> firstNameCheck=true.obs;
   Rx<bool> lastNameCheck=true.obs;
   Rx<bool> phoneCheck=true.obs;
   Rx<bool> myStatusCheck=true.obs;
+  var otherUserID = "".obs;
 
   @override
   void onInit() {
     super.onInit();
-    getprofile();
+    getProfile();
   }
 
   updateFirstNameCheck() {
@@ -57,7 +57,7 @@ class ProfileController extends GetxController {
     pickedImage.value=image;
   }
 
-  Future<void> getprofile() async {
+  Future<void> getProfile() async {
     String url = Global.loginType==Constant.userPlayer?Constant.getPlayerProfile:Constant.get_venue_profile;
     var jsonBody = {
       "user_type":Global.loginType,
@@ -91,8 +91,17 @@ class ProfileController extends GetxController {
     });
   }
 
-  @override
-  void dispose() {
-    super.dispose();
+  Future<void> getOtherUserProfile() async {
+    String url = Global.loginType==Constant.userPlayer?Constant.otherUserProfilePlayer:Constant.otherUserProfileVenue;
+    var jsonBody = {
+      "user_id": otherUserID.value,
+    };
+    await ApiProvider.postApi(url,jsonBody).then((value) {
+        userInfoPojo.value = UserInfoPojo.fromJson(json.decode(value)["data"]);
+    }, onError: (error) {
+      userInfoPojo.value = UserInfoPojo();
+      print(error);
+    });
   }
+
 }

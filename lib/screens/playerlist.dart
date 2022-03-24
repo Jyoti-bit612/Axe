@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:axe/controller/player_controller.dart';
+import 'package:axe/controller/profile_controller.dart';
 import 'package:axe/interface/callbackinterface.dart';
 import 'package:axe/util/common_arguments.dart';
 import 'package:axe/util/commoncolors.dart';
@@ -115,29 +116,10 @@ class PlayerList extends StatelessWidget implements CallBackInterface {
                         leading: GestureDetector(
                           behavior: HitTestBehavior.translucent,
                           onTap: (){
-                           /* Get.toNamed( ()=>OtherUserProfile(controller.playerpojo.value.data![index].firstName!+" "+controller.playerpojo.value.data![index].lastName!,
-                                controller.playerpojo.value.data![index].bigaxeScore,
-                                controller.playerpojo.value.data![index].hatchetsScore,
-                                controller.playerpojo.value.data![index].teamplayScore,
-                                controller.playerpojo.value.data![index].picture,
-                                controller.playerpojo.value.data![index].phone,
-                                controller.playerpojo.value.data![index].email,
-                                controller.playerpojo.value.data![index].city,
-                                controller.playerpojo.value.data![index].state,
-                                controller.playerpojo.value.data![index].address,
-
-                            ));*/
-                            Get.toNamed(Strings.screenOtherUserProfile,arguments: [{
-                              CommonArguments.argOtherPlayerName: controller.playerpojo.value.data![index].firstName!+" " +controller.playerpojo.value.data![index].lastName!,
-                              CommonArguments.argMatchId: controller.playerpojo.value.data![index].bigaxeScore,
-                              CommonArguments.argMatchId: controller.playerpojo.value.data![index].hatchetsScore,
-                              CommonArguments.argMatchId: controller.playerpojo.value.data![index].teamplayScore,
-                              CommonArguments.argMatchId: controller.playerpojo.value.data![index].picture,
-                              CommonArguments.argMatchId: controller.playerpojo.value.data![index].phone,
-                              CommonArguments.argMatchId: controller.playerpojo.value.data![index].email,
-                              CommonArguments.argMatchId: controller.playerpojo.value.data![index].city,
-                              CommonArguments.argMatchId: controller.playerpojo.value.data![index].state,
-                              CommonArguments.argMatchId: controller.playerpojo.value.data![index].address,}]);
+                            final ProfileController profileController = Get.find();
+                            profileController.otherUserID.value = controller.playerpojo.value.data![index].id!.toString();
+                            profileController.getOtherUserProfile();
+                            Get.toNamed(Strings.screenOtherUserProfile);
                           },
                           child: Container(
                             width:  CommonWidget.getInstance().widthFactor(context) * 0.15,

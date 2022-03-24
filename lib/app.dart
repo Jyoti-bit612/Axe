@@ -51,7 +51,7 @@ class App extends StatelessWidget {
         Strings.screenNewInvitation:(context)=>const NewInvitation(),
         '/editScore':(context)=>EditScore(),
         '/notificationClass':(context)=>const NotificationClass(),
-        Strings.screenOtherUserProfile:(context)=>OtherUserProfile("","","","","","","","","","",),
+        Strings.screenOtherUserProfile:(context)=>OtherUserProfile(),
         '/practiceMatch':(context)=>const PracticeMatch(),
         '/previousLeagueDetail':(context)=>const PreviousLeagueDetail(),
         '/scoreDashboard':(context)=>ScoreDashboard(),

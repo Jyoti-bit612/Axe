@@ -34,9 +34,9 @@ class UserInfoPojo {
     firstName = json['first_name'];
     lastName = json['last_name'];
     email = json['email'];
-    phone = json['phone'];
-    city = json['city'];
-    state = json['state'];
+    phone = json['phone']??"Not provided";
+    city = json['city']??"Not provided";
+    state = json['state']??"Not provided";
     zip = json['zip'];
     address = json['address'];
     about = json['about'];

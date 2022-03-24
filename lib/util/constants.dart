@@ -39,6 +39,9 @@ class Constant{
   static const String get_venue_profile="api/venues/getProfile";
   static const String getPlayerProfile="api/player/getProfile";
 
+  static const String otherUserProfileVenue = "api/venues/getuserprofile";
+  static const String otherUserProfilePlayer = "api/player/getuserprofile";
+
   static const String create_match="api/venues/create-match";
   static const String get_league="api/venues/getleague";
   static const String get_match="api/venues/getmatch";
@@ -75,7 +78,9 @@ class Constant{
   static const String inviteByVenue = "api/venues/sendinvitation";
   static const String cancelInviteByVenue = "api/venues/cancelinvitation";
 
+  static const String venueNewInviteList = "api/venues/getvenueinvitations";
   static const String playerNewInviteList = "api/player/getplayerinvitation";
+
   static const String playerRejectInviteList = "api/player/getrejectinvitation";
   static const String playerAcceptedInviteList = "api/player/getacceptedinvitationlist";
   static const String playerExpiredInviteList = "api/player/getexpiredinvitation";

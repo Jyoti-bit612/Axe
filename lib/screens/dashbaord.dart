@@ -110,7 +110,7 @@ class _DashBoardState extends State<DashBoard> {
         break;
 
       case 3:
-        profileController.getprofile();
+        profileController.getProfile();
         profileController.firstNameCheck.value=true;
         profileController.lastNameCheck.value=true;
         profileController.phoneCheck.value=true;
