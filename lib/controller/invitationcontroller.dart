@@ -17,15 +17,20 @@ class InvitationController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+  }
+
+  getInvitationDetails(){
     getInvitationList();
-    getAcceptedList();
-    getRejectionList();
-    getExpiredList();
+    if(Global.loginType==Constant.userPlayer){
+      getAcceptedList();
+      getRejectionList();
+      getExpiredList();
+    }
   }
 
 
   Future<void> getInvitationList() async {
-    String url = Global.loginType==Constant.userPlayer?Constant.playerNewInviteList:Constant.playerNewInviteList;
+    String url = Global.loginType==Constant.userPlayer?Constant.playerNewInviteList:Constant.venueNewInviteList;
     await ApiProvider.getApi(url).then((value) {
       playerInvitationPojo.value = PlayerInvitationPojo.fromJson(json.decode(value));
     }, onError: (error) {

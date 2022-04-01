@@ -254,8 +254,7 @@ class UserProfile extends StatelessWidget  implements CallBackInterface{
                         onTap: (){
                           final InvitationController invitationController = Get.find();
                           Get.toNamed(Strings.screenNewInvitation);
-                          invitationController.getInvitationList();
-                          invitationController.getAcceptedList();
+                          invitationController.getInvitationDetails();
                         },
                         child: SizedBox(
                             width: CommonWidget.getInstance().widthFactor(context) * 0.3,

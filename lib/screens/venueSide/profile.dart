@@ -582,6 +582,7 @@ class Profile extends StatelessWidget  implements CallBackInterface{
 
      switch(title){
       case Strings.player_request:
+        invitationController.getInvitationDetails();
         Get.toNamed(Strings.screenNewInvitation);
         break;
         case Strings.practice_match:

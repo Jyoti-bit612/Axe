@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "1016622124645",
-    "project_id": "axe-throwing-f3497",
-    "storage_bucket": "axe-throwing-f3497.appspot.com"
+    "project_number": "103115012545",
+    "project_id": "axethrowing-ade67",
+    "storage_bucket": "axethrowing-ade67.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1016622124645:android:5024831cd2ef8baea4408c",
+        "mobilesdk_app_id": "1:103115012545:android:2525e0a9e54429cb485740",
         "android_client_info": {
           "package_name": "com.axe"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1016622124645-lnfn46nrv56sb5lkb196k25n11bntdcu.apps.googleusercontent.com",
+          "client_id": "103115012545-8nfb301b1fklegd026f4339gq5pv7fpe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.axe",
+            "certificate_hash": "2c942ed2f9fe44f5a6da578b4cdd87415660ea50"
+          }
+        },
+        {
+          "client_id": "103115012545-28n48bqq4holaoj0s1ojrpm8ob07pvam.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB5RZGtOAsmfi9uABREtlmvsPsZ3DHL9wE"
+          "current_key": "AIzaSyCNGT4Flx0275TNtfAT1pJvl6aO_eXZoJU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1016622124645-lnfn46nrv56sb5lkb196k25n11bntdcu.apps.googleusercontent.com",
+              "client_id": "103115012545-28n48bqq4holaoj0s1ojrpm8ob07pvam.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

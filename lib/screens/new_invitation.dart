@@ -61,55 +61,7 @@ class NewInvitationState extends State<NewInvitation> with SingleTickerProviderS
                 ),
 
                 upperView(Constant.newInvite,"",playerInvitationPojo: invitationController.playerInvitationPojo),
-
-                SizedBox(
-                  height: CommonWidget.getInstance().heightFactor(context) * 0.03,
-                ),
-
-                TabBar(
-                  onTap: (index){
-                    if(index==0){
-                      invitationController.getAcceptedList();
-                    }else if(index==1){
-                      invitationController.getRejectionList();
-                    }else{
-                      invitationController.getExpiredList();
-                    }
-                  },
-                  labelColor: CommonColors.black,
-                  unselectedLabelColor: CommonColors.black,
-                  controller: _tabController,
-                  indicatorPadding: const EdgeInsets.only(top:43),
-                  indicatorWeight: 0.1,
-                  indicator:  const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        CommonColors.primaryColor1,
-                        CommonColors.imageRed,
-                      ],
-                    ),
-                  ),
-
-                  tabs: const [
-                    Tab(text:Strings.accepted),
-                    Tab(text:Strings.rejected),
-                    Tab(text:Strings.expired),
-                  ],
-                ),
-                SizedBox(height: CommonWidget.getInstance().widthFactor(context) * 0.05,),
-                SizedBox(height: CommonWidget.getInstance().heightFactor(context) * 0.6,
-                 child: TabBarView(
-                   controller: _tabController,
-                   children: <Widget>[
-                     upperView(Constant.acceptedInvite,Strings.accepted,
-                         playerInvitationPojo: invitationController.playerAcceptedPojo),
-                     upperView(Constant.rejectedInvite,Strings.rejected,
-                     playerInvitationPojo: invitationController.playerRejectionPojo),
-                     upperView(Constant.expiredInvite,Strings.expired,
-                         playerInvitationPojo: invitationController.playerExpiredPojo),
-                   ],
-                 ),
-               ),
+                tabBarView()
               ],
             ),
           ),
@@ -271,5 +223,62 @@ class NewInvitationState extends State<NewInvitation> with SingleTickerProviderS
 
   }
 
+  tabBarView() {
+    final InvitationController invitationController = Get.find();
+    if(Global.loginType==Constant.userPlayer){
+      return Column(
+        children: [
+          SizedBox(
+            height: CommonWidget.getInstance().heightFactor(context) * 0.03,
+          ),
+          TabBar(
+            onTap: (index){
+              if(index==0){
+                invitationController.getAcceptedList();
+              }else if(index==1){
+                invitationController.getRejectionList();
+              }else{
+                invitationController.getExpiredList();
+              }
+            },
+            labelColor: CommonColors.black,
+            unselectedLabelColor: CommonColors.black,
+            controller: _tabController,
+            indicatorPadding: const EdgeInsets.only(top:43),
+            indicatorWeight: 0.1,
+            indicator:  const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  CommonColors.primaryColor1,
+                  CommonColors.imageRed,
+                ],
+              ),
+            ),
 
+            tabs: const [
+              Tab(text:Strings.accepted),
+              Tab(text:Strings.rejected),
+              Tab(text:Strings.expired),
+            ],
+          ),
+          SizedBox(height: CommonWidget.getInstance().widthFactor(context) * 0.05,),
+          SizedBox(height: CommonWidget.getInstance().heightFactor(context) * 0.6,
+            child: TabBarView(
+              controller: _tabController,
+              children: <Widget>[
+                upperView(Constant.acceptedInvite,Strings.accepted,
+                    playerInvitationPojo: invitationController.playerAcceptedPojo),
+                upperView(Constant.rejectedInvite,Strings.rejected,
+                    playerInvitationPojo: invitationController.playerRejectionPojo),
+                upperView(Constant.expiredInvite,Strings.expired,
+                    playerInvitationPojo: invitationController.playerExpiredPojo),
+              ],
+            ),
+          ),
+        ],
+      );
+    }else{
+      return Container();
+    }
+  }
 }

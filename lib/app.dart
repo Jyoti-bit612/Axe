@@ -10,7 +10,7 @@ import 'package:axe/screens/edit_score.dart';
 import 'package:axe/screens/forgotpassword.dart';
 import 'package:axe/screens/login.dart';
 import 'package:axe/screens/matchlist.dart';
-import 'package:axe/screens/playerSide/new_invitation.dart';
+import 'package:axe/screens/new_invitation.dart';
 import 'package:axe/screens/notification.dart';
 import 'package:axe/screens/other_user_profile.dart';
 import 'package:axe/screens/playerlist.dart';

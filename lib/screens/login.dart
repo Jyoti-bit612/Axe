@@ -237,7 +237,20 @@ class Login extends StatelessWidget  implements CallBackInterface{
                             children: [
                               Platform.isIOS?Container():Image.asset("assets/images/apple.png"),
                               Image.asset("assets/images/fb.png"),
-                              Image.asset("assets/images/google.png"),
+                              InkWell(
+                                  onTap: (){
+                                    // Global().signInWithGoogle(context).then((userDetails) {
+                                    //   print(userDetails);
+                                    //   Map<String, dynamic> map ={};
+                                    //   if(userDetails!=null){
+                                    //     // FireBaseApis().addUserToDatabase(context, userDetails.user!,map);
+                                    //     // preferences.setString(Constant.USER_ID_F, userDetails.user!.uid);
+                                    //     // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                                    //     //     builder: (context) => BottomBar()), ModalRoute.withName("/BottomNavigation"));
+                                    //   }
+                                    // });
+                                  },
+                                  child: Image.asset("assets/images/google.png")),
                             ],
                           )
                         ],
